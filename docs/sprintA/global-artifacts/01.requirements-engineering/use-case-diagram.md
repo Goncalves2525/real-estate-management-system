@@ -18,6 +18,6 @@ link as suggested below.**
 | UC/US  | Description                                   |                   
 |:-------|:----------------------------------------------|
 | US 001 | [Short Name for US001](../../us001/Readme.md) |
-| ...    | ...                                           |
-| US 006 | [Create Task](../../us006/Readme.md)          |
-| ...    | ...                                           |
+| US 002 | [To publish a Sale](../../us002/Readme.md)    |
+| US 003 | [Short Name for US003](../../us003/Readme.md) |
+| US 004 | [Short Name for US004](../../us004/Readme.md) |
