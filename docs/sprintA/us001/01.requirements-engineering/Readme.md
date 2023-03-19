@@ -1,4 +1,4 @@
-# US 002 - To publish a Sale
+# US 001 - Display Listed Properties
 
 ## 1. Requirements Engineering
 
@@ -6,8 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an agent, I can publish any sale announcement on the system, for
-example received through a phone call.
+As an unregistered user, I want to display listed properties.
 
 
 
@@ -16,10 +15,10 @@ example received through a phone call.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost as well as the its classifying task category. 
+>	Unregistered users are able to consult the properties by type, number of rooms, and sort by criteria such as price or the parish where the property is located.
 
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	//As long as it is not published, access to the task is exclusive to the employees of the respective organization.// 
 
 
 
