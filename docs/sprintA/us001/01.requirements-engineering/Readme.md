@@ -24,28 +24,28 @@ As an unregistered user, I want to display listed properties.
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** When an unregistered user opens the application, are there already properties being listed?
 >  
-> **Answer:** Duration is estimated in days.
+> **Answer:** 
 
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** //Monetary data is expressed in any particular currency?
 >  
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
+> **Answer:** //Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
 
 
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** All required fiels must be filled in.
-* **AC2:** Task reference must have at least 5 alphanumeric chars.
-* **AC3:** When creating a task with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
+* **AC1:** The properties can be consulted by type and number of rooms
+* **AC2:** The properties can be sorted by price and parish.
+* **AC3:** 
 
 
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US003 Create a task category" since at least a task category must exist to classify the task being created.
+* There is a dependency to "US002 To publish a Sale" since listing the properties depends on what the agents published.
 
 
 ### 1.5 Input and Output Data
@@ -54,21 +54,17 @@ As an unregistered user, I want to display listed properties.
 **Input Data:**
 
 * Typed data:
-	* a reference, 
-	* a designation, 
-	* an informal description
-	* a technical description
-	* an estimated duration
-	* an estimated cost
+	* ???
+	
 	
 * Selected data:
-	* Classifying task category 
+	* Property category
 
 
 **Output Data:**
 
-* List of existing task categories
-* (In)Success of the operation
+* List of properties
+* 
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -84,4 +80,4 @@ As an unregistered user, I want to display listed properties.
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+*  ???
