@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 002 - To publish a Sale
 
 ## 2. Analysis
 
@@ -6,6 +6,7 @@
 
 ![Domain Model](svg/us002-domain-model.svg)
 
-### 2.2. Other Remarks
+[//]: # (### 2.2. Other Remarks)
 
-n/a
+[//]: # ()
+[//]: # (n/a)
