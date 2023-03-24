@@ -7,13 +7,16 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
+actor "Owner" as Owner
 actor "Agent" as Agent
 participant ":System" as System
 
 activate Agent
 
-    Agent -> System : Tells System that they received a call with a property for sale
+    Owner -> Agent : Calls the Agent with a property for sale
     activate System
+
+    Agent --> System : Tells System that they received \na call with a property for sale
 
     System --> Agent : requests data
     deactivate System
@@ -21,7 +24,7 @@ activate Agent
     Agent -> System : types requested data (dimensions, description, \nvalue, cost)
     activate System
 
-    System --> Agent : displays operation success; Asks to set the commission
+    System --> Agent : displays operation success
     deactivate System
 
 @enduml
