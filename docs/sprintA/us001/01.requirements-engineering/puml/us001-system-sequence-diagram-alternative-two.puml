@@ -19,11 +19,6 @@ activate User
     deactivate System
 
 
-    User -> System : selects a property
-    activate System
-
-        System --> User : shows property details
-    deactivate System
 
 
 @enduml

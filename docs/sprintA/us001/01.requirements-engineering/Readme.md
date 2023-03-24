@@ -29,9 +29,25 @@ As an unregistered user, I want to display listed properties.
 > **Answer:** 
 
 
-> **Question:** //Monetary data is expressed in any particular currency?
+> **Question:** Can the properties be in sale and lease at the same time?
 >  
-> **Answer:** //Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
+> **Answer:** No.
+
+> **Question:**
+>
+> **Answer:**
+
+> **Question:**
+>
+> **Answer:**
+
+> **Question:**
+>
+> **Answer:**
+
+> **Question:**
+>
+> **Answer:**
 
 
 ### 1.3. Acceptance Criteria
@@ -52,9 +68,6 @@ As an unregistered user, I want to display listed properties.
 
 
 **Input Data:**
-
-* Typed data:
-	* ???
 	
 	
 * Selected data:
