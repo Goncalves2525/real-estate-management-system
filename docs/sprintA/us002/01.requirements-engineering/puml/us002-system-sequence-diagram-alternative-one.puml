@@ -18,7 +18,7 @@ activate Agent
     System --> Agent : requests data
     deactivate System
 
-    Agent -> System : types requested data (dimensions, description, \nvalue,\nduration, cost)
+    Agent -> System : types requested data (dimensions, description, \nvalue, cost)
     activate System
 
     System --> Agent : displays operation success; Asks to set the commission
