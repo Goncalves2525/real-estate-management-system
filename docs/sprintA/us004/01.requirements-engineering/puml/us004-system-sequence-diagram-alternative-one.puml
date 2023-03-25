@@ -1,0 +1,65 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Owner" as Owner
+participant ":System" as System
+
+activate Owner
+
+    Owner -> System : Submit a request for listing a property for sale or rent
+    activate System
+
+        System --> Owner : requests Owner data
+    deactivate System
+
+    Owner -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
+    activate System
+
+        System --> Owner : requests type of request
+    deactivate System
+
+
+    Owner -> System : types requested data (Sale or Rent)
+    activate System
+
+
+    alt if Rent
+
+        System -> Owner: request contract duration
+    else
+        Owner -> System: types requested data
+    end
+
+        System --> Owner : requests type of property
+    deactivate System
+
+    Owner -> System : types requested data (Apartement, House, Land)
+        activate System
+
+    alt if Land
+
+        System -> Owner: types requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
+    else if Apartement
+        System -> Owner: types requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
+    else if House
+        System -> Owner: types requested data
+    end
+
+
+            System --> Owner :
+        deactivate System
+
+    Owner -> System :
+    activate System
+
+            System --> Owner :
+        deactivate System
+
+
+@enduml
