@@ -87,19 +87,19 @@ class Land{
 
 SystemAdministrator "1" -left "*" Employee : registers
 PropertyOwner "1" --> "*" PropertyOrder : requests advertisement
-PropertyOwner "1" -right "1" Agent : contatcs
+PropertyOwner "1" --> "1" Agent : contatcs
 Agent "1" ----> "*" PropertyOrder : reviews
 Agent "1" -----> "*" Property : publishes
 UnregisteredUser "1" ---> "*" Property: can list
 
 Client <|---- RegisteredUser
-Client <|---- UnregisteredUser
+Client <|--- UnregisteredUser
 Client <|---- PropertyOwner
 User <|-- Client
 User <|-- Employee
 Employee <|-- Agent
-Employee <|---- StoreManager
-Employee <|---- StoreNetworkManager
+Employee <|----- StoreManager
+Employee <|----- StoreNetworkManager
 Property <|-- House
 Property <|-- Apartment
 Property <|-- Land
