@@ -3,12 +3,13 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 'skinparam linetype ortho
-'left to right direction
 skinparam classAttributeIconSize 0
 skinparam groupInheritance 2
+'skinparam linetype polyline
+
 hide circle
 hide methods
-
+'left to right direction
 title Domain Model
 
 class Client{
@@ -45,34 +46,54 @@ class PropertyOrder{
 }
 
 class Property{
+    typeOfBuisness
+    typeOfProperty
+    area
+    location
+    distanceFromCenter
+    price
 }
 
 class Apartment{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
 }
 
 class House{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+    basement
+    inhabitableLoft
+    sunExposure
 }
 
 class Land{
 }
 
 
-SystemAdministrator "1" --> "*" Employee : registers
+SystemAdministrator "1" -left "*" Employee : registers
 PropertyOwner "1" --> "*" PropertyOrder : requests advertisement
-Agent "1" --> "*" PropertyOrder : reviews
-Agent "1" --> "*" Property : publishes
+PropertyOwner "1" -right "1" Agent : contatcs
+Agent "1" ----> "*" PropertyOrder : reviews
+Agent "1" -----> "*" Property : publishes
 UnregisteredUser "1" ---> "*" Property: can list
 
-Client <|-- RegisteredUser
-Client <|-- UnregisteredUser
-Client <|-- PropertyOwner
+Client <|---- RegisteredUser
+Client <|---- UnregisteredUser
+Client <|---- PropertyOwner
 User <|-- Client
 User <|-- Employee
 Employee <|-- Agent
-Employee <|-- StoreManager
-Employee <|-- StoreNetworkManager
+Employee <|---- StoreManager
+Employee <|---- StoreNetworkManager
 Property <|-- House
 Property <|-- Apartment
 Property <|-- Land
+Employee <|-- SystemAdministrator
+
 
 @enduml
