@@ -28,9 +28,17 @@ class PropertyOwner{
 }
 
 class Employee{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    contactTelephone
+    agency
 }
 
 class Agent{
+
 }
 
 class StoreManager{
@@ -40,6 +48,8 @@ class StoreNetworkManager{
 }
 
 class SystemAdministrator{
+   userName
+   password
 }
 
 class PropertyOrder{
