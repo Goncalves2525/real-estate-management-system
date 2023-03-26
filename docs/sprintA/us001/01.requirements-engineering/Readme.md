@@ -84,6 +84,10 @@ As an unregistered user, I want to display listed properties.
 
 ![System Sequence Diagram - Alternative Two](svg/us001-system-sequence-diagram-alternative-two.svg)
 
+#### Alternative Three
+
+![System Sequence Diagram - Alternative Three](svg/us001-system-sequence-diagram-alternative-three.svg)
+
 ### 1.7 Other Relevant Remarks
 
 *  An unregistered user must only be able to list properties, nothing else.
