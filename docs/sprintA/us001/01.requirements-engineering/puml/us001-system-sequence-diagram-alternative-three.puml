@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD) - Alternative Three
 
 autonumber
 
@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate User
 
-    User -> System : selects criteria to sort properties
+    User -> System : selects a property categories (type, number of rooms)
     activate System
 
-        System --> User : orders properties by the selected criteria and lists properties
+        System --> User : lists properties
     deactivate System
 
 

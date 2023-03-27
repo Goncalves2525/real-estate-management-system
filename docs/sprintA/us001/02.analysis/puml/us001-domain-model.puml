@@ -6,6 +6,7 @@ skinparam shadowing false
 'left to right direction
 
 skinparam classAttributeIconSize 0
+skinparam groupInheritance 2
 
 hide circle
 hide methods
@@ -13,8 +14,34 @@ hide methods
 title Domain Model
 
 
-class UnregisteredUser {
-   id
+class UnregisteredUser extends Client{
+   id?
+}
+
+class Client extends User{
+}
+
+class User{
+}
+
+class House extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+    basement
+    inhabitableLoft
+    sunExposure
+}
+
+class Apartment extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+}
+
+class Land extends Property{
 }
 
 class Property{
@@ -24,10 +51,10 @@ class Property{
     location
     distanceFromCenter
     price
-    numberOfRooms
 }
 
-UnregisteredUser "1" -- "*" Property : can list
-'Platform "1" -- "*" Organization : has registered >
+UnregisteredUser "1" --> "*" Property : can list
+
+
 
 @enduml

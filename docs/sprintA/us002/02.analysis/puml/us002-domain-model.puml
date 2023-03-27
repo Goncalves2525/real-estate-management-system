@@ -8,7 +8,7 @@ hide methods
 
 title Domain Model
 
-class Owner {
+class propertyOwner {
     name
     citizenCardNumber
     taxNumber
@@ -26,22 +26,55 @@ class Agent {
     telephoneNumber
 }
 
+'class Property{
+'    typeOfProperty
+'    area
+'    location
+'    distanceFromCityCentre
+'    requestedPrice
+'    photographs
+'    numberOfBedrooms
+'    numberOfBathrooms
+'    numberOfParkingSpaces
+'    availableEquipment
+'    hasBasement
+'    hasInhabitableLoft
+'    sunExposureValue
+'}
+
 class Property{
+    typeOfBusiness
     typeOfProperty
     area
     location
-    distanceFromCityCentre
-    requestedPrice
-    photographs
+    distanceFromCenter
+    price
+}
+
+class Apartment{
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
     availableEquipment
-    hasBasement
-    hasInhabitableLoft
-    sunExposureValue
 }
 
-Owner "1" -- "1" Agent : calls
-Agent "1" - "0..*" Property: creates
+class House{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+    basement
+    inhabitableLoft
+    sunExposure
+}
+
+'class Land{
+'
+'}
+
+propertyOwner "1" -- "1" Agent : calls
+Agent "1" - "0..*" Property: publishes
+Property <|-- House
+Property <|-- Apartment
+'Property <|-- Land
 @enduml

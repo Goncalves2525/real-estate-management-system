@@ -7,33 +7,32 @@ title System Sequence Diagram (SSD) - Alternative Two
 
 autonumber
 
-actor "Organization Employee" as Employee
+actor "Agent" as Agent
 participant ":System" as System
 
-activate Employee
+activate Agent
 
-    Employee -> System : asks to create a new task
+    Agent -> System : asks to create a new sale for publish
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-        'System --> Employee : shows task categories list\n and requests data (reference,\ndescription,\ninformation description,\ntechnical description,\nduration, cost)
+        System --> Agent : shows property type list and asks to select one
     deactivate System
 
-    Employee -> System : selects a task category
+    Agent -> System : selects a property type
     activate System
 
-        System --> Employee : requests data
+        System --> Agent : requests data
     deactivate System
 
-    Employee -> System : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
+    Agent -> System : types requested data (number of Bathrooms, location, \price, distance from City Centre)
     activate System
 
-        System --> Employee : shows selected category and requested data
+        System --> Agent : shows property type and requested data
     deactivate System
 
-    Employee -> System : submits data
+    Agent -> System : publishes order
     activate System
 
-        System --> Employee : Shows operation success
+        System --> Agent : Shows operation success and requests commission
     deactivate System
 @enduml

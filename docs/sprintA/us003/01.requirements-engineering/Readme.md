@@ -83,6 +83,7 @@ When registering a store, the System Administrator should introduce the followin
 
 
 * **AC1:** All required fiels must be filled in.
+* **AC2:** The employee password should have eight characters in length.
 
 
 ### 1.4. Found out Dependencies
@@ -123,4 +124,4 @@ When registering a store, the System Administrator should introduce the followin
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* .
