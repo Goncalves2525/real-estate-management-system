@@ -25,6 +25,12 @@ class UnregisteredUser{
 }
 
 class PropertyOwner{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
 }
 
 class Employee{
@@ -38,7 +44,12 @@ class Employee{
 }
 
 class Agent{
-
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
 }
 
 class StoreManager{
@@ -56,7 +67,7 @@ class PropertyOrder{
 }
 
 class Property{
-    typeOfBuisness
+    typeOfBusiness
     typeOfProperty
     area
     location
@@ -87,7 +98,7 @@ class Land{
 
 SystemAdministrator "1" -left "*" Employee : registers
 PropertyOwner "1" --> "*" PropertyOrder : requests advertisement
-PropertyOwner "1" --> "1" Agent : contatcs
+PropertyOwner "1" --> "1" Agent : contacts
 Agent "1" ----> "*" PropertyOrder : reviews
 Agent "1" -----> "*" Property : publishes
 UnregisteredUser "1" ---> "*" Property: can list
