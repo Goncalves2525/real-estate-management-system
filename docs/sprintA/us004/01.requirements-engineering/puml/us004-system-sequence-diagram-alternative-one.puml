@@ -9,23 +9,24 @@ autonumber
 
 actor "Owner" as Owner
 participant ":System" as System
+participant ":Agent" as Agent
 
 activate Owner
 
-    Owner -> System : Submit a request for listing a property for sale or rent
+        Owner -> System : Submit a request for listing a property for sale or rent
     activate System
 
         System --> Owner : requests Owner data
     deactivate System
 
-    Owner -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
+        Owner -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
     activate System
 
         System --> Owner : requests type of request
     deactivate System
 
 
-    Owner -> System : types requested data (Sale or Rent)
+        Owner -> System : types requested data (Sale or Rent)
     activate System
 
 
@@ -39,8 +40,8 @@ activate Owner
         System --> Owner : requests type of property
     deactivate System
 
-    Owner -> System : types requested data (Apartement, House, Land)
-        activate System
+        Owner -> System : types requested data (Apartement, House, Land)
+    activate System
 
     alt if Land
 
@@ -48,18 +49,19 @@ activate Owner
     else if Apartement
         System -> Owner: types requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
     else if House
-        System -> Owner: types requested data
+        System -> Owner: types requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
     end
 
+        System --> Owner :displays list of Agent
+    deactivate System
 
-            System --> Owner :
-        deactivate System
-
-    Owner -> System :
+        Owner -> System : submits selected Agent
     activate System
 
-            System --> Owner :
-        deactivate System
+        System --> Owner : displays operation success
+    deactivate System
 
+        System --> Agent : Submit property
+    deactivate System
 
 @enduml
