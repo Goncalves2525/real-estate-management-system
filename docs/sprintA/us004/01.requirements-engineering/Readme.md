@@ -71,9 +71,9 @@ choosing the responsible agent.
 >
 > **Answer:** The caracteristics for a rental are the same as the ones for the sale of a property. The rent value is per month. Additionally, we have to define the contract duration.
 
-> **Question:** 
+> **Question:** In the case of listing a land property, shall the owner refer if there is a building permit already approved?
 >
-> **Answer:** 
+> **Answer:** No.
 
 > **Question:**
 >
@@ -138,7 +138,7 @@ choosing the responsible agent.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us004-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
