@@ -7,6 +7,7 @@ skinparam classAttributeIconSize 0
 skinparam groupInheritance 2
 'skinparam linetype polyline
 
+hide attributes
 hide circle
 hide methods
 'left to right direction
@@ -96,7 +97,7 @@ class Land{
 }
 
 
-SystemAdministrator "1" -left "*" Employee : registers
+SystemAdministrator "1" -right "*" Employee : registers
 PropertyOwner "1" --> "*" PropertyOrder : requests advertisement
 PropertyOwner "1" --> "1" Agent : contacts
 Agent "1" ----> "*" PropertyOrder : reviews
