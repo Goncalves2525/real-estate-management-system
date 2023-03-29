@@ -42,7 +42,7 @@ As an unregistered user, I want to display listed properties.
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** The properties can be consulted by type of buisness, type of property and number of rooms.
+* **AC1:** The properties can be consulted by type of business, type of property and number of rooms.
 * **AC2:** The properties can be sorted by price and parish.
 * **AC3:** It is possible to only filter or only sort the properties.
 * **AC4:** It is possible to filter and sort properties simultaneously.
