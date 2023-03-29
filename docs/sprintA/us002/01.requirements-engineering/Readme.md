@@ -47,7 +47,7 @@ telephone number. The Agent is an employee of the company.
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US001 Create a task category" since at least a task category must exist to classify the task being created.
+* There is a dependency to "US004 Owner intends to submit sale or rent" since at least a property owner must exist so that a property can be published for sale.
 
 
 ### 1.5 Input and Output Data
@@ -94,14 +94,18 @@ telephone number. The Agent is an employee of the company.
 
 **Other alternatives might exist.**
 
-#### Alternative One
+[//]: # (#### Alternative One)
 
-![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram-alternative-one.svg)
+[//]: # ()
+[//]: # (![System Sequence Diagram - Alternative One]&#40;svg/us002-system-sequence-diagram-alternative-one.svg&#41;)
 
-#### Alternative Two
+[//]: # ()
+[//]: # (#### Alternative Two)
+
+### Alternative
 
 ![System Sequence Diagram - Alternative Two](svg/us002-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* 
+* n/a

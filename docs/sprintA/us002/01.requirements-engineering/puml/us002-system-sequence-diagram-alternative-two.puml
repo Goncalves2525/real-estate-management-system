@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD)
 
 autonumber
 
@@ -33,6 +33,6 @@ activate Agent
     Agent -> System : publishes order
     activate System
 
-        System --> Agent : Shows operation success and requests commission
+        System --> Agent : Shows operation success
     deactivate System
 @enduml

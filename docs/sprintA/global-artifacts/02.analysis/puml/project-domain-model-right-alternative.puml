@@ -1,0 +1,73 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing true
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+'skinparam groupInheritance 2
+'skinparam linetype polyline
+
+hide attributes
+hide circle
+hide methods
+'left to right direction
+title Domain Model
+
+class StoreNetworkManager{
+}
+
+class Manager{
+}
+
+class Property{
+}
+
+class Agent{
+}
+
+class Agency{
+}
+
+class Buyer{
+}
+
+class Seller{
+}
+
+class UnregisteredUser{
+}
+
+class PublishedSale{
+}
+
+Buyer "*" -----> "*" Agent : contacts for purchase
+Seller "*" -----> "*" Agent : contacts for sale
+StoreNetworkManager "1" -----> "*" Agency : manages
+Agency "1" -----> "1" Manager  : managed by
+Agent "*" -----> "*" PublishedSale : publishes
+Agency "1" -> "*" Agent : has
+Seller "*" -----> "*" Property : own
+UnregisteredUser "*" -----> "*" PublishedSale : views
+
+'SystemAdministrator "1" -right "*" Employee : registers
+'PropertyOwner "1" --> "*" PropertyOrder : requests advertisement
+'PropertyOwner "1" --> "1" Agent : contacts
+'Agent "1" ----> "*" PropertyOrder : reviews
+'Agent "1" -----> "*" Property : publishes
+'UnregisteredUser "1" ---> "*" Property: can list
+
+'Client <|---- RegisteredUser
+'Client <|--- UnregisteredUser
+'Client <|---- PropertyOwner
+'User <|-- Client
+'User <|-- Employee
+'Employee <|-- Agent
+'Employee <|----- StoreManager
+'Employee <|----- StoreNetworkManager
+'Property <|-- House
+'Property <|-- Apartment
+'Property <|-- Land
+'Employee <|-- SystemAdministrator
+
+
+@enduml
