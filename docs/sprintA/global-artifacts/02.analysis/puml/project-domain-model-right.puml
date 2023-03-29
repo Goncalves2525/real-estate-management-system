@@ -7,7 +7,7 @@ skinparam classAttributeIconSize 0
 skinparam groupInheritance 2
 'skinparam linetype polyline
 
-hide attributes
+'hide attributes
 hide circle
 hide methods
 'left to right direction
