@@ -49,16 +49,17 @@ class Property{
     location
     distanceFromCenter
     price
+    photos
 }
 
-class Apartment{
+class Apartment extends Property{
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
     availableEquipment
 }
 
-class House{
+class House extends Property{
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
@@ -73,8 +74,8 @@ class House{
 '}
 
 propertyOwner "1" -- "1" Agent : calls
-Agent "1" - "0..*" Property: publishes
-Property <|-- House
-Property <|-- Apartment
+Agent "1" - "*" Property: publishes
+'Property <|-- House
+'Property <|-- Apartment
 'Property <|-- Land
 @enduml
