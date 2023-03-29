@@ -1,7 +1,8 @@
 @startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
-skinparam shadowing false
+skinparam shadowing true
+skinparam linetype ortho
 
 'left to right direction
 
@@ -28,6 +29,15 @@ class Employee{
     agency
 }
 
-SystemAdministrator "1" -- "0..*" Employee : registers >
+class Agency{
+    designation
+    location
+    emailAddress
+    telephoneNumber
+
+}
+
+SystemAdministrator "1" -- "*" Employee : registers >
+SystemAdministrator "1" --- "*" Agency : registers >
 
 @enduml

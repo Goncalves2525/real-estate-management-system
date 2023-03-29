@@ -18,10 +18,16 @@ activate Admin
         System --> Admin : requests data (name, email, password, etc.)
     deactivate System
 
-    Admin -> System : provides data
+    Admin -> System : provide the necessary data
+        activate System
+
+            System --> Admin : validate data and list the agencies
+        deactivate System
+
+    Admin -> System : select the agency from the list
     activate System
 
-        System --> Admin : displays success/error message
+        System --> Admin : displays success message
     deactivate System
 
 @enduml

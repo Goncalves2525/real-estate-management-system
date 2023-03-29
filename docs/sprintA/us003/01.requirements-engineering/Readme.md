@@ -82,15 +82,14 @@ When registering a store, the System Administrator should introduce the followin
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** All required fiels must be filled in.
+* **AC1:** All required fields must be filled in.
 * **AC2:** The employee password should have eight characters in length.
 
 
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US2: As an agent, I can publish any sale announcement on the system, for
-  example received through a phone call" since the agent must be registered to publish a sale.
+* There is a dependency to US5 because the system administrator creates the agencies too.
 
 
 ### 1.5 Input and Output Data
