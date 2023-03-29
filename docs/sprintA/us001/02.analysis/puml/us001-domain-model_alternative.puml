@@ -1,0 +1,56 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+
+skinparam classAttributeIconSize 0
+'skinparam groupInheritance 2
+
+hide circle
+hide methods
+
+title Domain Model
+
+
+class UnregisteredUser{
+
+}
+
+
+class PublishedSale{
+    typeOfBuisness
+    typeOfProperty
+    area
+    location
+    distanceFromCenter
+    price
+    photos
+}
+
+class House extends PublishedSale{
+        numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+        basement
+        inhabitableLoft
+        sunExposure
+}
+
+class Apartment extends PublishedSale{
+    numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+}
+
+class Land extends PublishedSale{
+}
+
+UnregisteredUser "1" --> "*" PublishedSale : views
+
+
+
+@enduml

@@ -142,7 +142,7 @@ choosing the responsible agent.
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us004-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

@@ -30,9 +30,9 @@ As an unregistered user, I want to display listed properties.
 
 > If the system does not contain any properties, the system should show an empty list of properties.
 
-> **Question:** When an unregistered user opens the application, are there already properties being listed?
+> **Question:**  When an unregistered user wants to list properties, the list given by the program is sorted by default with which criteria? For example the list is shown with the properties sorted by most recently added?
 >  
-> **Answer:** Yes.
+> **Answer:** Thank you for your suggestion. By default, the list should be shown with the properties sorted by most recently added.
 
 > **Question:** Can the properties be in sale and lease at the same time?
 >  
@@ -46,6 +46,7 @@ As an unregistered user, I want to display listed properties.
 * **AC2:** The properties can be sorted by price and parish.
 * **AC3:** It is possible to only filter or only sort the properties.
 * **AC4:** It is possible to filter and sort properties simultaneously.
+
 
 
 ### 1.4. Found out Dependencies
@@ -90,4 +91,4 @@ As an unregistered user, I want to display listed properties.
 
 ### 1.7 Other Relevant Remarks
 
-*  An unregistered user must only be able to list properties, nothing else.
+*  By default, if there are no properties to be displayed, en empty list is shown.
