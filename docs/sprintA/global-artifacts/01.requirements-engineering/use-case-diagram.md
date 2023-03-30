@@ -20,4 +20,4 @@ link as suggested below.**
 | US 001 | [Display listed properties](../../us001/Readme.md) |
 | US 002 | [To publish a Sale](../../us002/Readme.md)         |
 | US 003 | [Register a new employee](../../us003/Readme.md)   |
-| US 004 | [Short Name for US004](../../us004/Readme.md)      |
+| US 004 | [Submit Sale or Rent](../../us004/Readme.md)       |
