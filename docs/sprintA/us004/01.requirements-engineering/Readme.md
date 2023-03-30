@@ -75,9 +75,9 @@ choosing the responsible agent.
 >
 > **Answer:** No.
 
-> **Question:**
+> **Question:** The client should be able to select (from a list) the type of business, the type of property, and the number of rooms. Does this apply too to the process of an owner submitting a request?
 >
-> **Answer:**
+> **Answer:** Yes.
 
 > **Question:**
 >
@@ -110,6 +110,8 @@ choosing the responsible agent.
 		* an address,
 		* an email address,
 		* a contact telephone number.
+      
+* Selected data:
 	* Property:
 		* an area (in m2),
 		* a location,
@@ -129,8 +131,8 @@ choosing the responsible agent.
 
 **Output Data:**
 
-* ??
-
+* (In)Success of the operation
+* 
 
 ### 1.6. System Sequence Diagram (SSD)
 

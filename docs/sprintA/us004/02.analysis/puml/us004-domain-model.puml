@@ -17,6 +17,13 @@ class PropertyOwner {
     telephoneNumber
 }
 
+class Agency{
+    designation
+    location
+    emailAddress
+    telephoneNumber
+    }
+
 class Agent {
     name
     citizenCardNumber
@@ -66,7 +73,7 @@ class Land{
 class RentalAgreement{
     rentalDuration
 }
-
+Agency "1" - "1" PropertyOwner: Select <
 PropertyOwner "1" - "0..*" Property: submit >
 PropertyOwner "1" -- "1" Agent:assign >
 Agent "1" - "0..*" Property

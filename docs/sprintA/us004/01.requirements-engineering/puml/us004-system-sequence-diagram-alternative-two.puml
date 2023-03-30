@@ -7,33 +7,67 @@ title System Sequence Diagram (SSD) - Alternative Two
 
 autonumber
 
-actor "Organization Employee" as Employee
+actor "Owner" as Owner
 participant ":System" as System
+participant ":Agent" as Agent
 
-activate Employee
+activate Owner
 
-    Employee -> System : asks to create a new task
+        Owner -> System : displays list of Agencys
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-        'System --> Employee : shows task categories list\n and requests data (reference,\ndescription,\ninformation description,\ntechnical description,\nduration, cost)
+        System --> Owner :submits selected Agency
     deactivate System
 
-    Employee -> System : selects a task category
+        Owner -> System :displays list of Agent
     activate System
 
-        System --> Employee : requests data
+       System --> Owner : submits selected Agent
     deactivate System
 
-    Employee -> System : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
+        Owner -> System : Submit a request for listing a property for sale or rent
     activate System
 
-        System --> Employee : shows selected category and requested data
+        System --> Owner : requests Owner data
     deactivate System
 
-    Employee -> System : submits data
+        Owner -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
     activate System
 
-        System --> Employee : Shows operation success
+        System --> Owner : requests type of request
     deactivate System
+
+
+        Owner -> System : types requested data (Sale or Rent)
+    activate System
+
+
+    alt if Rent
+
+        System -> Owner: request contract duration
+        deactivate System
+    else
+
+        Owner -> System: types requested data
+        activate System
+    end
+
+        System --> Owner : requests type of property
+    deactivate System
+
+        Owner -> System : types requested data (Apartement, House, Land)
+   activate System
+
+            System --> Owner : requests data of property
+    deactivate System
+
+          Owner -> System : Select requested data
+    activate System
+
+        System --> Owner : displays operation success
+
+
+        System --> Agent : Submit property
+    deactivate System
+
 @enduml

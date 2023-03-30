@@ -13,6 +13,18 @@ participant ":Agent" as Agent
 
 activate Owner
 
+        Owner -> System : displays list of Agencys
+    activate System
+
+        System --> Owner :submits selected Agency
+    deactivate System
+
+        Owner -> System :displays list of Agent
+     activate System
+
+        System --> Owner: submits selected Agent
+     deactivate System
+
         Owner -> System : Submit a request for listing a property for sale or rent
     activate System
 
@@ -33,8 +45,10 @@ activate Owner
     alt if Rent
 
         System -> Owner: request contract duration
+        deactivate System
     else
         Owner -> System: types requested data
+        activate System
     end
 
         System --> Owner : requests type of property
@@ -43,20 +57,18 @@ activate Owner
         Owner -> System : types requested data (Apartement, House, Land)
     activate System
 
-    alt if Land
-
-        System -> Owner: types requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
-    else if Apartement
-        System -> Owner: types requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
-    else if House
-        System -> Owner: types requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
-    end
-
-        System --> Owner :displays list of Agent
+            System --> Owner : requests data of property
     deactivate System
 
-        Owner -> System : submits selected Agent
+    alt if Land
+
+        Owner -> System: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
     activate System
+    else if Apartement
+        Owner -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
+    else if House
+        Owner -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
+    end
 
         System --> Owner : displays operation success
     deactivate System
