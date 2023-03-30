@@ -38,6 +38,10 @@ As an unregistered user, I want to display listed properties.
 >  
 > **Answer:** No.
 
+> **Question:** Can a user filter the properties list for example by a type but choosing multiple value?
+>
+> **Answer:** The user should only select one value for each feature of the property.
+
 
 ### 1.3. Acceptance Criteria
 

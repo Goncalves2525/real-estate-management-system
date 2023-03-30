@@ -10,19 +10,21 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Business Transactions**
 
-*
+* Sale
+* Rent
+* Payment
 
 ---
 
 **Transaction Line Items**
 
-*
+* Published Property
 
 ---
 
 **Product/Service related to a Transaction or Transaction Line Item**
 
-*  
+* Property
 
 ---
 
@@ -36,7 +38,13 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Roles of People or Organizations**
 
-* 
+* Agent
+* Store Manager
+* Store Network Manager
+* System Administrator
+* Property Owner
+* Buyer
+* Unregistered User
 
 
 ---
@@ -44,7 +52,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Places**
 
-*  
+*  Agency
 
 ---
 
@@ -57,7 +65,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Physical Objects**
 
-*
+* 
 
 ---
 
@@ -140,10 +148,15 @@ An association is a relationship between instances of objects that indicates a r
 
 
 
-| Concept (A) 		|  Association   	|  Concept (B) |
-|----------	   		|:-------------:		|------:       |
-| C1  	| verb1    		 	| C2  |
-| ...  	| ...    		 	| ...  |
+| Concept (A) 		           | Association   	 | Concept (B) |
+|--------------------------|:---------------:|------------:|
+| Store Network Manager  	 | manages    		 	 |      Agency |
+| Agency  	                |   has   		 	    |       Agent |
+| C1  	                    |  verb1    		 	  |          C2 |
+| C1  	                    |  verb1    		 	  |          C2 |
+| C1  	                    |  verb1    		 	  |          C2 |
+| C1  	                    |  verb1    		 	  |          C2 |
+| C1  	                    |  verb1    		 	  |          C2 |
 
 
 
@@ -153,7 +166,7 @@ An association is a relationship between instances of objects that indicates a r
 
 **Insert below the Domain Model Diagram in a SVG format**
 
-![Domain Model](svg/project-domain-model-right.svg)
+![Domain Model](svg/project-domain-model-right-alternative.svg)
 
 
 
