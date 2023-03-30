@@ -7,7 +7,7 @@ skinparam classAttributeIconSize 0
 'skinparam groupInheritance 2
 'skinparam linetype polyline
 
-hide attributes
+'hide attributes
 hide circle
 hide methods
 'left to right direction
@@ -17,15 +17,29 @@ class StoreNetworkManager{
 }
 
 class SystemAdministrator{
+   userName
+   password
 }
 
 class StoreManager{
 }
 
 class Property{
+    typeOfBusiness
+    typeOfProperty
+    area
+    location
+    distanceFromCenter
+    price
 }
 
 class Agent{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
 }
 
 class Agency{
@@ -35,6 +49,13 @@ class Buyer{
 }
 
 class Seller{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
+
 }
 
 class UnregisteredUser{
