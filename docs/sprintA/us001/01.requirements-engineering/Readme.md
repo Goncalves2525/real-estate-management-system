@@ -63,7 +63,7 @@ As an unregistered user, I want to display listed properties.
 	
 * Selected data:
 	* Property type (filter)
-    * Buinsess type (filter)
+    * Business type (filter)
     * Number of rooms (filter)
     * Price (sort)
     * Parish (sort)
@@ -71,7 +71,9 @@ As an unregistered user, I want to display listed properties.
 
 **Output Data:**
 
-* List of properties
+* Filtered list of properties
+* Ordered list of properties
+* Filtered and ordered list of properties
 
 ### 1.6. System Sequence Diagram (SSD)
 

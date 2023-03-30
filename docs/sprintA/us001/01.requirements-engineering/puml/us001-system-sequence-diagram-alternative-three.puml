@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate User
 
-    User -> System : selects a property categories (type, number of rooms)
+    User -> System : selects a property category (type, number of rooms)
     activate System
 
         System --> User : lists properties
