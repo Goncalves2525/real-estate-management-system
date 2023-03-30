@@ -94,15 +94,11 @@ telephone number. The Agent is an employee of the company.
 
 **Other alternatives might exist.**
 
-[//]: # (#### Alternative One)
+#### Alternative One
 
-[//]: # ()
-[//]: # (![System Sequence Diagram - Alternative One]&#40;svg/us002-system-sequence-diagram-alternative-one.svg&#41;)
+![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram-alternative-one.svg)
 
-[//]: # ()
-[//]: # (#### Alternative Two)
-
-### Alternative
+#### Alternative Two
 
 ![System Sequence Diagram - Alternative Two](svg/us002-system-sequence-diagram-alternative-two.svg)
 
