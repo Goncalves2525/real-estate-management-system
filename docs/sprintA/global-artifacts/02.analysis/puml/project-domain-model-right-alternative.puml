@@ -84,17 +84,17 @@ class PublishedProperty{
     photos
 }
 
-SystemAdministrator "1" -----> "*" Agent : creates
-SystemAdministrator "1" -----> "*" Agency : creates
-Buyer "*" -----> "*" Agent : contacts for purchase
-Buyer "*" -----> "*" PublishedProperty : views
-PropertyOwner "*" -----> "*" Agent : contacts for sale/rent
-StoreNetworkManager "1" -----> "*" Agency : manages
-Agency "1" -----> "1" StoreManager  : managed by
-Agent "*" -----> "*" PublishedProperty : publishes
-Agency "1" -> "*" Agent : has
-PropertyOwner "*" --> "*" Property : owns
-UnregisteredUser "*" -----> "*" PublishedProperty : views
+SystemAdministrator "1" ----- "*" Agent : creates
+SystemAdministrator "1" ----- "*" Agency : creates
+Buyer "*" ----- "*" Agent : contacts for purchase
+Buyer "*" ----- "*" PublishedProperty : views
+PropertyOwner "*" ----- "*" Agent : contacts for sale/rent
+StoreNetworkManager "1" ----- "*" Agency : manages
+Agency "1" ----- "1" StoreManager  : managed by
+Agent "*" ----- "*" PublishedProperty : publishes
+Agency "1" - "*" Agent : has
+PropertyOwner "*" -- "*" Property : owns
+UnregisteredUser "*" ----- "*" PublishedProperty : views
 
 'SystemAdministrator "1" -right "*" Employee : registers
 'PropertyOwner "1" --> "*" PropertyOrder : requests advertisement

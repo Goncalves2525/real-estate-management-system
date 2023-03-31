@@ -27,7 +27,8 @@ activate Admin
     Admin -> System : select the agency from the list
     activate System
 
-        System --> Admin : displays success message
+        System --> Admin : displays success message and send the password to \n the employee's email
+
     deactivate System
 
 @enduml
