@@ -69,9 +69,13 @@ class House extends Property{
     sunExposure
 }
 
-'class Land{
-'
-'}
+class Land extends Property{
+'    area
+'    location
+'    distanceFromCenter
+'    price
+'    photos
+}
 
 propertyOwner "1" -- "1" Agent : calls
 Agent "1" - "*" Property: publishes
