@@ -19,7 +19,7 @@ class UnregisteredUser{
 }
 
 
-class PublishedSale{
+class PublishedProperty{
     typeOfBuisness
     typeOfProperty
     area
@@ -29,7 +29,7 @@ class PublishedSale{
     photos
 }
 
-class House extends PublishedSale{
+class House extends PublishedProperty{
         numberOfBedrooms
         numberOfBathrooms
         numberOfParkingSpaces
@@ -39,17 +39,17 @@ class House extends PublishedSale{
         sunExposure
 }
 
-class Apartment extends PublishedSale{
+class Apartment extends PublishedProperty{
     numberOfBedrooms
         numberOfBathrooms
         numberOfParkingSpaces
         availableEquipment
 }
 
-class Land extends PublishedSale{
+class Land extends PublishedProperty{
 }
 
-UnregisteredUser "1" --> "*" PublishedSale : views
+UnregisteredUser "1" --> "*" PublishedProperty : views
 
 
 

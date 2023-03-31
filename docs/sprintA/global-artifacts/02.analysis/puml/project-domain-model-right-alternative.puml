@@ -71,6 +71,7 @@ class PropertyOwner{
 }
 
 class UnregisteredUser{
+
 }
 
 class PublishedProperty{
