@@ -51,7 +51,6 @@ To identify domain conceptual classes, start by making a list of candidate conce
     * Property information (price, address, etc.)
     * Property Owner information (name, tax number, etc.)
     * Buyer information (name, tax number, etc.)
-
 ---  
 
 
@@ -137,7 +136,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Other External/Collaborating Systems**
 
-*  
+* n/a
 
 
 ---
@@ -145,14 +144,14 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Records of finance, work, contracts, legal matters**
 
-* 
+* n/a
 
 ---
 
 
 **Financial Instruments**
 
-*  
+* n/a
 
 ---
 
@@ -166,27 +165,34 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 ###**Rationale to identify associations between conceptual classes**###
 
-An association is a relationship between instances of objects that indicates a relevant connection and that is worth of remembering, or it is derivable from the List of Common Associations: 
+[//]: # (An association is a relationship between instances of objects that indicates a relevant connection and that is worth of remembering, or it is derivable from the List of Common Associations: )
 
-+ **_A_** is physically or logically part of **_B_**
-+ **_A_** is physically or logically contained in/on **_B_**
-+ **_A_** is a description for **_B_**
-+ **_A_** known/logged/recorded/reported/captured in **_B_**
-+ **_A_** uses or manages or owns **_B_**
-+ **_A_** is related with a transaction (item) of **_B_**
-+ etc.
+[//]: # (+ **_A_** is physically or logically part of **_B_**)
+
+[//]: # (+ **_A_** is physically or logically contained in/on **_B_**)
+
+[//]: # (+ **_A_** is a description for **_B_**)
+
+[//]: # (+ **_A_** known/logged/recorded/reported/captured in **_B_**)
+
+[//]: # (+ **_A_** uses or manages or owns **_B_**)
+
+[//]: # (+ **_A_** is related with a transaction &#40;item&#41; of **_B_**)
+
+[//]: # (+ etc.)
 
 
 
-| Concept (A) 		           |    Association   	     | Concept (B) |
-|--------------------------|:----------------------:|------------:|
-| Store Network Manager  	 |    manages    		 	     |    Agencies |
-| Agency  	                |       has   		 	       |       Agent |
-| Store Manager	           |    manages    		 	     |      Agency |
-| System Administrator  	  |    creates    		 	     |       Agent |
-| System Administrator |    updates    		 	     |       Agent |
-| C1  	                    | verb1 		 	 |          C2 |
-| C1  	                    |     verb1    		 	      |          C2 |
+| Concept (A) 		           |                       Association   	                       |                                            Concept (B) |
+|--------------------------|:-----------------------------------------------------------:|-------------------------------------------------------:|
+| Store Network Manager  	 |                       manages    		 	                       |                                                 Agency |
+| Agency  	                |                  has <br/> managed by		 	                   |                                Agent<br/>Store Manager |
+| System Administrator  	  |                        creates  		 	                        |                                       Agent<br/>Agency |
+| System Administrator  	  |                        updates  		 	                        |                                       Agent<br/>Agency |
+| Property Owner  	        |            owns <br/>contacts for Sale/Rent		 	             |                                    Property <br/>Agent |
+| Buyer 	                  | views <br/> sorts and filters	<br/>contacts for Purchase	 	 | Published Property<br/> Published Property <br/> Agent |
+| Unregistered User 	      |              views <br/> sorts and filters	 	               |             Published Property<br/> Published Property |
+| Agent 	                  |                        publishes	 	                         |                                               Property |
 
 
 
