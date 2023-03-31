@@ -101,7 +101,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Descriptions of Things**
 
-* 
+* n/a
 
 
 ---
@@ -109,28 +109,28 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Catalogs**
 
-*  
+*  n/a
 
 ---
 
 
 **Containers**
 
-* 
+* n/a
 
 ---
 
 
 **Elements of Containers**
 
-*  
+*  n/a
 
 ---
 
 
 **Organizations**
 
-*  
+*  n/a
 
 ---
 
@@ -158,12 +158,11 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Documents mentioned/used to perform some work/**
 
-* 
+* n/a
 ---
 
 
-
-###**Rationale to identify associations between conceptual classes**###
+**Rationale to identify associations between conceptual classes**
 
 [//]: # (An association is a relationship between instances of objects that indicates a relevant connection and that is worth of remembering, or it is derivable from the List of Common Associations: )
 
@@ -193,7 +192,6 @@ To identify domain conceptual classes, start by making a list of candidate conce
 | Buyer 	                  | views <br/> sorts and filters	<br/>contacts for Purchase	 	 | Published Property<br/> Published Property <br/> Agent |
 | Unregistered User 	      |              views <br/> sorts and filters	 	               |             Published Property<br/> Published Property |
 | Agent 	                  |                        publishes	 	                         |                                               Property |
-
 
 
 ## Domain Model

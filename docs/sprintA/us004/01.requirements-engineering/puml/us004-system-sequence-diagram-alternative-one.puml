@@ -13,7 +13,7 @@ participant ":Agent" as Agent
 
 activate Owner
 
-        Owner -> System : displays list of Agencys
+        Owner -> System : displays list of Agencies
     activate System
 
         System --> Owner :submits selected Agency
