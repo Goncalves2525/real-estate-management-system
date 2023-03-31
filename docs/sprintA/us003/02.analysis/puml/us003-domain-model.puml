@@ -29,15 +29,8 @@ class Employee{
     agency
 }
 
-class Agency{
-    designation
-    location
-    emailAddress
-    telephoneNumber
 
-}
+SystemAdministrator "1" --- "*" Employee : registers >
 
-SystemAdministrator "1" -- "*" Employee : registers >
-SystemAdministrator "1" --- "*" Agency : registers >
 
 @enduml
