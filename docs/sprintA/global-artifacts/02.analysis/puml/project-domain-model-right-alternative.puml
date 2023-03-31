@@ -14,6 +14,8 @@ hide methods
 title Domain Model
 
 class StoreNetworkManager{
+    name
+    agencies
 }
 
 class SystemAdministrator{
@@ -22,6 +24,8 @@ class SystemAdministrator{
 }
 
 class StoreManager{
+    name
+    agency
 }
 
 class Property{
@@ -43,6 +47,8 @@ class Agent{
 }
 
 class Agency{
+    agents
+    storeManager
 }
 
 class Buyer{
