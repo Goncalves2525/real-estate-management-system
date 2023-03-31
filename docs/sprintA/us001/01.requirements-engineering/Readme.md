@@ -24,7 +24,7 @@ As an unregistered user, I want to display listed properties.
 
 > Non-authenticated users can only list properties.
 
-> The client should be able to select the type of business (renting or buying), the type of property and the number of rooms. Then, the client should be able to sort properties by price or by parish where the property is located.
+> The client should be able to select the type of business (renting or buying), the type of property and the number of rooms. Then, the client should be able to sort properties by price, city and state where the property is located.
  
 > If the client does not select the type of business, the type of property and the number of rooms, the application should allow the client to sort all properties that are on sale or on renting.
 
