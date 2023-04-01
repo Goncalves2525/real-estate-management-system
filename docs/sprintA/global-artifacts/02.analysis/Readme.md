@@ -201,7 +201,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 [//]: # ()
 [//]: # (**Insert below the Domain Model Diagram in a SVG format**)
 
-![Domain Model](svg/project-domain-model-right-alternative.svg)
+![Domain Model](svg/project-domain-model.svg)
 
 
 

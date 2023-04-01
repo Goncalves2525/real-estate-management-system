@@ -2,11 +2,11 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-
+'skinparam linetype ortho
 'left to right direction
 
 skinparam classAttributeIconSize 0
-skinparam groupInheritance 2
+'skinparam groupInheritance 2
 
 hide circle
 hide methods
@@ -14,34 +14,8 @@ hide methods
 title Domain Model
 
 
-class UnregisteredUser extends Client{
-   id?
-}
+class UnregisteredUser{
 
-class Client extends User{
-}
-
-class User{
-}
-
-class House extends Property{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
-    basement
-    inhabitableLoft
-    sunExposure
-}
-
-class Apartment extends Property{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
-}
-
-class Land extends Property{
 }
 
 class Property{
@@ -51,9 +25,38 @@ class Property{
     location
     distanceFromCenter
     price
+    photos
 }
 
-UnregisteredUser "1" --> "*" Property : can list
+
+class PublishedProperty extends Property{
+    publishedDate
+    publishedBy
+    comission
+}
+
+class House extends Property{
+        numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+        basement
+        inhabitableLoft
+        sunExposure
+}
+
+class Apartment extends Property{
+    numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+}
+
+class Land extends Property{
+    typeOfLand
+}
+
+UnregisteredUser "1" --> "*" PublishedProperty : views
 
 
 
