@@ -17,7 +17,7 @@ The teams consists of students identified in the following table.
 Throughout the project's development period, the distribution of _tasks / requirements / features_ by the team members
 was carried out as described in the following table.
 
-**Keep this table always up-to-date.**
+[//]: # (**Keep this table always up-to-date.**)
 
 | Task                                                 | [Sprint A](sprintA/us004/Readme.md)                                                        | [Sprint B](sprintB/Readme.md)                                                              | [Sprint C](sprintC/Readme.md)                                                              | [Sprint D](sprintD/Readme.md)                                                              |
 |------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|

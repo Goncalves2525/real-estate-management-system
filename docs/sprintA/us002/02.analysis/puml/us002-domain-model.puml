@@ -8,7 +8,7 @@ hide methods
 
 title Domain Model
 
-class propertyOwner {
+class Client{
     name
     citizenCardNumber
     taxNumber
@@ -17,13 +17,21 @@ class propertyOwner {
     telephoneNumber
 }
 
-class Agent {
+class PropertyOwner extends Client {
+    properties
+}
+
+class Employee{
     name
     citizenCardNumber
     taxNumber
     address
     email
     telephoneNumber
+}
+
+class Agent extends Employee{
+    agency
 }
 
 'class Property{
@@ -69,16 +77,20 @@ class House extends Property{
     sunExposure
 }
 
-class Land extends Property{
-'    area
-'    location
-'    distanceFromCenter
-'    price
-'    photos
+class PublishedProperty extends Property{
+    publishedDate
+    publishedBy
+    commission
 }
 
-propertyOwner "1" -- "1" Agent : calls
-Agent "1" - "*" Property: publishes
+class Land extends Property{
+    typeOfLand
+}
+
+Agent "1" -- "1" PropertyOwner : contacted by
+Agent "*" - "*" Property: publishes
+Agent "1" - "*" Property: sets commission
+PropertyOwner "1" - "*" Property: owns
 'Property <|-- House
 'Property <|-- Apartment
 'Property <|-- Land
