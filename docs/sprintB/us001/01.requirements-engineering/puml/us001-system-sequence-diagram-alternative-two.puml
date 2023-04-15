@@ -1,0 +1,24 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative Two
+
+autonumber
+
+actor "Unregistered User" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : selects criteria to sort properties
+    activate System
+
+        System --> User : orders properties by the selected criteria and lists properties
+    deactivate System
+
+
+
+
+@enduml

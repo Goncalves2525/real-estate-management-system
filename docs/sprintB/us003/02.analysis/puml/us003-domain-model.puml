@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing true
+skinparam linetype ortho
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+
+class SystemAdministrator {
+   userName
+   password
+}
+
+class Employee{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    contactTelephone
+    agency
+}
+
+
+SystemAdministrator "1" --- "*" Employee : registers >
+
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US003: Register New Employee
+
+autonumber
+
+actor "System Administrator" as Admin
+participant ":System" as System
+
+activate Admin
+
+    Admin -> System : requests to register a new employee
+    activate System
+
+        System --> Admin : requests data (name, email, password, etc.)
+    deactivate System
+
+    Admin -> System : provide the necessary data
+        activate System
+
+            System --> Admin : validate data and list the agencies
+        deactivate System
+
+    Admin -> System : select the agency from the list
+    activate System
+
+        System --> Admin : displays success message and send the password to \n the employee's email
+
+    deactivate System
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Owner" as Owner
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Owner -> Agent : Calls the Agent with a property for sale
+    'activate Agent
+
+    Agent -> Owner : Requests Type of Property
+    activate Owner
+
+    Owner -> Agent : Selects Type of Property
+    deactivate Owner
+
+    Owner -> Agent : types requested data
+    activate Owner
+
+    Agent -> Owner : Requests data
+    deactivate Owner
+
+    Agent --> System : Tells System that they received \na call with a property for sale
+    activate System
+
+    System --> Agent : requests data
+    deactivate System
+
+    Agent -> System : types requested data (dimensions, description, \nvalue, cost)
+    activate System
+
+    System --> Agent : displays operation success
+    deactivate System
+
+@enduml

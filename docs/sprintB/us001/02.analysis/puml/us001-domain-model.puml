@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+
+skinparam classAttributeIconSize 0
+'skinparam groupInheritance 2
+
+hide circle
+hide methods
+
+title Domain Model
+
+
+class UnregisteredUser{
+
+}
+
+class Property{
+    typeOfBuisness
+    typeOfProperty
+    area
+    location
+    distanceFromCenter
+    price
+    photos
+}
+
+
+class PublishedProperty extends Property{
+    publishedDate
+    publishedBy
+    comission
+}
+
+class House extends Property{
+        numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+        basement
+        inhabitableLoft
+        sunExposure
+}
+
+class Apartment extends Property{
+    numberOfBedrooms
+        numberOfBathrooms
+        numberOfParkingSpaces
+        availableEquipment
+}
+
+class Land extends Property{
+    typeOfLand
+}
+
+UnregisteredUser "1" --> "*" PublishedProperty : views
+
+
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Unregistered User" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : selects a property category (type of business, type of property, number of rooms)
+    activate System
+
+        System --> User : lists properties
+    deactivate System
+
+    User -> System : selects criteria to sort properties
+    activate System
+
+        System --> User : orders properties by the selected criteria and lists properties
+    deactivate System
+
+
+
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative Two
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : asks to create a new sale for publish
+    activate System
+
+        System --> Agent : shows property type list and asks to select one
+    deactivate System
+
+    Agent -> System : selects a property type
+    activate System
+
+        System --> Agent : requests data
+    deactivate System
+
+    Agent -> System : types requested data (number of Bathrooms, location, \price, distance from City Centre)
+    activate System
+
+        System --> Agent : shows property type and requested data
+    deactivate System
+
+    Agent -> System : publishes order
+    activate System
+
+        System --> Agent : Shows operation success
+    deactivate System
+@enduml

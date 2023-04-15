@@ -1,0 +1,97 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Client{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
+}
+
+class PropertyOwner extends Client {
+    properties
+}
+
+class Employee{
+    name
+    citizenCardNumber
+    taxNumber
+    address
+    email
+    telephoneNumber
+}
+
+class Agent extends Employee{
+    agency
+}
+
+'class Property{
+'    typeOfProperty
+'    area
+'    location
+'    distanceFromCityCentre
+'    requestedPrice
+'    photographs
+'    numberOfBedrooms
+'    numberOfBathrooms
+'    numberOfParkingSpaces
+'    availableEquipment
+'    hasBasement
+'    hasInhabitableLoft
+'    sunExposureValue
+'}
+
+class Property{
+    typeOfBusiness
+    typeOfProperty
+    area
+    location
+    distanceFromCenter
+    price
+    photos
+}
+
+class Apartment extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+}
+
+class House extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+    basement
+    inhabitableLoft
+    sunExposure
+}
+
+class PublishedProperty extends Property{
+    publishedDate
+    publishedBy
+    commission
+}
+
+class Land extends Property{
+    typeOfLand
+}
+
+Agent "1" -- "1" PropertyOwner : contacted by
+Agent "*" - "*" Property: publishes
+Agent "1" - "*" Property: sets commission
+PropertyOwner "1" - "*" Property: owns
+'Property <|-- House
+'Property <|-- Apartment
+'Property <|-- Land
+@enduml
