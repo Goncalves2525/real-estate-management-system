@@ -9,7 +9,6 @@ autonumber
 
 actor "Owner" as Owner
 participant ":System" as System
-participant ":Agent" as Agent
 
 activate Owner
 
@@ -73,7 +72,5 @@ activate Owner
         System --> Owner : displays operation success
     deactivate System
 
-        System --> Agent : Submit property
-    deactivate System
 
 @enduml
