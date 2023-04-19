@@ -21,12 +21,12 @@ class User{
     contactTelephone
 }
 
-class SystemAdministrator {
-   userName
-   password
-}
+'class SystemAdministrator {
+'   userName
+'   password
+'}
 
-SystemAdministrator "1" --- "*" User : registers >
+Application "1" --- "*" User : registers <
 
 
 @enduml
