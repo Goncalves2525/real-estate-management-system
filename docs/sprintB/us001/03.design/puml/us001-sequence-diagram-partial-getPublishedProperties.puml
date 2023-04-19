@@ -1,0 +1,23 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "publishedPropertiesRepository" as publishedPropertiesRepository
+
+autonumber 11
+-> publishedPropertiesRepository: getPublishedProperties(propertType, buisnessType,\n numberOfRooms, price, parish)
+
+autonumber 11.1
+activate publishedPropertiesRepository
+    group getPublishedProperties
+        publishedPropertiesRepository -> publishedPropertiesRepository: filterProperties(propertyType, buisnessType, numberOfRooms)
+        publishedPropertiesRepository -> publishedPropertiesRepository: sortProperties(price, parish)
+    end
+
+    autonumber 12
+    <-- ORG : publishedPropertiesList
+deactivate ORG
+
+
+@enduml

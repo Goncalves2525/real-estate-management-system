@@ -1,0 +1,65 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Unregistered User" as uUser
+participant ":ListPropertiesUI" as UI
+participant ":ListPropertiesController" as CTRL
+participant ":Repositories" as REPOS
+participant "repositories\n:Repositories" as repos
+participant "publishedPropertiesRepository:\nPublishedPropertiesRepository" as PublishedPropertiesRepository
+
+activate uUser
+
+
+
+        activate UI
+
+'
+            UI --> uUser : shows property filter and sort options
+            uUser -> UI : selects filter options (propertyType, buisnessType, numberOfRooms)
+            uUser -> UI : selects sort options (price, parish)
+            uUser -> UI : asks to list properties
+            UI -> CTRL** : create
+
+            UI -> CTRL : getPublishedProperties()
+            activate CTRL
+
+                CTRL -> REPOS : getInstance()
+                activate REPOS
+
+                    REPOS --> CTRL: repositories
+                deactivate REPOS
+
+                CTRL -> repos : getPublished\nPropertiesRepository()
+                activate repos
+
+                    repos --> CTRL: published\nPropertiesRepository
+                deactivate repos
+
+                CTRL -> PublishedPropertiesRepository : getPublished\nProperties(propertType,\n buisnessType,\n numberOfRooms, price, parish)
+                activate PublishedPropertiesRepository
+                    ref over PublishedPropertiesRepository
+                        Get Published Properties
+
+                    end ref
+                    PublishedPropertiesRepository --> CTRL : publishedPropertiesList
+                deactivate PublishedPropertiesRepository
+
+
+
+
+
+                CTRL --> UI : publishedPropertiesList
+            deactivate CTRL
+
+            UI --> uUser : shows a list of properties filtered and sorted by users options
+        deactivate UI
+
+deactivate uUser
+
+@enduml
