@@ -9,6 +9,23 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+class ApplicationSession
+{
+    + static getInstance()
+    + getCurrentSession()
+}
+
+class UserSession
+{
+    + getUserEmail()
+}
+
+class Employee {
+    - name
+    - email
+    - position
+    - phone
+}
 
 class Task {
     - String reference
@@ -27,6 +44,23 @@ class TaskCategory {
     + TaskCategory(description)
 }
 
+class Organization {
+    - String name
+    - String vatNumber
+    - String website
+    - String phone
+    - String email
+
+    - addTask(task)
+    - validateTask(task)
+    + anyEmployeeHasEmail(email)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
+    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
+    - getEmployeeByEmail(email)
+
+'  +saveTask(task)
+}
+
 class TaskCategoryRepository {
     + getTaskCategoryByDescription(description)
 }
@@ -42,7 +76,7 @@ class Repositories {
     + getOrganizationRepository()
 }
 
-class getController {
+class CreateTaskController {
     + CreateTaskController(organizationRepository, taskCategoryRepository)
     + getTaskCategories()
     + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
@@ -51,18 +85,22 @@ class getController {
 }
 
 note right of CreateTaskController
-kswjqhbvaedf
+    - userEmail is obtained
+    from the user session
+    - categoryDescription
+    is retrieved from selected data
 end note
 
 note bottom of TaskCategoryRepository
-çlqwdkjefn
+    - used for displaying
+    the category list
 end note
 
 class CreateTaskUI {
 }
 
 Repositories -> Repositories : instance
-
+ApplicationSession -> ApplicationSession : instance
 
 CreateTaskUI .> CreateTaskController
 
@@ -76,11 +114,17 @@ CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
 
 Repositories --> "1" OrganizationRepository
 
+OrganizationRepository --> "*" Organization
+ApplicationSession --> "1" UserSession : userSession
+
 CreateTaskController ..> "1" Organization : organization
+CreateTaskController ..> ApplicationSession
+CreateTaskController ..> UserSession
 Task "*" --> "1" TaskCategory : taskCategory
 TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
 Organization "1" --> "*" Task : tasks
 Task --> Employee : createdBy
 
+Organization --> "*" Employee : employs
 
 @enduml
