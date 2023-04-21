@@ -4,6 +4,10 @@
 
 [Analysis](02.analysis/Readme.md)
 
+[Design](03.design/Readme.md)
+
+[Tests & Implementation](04.tests-and-implementation/Readme.md)
+
 [//]: # ([Design]&#40;03.design/Readme.md&#41;)
 
 [//]: # ()

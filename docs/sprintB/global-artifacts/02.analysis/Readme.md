@@ -31,27 +31,51 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Transaction Records**
 
-* For a Sale Order:
-  * Inputs:
-    * Property information (price, address, etc.)
-    * Property Owner information (name, tax number, etc.)
-  * Outputs:
-    * Sale Order (with the property information)
-    * Sale Order Published Date
-* For a Scheduled Visit:
-    * Inputs:
-      * Property information (price, address, etc.)
-      * Property Owner information (name, tax number, etc.)
-      * Buyer information (name, tax number, etc.)
-    * Outputs:
-      * Visit Order (with the property information)
-      * Visit Order Schedule Date
-* For an Offer:
-  * Inputs:
-    * Property information (price, address, etc.)
-    * Property Owner information (name, tax number, etc.)
-    * Buyer information (name, tax number, etc.)
----  
+* Sale Order
+* Visit Order
+* Offer
+
+[//]: # (* For a Sale Order:)
+
+[//]: # (  * Inputs:)
+
+[//]: # (    * Property information &#40;price, address, etc.&#41;)
+
+[//]: # (    * Property Owner information &#40;name, tax number, etc.&#41;)
+
+[//]: # (  * Outputs:)
+
+[//]: # (    * Sale Order &#40;with the property information&#41;)
+
+[//]: # (    * Sale Order Published Date)
+
+[//]: # (* For a Scheduled Visit:)
+
+[//]: # (    * Inputs:)
+
+[//]: # (      * Property information &#40;price, address, etc.&#41;)
+
+[//]: # (      * Property Owner information &#40;name, tax number, etc.&#41;)
+
+[//]: # (      * Buyer information &#40;name, tax number, etc.&#41;)
+
+[//]: # (    * Outputs:)
+
+[//]: # (      * Visit Order &#40;with the property information&#41;)
+
+[//]: # (      * Visit Order Schedule Date)
+
+[//]: # (* For an Offer:)
+
+[//]: # (  * Inputs:)
+
+[//]: # (    * Property information &#40;price, address, etc.&#41;)
+
+[//]: # (    * Property Owner information &#40;name, tax number, etc.&#41;)
+
+[//]: # (    * Buyer information &#40;name, tax number, etc.&#41;)
+
+[//]: # (---  )
 
 
 **Roles of People or Organizations**
