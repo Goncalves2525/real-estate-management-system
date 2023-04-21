@@ -19,8 +19,6 @@ class UnregisteredUser{
 }
 
 class Property{
-    typeOfBuisness
-    typeOfProperty
     area
     location
     distanceFromCenter
@@ -29,7 +27,9 @@ class Property{
 }
 
 
-class PublishedProperty extends Property{
+class PublishedProperty{
+    typeOfBuisness
+    typeOfProperty
     publishedDate
     publishedBy
     comission
@@ -46,7 +46,7 @@ class House extends Property{
 }
 
 class Apartment extends Property{
-    numberOfBedrooms
+        numberOfBedrooms
         numberOfBathrooms
         numberOfParkingSpaces
         availableEquipment
@@ -57,7 +57,7 @@ class Land extends Property{
 }
 
 UnregisteredUser "1" --> "*" PublishedProperty : views
-
+PublishedProperty "1" --> "1" Property : has
 
 
 @enduml

@@ -7,124 +7,59 @@ skinparam linetype polyline
 
 skinparam classAttributeIconSize 0
 
-'left to right direction
-
-class ApplicationSession
-{
-    + static getInstance()
-    + getCurrentSession()
+'left to right directio
+class Property{
+    - String location
+    - double area
+    - double price
+    - double distanceFromCenter
+    - PHOTOS???
 }
 
-class UserSession
-{
-    + getUserEmail()
+class PublishedProperty {
+    - Property typeOfProperty
+    - String typeOfBusiness
+    - String publishedDate
+    - Agent publishedBy
+    - double comission
 }
 
-class Employee {
-    - name
-    - email
-    - position
-    - phone
+class PublishedPropertiesRepository {
+    - List<PublishedProperty> publishedProperties
+    + getPublishedPropertiesByFilter()
+    + getPublishedProperties()
+    + sortProperties()
 }
 
-class Task {
-    - String reference
-    - String description
-    - String informalDescription
-    - String technicalDescription
-    - Integer duration
-    - Double cost
-
-    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
-}
-
-class TaskCategory {
-    - String description
-
-    + TaskCategory(description)
-}
-
-class Organization {
-    - String name
-    - String vatNumber
-    - String website
-    - String phone
-    - String email
-
-    - addTask(task)
-    - validateTask(task)
-    + anyEmployeeHasEmail(email)
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
-    - getEmployeeByEmail(email)
-
-'  +saveTask(task)
-}
-
-class TaskCategoryRepository {
-    + getTaskCategoryByDescription(description)
-}
-
-class OrganizationRepository {
-    + getOrganizationByEmployeeEmail(email)
-}
 
 class Repositories {
-    - Repositories()
+    - PublishedPropertiesRepository publishedPropertiesRepository
+    + Repositories()
     + getInstance() : Repositories
-    + getTaskCategoryRepository()
-    + getOrganizationRepository()
+    + getPublishedPropertiesRepository()
 }
 
-class CreateTaskController {
-    + CreateTaskController(organizationRepository, taskCategoryRepository)
-    + getTaskCategories()
-    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
-    - getTaskCategoryByDescription(taskCategoryDescription)
-    - getEmployeeFromSession()
+class ListPropertiesController {
+    - PublishedPropertiesRepository publishedPropertiesRepository
+    + ListPropertiesController()
+    + ListPropertiesController(publishedPropertiesRepository)
+    + getPublishedPropertiesRepository()
 }
 
-note right of CreateTaskController
-    - userEmail is obtained
-    from the user session
-    - categoryDescription
-    is retrieved from selected data
-end note
-
-note bottom of TaskCategoryRepository
-    - used for displaying
-    the category list
-end note
-
-class CreateTaskUI {
+class ListPropertiesUI {
 }
 
-Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
+Repositories -> Repositories : instances
 
-CreateTaskUI .> CreateTaskController
+ListPropertiesUI .> ListPropertiesController
 
-CreateTaskController .> Repositories : repositories
+ListPropertiesController ..> Repositories
 
-Repositories -> "1" TaskCategoryRepository
+Repositories "1" --> "1" PublishedPropertiesRepository : has
 
-CreateTaskController ..> TaskCategory
-CreateTaskController ..> OrganizationRepository : organizationRepository
-CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
+ListPropertiesController ..> PublishedPropertiesRepository
 
-Repositories --> "1" OrganizationRepository
+PublishedPropertiesRepository "1" --> "*" PublishedProperty : has
 
-OrganizationRepository --> "*" Organization
-ApplicationSession --> "1" UserSession : userSession
-
-CreateTaskController ..> "1" Organization : organization
-CreateTaskController ..> ApplicationSession
-CreateTaskController ..> UserSession
-Task "*" --> "1" TaskCategory : taskCategory
-TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
-Organization "1" --> "*" Task : tasks
-Task --> Employee : createdBy
-
-Organization --> "*" Employee : employs
 
 @enduml

@@ -18,7 +18,7 @@ activate User
     System --> User : Shows filter and sort options
     deactivate System
 
-    alt Choose both options
+    alt Filter and Sort
         User -> System : selects filters and asks to list properties (type of business, type of property, number of rooms)
         activate System
 
@@ -31,13 +31,13 @@ activate User
         System --> User : shows the previously filtered properties sorted by the selected criteria
         deactivate System
     end
-    alt Choose only one option
+    alt Filter or Sort
 
         alt Filter
             User -> System : selects filters and asks to list properties (type of business, type of property, number of rooms)
             activate System
 
-            System --> User : shows filtered properties
+            System --> User : shows filtered properties ordered by default criteria (most recently added)
             deactivate System
         end
 
@@ -45,13 +45,13 @@ activate User
             User -> System : selects criteria to sort options and ask to list properties (price, state)
             activate System
 
-            System --> User : shows properties sorted by the selected criteria
+            System --> User : shows all properties sorted by the selected criteria
             deactivate System
         end
 
     end
 
-    alt Choose no options
+    alt Neither Filter nor Sort
         User -> System : asks to list properties (without filters and sort)
         activate System
 

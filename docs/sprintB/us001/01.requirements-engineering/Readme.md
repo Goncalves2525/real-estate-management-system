@@ -47,7 +47,7 @@ As an unregistered user, I want to display listed properties.
 
 
 * **AC1:** The properties can be consulted by type of business, type of property and number of rooms.
-* **AC2:** The properties can be sorted by price and parish.
+* **AC2:** The properties can be sorted by price and state.
 * **AC3:** It is possible to only filter or only sort the properties.
 * **AC4:** It is possible to filter and sort properties simultaneously.
 
@@ -70,14 +70,15 @@ As an unregistered user, I want to display listed properties.
     * Business type (filter)
     * Number of rooms (filter)
     * Price (sort)
-    * Parish (sort)
+    * State (sort)
 
 
 **Output Data:**
 
-* Filtered list of properties
-* Ordered list of properties
 * Filtered and ordered list of properties
+* Filtered list of properties ordered by default criteria
+* Ordered list of all properties
+* All properties ordered by default criteria
 
 ### 1.6. System Sequence Diagram (SSD)
 
