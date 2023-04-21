@@ -117,8 +117,8 @@ class UnregisteredUser{
 }
 
 
-StoreNetworkManager "1" -- "1" StoreManager: manages a >
-Agency "1" -- "1" Agent: has an >
+StoreNetworkManager "1" -- "*" StoreManager: manages >
+Agency "1" -- "*" Agent: has >
 SystemAdministrator "1" -- "*" Employee: creates >
 StoreNetworkManager "1" -- "1" Employee: is a >
 StoreManager "1" -- "1" Employee: is an >
