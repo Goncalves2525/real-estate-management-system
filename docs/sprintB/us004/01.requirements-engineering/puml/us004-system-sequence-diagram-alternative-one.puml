@@ -12,20 +12,20 @@ participant ":System" as System
 
 activate Owner
 
-        Owner -> System : displays list of Agencies
+        Owner -> System : ask to create Sale or Rent
     activate System
 
-        System --> Owner :submits selected Agency
-    deactivate System
+        System --> Owner : displays list of Agencies
+    deactivate  System
 
-        Owner -> System :displays list of Agent
-     activate System
+        Owner -> System :submits selected Agency
+    activate System
 
-        System --> Owner: submits selected Agent
+        System --> Owner :displays list of Agent
      deactivate System
 
-        Owner -> System : Submit a request for listing a property for sale or rent
-    activate System
+        Owner -> System : submits selected Agent
+     activate System
 
         System --> Owner : requests Owner data
     deactivate System
@@ -33,7 +33,7 @@ activate Owner
         Owner -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
     activate System
 
-        System --> Owner : requests type of request
+        System --> Owner : requests type of transaction
     deactivate System
 
 
@@ -41,11 +41,11 @@ activate Owner
     activate System
 
 
-    alt if Rent
+    opt Rent
 
-        System -> Owner: request contract duration
+        System --> Owner: request contract duration
         deactivate System
-    else
+
         Owner -> System: types requested data
         activate System
     end
@@ -59,15 +59,21 @@ activate Owner
             System --> Owner : requests data of property
     deactivate System
 
-    alt if Land
+    alt  Land
 
         Owner -> System: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
     activate System
-    else if Apartement
+    else  Apartement
         Owner -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
-    else if House
+    else  House
         Owner -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
     end
+
+            System --> Owner : ask to confirm data
+    deactivate System
+
+            Owner -> System: confirm entered data
+    activate System
 
         System --> Owner : displays operation success
     deactivate System

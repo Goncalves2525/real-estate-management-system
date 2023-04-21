@@ -8,7 +8,7 @@ hide methods
 
 title Domain Model
 
-class PropertyOwner {
+class Owner {
     name
     citizenCardNumber
     taxNumber
@@ -33,16 +33,25 @@ class Agent {
     telephoneNumber
 }
 
-class Property{
+class Resident{
     typeOfBusiness
     typeOfProperty
+     area
+     location
+     distanceFromCenter
+      price
+}
+class House{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+    availableEquipment
+    basement
+    inhabitableLoft
+    sunExposure
 }
 
 class Apartment{
-    area
-    location
-    distanceFromCenter
-    price
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
@@ -50,10 +59,6 @@ class Apartment{
 }
 
 class House{
-    area
-    location
-    distanceFromCenter
-    price
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
@@ -64,21 +69,18 @@ class House{
 }
 
 class Land{
-     area
-     location
-     distanceFromCenter
-     price
 
 }
 class RentalAgreement{
     rentalDuration
 }
-Agency "1" - "1" PropertyOwner: Select <
-PropertyOwner "1" - "0..*" Property: submit >
-PropertyOwner "1" -- "1" Agent:assign >
+Owner "1" - "1" Agency : Select >
+Owner "1" - "0..*" Property: submit >
+Owner "1" -- "1" Agent:assign >
 Agent "1" - "0..*" Property
 Property "1"-"1" RentalAgreement
-PropertyOwner "1" -"1" RentalAgreement:define >
+Property "1"-"1" Resident
+Owner "1" -"1" RentalAgreement:define >
 Property <|-- House
 Property <|-- Apartment
 Property <|-- Land

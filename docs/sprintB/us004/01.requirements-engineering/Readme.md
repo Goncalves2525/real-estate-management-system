@@ -79,9 +79,26 @@ choosing the responsible agent.
 >
 > **Answer:** Yes.
 
+> **Question:** When assigning an agent to a property listing, are the available agents shown by the system for the owner to pick? Or does the owner need to provide the agent's information (name, agency,etc)?
+>
+> **Answer:** The owner should select one agent from a list of agents that work in the selected agency. The owner should select the agency before selecting the agent.
+
 > **Question:**
 >
 > **Answer:**
+
+> **Question:** In the project description it is mentioned that in the case of a request for the sale of a property, the owner must provide "one or more photographs". Taking that into account, is there a maximum number of photos that can be submitted when publishing an announcement? If so, how many?
+>
+> **Answer:** The maximum number of photos is 30.
+
+> **Question:**  It was previously stated that an unregistered user could do a property listing request. However, with the introduction of US007, I want to clarify and make sure that now a user needs to be registered in order to buy, sell or rent properties, or if they can still do it unregistered.
+>
+> **Answer:**  In Sprint B we introduce US7 and now, in US4, the owner needs to be registered in the system to submit a request for listing. You should update all artifacts to include this change.
+
+> **Question:**
+>
+> **Answer:**
+
 
 ### 1.3. Acceptance Criteria
 
