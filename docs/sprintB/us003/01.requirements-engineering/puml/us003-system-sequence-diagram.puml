@@ -15,19 +15,33 @@ activate Admin
     Admin -> System : requests to register a new employee
     activate System
 
-        System --> Admin : requests data (name, email, password, etc.)
+        System --> Admin : requests the role of the new employee
     deactivate System
+
+    Admin -> System : provide the role of the new employee
+        activate System
+
+            System --> Admin : requests the name, the citizen's card number, the tax number, the address, \nthe email address, the contact telephone number
+
+        deactivate System
 
     Admin -> System : provide the necessary data
         activate System
 
-            System --> Admin : validate data and list the agencies
+            System --> Admin : list the agencies
         deactivate System
 
     Admin -> System : select the agency from the list
     activate System
 
-        System --> Admin : displays success message and send the password to \n the employee's email
+        System --> Admin : shows the provided data to confirm
+    deactivate System
+
+    Admin -> System : confirm the provided data
+    activate System
+
+        System --> Admin : validate the data and display success message
+        System --> Admin : send the password to the employee's email
 
     deactivate System
 

@@ -1,0 +1,79 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class ApplicationSession {
+    + static getInstance()
+    + getCurrentSession()
+}
+
+class UserSession {
+    + getUserEmail()
+}
+
+class SystemAdministrator {
+    - name: String
+    - email: String
+    - position: String
+    - phone: String
+}
+
+class Employee {
+    - name: String
+    - email: String
+    - position: String
+    - phone: String
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String website
+    - String phone
+    - String email
+
+    + registerEmployee(employee: Employee, admin: SystemAdministrator)
+}
+
+class OrganizationRepository {
+    + getOrganizationByAdminEmail(email: String)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getOrganizationRepository()
+}
+
+class RegisterEmployeeController {
+    + RegisterEmployeeController(organizationRepository: OrganizationRepository)
+    + registerEmployee(name: String, email: String, position: String, phone: String)
+    - getOrganizationByAdminEmail(email: String)
+}
+
+Repositories -> Repositories : instance
+ApplicationSession -> ApplicationSession : instance
+
+RegisterEmployeeController .> Repositories : repositories
+
+Repositories --> "1" OrganizationRepository
+
+RegisterEmployeeController ..> OrganizationRepository : organizationRepository
+
+Repositories --> "1" OrganizationRepository
+
+OrganizationRepository --> "*" Organization
+ApplicationSession --> "1" UserSession : userSession
+
+RegisterEmployeeController ..> "1" Organization : organization
+RegisterEmployeeController ..> ApplicationSession
+RegisterEmployeeController ..> UserSession
+Organization "1" --> "*" Employee : employs
+Employee --|> SystemAdministrator
+
+@enduml
