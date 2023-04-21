@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD) - US002 - Publish a Sale
 
 autonumber
 
@@ -12,27 +12,79 @@ participant ":System" as System
 
 activate Agent
 
-    Agent -> System : asks to create a new sale for publish
+    Agent -> System : asks to create a new sale for publish from existing order
     activate System
 
-        System --> Agent : shows property type list and asks to select one
+    System --> Agent : requests commission (fixed amount or percentage)
+    deactivate System
+
+    Agent -> System : types commission
+    activate System
+
+    System --> Agent : validates and returns commission
+    deactivate System
+
+    Agent -> System : confirms commission
+    activate System
+
+    System --> Agent : shows property type list (House, Apartment, Land) and asks to select one
     deactivate System
 
     Agent -> System : selects a property type
     activate System
 
-        System --> Agent : requests data
-    deactivate System
+    alt House
 
-    Agent -> System : types requested data (number of Bathrooms, location, \price, distance from City Centre)
+        System --> Agent : requests data for House property type
+        deactivate System
+
+        Agent -> System : types requested data for House property type (address, area, number of bedrooms, \nnumber of bathrooms, garage, pool, price)
+        activate System
+
+        System --> Agent : validates and returns requested data
+        deactivate System
+
+        Agent -> System : confirms order to publish
+        activate System
+
+        System --> Agent : publishes order and shows operation success
+        deactivate System
+    else  Apartment
+        Agent -> System : types requested data for selected property type
+        activate System
+
+            System --> Agent : validates and returns requested data
+        deactivate System
+
+        Agent -> System : confirms order to publish
+        activate System
+
+        System --> Agent : publishes order and shows operation success
+        deactivate System
+    else  Land
+        Agent -> System : types requested data for selected property type
+        activate System
+
+            System --> Agent : validates and returns requested data
+        deactivate System
+
+        Agent -> System : confirms order to publish
+        activate System
+
+        System --> Agent : publishes order and shows operation success
+        deactivate System
+    end
+
+    Agent -> System : types requested data for selected property type
     activate System
 
-        System --> Agent : shows property type and requested data
+        System --> Agent : validates and returns requested data
     deactivate System
 
-    Agent -> System : publishes order
+    Agent -> System : confirms order to publish
     activate System
 
-        System --> Agent : Shows operation success
+    System --> Agent : publishes order and shows operation success
     deactivate System
+
 @enduml

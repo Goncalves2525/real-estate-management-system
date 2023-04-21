@@ -3,6 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam classAttributeIconSize 0
+'skinparam linetype ortho
 hide circle
 hide methods
 
@@ -10,15 +11,13 @@ title Domain Model
 
 class Client{
     name
-    citizenCardNumber
+    passportCardNumber
     taxNumber
-    address
     email
     telephoneNumber
 }
 
-class PropertyOwner extends Client {
-    properties
+class Owner {
 }
 
 class Employee{
@@ -30,7 +29,7 @@ class Employee{
     telephoneNumber
 }
 
-class Agent extends Employee{
+class Agent{
     agency
 }
 
@@ -50,47 +49,99 @@ class Agent extends Employee{
 '    sunExposureValue
 '}
 
-class Property{
+class Property extends Address{
     typeOfBusiness
     typeOfProperty
     area
-    location
     distanceFromCenter
     price
-    photos
 }
 
-class Apartment extends Property{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
+class Photos {
 }
 
-class House extends Property{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
+class Address{
+    street
+    doorNumber
+    zipCode
+}
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
     basement
     inhabitableLoft
     sunExposure
 }
 
-class PublishedProperty extends Property{
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+
+}
+
+class PublishedProperty{
     publishedDate
     publishedBy
     commission
 }
 
-class Land extends Property{
-    typeOfLand
+class Commission{
+    percentage
+    value
 }
 
-Agent "1" -- "1" PropertyOwner : contacted by
+class Land extends Property{
+}
+
+class Equipment{
+    equipmentName
+}
+
+class Role{
+}
+
+class SystemAdministrator{
+}
+
+class StoreManager{
+}
+
+class StoreNetworkManager{
+}
+
+
+Agent "1" -- "1" Employee: is a <
+Employee "1" -- "1" Role: has a role of >
+SystemAdministrator "1" -- "1" Role: has a role of >
+StoreNetworkManager "1" -- "1" Role: has a role of >
+SystemAdministrator "1" -- "1" Role: has a role of >
+SystemAdministrator "1" -- "1" Employee: is a >
+Agent "1" -- "1" Owner : contacted by
 Agent "*" - "*" Property: publishes
 Agent "1" - "*" Property: sets commission
-PropertyOwner "1" - "*" Property: owns
+Owner "1" - "*" Property: owns <
+Address "1" -- "1" City : is a part of <
+City "1" -- "1" District : is a part of <
+District "1" -- "1" State : is a part of <
+Client "1" -- "*" Address: has >
+Property "1" -- "*" Photos: has >
+PublishedProperty "1" -- "1" Commission: is set for <
+House "1" -- "*" Equipment: has >
+Apartment "1" -- "*" Equipment: has >
+PublishedProperty "1" -- "1" Property: is a part of <
+
 'Property <|-- House
 'Property <|-- Apartment
 'Property <|-- Land

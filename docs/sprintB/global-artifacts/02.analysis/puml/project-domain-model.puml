@@ -1,0 +1,157 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+'skinparam linetype ortho
+hide circle
+hide methods
+
+title Domain Model
+
+class Client{
+}
+
+class Owner {
+}
+
+class Employee{
+}
+
+class Agent{
+}
+
+class Person{
+    name
+    passportCardNumber
+    taxNumber
+    email
+    telephoneNumber
+}
+
+class Agency{
+    ID
+    name
+    emailAddress
+    phoneNumber
+}
+
+class Property{
+    typeOfBusiness
+    typeOfProperty
+    area
+    distanceFromCenter
+    price
+}
+
+class Photos {
+}
+
+class Address{
+    street
+    doorNumber
+    zipCode
+}
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
+    basement
+    inhabitableLoft
+}
+
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+
+}
+
+class PublishedProperty{
+    publishedDate
+    publishedBy
+    commission
+}
+
+class Commission{
+    percentage
+    value
+}
+
+class Land extends Property{
+}
+
+class Equipment{
+    equipmentName
+}
+
+class Role{
+}
+
+class SystemAdministrator{
+}
+
+class StoreManager{
+}
+
+class StoreNetworkManager{
+}
+
+class SunExposure{
+}
+
+class TransactionType{
+}
+
+class UnregisteredUser{
+}
+
+
+StoreNetworkManager "1" -- "1" StoreManager: manages a >
+Agency "1" -- "1" Agent: has an >
+SystemAdministrator "1" -- "*" Employee: creates >
+StoreNetworkManager "1" -- "1" Employee: is a >
+StoreManager "1" -- "1" Employee: is an >
+Client "1" -- "1" Person: is a >
+Employee "1" -- "1" Person: is an >
+Agent "1" -- "1" Employee: is an >
+Employee "1" -- "1" Role: has a role of >
+SystemAdministrator "1" -- "1" Role: has a >
+StoreNetworkManager "1" -- "1" Role: has a >
+SystemAdministrator "1" -- "1" Employee: is a >
+Agent "1" -- "1" Owner : contacted by >
+Agent "*" - "*" Property: publishes >
+Agent "1" - "*" Property: sets commission >
+Owner "1" - "*" Property: owns >
+Address "1" -- "1" City : is a part of a <
+City "1" -- "1" District : is a part of a <
+District "1" -- "1" State : is a part of a <
+Client "1" -- "*" Address: has an >
+Property "1" -- "*" Photos: has >
+PublishedProperty "1" -- "1" Commission: is set for <
+'House "1" -- "*" Equipment: has >
+'Apartment "1" -- "*" Equipment: has >
+Residency "1" -- "*" Equipment: has >
+PublishedProperty "1" -- "1" Property: is a part of a <
+Person "1" -- "*" Address: has >
+Property "1" - "1" Address: has an >
+PublishedProperty "1" -- "1" Commission : has a >
+StoreManager "1" -- "1" Agency: manages an >
+House "1" -- "1" SunExposure: has a value >
+PublishedProperty "1" -- "1" TransactionType: has a value >
+Owner "1" -- "1" Person: is a >
+Agency "1" -- "1" Address: has an >
+UnregisteredUser "1" -- "*" PublishedProperty: views >
+
+
+@enduml
