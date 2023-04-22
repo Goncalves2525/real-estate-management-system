@@ -1,0 +1,84 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Sequence Diagram (SD) - US003: Register New Employee
+
+actor "System Administrator" as Admin
+participant ":RegisterNewEmployeeUI" as UI
+participant ":RegisterNewEmployeeController" as CTRL
+participant ":EmployeeRepository" as EmployeeRepo
+participant ":RoleRepository" as RoleRepo
+participant ":Person" as Person
+participant ":Address" as Address
+participant ":AgencyRepository" as AgencyRepo
+participant ":EmailService" as Email
+
+autonumber
+
+activate Admin
+Admin -> UI : initiateRegistration()
+activate UI
+
+UI -> CTRL : registerNewEmployee()
+activate CTRL
+
+CTRL -> RoleRepo : getRoleOptions()
+activate RoleRepo
+RoleRepo --> CTRL : roleOptions
+deactivate RoleRepo
+
+CTRL -> UI : displayRoleOptions(roleOptions)
+UI --> Admin : selectRole()
+Admin -> UI : provideRole(role)
+
+UI -> CTRL : setRole(role)
+activate CTRL
+
+CTRL -> UI : requestPersonalInformation()
+deactivate CTRL
+UI --> Admin : enterPersonalInformation()
+Admin -> UI : providePersonalInformation(name, passportCardNumber, taxNumber, email, telephoneNumber)
+
+UI -> CTRL : setPersonalInformation(name, passportCardNumber, taxNumber, email, telephoneNumber)
+activate CTRL
+
+CTRL -> Address : createAddress(street, doorNumber, zipCode)
+activate Address
+Address --> CTRL : address
+deactivate Address
+
+CTRL -> AgencyRepo : listAgencies()
+activate AgencyRepo
+AgencyRepo --> CTRL : agencyList
+deactivate AgencyRepo
+
+CTRL -> UI : displayAgencyList(agencyList)
+UI --> Admin : selectAgency()
+Admin -> UI : provideAgency(agency)
+
+UI -> CTRL : setAgency(agency)
+activate CTRL
+
+CTRL -> Person : createPerson(name, passportCardNumber, taxNumber, email, telephoneNumber)
+activate Person
+Person --> CTRL : person
+deactivate Person
+
+CTRL -> EmployeeRepo : createEmployee(person, role, address, agency)
+activate EmployeeRepo
+EmployeeRepo --> CTRL : newEmployee
+deactivate EmployeeRepo
+
+CTRL -> Email : sendPassword(newEmployee.email)
+activate Email
+Email --> CTRL : successMessage
+deactivate Email
+
+CTRL -> UI : displaySuccessMessage(successMessage)
+deactivate CTRL
+UI --> Admin : successMessage
+deactivate UI
+
+@enduml

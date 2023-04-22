@@ -21,7 +21,7 @@ activate Admin
     Admin -> System : provide the role of the new employee
         activate System
 
-            System --> Admin : requests the name, the citizen's card number, the tax number, the address, \nthe email address, the contact telephone number
+            System --> Admin : requests the name, the passport card number, the tax number, the address, \nthe email address, the contact telephone number
 
         deactivate System
 

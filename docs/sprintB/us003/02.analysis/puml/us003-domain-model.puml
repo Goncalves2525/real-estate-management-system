@@ -1,8 +1,10 @@
 @startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
-skinparam shadowing true
-skinparam linetype ortho
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
 
 'left to right direction
 
@@ -13,24 +15,45 @@ hide methods
 
 title Domain Model
 
-
-class SystemAdministrator {
-   userName
-   password
-}
-
-class Employee{
+class Person {
     name
-    citizenCardNumber
+    passportCardNumber
     taxNumber
-    address
     email
-    contactTelephone
-    agency
+    telephoneNumber
 }
 
+class Employee extends Person {
+}
 
-SystemAdministrator "1" --- "*" Employee : registers >
+class SystemAdministrator extends Employee {
+}
 
+class Role {
+}
+
+class Address {
+    street
+    doorNumber
+    zipCode
+}
+
+class City {
+}
+
+class District {
+}
+
+class State {
+}
+
+SystemAdministrator "1" -- "*" Employee: creates >
+Employee "1" -- "1" Person: is an >
+Employee "1" -- "1" Role: has a role of >
+SystemAdministrator "1" -- "1" Role: has a >
+Person "1" -- "*" Address: has >
+Address "1" -- "1" City : is a part of a <
+City "1" -- "1" District : is a part of a <
+District "1" -- "1" State : is a part of a <
 
 @enduml
