@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD)
 
 autonumber
 
@@ -12,51 +12,54 @@ participant ":System" as System
 
 activate User
 
-    User -> System : Asks to list properties
+    User -> System : requests to list properties
     activate System
 
-    System --> User : Shows filter and sort options
+    System --> User : shows property filter and sort options and requests user to choose
     deactivate System
 
     alt Filter and Sort
-        User -> System : selects filters and asks to list properties (type of business, type of property, number of rooms)
+        User -> System : selects filter option (type of business, type of property, number of rooms)
         activate System
 
-        System --> User : shows filtered properties
+        User -> System : selects criteria to sort (price, state)
+        System --> User : shows filter and sort options selected by user and requests confirmation
         deactivate System
 
-        User -> System : selects criteria to sort options and asks to list properties (price, state)
-        activate System
-
-        System --> User : shows the previously filtered properties sorted by the selected criteria
-        deactivate System
-    end
-    alt Filter or Sort
+    else Filter or Sort
 
         alt Filter
-            User -> System : selects filters and asks to list properties (type of business, type of property, number of rooms)
+            User -> System : selects filter and requests to list properties (type of business, type of property, number of rooms)
             activate System
 
-            System --> User : shows filtered properties ordered by default criteria (most recently added)
+            System --> User : shows filter option selected by user, default sort criteria (most recently added) and requests confirmation
+            deactivate System
+
+        else Sort
+            User -> System : selects criteria to sort options and requests to list properties (price, state)
+            activate System
+
+            System --> User : shows that all properties will be listed with sort criteria selected by user and requests confirmation
             deactivate System
         end
 
-        alt Sort
-            User -> System : selects criteria to sort options and ask to list properties (price, state)
-            activate System
 
-            System --> User : shows all properties sorted by the selected criteria
-            deactivate System
-        end
-
-    end
-
-    alt Neither Filter nor Sort
-        User -> System : asks to list properties (without filters and sort)
+    else Neither Filter nor Sort
+        User -> System :requests to list properties (without filters and sort)
         activate System
 
-        System --> User : shows all properties sorted by default criteria (most recently added)
+        System --> User : shows that all properties will be listed with default sort criteria (most recently added) and requests confirmation
         deactivate System
+
     end
+
+    User -> System : Confirms information
+    activate System
+
+    System --> User : Shows the respective list of properties
+    deactivate System
+
+
+
 
 @enduml

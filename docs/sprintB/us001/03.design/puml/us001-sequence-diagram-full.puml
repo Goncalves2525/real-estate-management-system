@@ -17,45 +17,65 @@ activate uUser
 
 
 
-        activate UI
+
 
 '            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
             'create CTRL
-            UI --> uUser : shows property filter and sort options
-            uUser --> UI : selects filter options (propertyType, buisnessType, numberOfRooms)
-            uUser --> UI : selects sort options (price, parish)
             uUser -> UI : asks to list properties
-            UI -> CTRL** : create
+            activate UI
 
-            UI -> CTRL : getPublishedProperties()
-            activate CTRL
+            UI --> uUser : shows property filter and sort options
+            deactivate UI
+
+
+            alt Filter and Sort
+                uUser -> UI : selects filters and asks to list properties (type of business, type of property, number of rooms)
+                activate UI
+
+                UI -> CTRL** : create
+
+                UI -> CTRL : getPublishedPropertiesByFilter(propertyType, buisnessType, numberOfRooms)
+                activate CTRL
 
                 CTRL -> REPOS : getInstance()
                 activate REPOS
 
-                    REPOS --> CTRL: repositories
+                REPOS --> CTRL: repositories
                 deactivate REPOS
 
                 CTRL -> repos : getPublishedPropertiesRepository()
                 activate repos
 
-                    repos --> CTRL: publishedPropertiesRepository
+                repos --> CTRL: publishedPropertiesRepository
                 deactivate repos
 
-                CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertType, buisnessType,\n numberOfRooms, price, parish)
+                CTRL -> PublishedPropertiesRepository : getPublishedPropertiesByFilter(propertType, buisnessType)
                 activate PublishedPropertiesRepository
 
-                    PublishedPropertiesRepository --> PublishedPropertiesRepository : filterProperties(propertyType, buisnessType, numberOfRooms)
-                    PublishedPropertiesRepository --> PublishedPropertiesRepository : sortProperties(price, parish)
-                    PublishedPropertiesRepository --> CTRL : publishedPropertiesList
-
+                PublishedPropertiesRepository --> CTRL : filteredPublishedPropertiesList
                 deactivate PublishedPropertiesRepository
 
-                CTRL --> UI : publishedPropertiesList
-            deactivate CTRL
+                CTRL --> UI : filteredPublishedPropertiesList
+                deactivate CTRL
 
-            UI --> uUser : shows a list of properties filtered and sorted by users options
-        deactivate UI
+                UI --> uUser : shows filtered properties
+                deactivate UI
+
+                uUser -> UI : selects criteria to sort and asks to list properties (price, state)
+                activate UI
+
+                UI -> CTRL : getPublishedPropertiesBySort(price, state)
+                activate CTRL
+
+                repos --> CTRL : publishedPropertiesRepository
+                deactivate repos
+
+                CTRL -> PublishedPropertiesRepository : getPublishedPropertiesRepositoryBySort(price, state)
+                activate PublishedPropertiesRepository
+
+                PublishedPropertiesRepository --> CTRL : filteredAndSortedPublishedPropertiesList
+                deactivate PublishedPropertiesRepository
+            end
 
 deactivate uUser
 

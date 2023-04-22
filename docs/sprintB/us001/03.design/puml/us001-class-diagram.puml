@@ -47,6 +47,10 @@ class ListPropertiesController {
 }
 
 class ListPropertiesUI {
+-ListPropertiesController listPropertiesController
++requestFilterOption()
++requestSortCriteria()
++getController()
 }
 
 Repositories -> Repositories : instances
@@ -60,6 +64,8 @@ Repositories "1" --> "1" PublishedPropertiesRepository : has
 ListPropertiesController ..> PublishedPropertiesRepository
 
 PublishedPropertiesRepository "1" --> "*" PublishedProperty : has
+
+PublishedProperty "1" --> "1" Property : has
 
 
 @enduml
