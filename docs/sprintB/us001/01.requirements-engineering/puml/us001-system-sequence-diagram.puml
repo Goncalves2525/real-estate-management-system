@@ -45,7 +45,7 @@ activate User
 
 
     else Neither Filter nor Sort
-        User -> System :requests to list properties (without filters and sort)
+        User -> System : requests to list properties (without selecting filter and sort criteria)
         activate System
 
         System --> User : shows that all properties will be listed with default sort criteria (most recently added) and requests confirmation
@@ -53,10 +53,10 @@ activate User
 
     end
 
-    User -> System : Confirms information
+    User -> System : confirms selection
     activate System
 
-    System --> User : Shows the respective list of properties
+    System --> User : displays the respective list of properties
     deactivate System
 
 
