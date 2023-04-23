@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 004 - Owner submit sale or rent
 
 ## 3. Design - User Story Realization 
 
@@ -8,8 +8,8 @@
 
 | Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                 |
 |:-------------  |:--------------------- |:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		 |	... interacting with the actor? | CreateTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		 |	... coordinating the US? | CreateTaskController | Controller                                                                                                    |
+| Step 1  		 |	... interacting with the actor? | CreateRequestUI      | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| 			  		 |	... coordinating the US? | CreateRequesController | Controller                                                                                                    |
 | 			  		 |	... instantiating a new Task? | Organization         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
 | 			  		 | ... knowing the user using the system?  | UserSession          | IE: cf. A&A component documentation.                                                                          |
 | 			  		 |							 | Organization         | IE: knows/has its own Employees                                                                               |
@@ -29,12 +29,12 @@
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
  * Organization
- * Task
+ * Request
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * CreateTaskUI  
- * CreateTaskController
+ * CreateRequestUI  
+ * CreateRequestController
 
 
 ## 3.2. Sequence Diagram (SD)

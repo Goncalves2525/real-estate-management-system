@@ -8,80 +8,105 @@ hide methods
 
 title Domain Model
 
-class Owner {
+class Owner extends Person {
+}
+
+
+class Agent {
+}
+
+class Person{
     name
-    citizenCardNumber
+    passportCardNumber
     taxNumber
-    address
     email
     telephoneNumber
 }
 
 class Agency{
-    designation
-    location
-    emailAddress
-    telephoneNumber
-    }
-
-class Agent {
+    ID
     name
-    citizenCardNumber
-    taxNumber
-    address
-    email
-    telephoneNumber
+    emailAddress
+    phoneNumber
 }
 
-class Resident{
-    typeOfBusiness
-    typeOfProperty
-     area
-     location
-     distanceFromCenter
-      price
+class Property{
+    area
+    distanceFromCenter
+    price
 }
-class House{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
+
+class Photos {
+}
+
+class Rent {
+    contractDuration
+}
+
+class Address{
+    street
+    doorNumber
+    zipCode
+}
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
     basement
     inhabitableLoft
-    sunExposure
 }
 
-class Apartment{
+class Residency extends Property{
     numberOfBedrooms
     numberOfBathrooms
     numberOfParkingSpaces
-    availableEquipment
-}
-
-class House{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
-    availableEquipment
-    basement
-    inhabitableLoft
-    sunExposure
-}
-
-class Land{
 
 }
-class RentalAgreement{
-    rentalDuration
+
+class Land extends Property{
 }
-Owner "1" - "1" Agency : Select >
-Owner "1" - "0..*" Property: submit >
-Owner "1" -- "1" Agent:assign >
-Agent "1" - "0..*" Property
-Property "1"-"1" RentalAgreement
-Property "1"-"1" Resident
-Owner "1" -"1" RentalAgreement:define >
-Property <|-- House
-Property <|-- Apartment
-Property <|-- Land
+
+class Equipment{
+    equipmentName
+}
+
+class SunExposure{
+}
+
+class Request{
+TransactionType
+}
+
+Agency "1" -- "*" Agent: has >
+Agent "1" -- "1" Owner : contacted by >
+Agent "*" - "*" Property: publishes >
+Agent "1" - "*" Property: sets commission >
+Owner "1" - "*" Property: owns >
+Owner "1" - "1" Request: create >
+Request "1" -- "1" Property: has an >
+Request "1" -- "1" Agent: is sent to >
+Request "1" - "1" Rent: has >
+Address "1" -- "1" State : is part of <
+City "*" -- "1" District : are part of >
+District "*" -- "1" State : are part of >
+Property "1" -- "*" Photos: has >
+'House "1" -- "*" Equipment: has >
+'Apartment "1" -- "*" Equipment: has >
+Residency "1" -- "*" Equipment: has >
+Person "1" -- "*" Address: has >
+Property "1" - "1" Address: has an >
+House "1" -- "1" SunExposure: has a value of >
+Agency "1" -- "1" Address: has an >
+
+
 @enduml
