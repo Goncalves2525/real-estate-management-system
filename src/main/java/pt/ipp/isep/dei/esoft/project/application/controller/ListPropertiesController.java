@@ -1,39 +1,33 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
-import pt.isep.lei.esoft.auth.domain.model.Email;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
-import java.util.List;
 import java.util.Optional;
 
-public class CreateTaskController {
+public class ListPropertiesController {
 
-    private OrganizationRepository organizationRepository = null;
-    private TaskCategoryRepository taskCategoryRepository = null;
-
+//    private OrganizationRepository organizationRepository = null;
+//    private TaskCategoryRepository taskCategoryRepository = null;
+    private PublishedPropertyRepository publishedPropertyRepository = null;
     private AuthenticationRepository authenticationRepository = null;
 
 
     //Repository instances are obtained from the Repositories class
-    public CreateTaskController() {
-        //getOrganizationRepository();
-        //getTaskCategoryRepository();
+    public ListPropertiesController() {
+//        getOrganizationRepository();
+//        getTaskCategoryRepository();
+        getPropertyRepository();
         getAuthenticationRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public CreateTaskController(OrganizationRepository organizationRepository,
-                                TaskCategoryRepository taskCategoryRepository,
-                                AuthenticationRepository authenticationRepository) {
-        this.organizationRepository = organizationRepository;
-        this.taskCategoryRepository = taskCategoryRepository;
+    public ListPropertiesController(OrganizationRepository organizationRepository,
+                                    TaskCategoryRepository taskCategoryRepository,
+                                    AuthenticationRepository authenticationRepository) {
+//        this.organizationRepository = organizationRepository;
+//        this.taskCategoryRepository = taskCategoryRepository;
+        this.publishedPropertyRepository = publishedPropertyRepository;
         this.authenticationRepository = this.authenticationRepository;
     }
 
@@ -46,8 +40,8 @@ public class CreateTaskController {
 //        }
 //        return taskCategoryRepository;
 //    }
-
-
+//
+//
 //    private OrganizationRepository getOrganizationRepository() {
 //        if (organizationRepository == null) {
 //            Repositories repositories = Repositories.getInstance();
@@ -56,6 +50,14 @@ public class CreateTaskController {
 //        return organizationRepository;
 //
 //    }
+    private PublishedPropertyRepository getPropertyRepository() {
+        if (publishedPropertyRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            publishedPropertyRepository = repositories.getPropertyRepository();
+        }
+        return publishedPropertyRepository;
+
+    }
 
     private AuthenticationRepository getAuthenticationRepository() {
         if (authenticationRepository == null) {
@@ -86,8 +88,12 @@ public class CreateTaskController {
 //        }
 //        return newTask;
 //    }
-    private Employee getEmployeeFromSession() {Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();return new Employee(email.getEmail());}
 
+//    private Employee getEmployeeFromSession() {
+//        Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
+//        return new Employee(email.getEmail());
+//    }
+//
 //    private TaskCategory getTaskCategoryByDescription(String taskCategoryDescription) {
 //        TaskCategoryRepository taskCategoryRepository = getTaskCategoryRepository();
 //
@@ -104,4 +110,10 @@ public class CreateTaskController {
 //        TaskCategoryRepository taskCategoryRepository = getTaskCategoryRepository();
 //        return taskCategoryRepository.getTaskCategories();
 //    }
+
+    //returns the list of properties
+    public Optional<Property> getProperties() {
+        PublishedPropertyRepository publishedPropertyRepository = getPropertyRepository();
+        return publishedPropertyRepository.getProperties("");
+    }
 }

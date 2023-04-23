@@ -41,44 +41,22 @@ activate Agent
         Agent -> System : types requested data for House property type (address, area, number of bedrooms, \nnumber of bathrooms, garage, pool, price)
         activate System
 
-        System --> Agent : validates and returns requested data
-        deactivate System
-
-        Agent -> System : confirms order to publish
-        activate System
-
-        System --> Agent : publishes order and shows operation success
-        deactivate System
     else  Apartment
-        Agent -> System : types requested data for selected property type
-        activate System
 
-            System --> Agent : validates and returns requested data
+        System --> Agent : requests data for Apartment property type
         deactivate System
 
-        Agent -> System : confirms order to publish
+        Agent -> System : types requested data for Apartment property type (address, area, number of bedrooms, \nnumber of bathrooms, garage, pool, price)
         activate System
-
-        System --> Agent : publishes order and shows operation success
-        deactivate System
     else  Land
-        Agent -> System : types requested data for selected property type
-        activate System
 
-            System --> Agent : validates and returns requested data
+        System --> Agent : requests data for Land property type
         deactivate System
 
-        Agent -> System : confirms order to publish
+        Agent -> System : types requested data for Land property type (address, area, price)
         activate System
-
-        System --> Agent : publishes order and shows operation success
-        deactivate System
     end
-
-    Agent -> System : types requested data for selected property type
-    activate System
-
-        System --> Agent : validates and returns requested data
+    System --> Agent : validates and returns requested data
     deactivate System
 
     Agent -> System : confirms order to publish

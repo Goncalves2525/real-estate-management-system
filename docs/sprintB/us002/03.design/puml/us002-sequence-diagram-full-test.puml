@@ -1,0 +1,122 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as AGENT
+participant ":PublishSaleAnnouncementUI" as UI
+participant ":PublishSaleAnnouncementController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "saleAnnouncementRepository:\nSaleAnnouncementRepository" as SaleAnnouncementRepository
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
+participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant "organization\n:Organization" as ORG
+participant "saleAnnouncement\n:SaleAnnouncement" as SALE
+
+activate AGENT
+
+        AGENT -> UI : asks to publish a sale announcement
+
+        activate UI
+
+            UI -> CTRL** : create
+
+            UI -> CTRL : getSaleAnnouncementCategories()
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getSaleAnnouncementRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: saleAnnouncementRepository
+                deactivate PLAT
+
+                CTRL -> SaleAnnouncementRepository : getSaleAnnouncementCategories()
+                activate SaleAnnouncementRepository
+
+                    SaleAnnouncementRepository --> CTRL : saleAnnouncementCategoryList
+                deactivate SaleAnnouncementRepository
+
+                CTRL --> UI : saleAnnouncementCategoryList
+            deactivate CTRL
+
+            UI --> AGENT : shows sale announcement category list\n and asks to select one
+        deactivate UI
+
+    AGENT -> UI : selects a sale announcement category
+    activate UI
+
+        UI --> AGENT : requests data
+    deactivate UI
+
+    AGENT -> UI : types requested data (title, description, price, location, etc.)
+    activate UI
+
+        UI --> AGENT : shows selected category and requested data
+    deactivate UI
+
+    AGENT -> UI : submits data
+    activate UI
+
+        UI -> CTRL : publishSaleAnnouncement(title, description, price, location, saleAnnouncementCategoryDescription)
+        activate CTRL
+
+            CTRL -> CTRL : getSaleAnnouncementCategoryByDescription(saleAnnouncementCategoryDescription)
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getSaleAnnouncementCategoryRepository()
+                activate PLAT
+
+                    PLAT -> CTRL : saleAnnouncementCategoryRepository
+                deactivate PLAT
+
+                CTRL -> SaleAnnouncementCategoryRepository : getSaleAnnouncementCategoryByDescription(saleAnnouncementCategoryDescription)
+                activate SaleAnnouncementCategoryRepository
+
+                    SaleAnnouncementCategoryRepository --> CTRL : saleAnnouncementCategory
+                deactivate SaleAnnouncementCategoryRepository
+                    CTRL --> CTRL : saleAnnouncementCategory
+            deactivate CTRL
+
+            |||
+            CTRL -> CTRL : getAgentFromSession()
+            activate CTRL
+
+                CTRL -> _APP: getInstance()
+                activate _APP
+                    _APP -> CTRL: appSession
+                deactivate _APP
+
+
+                CTRL -> APP: getCurrentSession()
+                activate APP
+
+                    APP --> CTRL: currentSession
+                deactivate APP
+
+                CTRL -> SESSAO: email = getUserEmail()
+                activate SESSAO
+
+                    SESSAO --> CTRL: email
+                deactivate SESSAO
+
+
+                CTRL -> PLAT: getOrganizationRepository(email)
+                @enduml

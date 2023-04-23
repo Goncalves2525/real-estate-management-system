@@ -6,22 +6,22 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
+actor "Agent" as AGT
+participant ":PublishSaleUI" as UI
+participant ":PublishSaleController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 participant ":ApplicationSession" as _APP
 participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
+participant "currentSession\n:UserSession" as SESSION
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
 participant "task\n:Task" as TAREFA
 
-activate ADM
+activate AGT
 
-        ADM -> UI : asks to create a new task
+        AGT -> UI : asks to create a new sale from existing order
 
         activate UI
 
@@ -53,22 +53,22 @@ activate ADM
                 CTRL --> UI : taskCategoryList
             deactivate CTRL
 
-            UI --> ADM : shows task category list\n and asks to sleect one
+            UI --> AGT : shows task category list\n and asks to sleect one
         deactivate UI
 
-    ADM -> UI : selects a task category
+    AGT -> UI : selects a task category
     activate UI
 
-        UI --> ADM : requests data
+        UI --> AGT : requests data
     deactivate UI
 
-    ADM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
+    AGT -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
     activate UI
 
-        UI --> ADM : shows selected category and requested data
+        UI --> AGT : shows selected category and requested data
     deactivate UI
 
-    ADM -> UI : submits data
+    AGT -> UI : submits data
     activate UI
 
         UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
@@ -172,9 +172,9 @@ activate ADM
 
             CTRL --> UI: task
             deactivate CTRL
-            UI --> ADM: displays operation success
+            UI --> AGT: displays operation success
     deactivate UI
 
-deactivate ADM
+deactivate AGT
 
 @enduml

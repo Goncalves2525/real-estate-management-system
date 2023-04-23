@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 public class Agent extends User{
 
-
     public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
     }
@@ -15,5 +14,8 @@ public class Agent extends User{
         super(email);
     }
 
+    public boolean isAgentInAgency(Agency agency){
+        return agency.agents.contains(this);
+    }
 
 }

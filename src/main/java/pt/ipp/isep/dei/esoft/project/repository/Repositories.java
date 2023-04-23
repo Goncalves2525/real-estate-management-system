@@ -7,6 +7,8 @@ public class Repositories {
     OrganizationRepository organizationRepository = new OrganizationRepository();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
 
+    PublishedPropertyRepository publishedPropertyRepository = new PublishedPropertyRepository();
+
     private Repositories() {
     }
 
@@ -14,12 +16,16 @@ public class Repositories {
         return instance;
     }
 
-    public OrganizationRepository getOrganizationRepository() {
-        return organizationRepository;
-    }
+//    public OrganizationRepository getOrganizationRepository() {
+//        return organizationRepository;
+//    }
+//
+//    public TaskCategoryRepository getTaskCategoryRepository() {
+//        return taskCategoryRepository;
+//    }
 
-    public TaskCategoryRepository getTaskCategoryRepository() {
-        return taskCategoryRepository;
+    public PublishedPropertyRepository getPropertyRepository() {
+        return publishedPropertyRepository;
     }
 
     public AuthenticationRepository getAuthenticationRepository() {
