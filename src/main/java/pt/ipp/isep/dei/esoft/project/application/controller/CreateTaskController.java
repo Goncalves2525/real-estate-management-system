@@ -86,11 +86,7 @@ public class CreateTaskController {
         }
         return newTask;
     }
-
-    private Employee getEmployeeFromSession() {
-        Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-        return new Employee(email.getEmail());
-    }
+    private Employee getEmployeeFromSession() {Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();return new Employee(email.getEmail());}
 
     private TaskCategory getTaskCategoryByDescription(String taskCategoryDescription) {
         TaskCategoryRepository taskCategoryRepository = getTaskCategoryRepository();

@@ -1,16 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.domain.Address;
-import pt.ipp.isep.dei.esoft.project.domain.House;
-import pt.ipp.isep.dei.esoft.project.domain.Residency;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 public class MainTest {
     public static void main(String[] args) {
-        Address address = new Address("Suny Street", "Vila Verde", "Braga", 1240111);
-        House house = new House(100, 200, 100000, address, 2, 1, true, false);
+        Role adminRole = Role.ADMIN;
+        Employee employee = new Employee("João", "wfreb", 123, 123, 123, adminRole);
 
-        System.out.println(house.toString());
-        //não deveria dizer "false" nos equipamentos, por exemplo.
-
+        System.out.println(employee.toString());
     }
 }

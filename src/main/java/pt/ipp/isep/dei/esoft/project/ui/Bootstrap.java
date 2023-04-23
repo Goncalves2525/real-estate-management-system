@@ -23,8 +23,8 @@ public class Bootstrap implements Runnable {
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         Organization organization = new Organization("This Company");
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
+       organization.addEmployee(new Employee("admin@this.app"));
+       organization.addEmployee(new Employee("employee@this.app"));
         organizationRepository.add(organization);
     }
 
@@ -48,12 +48,18 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE,
                 AuthenticationController.ROLE_EMPLOYEE);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_CLIENT, AuthenticationController.ROLE_CLIENT);
 
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
 
         authenticationRepository.addUserWithRole("Employee", "employee@this.app", "pwd",
                 AuthenticationController.ROLE_EMPLOYEE);
+
+        authenticationRepository.addUserWithRole("Client", "client@this.app", "pwd",
+                AuthenticationController.ROLE_CLIENT);
+
+
     }
 
 
