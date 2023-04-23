@@ -14,6 +14,8 @@ public class Organization {
     private String phone;
     private String email;
 
+
+
     /**
      * This method is the constructor of the organization.
      *

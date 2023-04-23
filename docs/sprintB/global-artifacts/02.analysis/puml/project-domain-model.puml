@@ -9,16 +9,16 @@ hide methods
 
 title Domain Model
 
-class Client{
+class Client extends Person{
 }
 
-class Owner {
+class Owner extends Person {
 }
 
-class Employee{
+class Employee extends Person{
 }
 
-class Agent{
+class Agent extends Employee{
 }
 
 class Person{
@@ -37,8 +37,6 @@ class Agency{
 }
 
 class Property{
-    typeOfBusiness
-    typeOfProperty
     area
     distanceFromCenter
     price
@@ -78,6 +76,8 @@ class Residency extends Property{
 }
 
 class PublishedProperty{
+    typeOfProperty
+    typeOfBusiness
     publishedDate
     publishedBy
     commission
@@ -98,13 +98,13 @@ class Equipment{
 class Role{
 }
 
-class SystemAdministrator{
+class SystemAdministrator extends Employee{
 }
 
-class StoreManager{
+class StoreManager extends Employee{
 }
 
-class StoreNetworkManager{
+class StoreNetworkManager extends Employee{
 }
 
 class SunExposure{
@@ -120,22 +120,16 @@ class UnregisteredUser{
 StoreNetworkManager "1" -- "*" StoreManager: manages >
 Agency "1" -- "*" Agent: has >
 SystemAdministrator "1" -- "*" Employee: creates >
-StoreNetworkManager "1" -- "1" Employee: is a >
-StoreManager "1" -- "1" Employee: is an >
-Client "1" -- "1" Person: is a >
-Employee "1" -- "1" Person: is an >
-Agent "1" -- "1" Employee: is an >
-Employee "1" -- "1" Role: has a role of >
+Employee "1" -- "1" Role: has a >
 SystemAdministrator "1" -- "1" Role: has a >
 StoreNetworkManager "1" -- "1" Role: has a >
-SystemAdministrator "1" -- "1" Employee: is a >
 Agent "1" -- "1" Owner : contacted by >
 Agent "*" - "*" Property: publishes >
 Agent "1" - "*" Property: sets commission >
 Owner "1" - "*" Property: owns >
-Address "1" -- "1" City : is a part of a <
-City "1" -- "1" District : is a part of a <
-District "1" -- "1" State : is a part of a <
+Address "1" -- "1" State : is part of <
+City "*" -- "1" District : are part of >
+District "*" -- "1" State : are part of >
 Client "1" -- "*" Address: has an >
 Property "1" -- "*" Photos: has >
 PublishedProperty "1" -- "1" Commission: is set for <
@@ -147,9 +141,8 @@ Person "1" -- "*" Address: has >
 Property "1" - "1" Address: has an >
 PublishedProperty "1" -- "1" Commission : has a >
 StoreManager "1" -- "1" Agency: manages an >
-House "1" -- "1" SunExposure: has a value >
-PublishedProperty "1" -- "1" TransactionType: has a value >
-Owner "1" -- "1" Person: is a >
+House "1" -- "1" SunExposure: has a value of >
+PublishedProperty "1" -- "1" TransactionType: has a value of >
 Agency "1" -- "1" Address: has an >
 UnregisteredUser "1" -- "*" PublishedProperty: views >
 

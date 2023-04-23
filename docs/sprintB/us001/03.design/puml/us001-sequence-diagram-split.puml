@@ -15,51 +15,87 @@ participant "publishedPropertiesRepository:\nPublishedPropertiesRepository" as P
 
 activate uUser
 
+            uUser -> UI : requests to list properties
+            activate UI
+
+            UI --> uUser : shows property filter and sort options and requests user to choose
+
+            deactivate UI
 
 
-        activate UI
+            alt Filter and Sort
 
-'
-            UI --> uUser : shows property filter and sort options
-            uUser -> UI : selects filter options (propertyType, buisnessType, numberOfRooms)
-            uUser -> UI : selects sort options (price, parish)
-            uUser -> UI : asks to list properties
-            UI -> CTRL** : create
+                uUser -> UI : selects filter options (type of business, type of property, number of rooms)
+                activate UI
 
-            UI -> CTRL : getPublishedProperties()
-            activate CTRL
-
-                CTRL -> REPOS : getInstance()
-                activate REPOS
-
-                    REPOS --> CTRL: repositories
-                deactivate REPOS
-
-                CTRL -> repos : getPublished\nPropertiesRepository()
-                activate repos
-
-                    repos --> CTRL: published\nPropertiesRepository
-                deactivate repos
-
-                CTRL -> PublishedPropertiesRepository : getPublished\nProperties(propertType,\n buisnessType,\n numberOfRooms, price, parish)
-                activate PublishedPropertiesRepository
-                    ref over PublishedPropertiesRepository
-                        Get Published Properties
-
-                    end ref
-                    PublishedPropertiesRepository --> CTRL : publishedPropertiesList
+                uUser -> UI : selects criteria to sort (price, state) and chooses order (ascending or descending)
                 deactivate PublishedPropertiesRepository
 
 
+                UI --> uUser : shows filter and sort options selected by user and requests confirmation
+                deactivate UI
 
+            else Filter or Sort
 
+                alt Filter
+                    uUser -> UI : selects filter options (type of business, type of property, number of rooms)
+                    activate UI
 
-                CTRL --> UI : publishedPropertiesList
+                    UI --> uUser: shows filter option selected by user, default sort criteria (most recently added) and requests confirmation
+                    deactivate UI
+
+                else Sort
+                    uUser -> UI: selects criteria to sort (price, state) and chooses order (ascending or descending)
+                    activate UI
+
+                    UI --> uUser : shows that all properties will be listed with sort criteria selected by user and requests confirmation
+                    deactivate UI
+                end
+
+            else Neither Filter nor Sort
+                uUser -> UI : requests to list properties (without selecting filter and sort criteria)
+                activate UI
+
+                UI --> uUser : shows that all properties will be listed with default sort criteria (most recently added) and requests confirmation
+                deactivate UI
+
+            end
+
+            uUser -> UI : confirms selection
+            activate UI
+
+            UI -> CTRL** : create
+            UI -> CTRL : getPublishedProperties(propertyType, buisnessType, numberOfRooms, price, state)
+
+            activate CTRL
+
+            CTRL -> REPOS : getInstance()
+            activate REPOS
+
+            REPOS --> CTRL: repositories
+            deactivate REPOS
+
+            CTRL -> repos : getPublishedPropertiesRepository()
+            activate repos
+
+            repos --> CTRL: publishedPropertiesRepository
+            deactivate repos
+
+            CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertyType, buisnessType, numberOfRooms, price, state)
+            activate PublishedPropertiesRepository
+
+            PublishedPropertiesRepository -> PublishedPropertiesRepository : filterAndSortProperties(propertyType, businessType, numberOfRooms, price, state)
+
+            PublishedPropertiesRepository --> CTRL : requestedPublishedPropertiesList
+            deactivate PublishedPropertiesRepository
+
+            CTRL --> UI : requestedPublishedPropertiesList
             deactivate CTRL
 
-            UI --> uUser : shows a list of properties filtered and sorted by users options
-        deactivate UI
+            UI --> uUser : displays the respective list of properties
+            deactivate UI
 
-deactivate uUser
+
+
 
 @enduml

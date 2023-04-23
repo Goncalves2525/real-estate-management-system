@@ -18,7 +18,6 @@ activate uUser
             uUser -> UI : requests to list properties
             activate UI
 
-
             UI --> uUser : shows property filter and sort options and requests user to choose
 
             deactivate UI
@@ -26,10 +25,10 @@ activate uUser
 
             alt Filter and Sort
 
-                uUser -> UI : selects filter option (type of business, type of property, number of rooms)
+                uUser -> UI : selects filter options (type of business, type of property, number of rooms)
                 activate UI
 
-                uUser -> UI : selects criteria to sort (price, state)
+                uUser -> UI : selects criteria to sort (price, state) and chooses order (ascending or descending)
                 deactivate PublishedPropertiesRepository
 
 
@@ -39,14 +38,14 @@ activate uUser
             else Filter or Sort
 
                 alt Filter
-                    uUser -> UI : selects filter option (type of business, type of property, number of rooms)
+                    uUser -> UI : selects filter options (type of business, type of property, number of rooms)
                     activate UI
 
                     UI --> uUser: shows filter option selected by user, default sort criteria (most recently added) and requests confirmation
                     deactivate UI
 
                 else Sort
-                    uUser -> UI: selects criteria to sort options and requests to list properties (price, state)
+                    uUser -> UI: selects criteria to sort (price, state) and chooses order (ascending or descending)
                     activate UI
 
                     UI --> uUser : shows that all properties will be listed with sort criteria selected by user and requests confirmation
@@ -85,6 +84,8 @@ activate uUser
             CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertyType, buisnessType, numberOfRooms, price, state)
             activate PublishedPropertiesRepository
 
+            PublishedPropertiesRepository -> PublishedPropertiesRepository : filterAndSortProperties(propertyType, businessType, numberOfRooms, price, state)
+
             PublishedPropertiesRepository --> CTRL : requestedPublishedPropertiesList
             deactivate PublishedPropertiesRepository
 
@@ -93,6 +94,8 @@ activate uUser
 
             UI --> uUser : displays the respective list of properties
             deactivate UI
+
+
 
 
 @enduml

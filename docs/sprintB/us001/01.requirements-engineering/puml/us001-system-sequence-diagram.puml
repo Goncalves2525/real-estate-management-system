@@ -19,24 +19,24 @@ activate User
     deactivate System
 
     alt Filter and Sort
-        User -> System : selects filter option (type of business, type of property, number of rooms)
+        User -> System : selects filter options (type of business, type of property, number of rooms)
         activate System
 
-        User -> System : selects criteria to sort (price, state)
+        User -> System : selects criteria to sort (price, state) and chooses order (ascending or descending)
         System --> User : shows filter and sort options selected by user and requests confirmation
         deactivate System
 
     else Filter or Sort
 
         alt Filter
-            User -> System : selects filter and requests to list properties (type of business, type of property, number of rooms)
+            User -> System : selects filter options (type of business, type of property, number of rooms)
             activate System
 
-            System --> User : shows filter option selected by user, default sort criteria (most recently added) and requests confirmation
+            System --> User : shows filter options selected by user, default sort criteria (most recently added) and requests confirmation
             deactivate System
 
         else Sort
-            User -> System : selects criteria to sort options and requests to list properties (price, state)
+            User -> System : selects criteria to sort (price, state) and chooses order (ascending or descending)
             activate System
 
             System --> User : shows that all properties will be listed with sort criteria selected by user and requests confirmation

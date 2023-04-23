@@ -51,6 +51,7 @@ class ListPropertiesUI {
 +requestFilterOption()
 +requestSortCriteria()
 +getController()
+
 }
 
 Repositories -> Repositories : instances
