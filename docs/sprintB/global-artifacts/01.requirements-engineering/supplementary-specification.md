@@ -2,75 +2,84 @@
 
 ## Functionality
 
-_Specifies functionalities that:_
+The system should support authentication and authorization for different user roles (System Administrator, Store Manager, Store Network Manager, Agent, and Client).
 
-- _are common across several US/UC;_
-- _are not related to US/UC, namely: Audit, Reporting and Security._
+The system must provide reporting functionality for monitoring business performance and sales activities.
 
-
-(fill in here)
+The system must log user activities for auditing purposes.
 
 
 ## Usability 
 
-_Evaluates the user interface. It has several subcategories,
-among them: error prevention; interface aesthetics and design; help and
-documentation; consistency and standards._
+The user interface should follow a consistent design throughout the system.
 
+Error messages should be clear and informative, helping users to recover from errors.
 
-(fill in here )
+The system should provide tooltips and context-sensitive help to guide users.
+
+Navigation should be intuitive, allowing users to find and access features easily.
+
+The system should provide a search feature to help users find information quickly.
 
 ## Reliability
-_Refers to the integrity, compliance and interoperability of the software. The requirements to be considered are: frequency and severity of failure, possibility of recovery, possibility of prediction, accuracy, average time between failures._
+The system should be able to recover from failures without data loss.
 
+The system should have a low failure rate, aiming for a high Mean Time Between Failures (MTBF).
 
-(fill in here )
+The system should maintain data integrity and comply with relevant industry standards and regulations.
 
 ## Performance
-_Evaluates the performance requirements of the software, namely: response time, start-up time, recovery time, memory consumption, CPU usage, load capacity and application availability._
+The system should have a fast response time to user actions, aiming for sub-second response times.
 
+The system should start up quickly and be available for use within a reasonable time.
 
-(fill in here )
+The system should have a fast recovery time in case of failures.
+
+The system should optimize memory consumption and CPU usage.
+
+The system should be able to handle a large number of simultaneous users and transactions.
+
 
 ## Supportability
-_The supportability requirements gathers several characteristics, such as:
-testability, adaptability, maintainability, compatibility,
-configurability, installability, scalability and more._ 
+The system should be easy to test and maintain, with well-documented and modular code.
 
+The system should be adaptable to future changes in business requirements.
 
+The system should be compatible with common browsers and operating systems.
 
-(fill in here )
+The system should be easily configurable and installable on a variety of platforms.
+
+The system should be scalable to handle an increasing number of users and transactions.
 
 
 ## +
 
 ### Design Constraints
 
-_Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
-  
+The system will be developed using Java as programming language.
 
-(fill in here )
+The development process should follow agile methodologies, such as Scrum or Kanban.
 
+The system should adhere to industry-standard design patterns and best practices.
+
+The system should be designed to be extensible and adaptable to future changes in business requirements.
 
 ### Implementation Constraints
 
-_Specifies or constraints the code or construction of a system such
-such as: mandatory standards/patterns, implementation languages,
-database integrity, resource limits, operating system._
+The system must follow coding standards and guidelines for the chosen programming language.
 
+The system must maintain database integrity through proper use of transactions and constraints.
 
-(fill in here )
+The system should be optimized for resource usage, including memory and CPU.
 
 
 ### Interface Constraints
-_Specifies or constraints the features inherent to the interaction of the
-system being developed with other external systems._
-
-
-(fill in here )
+The system should provide an intuitive and user-friendly interface for interacting with external systems, minimizing the need for manual intervention.
 
 ### Physical Constraints
 
-_Specifies a limitation or physical requirement regarding the hardware used to house the system, as for example: material, shape, size or weight._
+The system should be designed to run on common server hardware with standard specifications, such as x86-based processors and sufficient memory and storage capacity
 
-(fill in here )
+The system should be able to run on both Windows and Linux-based operating systems, allowing for flexibility in choosing the hosting environment.
+
+
