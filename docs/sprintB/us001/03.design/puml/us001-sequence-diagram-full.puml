@@ -65,7 +65,7 @@ activate uUser
             activate UI
 
             UI -> CTRL** : create
-            UI -> CTRL : getPublishedProperties(propertyType, buisnessType, numberOfRooms, price, state)
+            UI -> CTRL : getPublishedProperties(propertyType, buisnessType, numberOfRooms, sortCriteria, order)
 
             activate CTRL
 
@@ -81,10 +81,10 @@ activate uUser
             repos --> CTRL: publishedPropertiesRepository
             deactivate repos
 
-            CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertyType, buisnessType, numberOfRooms, price, state)
+            CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertyType, buisnessType, numberOfRooms, sortCriteria, order)
             activate PublishedPropertiesRepository
 
-            PublishedPropertiesRepository -> PublishedPropertiesRepository : filterAndSortProperties(propertyType, businessType, numberOfRooms, price, state)
+            PublishedPropertiesRepository -> PublishedPropertiesRepository : getPropertiesByFilterAndSort(propertyType, businessType, numberOfRooms, sortCriteria, order)
 
             PublishedPropertiesRepository --> CTRL : requestedPublishedPropertiesList
             deactivate PublishedPropertiesRepository

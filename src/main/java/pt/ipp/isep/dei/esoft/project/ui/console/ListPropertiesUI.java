@@ -16,20 +16,24 @@ import java.util.Optional;
  */
 
 public class ListPropertiesUI implements Runnable {
+
+    private final ListPropertiesController controller = new ListPropertiesController();
+
+
     public ListPropertiesUI() {
     }
-    private final ListPropertiesController controller = new ListPropertiesController();
+
     private ListPropertiesController getController() {
         return controller;
     }
+
     public void run() {
-        Optional<Property> properties = getController().getProperties();
-       List<MenuItem> options = new ArrayList<MenuItem>();
-       //options.add(new MenuItem("Create Task", new CreateTaskUI()));
+        //Optional<Property> properties = getController().getPublishedProperties();
+        List<MenuItem> options = new ArrayList<MenuItem>();
+        //options.add(new MenuItem("Create Task", new CreateTaskUI()));
         options.add(new MenuItem("Option 1 ", new ShowTextUI("You have chosen Option A.")));
-//        options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
-//        options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
-//
+//      options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
+
         int option = 0;
         do {
             option = Utils.showAndSelectIndex(options, "\n\nList Menu:");
@@ -39,6 +43,8 @@ public class ListPropertiesUI implements Runnable {
             }
         } while (option != -1);
     }
+
+
 
 
 }

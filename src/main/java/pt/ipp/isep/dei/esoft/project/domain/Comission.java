@@ -1,26 +1,26 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class Commission {
+public class Comission {
     private float value;
     private int percentage;
 
     private final float DEFAULT_VALUE = 0;
     private final int DEFAULT_PERCENTAGE = 0;
 
-    public Commission(float value, int percentage){
+    public Comission(float value, int percentage){
         this.value = value;
         this.percentage = percentage;
     }
 
-    public Commission(float value){
+    public Comission(float value){
         this.value = value;
     }
 
-    public Commission(int percentage){
+    public Comission(int percentage){
         this.percentage = percentage;
     }
 
-    public Commission(){
+    public Comission(){
         this.value = DEFAULT_VALUE;
         this.percentage = DEFAULT_PERCENTAGE;
     }

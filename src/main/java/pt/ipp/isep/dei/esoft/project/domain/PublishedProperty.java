@@ -6,16 +6,20 @@ public class PublishedProperty {
     private Property property;
     private TypeOfProperty typeOfProperty;
     private Date publishDate;
-    private Commission commission;
+    private Comission comission;
+    private int id;
+    public static int idCounter = 0;
 
-    public PublishedProperty(Property property, TypeOfProperty typeOfProperty, Date publishDate, Commission commission) {
+    public PublishedProperty(Property property, TypeOfProperty typeOfProperty, Date publishDate, Comission comission) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.publishDate = publishDate;
-        this.commission = commission;
+        this.comission = comission;
+        idCounter++;
+        id = idCounter;
     }
 
-public Property getProperty() {
+    public Property getProperty() {
         return property;
     }
 
@@ -27,8 +31,8 @@ public Property getProperty() {
         return publishDate;
     }
 
-    public Commission getCommission() {
-        return commission;
+    public Comission getCommission() {
+        return comission;
     }
 
     public void setProperty(Property property) {
@@ -39,12 +43,28 @@ public Property getProperty() {
         this.typeOfProperty = typeOfProperty;
     }
 
+    public Comission getComission() {
+        return comission;
+    }
+
+    public void setComission(Comission comission) {
+        this.comission = comission;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static int getIdCounter() {
+        return idCounter;
+    }
+
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
 
-    public void setCommission(Commission commission) {
-        this.commission = commission;
+    public void setCommission(Comission comission) {
+        this.comission = comission;
     }
 
     public boolean hasProperty(Property property) {
@@ -59,9 +79,17 @@ public Property getProperty() {
         return this.publishDate.equals(publishDate);
     }
 
-    public boolean hasCommission(Commission commission) {
-        return this.commission.equals(commission);
+    public boolean hasCommission(Comission comission) {
+        return this.comission.equals(comission);
     }
 
-
+    @Override
+    public String toString() {
+        return "PublishedProperty{" +
+                "property=" + property +
+                ", typeOfProperty=" + typeOfProperty +
+                ", publishDate=" + publishDate +
+                ", commission=" + comission +
+                '}';
+    }
 }
