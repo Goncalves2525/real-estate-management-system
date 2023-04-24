@@ -1,0 +1,33 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber 1
+
+actor "System Administrator" as sysAdmin
+participant ":RegisterEmployeeUI" as UI
+participant ":RegisterEmployeeController" as CTRL
+participant ":AgencyRepository" as AgencyRepo
+
+sysAdmin -> UI : requests to register a new employee
+activate UI
+
+group Get Agency List
+    UI -> CTRL : getAgencies()
+    activate CTRL
+
+    CTRL -> AgencyRepo : getAllAgencies()
+    activate AgencyRepo
+
+    AgencyRepo --> CTRL : agencyList
+    deactivate AgencyRepo
+end
+
+CTRL --> UI : agencyList
+deactivate CTRL
+
+UI --> sysAdmin : shows the list of agencies
+deactivate UI
+
+@enduml

@@ -1,10 +1,7 @@
 @startuml
-'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
-
 skinparam classAttributeIconSize 0
 
 class ApplicationSession {
@@ -16,64 +13,77 @@ class UserSession {
     + getUserEmail()
 }
 
-class SystemAdministrator {
-    - name: String
-    - email: String
-    - position: String
-    - phone: String
+class RegisterNewEmployeeController {
+    + createEmployee(name, passportCardNumber, taxNumber, email, \ntelephoneNumber, doorNumber, zipCode, state, city, district, street)
 }
 
-class Employee {
-    - name: String
-    - email: String
-    - position: String
-    - phone: String
-}
-
-class Organization {
-    - String name
-    - String vatNumber
-    - String website
-    - String phone
-    - String email
-
-    + registerEmployee(employee: Employee, admin: SystemAdministrator)
-}
-
-class OrganizationRepository {
-    + getOrganizationByAdminEmail(email: String)
+class UserRepository {
+    + addEmployee(employee)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getOrganizationRepository()
+    + getUserRepository() : UserRepository
 }
 
-class RegisterEmployeeController {
-    + RegisterEmployeeController(organizationRepository: OrganizationRepository)
-    + registerEmployee(name: String, email: String, position: String, phone: String)
-    - getOrganizationByAdminEmail(email: String)
+ApplicationSession -down-> ApplicationSession : instance
+Repositories -down-> Repositories : instance
+
+class RegisterNewEmployeeUI {
 }
 
-Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
+RegisterNewEmployeeUI ..> RegisterNewEmployeeController
 
-RegisterEmployeeController .> Repositories : repositories
+RegisterNewEmployeeController ..> Repositories : repositories
 
-Repositories --> "1" OrganizationRepository
+Repositories --> "1" UserRepository
 
-RegisterEmployeeController ..> OrganizationRepository : organizationRepository
+UserRepository --> "*" Employee
 
-Repositories --> "1" OrganizationRepository
+class SystemAdministrator {
+}
 
-OrganizationRepository --> "*" Organization
-ApplicationSession --> "1" UserSession : userSession
+class User {
+    - name
+    - passportCardNumber
+    - taxNumber
+    - email
+    - telephoneNumber
+}
 
-RegisterEmployeeController ..> "1" Organization : organization
-RegisterEmployeeController ..> ApplicationSession
-RegisterEmployeeController ..> UserSession
-Organization "1" --> "*" Employee : employs
-Employee --|> SystemAdministrator
+class Employee extends User {
+}
+
+class Address {
+    - doorNumber
+    - zipCode
+}
+
+class Street {
+}
+
+class City {
+}
+
+class District {
+}
+
+class State {
+}
+
+class Role {
+    ADMIN
+    EMPLOYEE
+    CLIENT
+}
+
+SystemAdministrator "1" -- "1" Employee: registers >
+User "1" -- "*" Address: has >
+User "1" -- "1" Role: has a >
+Address "1" -- "1" State: part of >
+Street "1" -- "1" City: part of >
+City "1" -- "1" District: part of >
+District "1" -- "1" State: part of >
 
 @enduml

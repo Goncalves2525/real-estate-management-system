@@ -13,9 +13,12 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-title Domain Model
+title Domain Model for User Story 3 - Register a New Employee
 
-class Person {
+class SystemAdministrator {
+}
+
+class User {
     name
     passportCardNumber
     taxNumber
@@ -23,19 +26,15 @@ class Person {
     telephoneNumber
 }
 
-class Employee extends Person {
-}
-
-class SystemAdministrator extends Employee {
-}
-
-class Role {
+class Employee extends User {
 }
 
 class Address {
-    street
     doorNumber
     zipCode
+}
+
+class Street {
 }
 
 class City {
@@ -47,13 +46,18 @@ class District {
 class State {
 }
 
-SystemAdministrator "1" -- "*" Employee: creates >
-Employee "1" -- "1" Person: is an >
-Employee "1" -- "1" Role: has a role of >
-SystemAdministrator "1" -- "1" Role: has a >
-Person "1" -- "*" Address: has >
-Address "1" -- "1" City : is a part of a <
-City "1" -- "1" District : is a part of a <
-District "1" -- "1" State : is a part of a <
+class Role {
+    ADMIN
+    EMPLOYEE
+    CLIENT
+}
+
+SystemAdministrator "1" -- "1" Employee: registers >
+User "1" -- "*" Address: has >
+User "1" -- "1" Role: has a >
+Address "1" -- "1" State: part of >
+Street "1" -- "1" City: part of >
+City "1" -- "1" District: part of >
+District "1" -- "1" State: part of >
 
 @enduml

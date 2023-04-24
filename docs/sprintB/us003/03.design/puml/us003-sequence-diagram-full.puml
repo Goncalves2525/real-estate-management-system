@@ -1,84 +1,90 @@
 @startuml
-skinparam monochrome false
+skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title Sequence Diagram (SD) - US003: Register New Employee
-
-actor "System Administrator" as Admin
-participant ":RegisterNewEmployeeUI" as UI
-participant ":RegisterNewEmployeeController" as CTRL
-participant ":EmployeeRepository" as EmployeeRepo
-participant ":RoleRepository" as RoleRepo
-participant ":Person" as Person
-participant ":Address" as Address
-participant ":AgencyRepository" as AgencyRepo
-participant ":EmailService" as Email
-
 autonumber
 
-activate Admin
-Admin -> UI : initiateRegistration()
+actor "System Administrator" as sysAdmin
+participant ":RegisterEmployeeUI" as UI
+participant ":RegisterEmployeeController" as CTRL
+participant ":EmployeeRepository" as EmployeeRepo
+participant ":AgencyRepository" as AgencyRepo
+
+activate sysAdmin
+
+sysAdmin -> UI : requests to register a new employee
 activate UI
 
-UI -> CTRL : registerNewEmployee()
+UI --> sysAdmin : requests the role of the new employee
+deactivate UI
+
+sysAdmin -> UI : provides the role of the new employee
+activate UI
+
+UI -> CTRL : getAgencies()
 activate CTRL
 
-CTRL -> RoleRepo : getRoleOptions()
-activate RoleRepo
-RoleRepo --> CTRL : roleOptions
-deactivate RoleRepo
-
-CTRL -> UI : displayRoleOptions(roleOptions)
-UI --> Admin : selectRole()
-Admin -> UI : provideRole(role)
-
-UI -> CTRL : setRole(role)
-activate CTRL
-
-CTRL -> UI : requestPersonalInformation()
-deactivate CTRL
-UI --> Admin : enterPersonalInformation()
-Admin -> UI : providePersonalInformation(name, passportCardNumber, taxNumber, email, telephoneNumber)
-
-UI -> CTRL : setPersonalInformation(name, passportCardNumber, taxNumber, email, telephoneNumber)
-activate CTRL
-
-CTRL -> Address : createAddress(street, doorNumber, zipCode)
-activate Address
-Address --> CTRL : address
-deactivate Address
-
-CTRL -> AgencyRepo : listAgencies()
+CTRL -> AgencyRepo : getAllAgencies()
 activate AgencyRepo
+
 AgencyRepo --> CTRL : agencyList
 deactivate AgencyRepo
 
-CTRL -> UI : displayAgencyList(agencyList)
-UI --> Admin : selectAgency()
-Admin -> UI : provideAgency(agency)
+CTRL --> UI : agencyList
+deactivate CTRL
 
-UI -> CTRL : setAgency(agency)
+UI --> sysAdmin : shows the list of agencies
+deactivate UI
+
+sysAdmin -> UI : selects the agency from the list
+activate UI
+
+UI --> sysAdmin : requests the name, passport card number, tax number, address, email address, contact telephone number
+deactivate UI
+
+sysAdmin -> UI : provides the necessary data
+activate UI
+
+UI -> CTRL : registerEmployee(role, name, passportCardNumber, taxNumber, address, email, telephoneNumber, selectedAgency)
 activate CTRL
 
-CTRL -> Person : createPerson(name, passportCardNumber, taxNumber, email, telephoneNumber)
-activate Person
-Person --> CTRL : person
-deactivate Person
-
-CTRL -> EmployeeRepo : createEmployee(person, role, address, agency)
+CTRL -> EmployeeRepo : createEmployee(role, name, passportCardNumber, taxNumber, address, email, telephoneNumber, selectedAgency)
 activate EmployeeRepo
-EmployeeRepo --> CTRL : newEmployee
+
+EmployeeRepo -> EmployeeRepo : validateData()
+activate EmployeeRepo
+
+EmployeeRepo --> EmployeeRepo : validationResult
 deactivate EmployeeRepo
 
-CTRL -> Email : sendPassword(newEmployee.email)
-activate Email
-Email --> CTRL : successMessage
-deactivate Email
+EmployeeRepo -> EmployeeRepo : generatePassword()
+activate EmployeeRepo
 
-CTRL -> UI : displaySuccessMessage(successMessage)
+EmployeeRepo --> EmployeeRepo : generatedPassword
+deactivate EmployeeRepo
+
+EmployeeRepo -> EmployeeRepo : saveEmployee()
+activate EmployeeRepo
+
+EmployeeRepo --> CTRL : success
+deactivate EmployeeRepo
+
+CTRL --> UI : success
 deactivate CTRL
-UI --> Admin : successMessage
+
+UI -> UI : displaySuccessMessage()
+activate UI
+
+UI --> sysAdmin : operation success message
 deactivate UI
+
+UI -> UI : sendPasswordByEmail(email, generatedPassword)
+activate UI
+
+UI --> sysAdmin : password sent to the employee's email
+deactivate UI
+
+deactivate sysAdmin
 
 @enduml

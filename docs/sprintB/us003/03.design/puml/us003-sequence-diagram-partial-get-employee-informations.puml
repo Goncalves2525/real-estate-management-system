@@ -1,0 +1,25 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber 7
+
+actor "System Administrator" as sysAdmin
+participant ":RegisterEmployeeUI" as UI
+
+sysAdmin -> UI : selects the agency from the list
+activate UI
+
+group Provide Employee Data
+    UI --> sysAdmin : requests the name, passport card number, tax number, address, email address, contact telephone number
+end
+
+deactivate UI
+
+sysAdmin -> UI : provides the necessary data
+activate UI
+
+deactivate UI
+
+@enduml
