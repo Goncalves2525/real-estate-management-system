@@ -7,17 +7,16 @@ autonumber
 
 'hide footbox
 actor "Owner" as ADM
-participant ":CreateTaskUI" as UI
+participant ":CreateRequestUI" as UI
 participant ":CreateRequestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant "RequestListRepository:\nRequestListRepository" as RequestListRepository
+participant "AgencyListRepository:\nAgencyListRepository" as AgencyListRepository
+participant "AgentListRepository:\nAgentListRepository" as AgentListRepository
+'participant "OwnerListRepository:\nOwnerListRepository" as OwnerListRepository
+participant "request\n:Request" as REQUEST
+
 
 activate ADM
 
@@ -25,155 +24,159 @@ activate ADM
 
         activate UI
 
-
             UI -> CTRL** : create Request
+                UI --> CTRL : getAgencyList()
+                activate CTRL
 
-            UI -> CTRL : getTaskCategories()
-            activate CTRL
+                 CTRL -> RepositorySingleton : getInstance()
 
+                 activate RepositorySingleton
+
+                 RepositorySingleton --> CTRL: repositories
+
+                 deactivate RepositorySingleton
+
+                  CTRL -> PLAT : getAgencyListRepository()
+                  activate PLAT
+
+                  PLAT --> CTRL: AgencyListRepository
+                  deactivate PLAT
+
+                CTRL --> AgencyListRepository : getAgencyList()
+
+                activate AgencyListRepository
+
+                AgencyListRepository --> CTRL : AgencyList
+
+                deactivate AgencyListRepository
+                CTRL--> UI : AgencyList
+                deactivate
+
+                UI --> ADM : displays list of Agencies
+
+                deactivate  UI
+
+                    ADM -> UI :submits selected Agency
+
+                activate UI
+                UI --> UI : Keep data Agency
+                UI --> CTRL : getAgentList()
+                activate CTRL
+
+                 CTRL -> RepositorySingleton : getInstance()
+
+                 activate RepositorySingleton
+
+                 RepositorySingleton --> CTRL: repositories
+
+                 deactivate RepositorySingleton
+
+                 CTRL -> PLAT : getAgentListRepository()
+                 activate PLAT
+
+                 PLAT --> CTRL: AgentListRepository
+                 deactivate PLAT
+
+
+
+                CTRL --> AgentListRepository : getAgentList()
+                activate AgentListRepository
+
+                AgentListRepository --> CTRL : AgentList
+                deactivate AgentListRepository
+                CTRL--> UI : AgentList
+                deactivate CTRL
+
+                UI --> ADM :displays list of Agent
+                deactivate UI
+
+
+                ADM -> UI : submits selected Agent
+                activate UI
+                UI --> UI : Keep data Agent
+
+
+                'UI --> : getOwnerListCharactristics()
+
+                UI --> ADM : requests ADM data
+                deactivate UI
+
+                    ADM -> UI : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
+
+                activate UI
+
+                    UI --> UI : Keep data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number)
+                    'UI --> : getTransactionType()
+                    UI --> ADM : requests type of transaction
+
+                    deactivate UI
+                    ADM -> UI : types requested data (Sale or Rent)
+
+                activate UI
+                    UI --> UI : Keep data TransactionType
+
+                opt Rent
+                 '   UI --> : getContractDuration()
+                    UI --> ADM: request contract duration
+                    deactivate UI
+
+                    ADM -> UI: types requested data
+                    activate UI
+                    UI --> UI : Keep data contract
+                end
+                    'UI --> : getPropertyTypeList()
+                    UI --> ADM : requests type of property
+                deactivate UI
+
+                    ADM -> UI : types requested data (Apartement, House, Land)
+                activate UI
+
+                       UI --> UI : Keep data type of property
+                        UI --> ADM : requests data of property
+                deactivate UI
+
+                alt  Land
+
+                    ADM -> UI: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
+                activate UI
+                else  Apartement
+                    ADM -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
+                else  House
+                    ADM -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
+                end
+                UI --> UI : Keep data of property
+
+                        UI --> ADM : ask to confirm data
+                deactivate UI
+
+                        ADM -> UI: confirm entered data
+                activate UI
+                UI -> CTRL : create Request with all data
+                activate CTRL
                 CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                 activate RepositorySingleton
 
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
+                 RepositorySingleton --> CTRL: repositories
 
-                    PLAT --> CTRL: taskCategoryRepository
-                deactivate PLAT
+                 deactivate RepositorySingleton
 
-                CTRL -> TaskCategoryRepository : getTaskCategories()
-                activate TaskCategoryRepository
+                 CTRL -> RequestListRepository : getRequestListRepository()
+                 activate RequestListRepository
 
-                    TaskCategoryRepository --> CTRL : taskCategoryList
-                deactivate TaskCategoryRepository
+                 RequestListRepository --> CTRL : RequestListRepository
+                 CTRL -> RequestListRepository : create Request with all data
 
-                CTRL --> UI : taskCategoryList
-            deactivate CTRL
+                 RequestListRepository -> REQUEST**: create Request with all data
+                 RequestListRepository --> CTRL : request
 
-            UI --> ADM : shows task category list\n and asks to sleect one
-        deactivate UI
+                 deactivate RequestListRepository
 
-    ADM -> UI : selects a task category
-    activate UI
+                 CTRL --> UI :request
+                 deactivate CTRL
 
-        UI --> ADM : requests data
-    deactivate UI
-
-    ADM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
-    activate UI
-
-        UI --> ADM : shows selected category and requested data
-    deactivate UI
-
-    ADM -> UI : submits data
-    activate UI
-
-        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
-        activate CTRL
-
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT -> CTRL : taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategory
-                deactivate TaskCategoryRepository
-                    CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+                    UI --> ADM : displays operation success
+                deactivate UI
 
 
-                CTRL -> APP: getCurrentSession()
-                activate APP
-
-                    APP --> CTRL: currentSession
-                deactivate APP
-
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
-
-
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
-
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
-
-
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
-
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
-
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
-
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
-
-                    ORG --> CTRL : employee
-                deactivate ORG
-
-                CTRL --> CTRL : employee
-            deactivate CTRL
-
-            |||
-            CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
-            activate ORG
-
-                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-                ORG -> ORG: addTask (task)
-
-
-                activate ORG
-                    ORG -> ORG: validateTask(task)
-                    activate ORG
-                        ORG --> ORG
-                    deactivate ORG
-
-                    ORG --> ORG
-                deactivate ORG
-
-                ORG --> CTRL : task
-
-            deactivate ORG
-
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
-
-deactivate ADM
-
-@enduml
+            @enduml
