@@ -7,6 +7,9 @@ public class Repositories {
     OrganizationRepository organizationRepository = new OrganizationRepository();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     PublishedPropertyRepository publishedPropertyRepository = new PublishedPropertyRepository();
+    AgencyListRepository agencyListRepository = new AgencyListRepository();
+    AgentListRepository agentListRepository = new AgentListRepository();
+
 
     private Repositories() {
     }

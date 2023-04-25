@@ -11,6 +11,9 @@ participant ":CreateRequestUI" as UI
 participant ":CreateRequestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSAO
 participant "RequestListRepository:\nRequestListRepository" as RequestListRepository
 participant "AgencyListRepository:\nAgencyListRepository" as AgencyListRepository
 participant "AgentListRepository:\nAgentListRepository" as AgentListRepository
