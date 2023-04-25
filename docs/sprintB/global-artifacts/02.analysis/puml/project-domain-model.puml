@@ -104,6 +104,8 @@ class Role{
 ADMIN
 EMPLOYEE
 CLIENT
+STORE_NETWORK_MANAGER
+STORE_MANAGER
 }
 
 class SystemAdministrator extends Employee{

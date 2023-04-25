@@ -24,7 +24,7 @@ public class ListPropertiesController {
     private PublishedPropertyRepository getPublishedPropertiesRepository() {
         if (publishedPropertyRepository == null) {
             Repositories repositories = Repositories.getInstance();
-            publishedPropertyRepository = repositories.getPropertyRepository();
+            publishedPropertyRepository = repositories.getPublishedPropertyRepository();
         }
         return publishedPropertyRepository;
 

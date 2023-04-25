@@ -1,130 +1,258 @@
+'@startuml
+''skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+'skinparam linetype polyline
+''skinparam linetype orto
+'
+'skinparam classAttributeIconSize 0
+'
+''left to right direction
+'
+'class ApplicationSession
+'{
+'    + static getInstance()
+'    + getCurrentSession()
+'}
+'
+'class UserSession
+'{
+'    + getUserEmail()
+'}
+'
+'class Employee {
+'    - name
+'    - email
+'    - position
+'    - phone
+'}
+'
+'class Task {
+'    - String reference
+'    - String description
+'    - String informalDescription
+'    - String technicalDescription
+'    - Integer duration
+'    - Double cost
+'
+'    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
+'}
+'
+'class TaskCategory {
+'    - String description
+'
+'    + TaskCategory(description)
+'}
+'
+'class Organization {
+'    - String name
+'    - String vatNumber
+'    - String website
+'    - String phone
+'    - String email
+'
+'    - addTask(task)
+'    - validateTask(task)
+'    + anyEmployeeHasEmail(email)
+'    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
+'    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
+'    - getEmployeeByEmail(email)
+'
+''  +saveTask(task)
+'}
+'
+'class TaskCategoryRepository {
+'    + getTaskCategoryByDescription(description)
+'}
+'
+'class OrganizationRepository {
+'    + getOrganizationByEmployeeEmail(email)
+'}
+'
+'class Repositories {
+'    - Repositories()
+'    + getInstance() : Repositories
+'    + getTaskCategoryRepository()
+'    + getOrganizationRepository()
+'}
+'
+'class CreateTaskController {
+'    + CreateTaskController(organizationRepository, taskCategoryRepository)
+'    + getTaskCategories()
+'    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
+'    - getTaskCategoryByDescription(taskCategoryDescription)
+'    - getEmployeeFromSession()
+'}
+'
+'note right of CreateTaskController
+'    - userEmail is obtained
+'    from the user session
+'    - categoryDescription
+'    is retrieved from selected data
+'end note
+'
+'note bottom of TaskCategoryRepository
+'    - used for displaying
+'    the category list
+'end note
+'
+'class CreateTaskUI {
+'}
+'
+'Repositories -> Repositories : instance
+'ApplicationSession -> ApplicationSession : instance
+'
+'CreateTaskUI .> CreateTaskController
+'
+'CreateTaskController .> Repositories : repositories
+'
+'Repositories -> "1" TaskCategoryRepository
+'
+'CreateTaskController ..> TaskCategory
+'CreateTaskController ..> OrganizationRepository : organizationRepository
+'CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
+'
+'Repositories --> "1" OrganizationRepository
+'
+'OrganizationRepository --> "*" Organization
+'ApplicationSession --> "1" UserSession : userSession
+'
+'CreateTaskController ..> "1" Organization : organization
+'CreateTaskController ..> ApplicationSession
+'CreateTaskController ..> UserSession
+'Task "*" --> "1" TaskCategory : taskCategory
+'TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
+'Organization "1" --> "*" Task : tasks
+'Task --> Employee : createdBy
+'
+'Organization --> "*" Employee : employs
+'
+'@enduml
+
 @startuml
-'skinparam monochrome true
+skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
-skinparam linetype polyline
-'skinparam linetype orto
-
 skinparam classAttributeIconSize 0
 
-'left to right direction
+title Class Diagram
 
-class ApplicationSession
-{
-    + static getInstance()
-    + getCurrentSession()
+class Client extends User{
 }
 
-class UserSession
-{
-    + getUserEmail()
+class Owner{
 }
 
-class Employee {
-    - name
-    - email
-    - position
-    - phone
+class Employee extends User{
 }
 
-class Task {
-    - String reference
-    - String description
-    - String informalDescription
-    - String technicalDescription
-    - Integer duration
-    - Double cost
-
-    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
+class Agent extends Employee{
 }
 
-class TaskCategory {
-    - String description
-
-    + TaskCategory(description)
+class Property{
+    area
+    distanceFromCenter
+    price
 }
 
-class Organization {
-    - String name
-    - String vatNumber
-    - String website
-    - String phone
-    - String email
-
-    - addTask(task)
-    - validateTask(task)
-    + anyEmployeeHasEmail(email)
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
-    - getEmployeeByEmail(email)
-
-'  +saveTask(task)
+class Photos {
 }
 
-class TaskCategoryRepository {
-    + getTaskCategoryByDescription(description)
+class Address{
+    doorNumber
+    zipCode
 }
 
-class OrganizationRepository {
-    + getOrganizationByEmployeeEmail(email)
+class Street{
 }
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getTaskCategoryRepository()
-    + getOrganizationRepository()
+class City{
 }
 
-class CreateTaskController {
-    + CreateTaskController(organizationRepository, taskCategoryRepository)
-    + getTaskCategories()
-    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
-    - getTaskCategoryByDescription(taskCategoryDescription)
-    - getEmployeeFromSession()
+class District{
 }
 
-note right of CreateTaskController
-    - userEmail is obtained
-    from the user session
-    - categoryDescription
-    is retrieved from selected data
-end note
-
-note bottom of TaskCategoryRepository
-    - used for displaying
-    the category list
-end note
-
-class CreateTaskUI {
+class State{
 }
 
-Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
+class Apartment extends Residency{
+}
 
-CreateTaskUI .> CreateTaskController
+class House extends Residency{
+    basement
+    inhabitableLoft
+}
 
-CreateTaskController .> Repositories : repositories
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+}
 
-Repositories -> "1" TaskCategoryRepository
+class PublishedProperty{
+    publishedDate
+    publishedBy
+}
 
-CreateTaskController ..> TaskCategory
-CreateTaskController ..> OrganizationRepository : organizationRepository
-CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
+class Commission{
+    percentage
+    value
+}
 
-Repositories --> "1" OrganizationRepository
+class TypeOfProperty{
+    APARTMENT
+    HOUSE
+    LAND
+}
 
-OrganizationRepository --> "*" Organization
-ApplicationSession --> "1" UserSession : userSession
+class Land extends Property{
+}
 
-CreateTaskController ..> "1" Organization : organization
-CreateTaskController ..> ApplicationSession
-CreateTaskController ..> UserSession
-Task "*" --> "1" TaskCategory : taskCategory
-TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
-Organization "1" --> "*" Task : tasks
-Task --> Employee : createdBy
+class Equipment{
+    equipmentName
+}
 
-Organization --> "*" Employee : employs
+class SunExposure{
+    NORTH
+    SOUTH
+    EAST
+    WEST
+}
 
+class TransactionType{
+    RENT
+    SALE
+    BUY
+}
+
+class Request{
+}
+
+class User{
+}
+
+PublishedProperty "1" -- "1" TypeOfProperty: has a >
+Agency "1" -- "*" Agent: has >
+Agent "1" -- "1" Owner : contacted by >
+Agent "*" - "*" Property: publishes >
+Agent "1" - "*" Property: sets commission >
+Owner "1" -- "*" Property: owns >
+Owner "1" - "*" Request: makes >
+Request "*" -- "1" Agent: is sent to >
+Request "1" - "1" Property: has >
+Request "1" - "1" TransactionType: has >
+Address "1" -- "1" State : part of <
+City "*" -- "1" District : part of >
+Street "*" -- "1" City : part of >
+District "*" --- "1" State : part of >
+Client "1" -- "*" Address: has an >
+Property "1" -- "1..*" Photos: has >
+PublishedProperty "1" -- "1" Commission: is set for <
+Residency "1" -- "*" Equipment: has >
+PublishedProperty "1" -- "1" Property: part of <
+Property "1" - "1" Address: has an >
+PublishedProperty "1" -- "1" Commission : has a >
+House "1" -- "1" SunExposure: has a value of >
+PublishedProperty "1" -- "1" TransactionType: has a value of >
+Agency "1" -- "1" Address: has an >
 @enduml

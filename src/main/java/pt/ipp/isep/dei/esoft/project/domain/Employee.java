@@ -12,8 +12,7 @@ public class Employee extends User{
 
     //address is optional
     public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Role role) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber);
-        this.role = role;
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber, role);
     }
 
     //para não dar problema com o outro

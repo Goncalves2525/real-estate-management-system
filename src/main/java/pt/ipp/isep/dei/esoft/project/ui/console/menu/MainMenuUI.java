@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.ListPropertiesController;
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.application.session.UserSession;
 import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ListPropertiesUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.PublishSaleUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.PublishPropertyUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.SubmitOrderUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -19,13 +22,28 @@ public class MainMenuUI implements Runnable {
     public MainMenuUI() {
     }
 
+    private final AuthenticationController controller = new AuthenticationController();
+
+
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
-        options.add(new MenuItem("Login/ Register", new AuthenticationUI()));
-        options.add(new MenuItem("List Properties", new ListPropertiesUI())); //Criar tb ListPropertiesController e ListPropertiesMapper
-        options.add(new MenuItem("Register an Employee", new DevTeamUI()));
-        options.add(new MenuItem("Publish a Sale", new PublishSaleUI()));//Criar tb PublishSaleController e PublishedSaleMapper
-        options.add(new MenuItem("Submit an Order", new SubmitOrderUI()));//Criar tb SubmitOrderController e SubmitOrderMapper
+//        if(controller.getUserRoles() != null){
+//            if(controller.getUserRoles().contains("ADMIN")){
+//                options.add(new MenuItem("Register an Employee", new DevTeamUI()));
+//                options.add(new MenuItem("Logout", new AuthenticationUI()));
+//            } else if (controller.getUserRoles().contains("EMPLOYEE")) {
+//                options.add(new MenuItem("List Properties", new ListPropertiesUI())); //Criar tb ListPropertiesController e ListPropertiesMapper
+//                options.add(new MenuItem("Publish a Sale", new PublishPropertyUI()));//Criar tb PublishSaleController e PublishedSaleMapper
+//                options.add(new MenuItem("Submit an Order", new SubmitOrderUI()));//Criar tb SubmitOrderController e SubmitOrderMapper
+//                options.add(new MenuItem("Logout", new AuthenticationUI()));
+//            }
+//        }
+//        else{
+            options.add(new MenuItem("Login", new AuthenticationUI()));
+            options.add(new MenuItem("Register", new AuthenticationUI()));
+        //}
+
+
         int option = 0;
         do {
             option = Utils.showAndSelectIndex(options, "\n\nMain Menu");

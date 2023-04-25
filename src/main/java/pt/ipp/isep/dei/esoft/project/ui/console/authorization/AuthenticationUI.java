@@ -2,7 +2,11 @@ package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.ui.console.CreateRequestUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.ListPropertiesUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.PublishRequestUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
@@ -44,18 +48,32 @@ public class AuthenticationUI implements Runnable {
     }
 
     private List<MenuItem> getMenuItemForRoles() {
+        List<UserRoleDTO> roles = ctrl.getUserRoles();
         List<MenuItem> rolesUI = new ArrayList<>();
-        rolesUI.add(new MenuItem(AuthenticationController.ROLE_ADMIN, new AdminUI()));
+        for(UserRoleDTO role : roles){
+            if(role.getDescription().equals(AuthenticationController.ROLE_ADMIN)){
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_ADMIN, new AdminUI()));
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_EMPLOYEE)) {
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_EMPLOYEE, new PublishRequestUI()));
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_CLIENT)) {
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENT, new ListPropertiesUI()));
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_NETWORK_MANAGER)) {
+                //currently not in use; ignore the UI used
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, new MainMenuUI()));
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_MANAGER)){
+                //currently not in use; ignore the UI used
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, new MainMenuUI()));
+            } else {
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_NO_ROLE, new MainMenuUI()));
+            }
+        }
 
-        //TODO: Complete with other user roles and related RoleUI
         return rolesUI;
     }
 
     private boolean doLogin() {
-        System.out.println("\nLogin UI:");
-
-        int maxAttempts = 3;
         boolean success = false;
+        int maxAttempts = 3;
         do {
             maxAttempts--;
             String id = Utils.readLineFromConsole("Enter UserId/Email: ");
@@ -67,6 +85,7 @@ public class AuthenticationUI implements Runnable {
             }
 
         } while (!success && maxAttempts > 0);
+
         return success;
     }
 

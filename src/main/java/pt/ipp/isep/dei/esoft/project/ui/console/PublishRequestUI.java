@@ -14,8 +14,8 @@ import java.util.List;
  * @author Paulo Maio pam@isep.ipp.pt
  */
 
-public class PublishSaleUI implements Runnable {
-    public PublishSaleUI() {
+public class PublishRequestUI implements Runnable {
+    public PublishRequestUI() {
     }
 
     public void run() {
@@ -27,7 +27,7 @@ public class PublishSaleUI implements Runnable {
 
         int option = 0;
         do {
-            option = Utils.showAndSelectIndex(options, "\n\nAdmin Menu:");
+            option = Utils.showAndSelectIndex(options, "\n\nOrders Pending Publish Menu:");
 
             if ((option >= 0) && (option < options.size())) {
                 options.get(option).run();

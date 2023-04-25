@@ -26,7 +26,7 @@ public class Repositories {
 //        return taskCategoryRepository;
 //    }
 
-    public PublishedPropertyRepository getPropertyRepository() {
+    public PublishedPropertyRepository getPublishedPropertyRepository() {
         return publishedPropertyRepository;
     }
 
