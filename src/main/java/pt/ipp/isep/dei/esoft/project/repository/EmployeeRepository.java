@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 
 import java.util.ArrayList;
@@ -8,57 +9,19 @@ import java.util.Optional;
 
 public class EmployeeRepository {
 
-    private final List<TaskCategory> taskCategories = new ArrayList<>();
+    private final ArrayList<Employee> employeeList = new ArrayList<>();
 
-    /**
-     * This method returns an exsiting Task Category by its description.
-     *
-     * @param taskCategoryDescription The description of the task category to be created.
-     * @return The task category.
-     * @throws IllegalArgumentException if the task category does not exist, which should never happen.
-     */
-    public TaskCategory getTaskCategoryByDescription(String taskCategoryDescription) {
-        TaskCategory newTaskCategory = new TaskCategory(taskCategoryDescription);
-        TaskCategory taskCategory = null;
-        if (taskCategories.contains(newTaskCategory)) {
-            taskCategory = taskCategories.get(taskCategories.indexOf(newTaskCategory));
+    public boolean addEmployee(Employee employee) {
+        if (!employeeExists(employee.getEmail())) {
+            return employeeList.add(employee);
         }
-        if (taskCategory == null) {
-            throw new IllegalArgumentException(
-                    "Task Category requested for [" + taskCategoryDescription + "] does not exist.");
-        }
-        return taskCategory;
+        return false;
     }
 
-    public Optional<TaskCategory> add(TaskCategory taskCategory) {
-
-        Optional<TaskCategory> newTaskCategory = Optional.empty();
-        boolean operationSuccess = false;
-
-        if (validateTaskCategory(taskCategory)) {
-            newTaskCategory = Optional.of(taskCategory.clone());
-            operationSuccess = taskCategories.add(newTaskCategory.get());
-        }
-
-        if (!operationSuccess) {
-            newTaskCategory = Optional.empty();
-        }
-
-        return newTaskCategory;
+    public boolean employeeExists(String email) {
+        return employeeList.stream().anyMatch(employee -> employee.hasEmail(email));
     }
 
-    private boolean validateTaskCategory(TaskCategory taskCategory) {
-        boolean isValid = !taskCategories.contains(taskCategory);
-        return isValid;
-    }
 
-    /**
-     * This method returns a defensive (immutable) copy of the list of task categories.
-     *
-     * @return The list of task categories.
-     */
-    public List<TaskCategory> getTaskCategories() {
-        //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return List.copyOf(taskCategories);
-    }
+
 }

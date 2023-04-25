@@ -20,26 +20,41 @@ public class Employee extends User{
         super(email);
     }
 
-   // @Override
-   // public boolean equals(Object o) {
-   //     if (this == o) {
-   //         return true;
-   //     }
-   //     if (!(o instanceof Employee)) {
-   //         return false;
-   //     }
-   //     Employee employee = (Employee) o;
-   //     return email.equals(employee.email);
-   // }
+    @Override
+    public Role getRole() {
+        return role;
+    }
 
-   // @Override
-   // public int hashCode() {
-   //     return Objects.hash(email);
-   // }
+    @Override
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Employee)) {
+            return false;
+        }
+        Employee employee = (Employee) o;
+        return getEmail().equals(employee.getEmail()) &&
+                getPassportCardNumber() == employee.getPassportCardNumber() &&
+                getTaxNumber() == employee.getTaxNumber() &&
+                getTelephoneNumber() == employee.getTelephoneNumber() &&
+                Objects.equals(getAddress(), employee.getAddress()) &&
+                Objects.equals(role, employee.role);
+    }
 
     //resolver isto
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), role);
+    }
+
     public boolean hasEmail(String email) {
-        return true;
+        return getEmail().equals(email);
     }
 
 
