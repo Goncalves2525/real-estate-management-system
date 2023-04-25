@@ -41,6 +41,7 @@ public class MainMenuUI implements Runnable {
 //        else{
             options.add(new MenuItem("Login", new AuthenticationUI()));
             options.add(new MenuItem("Register", new AuthenticationUI()));
+            options.add(new MenuItem("List Properties", new ListPropertiesUI()));
         //}
 
 

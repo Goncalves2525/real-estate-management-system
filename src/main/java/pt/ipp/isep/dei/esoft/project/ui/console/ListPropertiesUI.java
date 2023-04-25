@@ -31,7 +31,7 @@ public class ListPropertiesUI implements Runnable {
         Scanner sc = new Scanner(System.in);
 
         clearScreen();
-        System.out.println("PLEASE CHOSE FILTERS AND SORT CRITERIAS FOR THE LIST OF PROPERTIES");
+        System.out.println("PLEASE CHOSE FILTERS AND SORT CRITERIA FOR THE LIST OF PROPERTIES");
         showTypeOfPropertyOptions();
         typeOfProperty = checkTypeOfProperty(sc.nextInt());
         clearScreen();
