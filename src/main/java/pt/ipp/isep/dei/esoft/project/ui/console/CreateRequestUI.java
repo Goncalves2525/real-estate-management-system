@@ -57,23 +57,16 @@ public class CreateRequestUI implements Runnable {
             int numberOfRooms = sc.nextInt();
             System.out.println("Please insert the number of bathrooms: ");
             int numberOfBathrooms = sc.nextInt();
-            System.out.println("Please insert the number of floors: ");
-            int numberOfFloors = sc.nextInt();
-            System.out.println("Please insert the area: ");
-            double Area = sc.nextDouble();
-            System.out.println("Please insert the construction year: ");
+
 
         } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
             System.out.println("Please insert the number of rooms: ");
             int numberOfRooms = sc.nextInt();
             System.out.println("Please insert the number of bathrooms: ");
             int numberOfBathrooms = sc.nextInt();
-            System.out.println("Please insert the floor: ");
-            int floor = sc.nextInt();
-            System.out.println("Please insert the area: ");
-            double Area = sc.nextDouble();
-            System.out.println("Please insert the construction year: ");
-            int constructionYear = sc.nextInt();
+
+
+
 
         }
 
