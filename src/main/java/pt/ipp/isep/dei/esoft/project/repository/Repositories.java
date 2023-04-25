@@ -9,6 +9,8 @@ public class Repositories {
     PublishedPropertyRepository publishedPropertyRepository = new PublishedPropertyRepository();
     AgencyListRepository agencyListRepository = new AgencyListRepository();
     AgentListRepository agentListRepository = new AgentListRepository();
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+
 
 
     private Repositories() {
@@ -32,6 +34,10 @@ public class Repositories {
 
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
+    }
+
+    public EmployeeRepository getEmployeeRepository() {
+        return employeeRepository;
     }
 
 

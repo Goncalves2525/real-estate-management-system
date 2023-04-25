@@ -8,8 +8,10 @@ autonumber
 actor "System Administrator" as sysAdmin
 participant ":RegisterEmployeeUI" as UI
 participant ":RegisterEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant ":AgencyListRepository" as AgencyRepo
 participant ":EmployeeRepository" as EmployeeRepo
-participant ":AgencyRepository" as AgencyRepo
 
 activate sysAdmin
 
@@ -24,6 +26,18 @@ activate UI
 
 UI -> CTRL : getAgencies()
 activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+CTRL -> PLAT : getTaskCategoryRepository()
+activate PLAT
+
+PLAT --> CTRL: taskCategoryRepository
+deactivate PLAT
 
 CTRL -> AgencyRepo : getAllAgencies()
 activate AgencyRepo
@@ -40,16 +54,28 @@ deactivate UI
 sysAdmin -> UI : selects the agency from the list
 activate UI
 
-UI --> sysAdmin : requests the name, passport card number, tax number, address, email address, contact telephone number
+UI --> sysAdmin : requests the name, passport card number, tax number,\naddress, email address, contact telephone number
 deactivate UI
 
 sysAdmin -> UI : provides the necessary data
 activate UI
 
-UI -> CTRL : registerEmployee(role, name, passportCardNumber, taxNumber, address, email, telephoneNumber, selectedAgency)
+UI -> CTRL : registerEmployee(role, name, passportCardNumber, taxNumber, \naddress, email, telephoneNumber, selectedAgency)
 activate CTRL
 
-CTRL -> EmployeeRepo : createEmployee(role, name, passportCardNumber, taxNumber, address, email, telephoneNumber, selectedAgency)
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+CTRL -> PLAT : getTaskCategoryRepository()
+activate PLAT
+
+PLAT --> CTRL: taskCategoryRepository
+deactivate PLAT
+
+CTRL -> EmployeeRepo : createEmployee(role, name, passportCardNumber, taxNumber, \naddress, email, telephoneNumber, selectedAgency)
 activate EmployeeRepo
 
 EmployeeRepo -> EmployeeRepo : validateData()

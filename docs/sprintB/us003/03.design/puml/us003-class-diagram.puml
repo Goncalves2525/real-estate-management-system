@@ -4,42 +4,32 @@ skinparam shadowing false
 skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
-class ApplicationSession {
-    + static getInstance()
-    + getCurrentSession()
+class RegisterEmployeeController {
+    + registerEmployee(role, name, passportCardNumber, taxNumber, email, \ntelephoneNumber, doorNumber, zipCode, state, city, district, street)
 }
 
-class UserSession {
-    + getUserEmail()
-}
-
-class RegisterNewEmployeeController {
-    + createEmployee(name, passportCardNumber, taxNumber, email, \ntelephoneNumber, doorNumber, zipCode, state, city, district, street)
-}
-
-class UserRepository {
+class EmployeeRepository {
     + addEmployee(employee)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getUserRepository() : UserRepository
+    + getEmployeeRepository() : EmployeeRepository
 }
 
-ApplicationSession -down-> ApplicationSession : instance
 Repositories -down-> Repositories : instance
 
-class RegisterNewEmployeeUI {
+class RegisterEmployeeUI {
 }
 
-RegisterNewEmployeeUI ..> RegisterNewEmployeeController
+RegisterEmployeeUI ..> RegisterEmployeeController
 
-RegisterNewEmployeeController ..> Repositories : repositories
+RegisterEmployeeController ...> Repositories : repositories
 
-Repositories --> "1" UserRepository
+Repositories --> "1" EmployeeRepository
 
-UserRepository --> "*" Employee
+EmployeeRepository --> "*" Employee
 
 class SystemAdministrator {
 }
@@ -80,8 +70,8 @@ class Role {
 
 SystemAdministrator "1" -- "1" Employee: registers >
 User "1" -- "*" Address: has >
-User "1" -- "1" Role: has a >
-Address "1" -- "1" State: part of >
+User "1" -- "1" Role: has >
+Address "1" -- "1" State: part of <
 Street "1" -- "1" City: part of >
 City "1" -- "1" District: part of >
 District "1" -- "1" State: part of >
