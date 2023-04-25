@@ -1,22 +1,34 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PublishedProperty {
     private Property property;
     private TypeOfProperty typeOfProperty;
+    private TransactionType transactionType;
     private Date publishDate;
     private Comission comission;
+    private ArrayList<Photo> photos = new ArrayList<>();
     private int id;
     public static int idCounter = 0;
 
-    public PublishedProperty(Property property, TypeOfProperty typeOfProperty, Date publishDate, Comission comission) {
+    public PublishedProperty(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
         this.publishDate = publishDate;
         this.comission = comission;
-        idCounter++;
-        id = idCounter;
+        this.photos = photos;
+        id = idCounter++;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public Property getProperty() {

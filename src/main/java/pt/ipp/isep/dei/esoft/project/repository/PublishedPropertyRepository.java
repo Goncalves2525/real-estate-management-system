@@ -1,37 +1,35 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Address;
-import pt.ipp.isep.dei.esoft.project.domain.PublishedProperty;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 public class PublishedPropertyRepository {
 
-    ArrayList<PublishedProperty> publishedProperties = new ArrayList<>();
-
-    public ArrayList<PublishedProperty> getPublishedProperties(String propertyType, String businessType, int numberOfRooms, String sortCriteria, String order) {
+    private final ArrayList<PublishedProperty> publishedProperties = new ArrayList<>();
+    public ArrayList<PublishedProperty> getPublishedProperties(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<PublishedProperty> resultProperties = new ArrayList<>();
-        String inputType = checkInputType(propertyType, businessType, numberOfRooms, sortCriteria);
-        if (inputType.equals("No filter and no sort")){
+        String inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
+        if (inputType.equals("No filter and no sort")) {
             resultProperties = getAllPublishedPropertiesByDefaultCriteria(publishedProperties);
         } else if (inputType.equals("Only sort")) {
-
+            resultProperties = getAllPublishedPropertiesBySortCriteria(publishedProperties, sortCriteria, order);
         } else if (inputType.equals("Only filter")) {
-
-        } else if (inputType.equals("Filter and sort")
-
+            resultProperties = filterPublishedProperties(publishedProperties, typeOfProperty, transactionType, numberOfRooms);
+        } else {
+            resultProperties = getPublishedPropertiesByFilterAndSortCriteria(publishedProperties, typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
         }
-
         return resultProperties;
     }
 
-    private String checkInputType(String propertyType, String businessType, int numberOfRooms, String sortCriteria){
+    private String checkInputType(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria) {
         String inputType;
 
-        if (propertyType == null && businessType == null && numberOfRooms == -1 && sortCriteria == null) {
+        if (typeOfProperty == null && transactionType == null && numberOfRooms == -1 && sortCriteria == null) {
             inputType = "No filter and no sort";
-        } else if (propertyType == null && businessType == null && numberOfRooms == -1) {
+        } else if (typeOfProperty == null && transactionType == null && numberOfRooms == -1) {
             inputType = "Only sort";
         } else if (sortCriteria == null) {
             inputType = "Only filter";
@@ -42,46 +40,107 @@ public class PublishedPropertyRepository {
         return inputType;
     }
 
-    private String checkTypeOfSort(){
-
+    private ArrayList<PublishedProperty> copyPublishedProperties(ArrayList<PublishedProperty> publishedProperties) {
+        ArrayList<PublishedProperty> copiedPublishedProperties = new ArrayList<>();
+        copiedPublishedProperties.addAll(publishedProperties);
+        return copiedPublishedProperties;
     }
 
-    private ArrayList<PublishedProperty> copyPublishedProperties(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> copyPublishedProperties = new ArrayList<>();
-        for (PublishedProperty publishedProperty : publishedProperties) {
-            copyPublishedProperties.add(publishedProperty);
+    private ArrayList<PublishedProperty> getPublishedPropertiesByFilterAndSortCriteria(ArrayList<PublishedProperty> publishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+        ArrayList<PublishedProperty> resultProperties = new ArrayList<>();
+        resultProperties = filterPublishedProperties(publishedProperties, typeOfProperty, transactionType, numberOfRooms);
+        resultProperties = sortPublishedProperties(resultProperties, sortCriteria, order);
+        return resultProperties;
+    }
+
+    private ArrayList<PublishedProperty> getAllPublishedPropertiesBySortCriteria(ArrayList<PublishedProperty> publishedProperties, String sortCriteria, String order) {
+        if (sortCriteria.equals("price")) {
+            publishedProperties = sortPublishedPropertiesByPriceCriteria(publishedProperties, order);
+        } else {
+            publishedProperties = sortPublishedPropertiesByStateCriteria(publishedProperties, order);
         }
-        return copyPublishedProperties;
+        return publishedProperties;
     }
 
-    private ArrayList<PublishedProperty> getAllPublishedPropertiesByDefaultCriteria(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> resultProperties = copyPublishedProperties(publishedProperties);
-        resultProperties.sort(defaultCriteria);
+    private ArrayList<PublishedProperty> getAllPublishedPropertiesByDefaultCriteria(ArrayList<PublishedProperty> publishedProperties) {
+        publishedProperties.sort(defaultCriteria);
+        return publishedProperties;
+    }
+
+    private ArrayList<PublishedProperty> sortPublishedProperties(ArrayList<PublishedProperty> publishedProperties, String sortCriteria, String order){
+        if (sortCriteria.equals("price")) {
+            publishedProperties = sortPublishedPropertiesByPriceCriteria(publishedProperties, order);
+        } else {
+            publishedProperties = sortPublishedPropertiesByStateCriteria(publishedProperties, order);
+        }
+        return publishedProperties;
+    }
+
+    private ArrayList<PublishedProperty> sortPublishedPropertiesByPriceCriteria(ArrayList<PublishedProperty> publishedProperties, String order) {
+        if (order.equals("ascending")) {
+            publishedProperties.sort(ascendingPriceCriteria);
+        } else {
+            publishedProperties.sort(descendingPriceCriteria);
+        }
+
+        return publishedProperties;
+    }
+
+    private ArrayList<PublishedProperty> sortPublishedPropertiesByStateCriteria(ArrayList<PublishedProperty> publishedProperties, String order) {
+        if (order.equals("ascending")) {
+            publishedProperties.sort(ascendingStateCriteria);
+        } else {
+            publishedProperties.sort(descendingStateCriteria);
+        }
+        return publishedProperties;
+    }
+
+    private ArrayList<PublishedProperty> sortPublishedPropertiesByDefaultCriteria(ArrayList<PublishedProperty> publishedProperties) {
+        publishedProperties.sort(defaultCriteria);
+        return publishedProperties;
+    }
+
+    private ArrayList<PublishedProperty> filterPublishedProperties(ArrayList<PublishedProperty> publishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+        ArrayList<PublishedProperty> resultProperties = new ArrayList<>();
+        for (PublishedProperty publishedProperty : publishedProperties) {
+            Property propertyInstance = verifyPropertyInstance(publishedProperty.getProperty());
+            if (propertyInstance instanceof House){
+                if (publishedProperty.getTypeOfProperty().equals(typeOfProperty) && publishedProperty.getTransactionType().equals(transactionType) && ((House) propertyInstance).getNumberOfBedrooms() == numberOfRooms) {
+                    resultProperties.add(publishedProperty);
+                }
+            } else if (propertyInstance instanceof Apartment){
+                if (publishedProperty.getTypeOfProperty().equals(typeOfProperty) && publishedProperty.getTransactionType().equals(transactionType) && ((Apartment) propertyInstance).getNumberOfBedrooms() == numberOfRooms) {
+                    resultProperties.add(publishedProperty);
+                }
+            } else if (propertyInstance instanceof Land){
+                if (publishedProperty.getTypeOfProperty().equals(typeOfProperty) && publishedProperty.getTransactionType().equals(transactionType)) {
+                    resultProperties.add(publishedProperty);
+                }
+            }
+
+        }
+
+        resultProperties = sortPublishedPropertiesByDefaultCriteria(resultProperties);
         return resultProperties;
     }
 
-    private ArrayList<PublishedProperty> getAllPublishedPropertiesByAscendingPriceCriteria(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> resultProperties = copyPublishedProperties(publishedProperties);
-        resultProperties.sort(ascendingPriceCriteria);
-        return resultProperties;
+    private Property verifyPropertyInstance(Property property){
+        Property propertyInstance;
+
+        if (property instanceof House){
+            propertyInstance = (House) property;
+        } else if (property instanceof Apartment){
+            propertyInstance = (Apartment) property;
+        } else {
+            propertyInstance = (Land) property;
+        }
+
+        return propertyInstance;
     }
 
-    private ArrayList<PublishedProperty> getAllPublishedPropertiesByDescendingPriceCriteria(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> resultProperties = copyPublishedProperties(publishedProperties);
-        resultProperties.sort(descendingPriceCriteria);
-        return resultProperties;
-    }
-
-    private ArrayList<PublishedProperty> getAllPublishedPropertiesByAscendingStateCriteria(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> resultProperties = copyPublishedProperties(publishedProperties);
-        resultProperties.sort(ascendingStateCriteria);
-        return resultProperties;
-    }
-
-    private ArrayList<PublishedProperty> getAllPublishedPropertiesByDescendingStateCriteria(ArrayList<PublishedProperty> publishedProperties){
-        ArrayList<PublishedProperty> resultProperties = copyPublishedProperties(publishedProperties);
-        resultProperties.sort(descendingStateCriteria);
-        return resultProperties;
+    public void addPublishedProperty(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos){
+        PublishedProperty publishedProperty = new PublishedProperty(property, typeOfProperty, transactionType, date, comission, photos);
+        publishedProperties.add(publishedProperty);
     }
 
     Comparator<PublishedProperty> ascendingPriceCriteria = new Comparator<PublishedProperty>() {
@@ -90,12 +149,11 @@ public class PublishedPropertyRepository {
             double price1 = p1.getProperty().getPrice();
             double price2 = p2.getProperty().getPrice();
 
-            if (price1 < price2){
+            if (price1 < price2) {
                 return -1;
             } else if (price1 > price2) {
                 return 1;
-            }
-            else return 0;
+            } else return 0;
         }
     };
 
@@ -105,42 +163,39 @@ public class PublishedPropertyRepository {
             double price1 = p1.getProperty().getPrice();
             double price2 = p2.getProperty().getPrice();
 
-            if (price1 > price2){
+            if (price1 > price2) {
                 return -1;
             } else if (price1 < price2) {
                 return 1;
-            }
-            else return 0;
+            } else return 0;
         }
     };
 
     Comparator<PublishedProperty> ascendingStateCriteria = new Comparator<PublishedProperty>() {
         @Override
-        public int compare(PublishedProperty p1, PublishedProperty p2) {
-            Address address1 = p1.getProperty().getAddress();
-            Address address2 = p2.getProperty().getAddress();
+        public int compare(PublishedProperty s1, PublishedProperty s2) {
+            String state1 = s1.getProperty().getAddress().getState();
+            String state2 = s2.getProperty().getAddress().getState();
 
-            if (address1 < address2){
-                return -1;
-            } else if (address1 > address2) {
+            if (state1.compareTo(state2) > 0) {
                 return 1;
-            }
-            else return 0;
+            } else if (state1.compareTo(state2) < 0) {
+                return -1;
+            } else return 0;
         }
     };
 
     Comparator<PublishedProperty> descendingStateCriteria = new Comparator<PublishedProperty>() {
         @Override
-        public int compare(PublishedProperty p1, PublishedProperty p2) {
-            Address address1 = p1.getProperty().getAddress();
-            Address address2 = p2.getProperty().getAddress();
+        public int compare(PublishedProperty s1, PublishedProperty s2) {
+            String state1 = s1.getProperty().getAddress().getState();
+            String state2 = s2.getProperty().getAddress().getState();
 
-            if (address1 > address2){
-                return -1;
-            } else if (address1 < address2) {
+            if (state1.compareTo(state2) < 0) {
                 return 1;
-            }
-            else return 0;
+            } else if (state1.compareTo(state2) > 0) {
+                return -1;
+            } else return 0;
         }
     };
 
@@ -150,17 +205,13 @@ public class PublishedPropertyRepository {
             int id1 = p1.getId();
             int id2 = p2.getId();
 
-            if (id1 > id2){
+            if (id1 > id2) {
                 return -1;
             } else if (id1 < id2) {
                 return 1;
-            }
-            else return 0;
+            } else return 0;
         }
     };
-
-
-
 
 
 }

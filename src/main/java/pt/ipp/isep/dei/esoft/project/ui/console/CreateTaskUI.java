@@ -11,32 +11,28 @@ import java.util.Scanner;
 /**
  * Create Task UI (console). This option is only available for administrators for demonstration purposes.
  */
-public class CreateTaskUI implements Runnable {
-
-    private final CreateTaskController controller = new CreateTaskController();
-    private String taskReference;
-    private String taskDescription;
-    private String taskInformalDescription;
-    private String taskTechnicalDescription;
-    private Integer taskDuration;
-    private Double taskCost;
-    private String taskCategoryDescription;
-    private String empployeeEmail;
-
-    private CreateTaskController getController() {
-        return controller;
-    }
-
-    public void run() {
-        System.out.println("Create Task");
-
+//public class CreateTaskUI implements Runnable {
+//
+//    private final CreateTaskController controller = new CreateTaskController();
+//    private String taskReference;
+//    private String taskDescription;
+//    private String taskInformalDescription;
+//    private String taskTechnicalDescription;
+//    private Integer taskDuration;
+//    private Double taskCost;
+//    private String taskCategoryDescription;
+//    private String empployeeEmail;
+//
+//    private CreateTaskController getController() {
+//        return controller;
+//    }
+//
+//    public void run() {
+//        System.out.println("Create Task");
+//
 //        taskCategoryDescription = displayAndSelectTaskCategory();
 //
-//        requestData();
-
-        //submitData();
-    }
-
+//        requestData()//submitData()
 //    private void submitData() {
 //        Optional<Task> task = getController().createTask(taskReference, taskDescription, taskInformalDescription,
 //                taskTechnicalDescription, taskDuration, taskCost, taskCategoryDescription);
@@ -46,8 +42,7 @@ public class CreateTaskUI implements Runnable {
 //        } else {
 //            System.out.println("Task not created!");
 //        }
-//    }
-
+//
 //    private void requestData() {
 //
 //        //Request the Task Reference from the console
@@ -134,4 +129,4 @@ public class CreateTaskUI implements Runnable {
 //            i++;
 //        }
 //    }
-}
+//}

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Agency {
 
+    private int id;
     private String name;
     private String emailAddress;
     private String phoneNumber;

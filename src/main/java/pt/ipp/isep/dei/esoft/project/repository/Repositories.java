@@ -6,7 +6,6 @@ public class Repositories {
     TaskCategoryRepository taskCategoryRepository = new TaskCategoryRepository();
     OrganizationRepository organizationRepository = new OrganizationRepository();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
-
     PublishedPropertyRepository publishedPropertyRepository = new PublishedPropertyRepository();
 
     private Repositories() {

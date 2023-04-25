@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
-import pt.ipp.isep.dei.esoft.project.ui.console.CreateTaskUI;
+//import pt.ipp.isep.dei.esoft.project.ui.console.CreateTaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -19,7 +19,7 @@ public class AdminUI implements Runnable {
 
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
-        options.add(new MenuItem("Create Task", new CreateTaskUI()));
+        //options.add(new MenuItem("Create Task", new CreateTaskUI()));
         options.add(new MenuItem("Option 1 ", new ShowTextUI("You have chosen Option A.")));
         options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
         options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));
