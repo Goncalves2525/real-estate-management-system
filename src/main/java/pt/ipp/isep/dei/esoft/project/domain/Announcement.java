@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PublishedProperty {
+public class Announcement {
     private Property property;
     private TypeOfProperty typeOfProperty;
     private TransactionType transactionType;
@@ -13,7 +13,7 @@ public class PublishedProperty {
     private int id;
     public static int idCounter = 0;
 
-    public PublishedProperty(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
+    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;

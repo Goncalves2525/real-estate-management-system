@@ -72,4 +72,22 @@ public class Agency {
     public String toString() {
         return "Agency: " + this.name + " - " + this.emailAddress + " - " + this.phoneNumber + " - " + this.id + ".";
     }
+
+    //Clone agency
+    /**
+     * Clone agency.
+     *
+     * @return the agency
+     */
+    public Agency clone() {
+        Agency clone = new Agency(this.id, this.name, this.emailAddress, this.phoneNumber, this.address, this.agents);
+        clone.id = (this.id);
+        clone.name = (this.name);
+        clone.emailAddress = (this.emailAddress);
+        clone.phoneNumber = (this.phoneNumber);
+        clone.address = (this.address);
+        clone.agents = (this.agents);
+
+        return clone;
+    }
 }

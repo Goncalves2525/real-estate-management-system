@@ -11,13 +11,37 @@ public abstract class User {
     private Address address;
     private Role role;
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+    private Agency agency;
+
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
         this.address = address;
+        this.agency = agency;
+    }
+
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
+        this.name = name;
+        this.email = email;
+        this.passportCardNumber = passportCardNumber;
+        this.taxNumber = taxNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
+        this.agency = agency;
+        this.role = role;
+    }
+
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Role role) {
+        this.name = name;
+        this.email = email;
+        this.passportCardNumber = passportCardNumber;
+        this.taxNumber = taxNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
+        this.role = role;
     }
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Role role) {

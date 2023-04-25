@@ -14,17 +14,17 @@ public enum Role {
     public String toString() {
         switch (this) {
             case ADMIN:
-                return "Admin";
+                return "ADMIN";
             case EMPLOYEE:
-                return "Employee";
+                return "EMPLOYEE";
             case STORE_NETWORK_MANAGER:
-                return "Store Network Manager";
+                return "STORE_NETWORK_MANAGER";
             case STORE_MANAGER:
-                return "Store Manager";
+                return "STORE_MANAGER";
             case CLIENT:
-                return "Client";
+                return "CLIENT";
             default:
-                return "User has no role";
+                return "";
         }
     }
 

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.PublishedProperty;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
 public class PublishPropertyController {
 
 
-    private PublishedPropertyRepository publishedPropertyRepository = null;
+    private AnnouncementRepository announcementRepository = null;
 
     private AuthenticationRepository authenticationRepository = null;
 
@@ -24,17 +24,17 @@ public class PublishPropertyController {
 
     //Allows receiving the repositories as parameters for testing purposes
     public PublishPropertyController(AuthenticationRepository authenticationRepository,
-                                     PublishedPropertyRepository publishedPropertyRepository) {
-        this.publishedPropertyRepository = publishedPropertyRepository;
+                                     AnnouncementRepository announcementRepository) {
+        this.announcementRepository = announcementRepository;
         this.authenticationRepository = authenticationRepository;
     }
 
-    private PublishedPropertyRepository getPublishedPropertyRepository(){
-        if(publishedPropertyRepository == null){
+    private AnnouncementRepository getPublishedPropertyRepository(){
+        if(announcementRepository == null){
             Repositories repositories = Repositories.getInstance();
-            publishedPropertyRepository = repositories.getPublishedPropertyRepository();
+            announcementRepository = repositories.getPublishedPropertyRepository();
         }
-        return publishedPropertyRepository;
+        return announcementRepository;
     }
 
 
@@ -68,11 +68,11 @@ public class PublishPropertyController {
 //        return newTask;
 //    }
 
-    public Optional<PublishedProperty> createPublishedProperty(String reference, String description, String informalDescription,
-                                     String technicalDescription, Integer duration, Double cost,
-                                     String taskCategoryDescription) {
+    public Optional<Announcement> createPublishedProperty(String reference, String description, String informalDescription,
+                                                          String technicalDescription, Integer duration, Double cost,
+                                                          String taskCategoryDescription) {
 
-        Optional<PublishedProperty> newPublishedProperty = Optional.empty();
+        Optional<Announcement> newPublishedProperty = Optional.empty();
         return newPublishedProperty;
     }
 

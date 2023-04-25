@@ -1,12 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.ListPropertiesController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.application.session.UserSession;
-import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.ListPropertiesUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.PublishPropertyUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.SubmitOrderUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.ListAnnouncementsUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -41,7 +36,7 @@ public class MainMenuUI implements Runnable {
 //        else{
             options.add(new MenuItem("Login", new AuthenticationUI()));
             options.add(new MenuItem("Register", new AuthenticationUI()));
-            options.add(new MenuItem("List Properties", new ListPropertiesUI()));
+            options.add(new MenuItem("List Properties", new ListAnnouncementsUI()));
         //}
 
 

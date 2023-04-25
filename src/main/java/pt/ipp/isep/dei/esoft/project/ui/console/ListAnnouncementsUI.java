@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.ListPropertiesController;
-import pt.ipp.isep.dei.esoft.project.domain.PublishedProperty;
+import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ import java.util.Scanner;
  * @author Paulo Maio pam@isep.ipp.pt
  */
 
-public class ListPropertiesUI implements Runnable {
+public class ListAnnouncementsUI implements Runnable {
 
-    private final ListPropertiesController controller = new ListPropertiesController();
+    private final ListAnnouncementsController controller = new ListAnnouncementsController();
 
-    public ListPropertiesUI() {
+    public ListAnnouncementsUI() {
     }
 
-    private ListPropertiesController getController() {
+    private ListAnnouncementsController getController() {
         return controller;
     }
 
@@ -48,7 +48,7 @@ public class ListPropertiesUI implements Runnable {
         order = checkOrder(sc.nextInt());
         clearScreen();
 
-        ArrayList<PublishedProperty> publishedPropertiesList = getController().getPublishedProperties(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+        ArrayList<Announcement> publishedPropertiesList = getController().getPublishedProperties(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
         showPublishedProperties(publishedPropertiesList);
 
     }
@@ -168,14 +168,14 @@ public class ListPropertiesUI implements Runnable {
         }
     }
 
-    private void showPublishedProperties(ArrayList<PublishedProperty> publishedPropertiesList) {
+    private void showPublishedProperties(ArrayList<Announcement> publishedPropertiesList) {
         System.out.println("-------------------------\n" +
                            "|  Published Properties  |\n" +
                            "-------------------------\n\n");
 
-        for (PublishedProperty publishedProperty : publishedPropertiesList) {
+        for (Announcement announcement : publishedPropertiesList) {
             System.out.println("-----------------------------");
-            System.out.println(publishedProperty.toString());
+            System.out.println(announcement.toString());
             System.out.println("-----------------------------\n");
 
         }

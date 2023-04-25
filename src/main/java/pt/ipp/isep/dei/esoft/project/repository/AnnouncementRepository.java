@@ -7,12 +7,12 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
-public class PublishedPropertyRepository {
+public class AnnouncementRepository {
 
-    private final ArrayList<PublishedProperty> publishedProperties = new ArrayList<>();
+    private final ArrayList<Announcement> publishedProperties = new ArrayList<>();
 
-    public ArrayList<PublishedProperty> getPublishedProperties(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
-        ArrayList<PublishedProperty> resultPublishedProperties = copyPublishedProperties(publishedProperties);
+    public ArrayList<Announcement> getPublishedProperties(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+        ArrayList<Announcement> resultPublishedProperties = copyPublishedProperties(publishedProperties);
         String inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
         switch (inputType) {
             case "No filter and no sort":
@@ -45,15 +45,15 @@ public class PublishedPropertyRepository {
         return inputType;
     }
 
-    private ArrayList<PublishedProperty> copyPublishedProperties(ArrayList<PublishedProperty> publishedProperties) {
+    private ArrayList<Announcement> copyPublishedProperties(ArrayList<Announcement> publishedProperties) {
         return new ArrayList<>(publishedProperties);
     }
 
-    private void sortAllPublishedPropertiesByDefaultCriteria(ArrayList<PublishedProperty> resultPublishedProperties) {
+    private void sortAllPublishedPropertiesByDefaultCriteria(ArrayList<Announcement> resultPublishedProperties) {
         resultPublishedProperties.sort(defaultCriteria);
     }
 
-    private void sortAllPublishedPropertiesBySortCriteria(ArrayList<PublishedProperty> resultPublishedProperties, String sortCriteria, String order) {
+    private void sortAllPublishedPropertiesBySortCriteria(ArrayList<Announcement> resultPublishedProperties, String sortCriteria, String order) {
         if (sortCriteria.equals("price")) {
             sortPublishedPropertiesByPriceCriteria(resultPublishedProperties, order);
         } else {
@@ -61,7 +61,7 @@ public class PublishedPropertyRepository {
         }
     }
 
-    private void sortPublishedPropertiesByPriceCriteria(ArrayList<PublishedProperty> resultPublishedProperties, String order) {
+    private void sortPublishedPropertiesByPriceCriteria(ArrayList<Announcement> resultPublishedProperties, String order) {
         if (order.equals("ascending")) {
             resultPublishedProperties.sort(ascendingPriceCriteria);
         } else {
@@ -69,7 +69,7 @@ public class PublishedPropertyRepository {
         }
     }
 
-    private void sortPublishedPropertiesByStateCriteria(ArrayList<PublishedProperty> resultPublishedProperties, String order) {
+    private void sortPublishedPropertiesByStateCriteria(ArrayList<Announcement> resultPublishedProperties, String order) {
         if (order.equals("ascending")) {
             resultPublishedProperties.sort(ascendingStateCriteria);
         } else {
@@ -77,20 +77,20 @@ public class PublishedPropertyRepository {
         }
     }
 
-    private void filterPublishedProperties(ArrayList<PublishedProperty> resultPublishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
-        Iterator<PublishedProperty> iterator = resultPublishedProperties.iterator();
+    private void filterPublishedProperties(ArrayList<Announcement> resultPublishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+        Iterator<Announcement> iterator = resultPublishedProperties.iterator();
         while (iterator.hasNext()) {
-            PublishedProperty publishedProperty = iterator.next();
-            if (publishedProperty.getProperty() instanceof House) {
-                if (publishedProperty.getTypeOfProperty() != typeOfProperty || publishedProperty.getTransactionType() != transactionType || ((House) publishedProperty.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
+            Announcement announcement = iterator.next();
+            if (announcement.getProperty() instanceof House) {
+                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((House) announcement.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
                     iterator.remove();
                 }
-            } else if (publishedProperty.getProperty() instanceof Apartment) {
-                if (publishedProperty.getTypeOfProperty() != typeOfProperty || publishedProperty.getTransactionType() != transactionType || ((Apartment) publishedProperty.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
+            } else if (announcement.getProperty() instanceof Apartment) {
+                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((Apartment) announcement.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
                     iterator.remove();
                 }
-            } else if (publishedProperty.getProperty() instanceof Land) {
-                if (publishedProperty.getTypeOfProperty() != typeOfProperty || publishedProperty.getTransactionType() != transactionType) {
+            } else if (announcement.getProperty() instanceof Land) {
+                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType) {
                     iterator.remove();
                 }
             }
@@ -98,16 +98,16 @@ public class PublishedPropertyRepository {
         sortPublishedPropertiesByDefaultCriteria(resultPublishedProperties);
     }
 
-    private void sortPublishedPropertiesByDefaultCriteria(ArrayList<PublishedProperty> resultPublishedProperties) {
+    private void sortPublishedPropertiesByDefaultCriteria(ArrayList<Announcement> resultPublishedProperties) {
         resultPublishedProperties.sort(defaultCriteria);
     }
 
-    private void filterAndSortPublishedProperties(ArrayList<PublishedProperty> resultPublishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+    private void filterAndSortPublishedProperties(ArrayList<Announcement> resultPublishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         filterPublishedProperties(resultPublishedProperties, typeOfProperty, transactionType, numberOfRooms);
         sortPublishedProperties(resultPublishedProperties, sortCriteria, order);
     }
 
-    private void sortPublishedProperties(ArrayList<PublishedProperty> resultPublishedProperties, String sortCriteria, String order) {
+    private void sortPublishedProperties(ArrayList<Announcement> resultPublishedProperties, String sortCriteria, String order) {
         if (sortCriteria.equals("price")) {
             sortPublishedPropertiesByPriceCriteria(resultPublishedProperties, order);
         } else {
@@ -116,13 +116,13 @@ public class PublishedPropertyRepository {
     }
 
     public void addPublishedProperty(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos) {
-        PublishedProperty publishedProperty = new PublishedProperty(property, typeOfProperty, transactionType, date, comission, photos);
-        publishedProperties.add(publishedProperty);
+        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos);
+        publishedProperties.add(announcement);
     }
 
-    Comparator<PublishedProperty> ascendingPriceCriteria = new Comparator<PublishedProperty>() {
+    Comparator<Announcement> ascendingPriceCriteria = new Comparator<Announcement>() {
         @Override
-        public int compare(PublishedProperty p1, PublishedProperty p2) {
+        public int compare(Announcement p1, Announcement p2) {
             double price1 = p1.getProperty().getPrice();
             double price2 = p2.getProperty().getPrice();
 
@@ -134,9 +134,9 @@ public class PublishedPropertyRepository {
         }
     };
 
-    Comparator<PublishedProperty> descendingPriceCriteria = new Comparator<PublishedProperty>() {
+    Comparator<Announcement> descendingPriceCriteria = new Comparator<Announcement>() {
         @Override
-        public int compare(PublishedProperty p1, PublishedProperty p2) {
+        public int compare(Announcement p1, Announcement p2) {
             double price1 = p1.getProperty().getPrice();
             double price2 = p2.getProperty().getPrice();
 
@@ -148,9 +148,9 @@ public class PublishedPropertyRepository {
         }
     };
 
-    Comparator<PublishedProperty> ascendingStateCriteria = new Comparator<PublishedProperty>() {
+    Comparator<Announcement> ascendingStateCriteria = new Comparator<Announcement>() {
         @Override
-        public int compare(PublishedProperty s1, PublishedProperty s2) {
+        public int compare(Announcement s1, Announcement s2) {
             String state1 = s1.getProperty().getAddress().getState();
             String state2 = s2.getProperty().getAddress().getState();
 
@@ -162,9 +162,9 @@ public class PublishedPropertyRepository {
         }
     };
 
-    Comparator<PublishedProperty> descendingStateCriteria = new Comparator<PublishedProperty>() {
+    Comparator<Announcement> descendingStateCriteria = new Comparator<Announcement>() {
         @Override
-        public int compare(PublishedProperty s1, PublishedProperty s2) {
+        public int compare(Announcement s1, Announcement s2) {
             String state1 = s1.getProperty().getAddress().getState();
             String state2 = s2.getProperty().getAddress().getState();
 
@@ -176,9 +176,9 @@ public class PublishedPropertyRepository {
         }
     };
 
-    Comparator<PublishedProperty> defaultCriteria = new Comparator<PublishedProperty>() {
+    Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
         @Override
-        public int compare(PublishedProperty p1, PublishedProperty p2) {
+        public int compare(Announcement p1, Announcement p2) {
             int id1 = p1.getId();
             int id2 = p2.getId();
 

@@ -1,31 +1,94 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
     public void run() {
-        addTaskCategories();
-        addOrganization();
+        //addTaskCategories();
+        //addOrganization();
         addUsers();
+        addAgencies();
+        addAgents();
+        addAnnouncements();
     }
 
     private void addOrganization() {
         //TODO: add organizations bootstrap here
         //get organization repository
-//        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-//        Organization organization = new Organization("This Company");
-//        organization.addEmployee(new Employee("admin@this.app"));
-//        organization.addEmployee(new Employee("employee@this.app"));
-//        organizationRepository.add(organization);
+        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
+        Organization organization = new Organization("This Company");
+        organization.addEmployee(new Employee("admin@this.app"));
+        organization.addEmployee(new Employee("employee@this.app"));
+        organizationRepository.add(organization);
+    }
+
+    private void addAgencies(){
+        //get Agency repository
+        AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        List<Agent> agents = new ArrayList<>();
+        List<Agent> agents2 = new ArrayList<>();
+        agents.add(new Agent("Agent1"));
+        agents.add(new Agent("Agent2"));
+        agents.add(new Agent("Agent3"));
+        agents2.add(new Agent("Agent1"));
+        agents2.add(new Agent("Agent2"));
+        agents2.add(new Agent("Agent3"));
+        Agency agency = new Agency(1, "Agency1", "Rua do Porto", "Porto", new Address("Porto", "Porto", "Porto", "Porto", 1234), agents);
+        Agency agency2 = new Agency(2, "Agency2", "Rua do Porto", "Porto", new Address("Porto", "Porto", "Porto", "Porto", 1234), agents2);
+        agencyListRepository.add(agency);
+        agencyListRepository.add(agency2);
+    }
+
+    private void addAgents(){
+        //get Agency repository
+        AgentListRepository agentListRepository = Repositories.getInstance().getAgentListRepository();
+        Agent agent = new Agent("Agent1");
+        agentListRepository.add(agent);
+    }
+
+    private void addAnnouncements(){
+        AnnouncementRepository announcementRepository = Repositories.getInstance().getPublishedPropertyRepository();
+        Comission c1 = new Comission();
+        Date d1 = new Date(2019, 10, 10);
+        Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+        Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
+        Property p2 = new House(150, 30, 100000, a1, 2, 2, true, true);
+        Property p3 = new House(150, 30, 500000, a1, 3, 2, true, true);
+        Property p4 = new House(150, 30, 300000, a1, 4, 2, true, true);
+        Property p5 = new House(150, 30, 400000, a1, 5, 2, true, true);
+        Property p6 = new Apartment(150, 30, 250000, a1, 1, 2);
+        Property p7 = new Apartment(150, 30, 100000, a1, 2, 2);
+        Property p8 = new Apartment(150, 30, 500000, a1, 3, 2);
+        Property p9 = new Apartment(150, 30, 300000, a1, 4, 2);
+        Property p10 = new Apartment(150, 30, 400000, a1, 5, 2);
+        Property p11 = new Land(150, 30, 250000, a1);
+        Property p12 = new Land(150, 30, 100000, a1);
+        Property p13 = new Land(150, 30, 500000, a1);
+        Property p14 = new Land(150, 30, 300000, a1);
+        Property p15 = new Land(150, 30, 400000, a1);
+        announcementRepository.addPublishedProperty(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p3, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p4, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addPublishedProperty(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addPublishedProperty(p6, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p9, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addPublishedProperty(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addPublishedProperty(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addPublishedProperty(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addPublishedProperty(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
     }
 
     private void addTaskCategories() {
