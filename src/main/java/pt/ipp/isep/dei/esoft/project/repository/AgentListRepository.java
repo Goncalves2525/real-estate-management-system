@@ -28,4 +28,18 @@ public class AgentListRepository {
 
     }
 
+    public Agent getAgentByEmail(String agentEmail) {
+        for (Agent agent : AgentList) {
+            if (agent.getEmail().equals(agentEmail)) {
+                return agent;
+            }
+        }
+        return null;
+    }
+
+    //returns the list of agents
+    public List<Agent> getAgentList() {
+        return this.AgentList;
+    }
+
 }

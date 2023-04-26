@@ -112,7 +112,7 @@ public abstract class User {
      */
     @Override
     public String toString() {
-        return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address==null?"":this.address.toString(),this.role.toString());
+        return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address==null?"":this.address.toString(),this.role==null?"":this.role.toString());
     }
 
     public Role getRole() {

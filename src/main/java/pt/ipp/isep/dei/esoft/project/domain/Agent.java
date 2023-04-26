@@ -29,4 +29,10 @@ public class Agent extends User implements Cloneable{
         }
     }
 
+    //to string
+    @Override
+    public String toString() {
+        return super.toString()  + " agency=" + agency;
+    }
+
 }

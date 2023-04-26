@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateRequestController;
+import pt.ipp.isep.dei.esoft.project.domain.Agent;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
@@ -29,7 +30,9 @@ public class CreateRequestUI implements Runnable {
 
         System.out.println("Please insert the name of the agency: ");
         String agencyName = sc.nextLine();
-        System.out.println("Please insert the name of the agent: ");
+        AgentOptions();
+        System.out.println("Please insert the email of the agent: ");
+        Agent agent = controller.getAgentByEmail(sc.nextLine());
         String agentName = sc.nextLine();
         System.out.println("Please insert you passport ID: ");
         String passportID = sc.nextLine();
@@ -40,17 +43,15 @@ public class CreateRequestUI implements Runnable {
             System.out.println("Please insert contract duration: ");
             int contractDuration = sc.nextInt();
         }else {
-                System.out.println("Please insert the minimum price: ");
-                double minPrice = sc.nextDouble();
-                System.out.println("Please insert the maximum price: ");
-                double maxPrice = sc.nextDouble();
+                System.out.println("Please insert the price: ");
+                double price = sc.nextDouble();
             }
 
         TypeOfPropertyOptions();
         typeOfProperty = checkTypeOfProperty(sc.nextInt());
         if (typeOfProperty.equals(TypeOfProperty.LAND)) {
             System.out.println("Please insert the area: ");
-            double Area = sc.nextDouble();
+            double area = sc.nextDouble();
 
         } else if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
             System.out.println("Please insert the number of rooms: ");
@@ -73,7 +74,11 @@ public class CreateRequestUI implements Runnable {
 
     }
 
-
+    private void AgentOptions() {
+        for(Agent agent : this.controller.getAgentList()){
+            System.out.println(agent.toString());
+        }
+    }
 
         private void TransactionTypeOptions() {
             System.out.println(

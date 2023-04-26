@@ -1,7 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Agent;
 import pt.ipp.isep.dei.esoft.project.repository.AgencyListRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AgentListRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+
+import java.util.List;
 
 public class CreateRequestController {
 
@@ -10,15 +14,23 @@ public class CreateRequestController {
     private CreateRequestController controller = null;
     
 public CreateRequestController() {
-        getAgencyListRepository();
-        getAgentListRepository();
+        //getAgencyListRepository();
+        //getAgentListRepository();
+    this.agentListRepository = Repositories.getInstance().getAgentListRepository();
     }
 
-    private void getAgentListRepository() {
+
+    public List<Agent> getAgentList() {
+        return agentListRepository.getAgentList();
     }
 
     private void getAgencyListRepository() {
         
+    }
+
+    public Agent getAgentByEmail(String agentEmail) {
+        return agentListRepository.getAgentByEmail(agentEmail);
+
     }
 
 
