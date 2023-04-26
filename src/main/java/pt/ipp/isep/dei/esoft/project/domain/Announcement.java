@@ -97,11 +97,13 @@ public class Announcement {
 
     @Override
     public String toString() {
-        return "PublishedProperty{" +
+        return "Anouncement{" +
                 "property=" + property +
                 ", typeOfProperty=" + typeOfProperty +
+                ", transactionType=" + transactionType +
                 ", publishDate=" + publishDate +
                 ", commission=" + comission +
+                ", id=" + id +
                 '}';
     }
 }

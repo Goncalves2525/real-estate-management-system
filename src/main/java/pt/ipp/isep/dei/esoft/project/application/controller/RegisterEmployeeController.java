@@ -17,8 +17,8 @@ public class RegisterEmployeeController {
         this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
     }
 
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Role role) {
-        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, role);
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
+        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
         return employeeRepository.addEmployee(employee);
     }
 

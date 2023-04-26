@@ -128,6 +128,6 @@ public class Employee extends User{
      */
     //resolver isto
     public Employee clone() {
-        return new Employee("nada");
+        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), role);
     }
 }

@@ -8,13 +8,13 @@ public class Agency {
     private int id;
     private String name;
     private String emailAddress;
-    private String phoneNumber;
+    private int phoneNumber;
 
     private Address address;
 
     List<Agent> agents = new ArrayList<>();
 
-    public Agency(int id, String name, String emailAddress, String phoneNumber, Address address, List<Agent> agents) {
+    public Agency(int id, String name, String emailAddress, int phoneNumber, Address address, List<Agent> agents) {
         this.id = id;
         this.name = name;
         this.emailAddress = emailAddress;
@@ -52,7 +52,7 @@ public class Agency {
         return emailAddress;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -64,7 +64,7 @@ public class Agency {
         this.emailAddress = emailAddress;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
