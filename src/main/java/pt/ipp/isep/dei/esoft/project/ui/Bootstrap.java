@@ -55,7 +55,7 @@ public class Bootstrap implements Runnable {
     }
 
     private void addAnnouncements(){
-        AnnouncementRepository announcementRepository = Repositories.getInstance().getPublishedPropertyRepository();
+        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
         Comission c1 = new Comission();
         Date d1 = new Date(2019, 10, 10);
         Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
@@ -74,21 +74,21 @@ public class Bootstrap implements Runnable {
         Property p13 = new Land(150, 30, 500000, a1);
         Property p14 = new Land(150, 30, 300000, a1);
         Property p15 = new Land(150, 30, 400000, a1);
-        announcementRepository.addPublishedProperty(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p3, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p4, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addPublishedProperty(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addPublishedProperty(p6, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p9, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addPublishedProperty(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addPublishedProperty(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addPublishedProperty(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addPublishedProperty(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p3, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p4, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p6, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p9, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
+        announcementRepository.addAnnouncement(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
     }
 
     private void addTaskCategories() {

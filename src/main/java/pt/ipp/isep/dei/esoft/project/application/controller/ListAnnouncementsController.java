@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ListAnnouncementsController {
 
@@ -12,30 +11,22 @@ public class ListAnnouncementsController {
 
     //Repository instances are obtained from the Repositories class
     public ListAnnouncementsController() {
-        //getPublishedPropertiesRepository();
-        this.announcementRepository = Repositories.getInstance().getPublishedPropertyRepository();
+        getAnnoucementRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public ListAnnouncementsController(AnnouncementRepository announcementRepository, AuthenticationRepository authenticationRepository) {
-        this.announcementRepository = announcementRepository;
-    }
-
-    private AnnouncementRepository getPublishedPropertiesRepository() {
+    private AnnouncementRepository getAnnoucementRepository() {
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
-            announcementRepository = repositories.getPublishedPropertyRepository();
+            announcementRepository = repositories.getAnnouncementRepository();
         }
         return announcementRepository;
 
     }
 
     //returns the list of properties
-    public ArrayList<Announcement> getPublishedProperties(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
-        AnnouncementRepository announcementRepository = Repositories.getInstance().getPublishedPropertyRepository();
-        //AnnouncementRepository announcementRepository = getPublishedPropertiesRepository();
-
-
-        return announcementRepository.getPublishedProperties(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+    public ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
 }

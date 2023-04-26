@@ -4,5 +4,4 @@ public enum TransactionType {
     RENT,
     SALE,
     BUY
-
 }

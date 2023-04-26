@@ -32,7 +32,7 @@ public class PublishPropertyController {
     private AnnouncementRepository getPublishedPropertyRepository(){
         if(announcementRepository == null){
             Repositories repositories = Repositories.getInstance();
-            announcementRepository = repositories.getPublishedPropertyRepository();
+            announcementRepository = repositories.getAnnouncementRepository();
         }
         return announcementRepository;
     }
