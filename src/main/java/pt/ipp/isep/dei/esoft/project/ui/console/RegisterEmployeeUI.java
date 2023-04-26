@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Address;
+import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Role;
+
 
 import java.util.Scanner;
 public class RegisterEmployeeUI implements Runnable {
@@ -20,9 +22,18 @@ public class RegisterEmployeeUI implements Runnable {
 
     @Override
     public void run() {
+        Role role;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("----- Register Employee -----");
+
+        showRoles();
+        role = selectRole(scanner.nextInt());
+        scanner.nextLine();
+        System.out.println("You have selected " + role + " as a role");
+
+        // For demonstration purposes, you can hardcode an Agency
+        Agency agency = new Agency(2, "Agencia 1", "s", 1233, new Address("street1", "City1", "District1", "State1", 1234), null);
 
         System.out.print("Name: ");
         String name = scanner.nextLine();
@@ -58,13 +69,7 @@ public class RegisterEmployeeUI implements Runnable {
 
         Address address = new Address(street, city, district, state, zipcode);
 
-
-        // For demonstration purposes, you can hardcode a Role
-        Role role = Role.EMPLOYEE;
-
-
-        //agency em falta!!!!!!!!!!!!
-        boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, role);
+        boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
 
         if (success) {
             System.out.println("Employee registered successfully!");
@@ -73,9 +78,28 @@ public class RegisterEmployeeUI implements Runnable {
         }
 
 
+    }
 
+    private void showRoles() {
+        System.out.println("------------------\n" +
+                "|     Roles    |\n" +
+                "------------------\n\n" +
+                "Select a role\n\n" +
+                "1 - Employee\n" +
+                "2 - Store Network Manager\n" +
+                "3 - Store Manager\n");
+    }
 
-
-
+    private Role selectRole(int option) {
+        switch (option) {
+            case 1:
+                return Role.EMPLOYEE;
+            case 2:
+                return Role.STORE_NETWORK_MANAGER;
+            case 3:
+                return Role.STORE_MANAGER;
+            default:
+                return null;
+        }
     }
 }

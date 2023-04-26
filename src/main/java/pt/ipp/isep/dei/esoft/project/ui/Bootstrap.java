@@ -41,8 +41,8 @@ public class Bootstrap implements Runnable {
         agents2.add(new Agent("Agent1"));
         agents2.add(new Agent("Agent2"));
         agents2.add(new Agent("Agent3"));
-        Agency agency = new Agency(1, "Agency1", "Rua do Porto", "Porto", new Address("Porto", "Porto", "Porto", "Porto", 1234), agents);
-        Agency agency2 = new Agency(2, "Agency2", "Rua do Porto", "Porto", new Address("Porto", "Porto", "Porto", "Porto", 1234), agents2);
+        Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
+        Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
         agencyListRepository.add(agency);
         agencyListRepository.add(agency2);
     }
