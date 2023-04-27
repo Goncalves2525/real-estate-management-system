@@ -100,8 +100,7 @@ public class CreateRequestUI implements Runnable {
             numberOfBathrooms = sc.nextInt();
             System.out.println("Please insert the number of parking spaces: ");
             numberOfParkingSpaces = sc.nextInt();
-
-
+            sc.nextLine();
             System.out.println("Has central heating? (y/n): ");
             String centralHeating = sc.nextLine();
             System.out.println("Has air conditioning? (y/n): ");
@@ -118,6 +117,7 @@ public class CreateRequestUI implements Runnable {
             }
             checkSunExposure();
             sunExposureOption = sc.nextInt();
+            sc.nextLine();
             System.out.println("The house have basement? (Y/N)");
             String basement = sc.nextLine();
             System.out.println("The house inhabitable loft? (Y/N)");
@@ -168,10 +168,6 @@ public class CreateRequestUI implements Runnable {
         House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
 
         Apartment apartment = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-        
-
-
-
 
        //controller.createAnnouncement();
 
