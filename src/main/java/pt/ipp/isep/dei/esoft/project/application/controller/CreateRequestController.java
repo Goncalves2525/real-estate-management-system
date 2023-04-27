@@ -41,11 +41,11 @@ public CreateRequestController() {
 
 
 
-    public void createannouncemntHouse(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, House house) {
+    public void createannouncemntHouse(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos, house);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 

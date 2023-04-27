@@ -170,14 +170,14 @@ public class CreateRequestUI implements Runnable {
         property = new Property( area, distanceFromCenter, price, address);
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)){
-            House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
-            controller.createannouncemntHouse(agent, transactionType, contractDuration,typeOfProperty, property, house);
+            property = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
+            controller.createannouncemntHouse(agent, transactionType, contractDuration,typeOfProperty, property);
         }else if (typeOfProperty.equals(TypeOfProperty.LAND)){
-            Land land = new Land(area,price, distanceFromCenter, address);
-            controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property, land);
+            property= new Land(area,price, distanceFromCenter, address);
+            //controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property);
         }else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)){
-            Apartment apartment = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-            controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property, apartment);
+            property = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
+            //controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property);
         }
 
         System.out.println("Property added successfully!");

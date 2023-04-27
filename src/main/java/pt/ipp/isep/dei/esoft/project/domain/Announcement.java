@@ -23,7 +23,7 @@ public class Announcement {
     private boolean isPublished;
     public static int idCounter = 0;
 
-    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
+    public Announcement(Agent agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
