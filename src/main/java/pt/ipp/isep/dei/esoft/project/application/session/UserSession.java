@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.session;
 
+import pt.ipp.isep.dei.esoft.project.domain.Role;
 import pt.ipp.isep.dei.esoft.project.domain.User;
 
 public class UserSession {
@@ -22,11 +23,12 @@ public class UserSession {
     //method to check if the user is an administrator
     public boolean isAdmin(User user) {
         if (user != null) {
-            if (user.hasRole(user.getRole())) {
+            if (user.getRoles().contains(Role.ADMIN)) {
                 return true;
             }
         }
         return false;
     }
-    
+
+
 }

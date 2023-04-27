@@ -11,73 +11,23 @@ public class AnnouncementRepository {
 
     private final ArrayList<Announcement> announcements = new ArrayList<>();
 
-    public ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+
+    public ArrayList<Announcement> sortAllAnnouncementsByDefaultCriteria() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        String inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
-        switch (inputType) {
-            case "No filter and no sort":
-                sortAllAnnouncementsByDefaultCriteria(resultAnnouncements);
-                break;
-            case "Only sort":
-                sortAllAnnouncementsBySortCriteria(resultAnnouncements, sortCriteria, order);
-                break;
-            case "Only filter":
-                filterAnnouncements(resultAnnouncements, typeOfProperty, transactionType, numberOfRooms);
-                break;
-            default:
-                filterAndSortAnnouncements(resultAnnouncements, typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
-                break;
-        }
+        resultAnnouncements.sort(defaultCriteria);
+        removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
 
-    private String checkInputType(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria) {
-        String inputType;
-        if (typeOfProperty == null && transactionType == null && numberOfRooms == -1 && sortCriteria == null) {
-            inputType = "No filter and no sort";
-        } else if (typeOfProperty == null && transactionType == null && numberOfRooms == -1) {
-            inputType = "Only sort";
-        } else if (sortCriteria == null) {
-            inputType = "Only filter";
-        } else {
-            inputType = "Filter and sort";
-        }
-        return inputType;
+    public ArrayList<Announcement> sortAllAnnouncementsBySortCriteria(String sortCriteria, String order) {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        sortAnnouncements(resultAnnouncements, sortCriteria, order);
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
     }
 
-    private ArrayList<Announcement> copyAnnouncements(ArrayList<Announcement> announcements) {
-        return new ArrayList<>(announcements);
-    }
-
-    private void sortAllAnnouncementsByDefaultCriteria(ArrayList<Announcement> resultAnnouncements) {
-        resultAnnouncements.sort(defaultCriteria);
-    }
-
-    private void sortAllAnnouncementsBySortCriteria(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
-        if (sortCriteria.equals("price")) {
-            sortAnnouncementsByPriceCriteria(resultAnnouncements, order);
-        } else {
-            sortAnnouncementsByStateCriteria(resultAnnouncements, order);
-        }
-    }
-
-    private void sortAnnouncementsByPriceCriteria(ArrayList<Announcement> resultAnnouncements, String order) {
-        if (order.equals("ascending")) {
-            resultAnnouncements.sort(ascendingPriceCriteria);
-        } else {
-            resultAnnouncements.sort(descendingPriceCriteria);
-        }
-    }
-
-    private void sortAnnouncementsByStateCriteria(ArrayList<Announcement> resultAnnouncements, String order) {
-        if (order.equals("ascending")) {
-            resultAnnouncements.sort(ascendingStateCriteria);
-        } else {
-            resultAnnouncements.sort(descendingStateCriteria);
-        }
-    }
-
-    private void filterAnnouncements(ArrayList<Announcement> resultAnnouncements, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+    public ArrayList<Announcement> filterAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
             Announcement announcement = iterator.next();
@@ -95,28 +45,21 @@ public class AnnouncementRepository {
                 }
             }
         }
-        sortAnnouncementsByDefaultCriteria(resultAnnouncements);
+        resultAnnouncements.sort(defaultCriteria);
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
     }
 
-    private void sortAnnouncementsByDefaultCriteria(ArrayList<Announcement> resultPublishedProperties) {
-        resultPublishedProperties.sort(defaultCriteria);
+    public ArrayList<Announcement> filterAndSortAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+        ArrayList<Announcement> resultAnnouncements;
+        resultAnnouncements = filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+        sortAnnouncements(resultAnnouncements, sortCriteria, order);
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
     }
 
-    private void filterAndSortAnnouncements(ArrayList<Announcement> resultPublishedProperties, TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
-        filterAnnouncements(resultPublishedProperties, typeOfProperty, transactionType, numberOfRooms);
-        sortAnnouncements(resultPublishedProperties, sortCriteria, order);
-    }
-
-    private void sortAnnouncements(ArrayList<Announcement> resultPublishedProperties, String sortCriteria, String order) {
-        if (sortCriteria.equals("price")) {
-            sortAnnouncementsByPriceCriteria(resultPublishedProperties, order);
-        } else {
-            sortAnnouncementsByStateCriteria(resultPublishedProperties, order);
-        }
-    }
-
-    public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos) {
-        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos);
+    public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
         announcements.add(announcement);
     }
 
@@ -124,6 +67,52 @@ public class AnnouncementRepository {
         Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, photos);
         announcements.add(announcement);
     }
+
+
+
+
+
+
+
+    private void sortAnnouncements(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
+        if (sortCriteria.equals("price")) {
+            if (order.equals("ascending")) {
+                resultAnnouncements.sort(ascendingPriceCriteria);
+            } else {
+                resultAnnouncements.sort(descendingPriceCriteria);
+            }
+        } else if (sortCriteria.equals("state")) {
+            if (order.equals("ascending")) {
+                resultAnnouncements.sort(ascendingStateCriteria);
+            } else {
+                resultAnnouncements.sort(descendingStateCriteria);
+            }
+        }
+        else {
+            if (order.equals("ascending")) {
+                resultAnnouncements.sort(ascendingCityCriteria);
+            } else {
+                resultAnnouncements.sort(descendingCityCriteria);
+            }
+        }
+    }
+
+
+
+    private void removeNonPublishedAnnouncements(ArrayList<Announcement> resultAnnouncements) {
+        Iterator<Announcement> iterator = resultAnnouncements.iterator();
+        while (iterator.hasNext()) {
+            Announcement announcement = iterator.next();
+            if (!announcement.isPublished()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    private ArrayList<Announcement> copyAnnouncements(ArrayList<Announcement> announcements) {
+        return new ArrayList<>(announcements);
+    }
+
 
     Comparator<Announcement> ascendingPriceCriteria = new Comparator<Announcement>() {
         @Override
@@ -176,6 +165,34 @@ public class AnnouncementRepository {
             if (state1.compareTo(state2) < 0) {
                 return 1;
             } else if (state1.compareTo(state2) > 0) {
+                return -1;
+            } else return 0;
+        }
+    };
+
+    Comparator<Announcement> ascendingCityCriteria = new Comparator<Announcement>() {
+        @Override
+        public int compare(Announcement s1, Announcement s2) {
+            String city1 = s1.getProperty().getAddress().getCity();
+            String city2 = s2.getProperty().getAddress().getCity();
+
+            if (city1.compareTo(city2) > 0) {
+                return 1;
+            } else if (city1.compareTo(city2) < 0) {
+                return -1;
+            } else return 0;
+        }
+    };
+
+    Comparator<Announcement> descendingCityCriteria = new Comparator<Announcement>() {
+        @Override
+        public int compare(Announcement s1, Announcement s2) {
+            String city1 = s1.getProperty().getAddress().getCity();
+            String city2 = s2.getProperty().getAddress().getCity();
+
+            if (city1.compareTo(city2) < 0) {
+                return 1;
+            } else if (city1.compareTo(city2) > 0) {
                 return -1;
             } else return 0;
         }
