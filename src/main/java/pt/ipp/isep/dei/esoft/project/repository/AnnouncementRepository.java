@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -61,6 +63,19 @@ public class AnnouncementRepository {
     public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
         Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
         announcements.add(announcement);
+    }
+
+    public void addAnnouncementFromOwner(Announcement announcement) {
+        announcements.add(announcement);
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write( announcement.toString());
+            myWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void addAnnouncementByRequest(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, ArrayList<Photo> photos) {

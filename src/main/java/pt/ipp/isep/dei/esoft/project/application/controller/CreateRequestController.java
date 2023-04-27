@@ -38,28 +38,30 @@ public CreateRequestController() {
 
     }
 
-    public void createAnnouncement(double area, double distanceFromCenter, double price, Address address, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, ArrayList<Photo> photos) {
 
-    //if (typeOfProperty instanceof House) {
 
-    //    House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
-    //       }
-   // else if (typeOfProperty instanceof Apartment) {
 
-    //        Apartment apartment = new Apartment(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning);
-    //}
-
-    //announcementRepository.addAnnouncementByRequest(property, typeOfProperty, transactionType, date, photos);
-
-    //}
-
-//
-   // public void addProperty(House house) {
-   //     announcementRepository.addAnnouncementByRequest(house);
-
+    public void createannouncemntHouse(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, House house) {
+        Date publishDate = new Date();
+        Comission comission = new Comission();
+        ArrayList<Photo> photos = new ArrayList<>();
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos, house);
+        announcementRepository.addAnnouncementFromOwner(announcement);
     }
 
-   // public void addProperty(Land land) {
-    //    announcementRepository.addAnnouncementByRequest(land);
-   // }
+    public void createannouncemntLand(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property,Land land) {
+        Date publishDate = new Date();
+        Comission comission = new Comission();
+        ArrayList<Photo> photos = new ArrayList<>();
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos,land);
+        announcementRepository.addAnnouncementFromOwner(announcement);
+    }
+
+    public void createannouncemntApartment(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, Apartment apartment) {
+        Date publishDate = new Date();
+        Comission comission = new Comission();
+        ArrayList<Photo> photos = new ArrayList<>();
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos,apartment);
+        announcementRepository.addAnnouncementFromOwner(announcement);
+    }
 }

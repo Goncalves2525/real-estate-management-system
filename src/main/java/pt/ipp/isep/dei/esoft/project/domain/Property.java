@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
-public abstract class Property {
+public class Property {
     private double area;
     private double distanceFromCenter;
     private double price;

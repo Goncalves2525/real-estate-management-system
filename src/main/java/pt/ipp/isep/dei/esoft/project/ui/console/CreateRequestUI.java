@@ -12,18 +12,7 @@ public class CreateRequestUI implements Runnable {
 
 
     private final CreateRequestController controller = new CreateRequestController();
-    private boolean hasCentralHeating;
-    private boolean hasAirConditioning;
-    private boolean hasLoft;
-    private boolean hasBasement;
-    private double price;
-    private int numberOfBedrooms;
-    private int numberOfBathrooms;
-    private int numberOfParkingSpaces;
-    private int contractDuration;
-    private double distanceFromCenter;
-    private double area;
-    private int sunExposureOption;
+
 
 
 
@@ -36,10 +25,25 @@ public class CreateRequestUI implements Runnable {
 
     @Override
     public void run() {
+        boolean hasCentralHeating=false;
+        boolean hasAirConditioning= false;
+        boolean hasLoft=false;
+        boolean hasBasement=false;
+        double price=0;
+        int numberOfBedrooms=0;
+        int numberOfBathrooms=0;
+        int numberOfParkingSpaces=0;
+        int contractDuration=0;
+        double distanceFromCenter=0;
+        double area=0;
+        int sunExposureOption;
 
-        TypeOfProperty typeOfProperty;
+
+
+
+
         TransactionType transactionType;
-        Property property;
+        Property property = null;
         SunExposure sunExposure = null;
         Scanner sc = new Scanner(System.in);
 
@@ -90,10 +94,10 @@ public class CreateRequestUI implements Runnable {
         distanceFromCenter = sc.nextDouble();
 
         TypeOfPropertyOptions();
-        TypeOfProperty typeOfProprety = checkTypeOfProperty(sc.nextInt());
+        TypeOfProperty typeOfProperty = checkTypeOfProperty(sc.nextInt());
 
 
-        if (typeOfProprety.equals(TypeOfProperty.HOUSE)) {
+        if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
             System.out.println("Please insert the number of bedrooms: ");
             numberOfBedrooms = sc.nextInt();
             System.out.println("Please insert the number of bathrooms: ");
@@ -133,7 +137,7 @@ public class CreateRequestUI implements Runnable {
                 hasLoft = false;
             }
 
-        } else if (typeOfProprety.equals(TypeOfProperty.APARTMENT)) {
+        } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
             System.out.println("Please insert the number of bedrooms: ");
             numberOfBedrooms = sc.nextInt();
             System.out.println("Please insert the number of bathrooms: ");
@@ -163,15 +167,18 @@ public class CreateRequestUI implements Runnable {
 
         }
 
+        property = new Property( area, distanceFromCenter, price, address);
 
-        House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
-        Land land = new Land(area,price, distanceFromCenter, address);
-        Apartment apartment = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-
-//        controller.addProperty(land);
-//        controller.addProperty(house);
-//        controller.addProperty(apartment);
-
+        if (typeOfProperty.equals(TypeOfProperty.HOUSE)){
+            House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
+            controller.createannouncemntHouse(agent, transactionType, contractDuration,typeOfProperty, property, house);
+        }else if (typeOfProperty.equals(TypeOfProperty.LAND)){
+            Land land = new Land(area,price, distanceFromCenter, address);
+            controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property, land);
+        }else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)){
+            Apartment apartment = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
+            controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property, apartment);
+        }
 
         System.out.println("Property added successfully!");
 

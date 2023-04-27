@@ -10,9 +10,28 @@ public class Announcement {
     private Date publishDate;
     private Comission comission;
     private ArrayList<Photo> photos = new ArrayList<>();
+
+
+    private House house;
+
+    private Land land;
+
+    private Apartment apartment;
+
+    private Agent agent;
+    private int id;
     private boolean isPublished;
-    private final int id;
     public static int idCounter = 0;
+
+    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.comission = comission;
+        this.photos = photos;
+        id = idCounter++;
+    }
 
     public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
         this.property = property;
@@ -31,6 +50,39 @@ public class Announcement {
         this.transactionType = transactionType;
         this.publishDate = publishDate;
         this.photos = photos;
+        id = idCounter++;
+    }
+
+    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission,  ArrayList<Photo> photos, House house) {
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.photos = photos;
+        this.house = house;
+        this.comission = comission;
+        id = idCounter++;
+    }
+
+    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission,  ArrayList<Photo> photos, Land land) {
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.photos = photos;
+        this.land = land;
+        this.comission = comission;
+        id = idCounter++;
+    }
+
+    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission,  ArrayList<Photo> photos, Apartment apartment) {
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.photos = photos;
+        this.apartment = apartment;
+        this.comission = comission;
         id = idCounter++;
     }
 
