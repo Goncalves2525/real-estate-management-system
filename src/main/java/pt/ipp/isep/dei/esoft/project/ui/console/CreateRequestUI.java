@@ -163,13 +163,17 @@ public class CreateRequestUI implements Runnable {
 
         }
 
-        Land land = new Land(area,price, distanceFromCenter, address);
 
         House house = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
-
+        Land land = new Land(area,price, distanceFromCenter, address);
         Apartment apartment = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
 
-       //controller.createAnnouncement();
+//        controller.addProperty(land);
+//        controller.addProperty(house);
+//        controller.addProperty(apartment);
+
+
+        System.out.println("Property added successfully!");
 
     }
     

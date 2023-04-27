@@ -51,7 +51,15 @@ public CreateRequestController() {
 
     //announcementRepository.addAnnouncementByRequest(property, typeOfProperty, transactionType, date, photos);
 
+    //}
+
+//
+   // public void addProperty(House house) {
+   //     announcementRepository.addAnnouncementByRequest(house);
+
     }
 
-
+   // public void addProperty(Land land) {
+    //    announcementRepository.addAnnouncementByRequest(land);
+   // }
 }
