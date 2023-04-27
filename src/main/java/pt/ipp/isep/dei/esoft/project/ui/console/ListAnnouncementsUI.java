@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class ListAnnouncementsUI implements Runnable {
     }
 
     public void run() {
+        Scanner sc = new Scanner(System.in);
         ArrayList<Announcement> announcementsList;
         TypeOfProperty typeOfProperty = null;
         TransactionType transactionType = null;
@@ -41,7 +43,10 @@ public class ListAnnouncementsUI implements Runnable {
 
         filters = requestFilters();
         sort = requestSortCriteria(sortCriteria, order);
+
         clearScreen();
+        showOptions(filters, sort);
+        sc.nextLine();
 
         typeOfProperty = (TypeOfProperty) filters[0];
         transactionType = (TransactionType) filters[1];
@@ -49,7 +54,6 @@ public class ListAnnouncementsUI implements Runnable {
         numberOfRooms = integerNumberOfRooms;
         sortCriteria = sort[0];
         order = sort[1];
-
         announcementsList = getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
         showAnnouncements(announcementsList);
     }
@@ -87,6 +91,46 @@ public class ListAnnouncementsUI implements Runnable {
             inputType = AnnouncementListOptionType.FILTER_AND_SORT;
         }
         return inputType;
+    }
+
+    private void showOptions(Object[] filters, String[] sort) {
+
+        System.out.println("You have chosen these options:\n");
+        if (filters[0] == null) {
+            System.out.println("Type of Property: None");
+        } else {
+            System.out.println("Type of Property: " + filters[0]);
+        }
+        if (filters[1] == null) {
+            System.out.println("Type of Transaction: None");
+        } else {
+            System.out.println("Type of Transaction: " + filters[1]);
+        }
+        if (filters[2].equals(-1)){
+            System.out.println("Number of Rooms: None");
+        } else {
+            System.out.println("Number of Rooms: " + filters[2]);
+        }
+        if (sort[0] == null) {
+            System.out.println("Sort Criteria: None");
+        } else {
+            System.out.println("Sort Criteria: " + sort[0]);
+            System.out.println("Order: " + sort[1]);
+        }
+        System.out.println();
+
+        if (filters[0] == null && filters[1] == null && filters[2].equals(-1) && sort[0] == null) {
+            System.out.println("All properties will be listed and sorted by most recently added.");
+        } else if (filters[0] != null && filters[1] != null && !filters[2].equals(-1) && sort[0] != null) {
+            System.out.println("Properties will be listed using your filters and sort criteria");
+        } else if (filters[0] == null && filters[1] == null && filters[2].equals(-1) && sort[0] != null){
+            System.out.println("All properties will be listed using your sort criteria.");
+        } else if (filters[0] != null && filters[1] != null && !filters[2].equals(-1) && sort[0] == null){
+            System.out.println("Properties will be listed using your filters and sorted by most recently added.");
+        }
+
+
+        System.out.println("(Press any key to continue...)");
     }
 
     private Object[] requestFilters() {
@@ -159,7 +203,6 @@ public class ListAnnouncementsUI implements Runnable {
         return numberOfRooms;
     }
 
-
     private String[] requestSortCriteria(String sortCriteria, String order) {
         String[] sort = new String[2];
         Scanner sc = new Scanner(System.in);
@@ -178,7 +221,7 @@ public class ListAnnouncementsUI implements Runnable {
             }
         } while (exception);
 
-        if (Objects.equals(sortCriteria, "price") || Objects.equals(sortCriteria, "state")) {
+        if (Objects.equals(sortCriteria, "price") || Objects.equals(sortCriteria, "state") || Objects.equals(sortCriteria, "city")){
             clearScreen();
             do {
                 showOrderOptions();
@@ -305,6 +348,7 @@ public class ListAnnouncementsUI implements Runnable {
 
                 "1- Price\n" +
                 "2- State\n" +
+                "3- City\n" +
                 "(Insert another number to skip this option)");
     }
 
@@ -314,6 +358,8 @@ public class ListAnnouncementsUI implements Runnable {
                 return "price";
             case 2:
                 return "state";
+            case 3:
+                return "city";
             default:
                 return null;
         }
@@ -381,6 +427,4 @@ public class ListAnnouncementsUI implements Runnable {
             System.out.println();
         }
     }
-
-
 }
