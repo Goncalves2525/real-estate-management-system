@@ -53,30 +53,30 @@ activate User
         System --> User : shows filter and sort options selected by user and requests confirmation
         deactivate System
 
-    else Filter or Sort
 
-        alt Filter
 
-            System --> User : shows filter and sort options
-            activate System
-            deactivate System
+    else Only filter
 
-            User -> System : selects filter options but doesn't select sort options
-            activate System
+        System --> User : shows filter and sort options
+        activate System
+        deactivate System
 
-            System --> User : shows that properties will be filtered using filter options selected by user, \n sorted by default sort criteria (most recently added) and requests confirmation
-            deactivate System
-        else Sort
-            System --> User : shows filter and sort options
-            activate System
-            deactivate System
+        User -> System : selects filter options but doesn't select sort options
+        activate System
 
-            User -> System : selects sort options but doesn't select filter options
-            activate System
+        System --> User : shows that properties will be filtered using filter options selected by user, \n sorted by default sort criteria (most recently added) and requests confirmation
+        deactivate System
+    else Only sort
+        System --> User : shows filter and sort options
+        activate System
+        deactivate System
 
-            System --> User : shows that all properties will be listed with sort criteria selected by user
-            deactivate System
-        end
+        User -> System : selects sort options but doesn't select filter options
+        activate System
+
+        System --> User : shows that all properties will be listed with sort criteria selected by user
+        deactivate System
+
 
 
     else Neither Filter nor Sort

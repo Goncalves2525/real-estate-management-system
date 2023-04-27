@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -63,16 +62,16 @@ public class ListAnnouncementsUI implements Runnable {
         AnnouncementListOptionType inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
         switch (inputType) {
             case NO_FILTER_NO_SORT:
-                announcementsList = getController().sortAllAnnouncementsByDefaultCriteria();
+                announcementsList = getController().getAllAnnouncementsSortedByDefualtCriteria();
                 break;
             case ONLY_SORT:
-                announcementsList = getController().sortAllAnnouncementsBySortCriteria(sortCriteria, order);
+                announcementsList = getController().getAllAnnouncementsSortedBySortCriteria(sortCriteria, order);
                 break;
             case ONLY_FILTER:
-                announcementsList = getController().filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+                announcementsList = getController().getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
                 break;
             case FILTER_AND_SORT:
-                announcementsList = getController().filterAndSortAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+                announcementsList = getController().getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
                 break;
             default:
                 announcementsList = null;

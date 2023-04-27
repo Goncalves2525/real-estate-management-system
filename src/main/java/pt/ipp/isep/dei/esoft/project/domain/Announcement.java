@@ -54,10 +54,6 @@ public class Announcement {
         return publishDate;
     }
 
-    public Comission getCommission() {
-        return comission;
-    }
-
     public void setProperty(Property property) {
         this.property = property;
     }
@@ -92,10 +88,6 @@ public class Announcement {
 
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
-    }
-
-    public void setCommission(Comission comission) {
-        this.comission = comission;
     }
 
     public boolean hasProperty(Property property) {
