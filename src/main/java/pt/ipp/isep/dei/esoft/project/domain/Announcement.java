@@ -23,6 +23,15 @@ public class Announcement {
         id = idCounter++;
     }
 
+    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate,  ArrayList<Photo> photos) {
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.photos = photos;
+        id = idCounter++;
+    }
+
     public TransactionType getTransactionType() {
         return transactionType;
     }

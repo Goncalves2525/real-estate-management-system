@@ -7,6 +7,7 @@ public class Land extends Property {
         super(area, distanceFromCenter, price, address);
     }
 
+
     @Override
     public String toString(){
         return String.format(super.toString() + "\n-This is a Land");

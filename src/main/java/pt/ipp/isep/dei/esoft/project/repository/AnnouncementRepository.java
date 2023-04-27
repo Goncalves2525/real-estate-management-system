@@ -120,6 +120,11 @@ public class AnnouncementRepository {
         announcements.add(announcement);
     }
 
+    public void addAnnouncementByRequest(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, ArrayList<Photo> photos) {
+        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, photos);
+        announcements.add(announcement);
+    }
+
     Comparator<Announcement> ascendingPriceCriteria = new Comparator<Announcement>() {
         @Override
         public int compare(Announcement p1, Announcement p2) {
