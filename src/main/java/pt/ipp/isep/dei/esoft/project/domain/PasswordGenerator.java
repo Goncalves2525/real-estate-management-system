@@ -1,0 +1,54 @@
+package pt.ipp.isep.dei.esoft.project.domain;
+
+import java.security.SecureRandom;
+
+public class PasswordGenerator {
+
+    private static final int PASSWORD_LENGTH = 7;
+    private static final int NUM_CAPITAL_LETTERS = 3;
+    private static final int NUM_DIGITS = 2;
+
+    private static final String CAPITAL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String DIGITS = "0123456789";
+    private static final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
+
+    private SecureRandom random;
+
+    public PasswordGenerator() {
+        random = new SecureRandom();
+    }
+
+    public String generatePassword() {
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < NUM_CAPITAL_LETTERS; i++) {
+            password.append(randomCharacter(CAPITAL_LETTERS));
+        }
+
+        for (int i = 0; i < NUM_DIGITS; i++) {
+            password.append(randomCharacter(DIGITS));
+        }
+
+        for (int i = 0; i < PASSWORD_LENGTH - NUM_CAPITAL_LETTERS - NUM_DIGITS; i++) {
+            password.append(randomCharacter(LOWERCASE_LETTERS));
+        }
+
+        return shuffleString(password.toString());
+    }
+
+    private char randomCharacter(String characters) {
+        int index = random.nextInt(characters.length());
+        return characters.charAt(index);
+    }
+
+    private String shuffleString(String input) {
+        char[] characters = input.toCharArray();
+        for (int i = 0; i < characters.length; i++) {
+            int randomIndex = random.nextInt(characters.length);
+            char temp = characters[i];
+            characters[i] = characters[randomIndex];
+            characters[randomIndex] = temp;
+        }
+        return new String(characters);
+    }
+}

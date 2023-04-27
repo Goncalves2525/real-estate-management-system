@@ -7,6 +7,10 @@ public enum Role {
     STORE_MANAGER,
     CLIENT;
 
+    public int getValue() {
+        return this.ordinal();
+    }
+
     /**
      * Returns a string representation of the object.
      */

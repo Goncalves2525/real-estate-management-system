@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Role;
+
 public class Repositories {
 
     private static final Repositories instance = new Repositories();
@@ -10,6 +12,7 @@ public class Repositories {
     AgencyListRepository agencyListRepository = new AgencyListRepository();
     AgentListRepository agentListRepository = new AgentListRepository();
     EmployeeRepository employeeRepository = new EmployeeRepository();
+    RoleRepository roleRepository = new RoleRepository();
     
 
     private Repositories() {
@@ -43,5 +46,9 @@ public class Repositories {
 
     public EmployeeRepository getEmployeeRepository() {
         return employeeRepository;
+    }
+
+    public RoleRepository getRoleRepository() {
+        return roleRepository;
     }
 }

@@ -28,4 +28,16 @@ public class AgencyListRepository {
         return newAgency;
 
     }
+    public List<Agency> getAgencies() {
+        return new ArrayList<>(agencies);
+    }
+
+    public Agency getAgencyById(int id) {
+        for (Agency agency : agencies) {
+            if (agency.getId() == id) {
+                return agency;
+            }
+        }
+        return null;
+    }
 }
