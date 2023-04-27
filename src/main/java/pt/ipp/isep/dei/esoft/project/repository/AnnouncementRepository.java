@@ -9,11 +9,22 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ * The Announcement repository.
+ *
+ * This class saves the announcements in an ArrayList.
+ *
+ * This class ofers the methods to filter and sort the announcements.
+ */
 public class AnnouncementRepository {
 
     private final ArrayList<Announcement> announcements = new ArrayList<>();
 
 
+    /**
+     * This is the method used for when the user doesn't want to filter or sort the announcements
+     * @return resultAnnouncements
+     */
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         resultAnnouncements.sort(defaultCriteria);
@@ -21,6 +32,12 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    /**
+     * This is the method used for when the user wants to only sort the announcements
+     * @param sortCriteria - sort criteria
+     * @param order - sort order
+     * @return resultAnnouncements
+     */
     public ArrayList<Announcement> getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         sortAnnouncements(resultAnnouncements, sortCriteria, order);
@@ -28,6 +45,13 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    /**
+     * This is the method used for when the user wants to only filter the announcements
+     * @param typeOfProperty - type of property
+     * @param transactionType - transaction type
+     * @param numberOfRooms - number of rooms
+     * @return resultAnnouncements
+     */
     public ArrayList<Announcement> getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
@@ -52,6 +76,15 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    /**
+     * This is the method used for when the user wants to filter and sort the announcements
+     * @param typeOfProperty - type of property
+     * @param transactionType - transaction type
+     * @param numberOfRooms - number of rooms
+     * @param sortCriteria - sort criteria
+     * @param order - sort order
+     * @return resultAnnouncements
+     */
     public ArrayList<Announcement> getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements;
         resultAnnouncements = getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
@@ -60,6 +93,16 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    /**
+     * Adds an announcement to the repository
+     * @param property - property
+     * @param typeOfProperty - type of property
+     * @param transactionType - transaction type
+     * @param date - date
+     * @param comission - comission
+     * @param photos - photos
+     * @param isPublished - is published
+     */
     public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
         Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
         announcements.add(announcement);
@@ -84,11 +127,12 @@ public class AnnouncementRepository {
     }
 
 
-
-
-
-
-
+    /**
+     * Sorts the announcements using the criteria chosen by the user
+     * @param resultAnnouncements - result announcements
+     * @param sortCriteria - sort criteria
+     * @param order - sort order
+     */
     private void sortAnnouncements(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
         if (sortCriteria.equals("price")) {
             if (order.equals("ascending")) {
@@ -113,7 +157,10 @@ public class AnnouncementRepository {
     }
 
 
-
+    /**
+     * This method prevents the user from seeing an announcement that is not published
+     * @param resultAnnouncements - resultannouncements
+     */
     private void removeNonPublishedAnnouncements(ArrayList<Announcement> resultAnnouncements) {
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
@@ -124,10 +171,14 @@ public class AnnouncementRepository {
         }
     }
 
+    /**
+     * This method copies the original list of announcements into a new list
+     * @param announcements - announcements
+     * @return copy of announcements
+     */
     private ArrayList<Announcement> copyAnnouncements(ArrayList<Announcement> announcements) {
         return new ArrayList<>(announcements);
     }
-
 
     Comparator<Announcement> ascendingPriceCriteria = new Comparator<Announcement>() {
         @Override
