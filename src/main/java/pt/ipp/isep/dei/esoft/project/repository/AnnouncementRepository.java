@@ -12,21 +12,21 @@ public class AnnouncementRepository {
     private final ArrayList<Announcement> announcements = new ArrayList<>();
 
 
-    public ArrayList<Announcement> sortAllAnnouncementsByDefaultCriteria() {
+    public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         resultAnnouncements.sort(defaultCriteria);
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
 
-    public ArrayList<Announcement> sortAllAnnouncementsBySortCriteria(String sortCriteria, String order) {
+    public ArrayList<Announcement> getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         sortAnnouncements(resultAnnouncements, sortCriteria, order);
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
 
-    public ArrayList<Announcement> filterAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+    public ArrayList<Announcement> getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
@@ -50,9 +50,9 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
-    public ArrayList<Announcement> filterAndSortAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+    public ArrayList<Announcement> getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements;
-        resultAnnouncements = filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+        resultAnnouncements = getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
         sortAnnouncements(resultAnnouncements, sortCriteria, order);
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;

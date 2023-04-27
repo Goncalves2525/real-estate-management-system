@@ -24,23 +24,23 @@ public class ListAnnouncementsController {
 
     }
 
-    public ArrayList<Announcement> sortAllAnnouncementsByDefaultCriteria() {
+    public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
-        return announcementRepository.sortAllAnnouncementsByDefaultCriteria();
+        return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 
-    public ArrayList<Announcement> sortAllAnnouncementsBySortCriteria(String sortCriteria, String order){
+    public ArrayList<Announcement> getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order){
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
-        return announcementRepository.sortAllAnnouncementsBySortCriteria(sortCriteria, order);
+        return announcementRepository.getAllAnnouncementsSortedBySortCriteria(sortCriteria, order);
     }
 
-    public ArrayList<Announcement> filterAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+    public ArrayList<Announcement> getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
-        return announcementRepository.filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+        return announcementRepository.getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
     }
 
-    public ArrayList<Announcement> filterAndSortAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order){
+    public ArrayList<Announcement> getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order){
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
-        return announcementRepository.filterAndSortAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+        return announcementRepository.getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
 }

@@ -1,72 +1,152 @@
 @startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
 skinparam classAttributeIconSize 0
 
-class ApplicationPOT
-{
-  +static getInstance()
-  +getCurrentSession()
+'left to right directio
+class Property{
+    - double area
+    - double distanceFromCenter
+    - double price
+    - Address address
+    + getAddress()
+    + getArea()
+    + getDistanceFromCenter()
+    + getPrice()
+    + setAddress()
+    + setArea()
+    + setDistanceFromCenter()
+    + setPrice()
+    + toString()
 }
 
-class UserSession
-{
-  +getUserEmail()
-}
+class Announcement {
+    - Property property
+    - TypeOfProperty typeOfProperty
+    - TransactionType transactionType
+    - Date publishDate
+    - Comission comission
+    - ArrayList<Photo> photos
+    - boolean isPublished
+    - int id
+    - int idCounter
+    + Announcement()
+    + Announcement() construtor diferente???
+    + getTransactionType()
+    + getProperty()
+    + getTypeOfProperty()
+    + getPublishDate()
+    + getComission()
+    + getId()
+    + getIdCounter()
+    + isPublished()
+    + setTransactionType()
+    + setProperty()
+    + setTypeOfProperty()
+    + setPublished()
+    + setComission()
+    + setPublishDate()
+    + hasProperty()
+    + hasTypeOfProperty()
+    + hasPublishDate()
+    + hasCommission()
+    +toString()
 
-class Task {
-  -String reference
-  -String designation
-  -String informalDescription
-  -String technicalDescription
-  -Integer duration
-  -Double cost
-  +Task(ref,designation,informalDesc,technicalDesc,duration,cost,cat)
-}
-
-class Category {
-  -String id
-  -String description
-}
-
-class Organization {
-  -String name
-  -String VatNumber
-  -String website
-  -String phone
-  -String email
-  +Organization(name, VatNumber, webSite, phone, email, postalAddress, manager)
-  +createTask(ref,designation,informalDesc,technicalDesc,duration,cost,cat)
-  +saveTask(task)
-  -addTask(task)
-  -validateTask(task)
-}
-
-class Platform {
-  -String designation
-  +getCategories()
-  +getCategoryById(catId)
-  +getOrganizationByUserEmail(email)
-}
-
-class CreateTaskController {
-  +getCategories()
-  +createTask(ref,designation,informalDesc,technicalDesc,duration,cost,categoryId)
-  +saveTask()
-}
-
-class CreateTaskUI {
 
 }
 
-CreateTaskUI ..> CreateTaskController
-CreateTaskController ..> Platform
-CreateTaskController ..> Category
-CreateTaskController ..> Task
-CreateTaskController ..> Organization
-CreateTaskController ..> ApplicationPOT
-CreateTaskController ..> UserSession
-Task "*" -> "1" Category : classified in
-Platform "1" --> "*" Category : defines
-Organization "1" --> "*" Task : owns
+class AnnouncementRepository {
+    - ArrayList<Announcement> announcements
+    +getAllAnnouncementsSortedByDefualtCriteria()
+    +getAllAnnouncementsSortedBySortCriteria()
+    +getFilteredAnnouncements()
+    +getFilteredAndSortedAnnouncements()
+    +sortAnnouncements()
+    +addAnnouncement()
+    +addAnnouncementByRequest()
+    +removeNonPublishedAnnouncements()
+    +copyAnnouncements()
+}
+
+class Repositories {
+    - Repositories instance
+    - AuthenticationRepository authenticationRepository
+    - AnnouncementRepository announcementRepository
+    - AgencyListRepository agencyListRepository
+    - AgentListRepository agentListRepository
+    - EmployeeRepository employeeRepository
+    - RoleRepository roleRepository
+    +Repositories()
+    +getOrganizationRepository()
+    +getTaskCategoryRepository()
+    +getAnnouncementRepository()
+    +getAuthenticationRepository()
+    +getAgencyListRepository()
+    +getAgentListRepository()
+    +getEmployeeRepository()
+    +getRoleRepository()
+}
+
+class ListAnnouncementsController {
+    - AnnouncementRepository announcementRepository
+    +ListAnnouncementsController()
+    +getAnnoucementRepository()
+    +getAllAnnouncementsSortedByDefualtCriteria()
+    +getAllAnnouncementsSortedBySortCriteria()
+    +getFilteredAnnouncements()
+    +getFilteredAndSortedAnnouncements()
+}
+
+class ListAnouncementsUI {
+-ListAnnouncementsController listAnnouncementsController
++ListAnnouncementsUI()
++getController()
++run()
++getAnnouncements()
++checkInputType()
++showOptions()
++requestFilters()
++requestSortCriteria()
++getTypeOfPropertyFilterOption()
++getTypeOfTransactionFilterOption()
++getNumberOfRoomsFilterOption()
++writeToArray()
++showTypeOfPropertyOptions()
++showTypeOfBusinessOptions()
++showNumberOfRoomsOptions()
++showSortOptions()
++showOrderOptions()
++checkTypeOfProperty()
++checkTransactionType()
++checkSortCriteria()
++checkNumberOfRooms()
++checkOrder()
++showAnnouncements()
++verifyFilters()
++verifyOrder()
++clearScreen()
+
+
+
+}
+
+Repositories -> Repositories : instances
+
+ListAnouncementsUI .> ListAnnouncementsController
+
+ListAnnouncementsController ..> Repositories
+
+Repositories "1" --> "1" AnnouncementRepository : has
+
+ListAnnouncementsController ..> AnnouncementRepository
+
+AnnouncementRepository "1" --> "*" Announcement : has
+
+Announcement "1" --> "1" Property : has
 
 
 @enduml

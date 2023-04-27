@@ -7,11 +7,11 @@ autonumber
 
 'hide footbox
 actor "Unregistered User" as uUser
-participant ":ListPropertiesUI" as UI
+participant ":ListAnnouncementsUI" as UI
 participant ":ListPropertiesController" as CTRL
 participant ":Repositories" as REPOS
 participant "repositories\n:Repositories" as repos
-participant "publishedPropertiesRepository:\nPublishedPropertiesRepository" as PublishedPropertiesRepository
+participant "announcementsRepository:\nAnnouncementsRepository" as AnnouncementsRepository
 
 activate uUser
 
@@ -56,9 +56,7 @@ activate uUser
 
 
 
-            else Filter or Sort
-
-                alt Filter
+            else Only Filter
 
                     UI --> uUser : shows filter and sort options
                     activate UI
@@ -70,7 +68,7 @@ activate uUser
                     UI --> uUser: shows that properties will be filtered using filter options selected by user, \n sorted by default sort criteria (most recently added) and requests confirmation
                     deactivate UI
 
-                else Sort
+            else Only Sort
 
                     UI --> uUser : shows filter and sort options
                     activate UI
@@ -81,7 +79,7 @@ activate uUser
 
                     UI --> uUser : shows that all properties will be listed with sort criteria selected by user
                     deactivate UI
-                end
+
 
             else Neither Filter nor Sort
 
@@ -100,38 +98,138 @@ activate uUser
             uUser -> UI : confirms selection
             activate UI
 
+            UI -> UI : checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria)
+
             UI -> CTRL** : create
-            UI -> CTRL : getPublishedProperties(propertyType, buisnessType, numberOfRooms, sortCriteria, order)
+            alt Filter and Sort
+                UI -> CTRL : getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order)
 
-            activate CTRL
+                activate CTRL
 
-            CTRL -> REPOS : getInstance()
-            activate REPOS
+                CTRL -> REPOS : getInstance()
+                activate REPOS
 
-            REPOS --> CTRL: repositories
-            deactivate REPOS
+                REPOS --> CTRL: repositories
+                deactivate REPOS
 
-            CTRL -> repos : getPublishedPropertiesRepository()
-            activate repos
+                CTRL -> repos : getAnnouncementsRepository()
+                activate repos
 
-            repos --> CTRL: publishedPropertiesRepository
-            deactivate repos
+                repos --> CTRL: announcementsRepository
+                deactivate repos
 
-            CTRL -> PublishedPropertiesRepository : getPublishedProperties(propertyType, buisnessType, numberOfRooms, sortCriteria, order)
-            activate PublishedPropertiesRepository
+                CTRL -> AnnouncementsRepository : getFilteredAndSortedAnnouncements(propertyType, transactionType, numberOfRooms, sortCriteria, order)
+                activate AnnouncementsRepository
 
-            PublishedPropertiesRepository -> PublishedPropertiesRepository : getPropertiesByFilterAndSort(propertyType, businessType, numberOfRooms, sortCriteria, order)
+                AnnouncementsRepository -> AnnouncementsRepository : getFilteredAndSortedAnnouncements(propertyType, transactionType, numberOfRooms, sortCriteria, order)
 
-            PublishedPropertiesRepository --> CTRL : requestedPublishedPropertiesList
-            deactivate PublishedPropertiesRepository
+                AnnouncementsRepository --> CTRL : announcementsList
+                deactivate AnnouncementsRepository
 
-            CTRL --> UI : requestedPublishedPropertiesList
-            deactivate CTRL
+                CTRL --> UI : announcementsList
+
+                deactivate CTRL
+
+
+                deactivate UI
+            else Only filter
+                UI -> CTRL : getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms)
+                activate UI
+                activate CTRL
+
+                CTRL -> REPOS : getInstance()
+                activate REPOS
+
+                REPOS --> CTRL: repositories
+                deactivate REPOS
+
+                CTRL -> repos : getAnnouncementsRepository()
+                activate repos
+
+                repos --> CTRL: announcementsRepository
+                deactivate repos
+
+                CTRL -> AnnouncementsRepository : getFilteredAnnouncements(propertyType, transactionType, numberOfRooms)
+                activate AnnouncementsRepository
+
+                AnnouncementsRepository -> AnnouncementsRepository : getFilteredAnnouncements(propertyType, transactionType, numberOfRooms)
+
+                AnnouncementsRepository --> CTRL : announcementsList
+                deactivate AnnouncementsRepository
+
+                CTRL --> UI : announcementsList
+
+                deactivate CTRL
+
+
+                deactivate UI
+
+            else Only sort
+                UI -> CTRL : getAllAnnouncementsSortedBySortCriteria(sortCriteria, order)
+                activate UI
+                activate CTRL
+
+                CTRL -> REPOS : getInstance()
+                activate REPOS
+
+                REPOS --> CTRL: repositories
+                deactivate REPOS
+
+                CTRL -> repos : getAnnouncementsRepository()
+                activate repos
+
+                repos --> CTRL: announcementsRepository
+                deactivate repos
+
+                CTRL -> AnnouncementsRepository : getAllAnnouncementsSortedBySortCriteria(sortCriteria, order)
+                activate AnnouncementsRepository
+
+                AnnouncementsRepository -> AnnouncementsRepository : getAllAnnouncementsSortedBySortCriteria(sortCriteria, order)
+
+                AnnouncementsRepository --> CTRL : announcementsList
+                deactivate AnnouncementsRepository
+
+                CTRL --> UI : announcementsList
+
+                deactivate CTRL
+
+
+                deactivate UI
+            else Neither Filter nor Sort
+                UI -> CTRL : getAllAnnouncementsSortedByDefualtCriteria()
+                activate UI
+                activate CTRL
+
+                CTRL -> REPOS : getInstance()
+                activate REPOS
+
+                REPOS --> CTRL: repositories
+                deactivate REPOS
+
+                CTRL -> repos : getAnnouncementsRepository()
+                activate repos
+
+                repos --> CTRL: announcementsRepository
+                deactivate repos
+
+                CTRL -> AnnouncementsRepository : getAllAnnouncementsSortedByDefualtCriteria()
+                activate AnnouncementsRepository
+
+                AnnouncementsRepository -> AnnouncementsRepository : getAllAnnouncementsSortedByDefualtCriteria()
+
+                AnnouncementsRepository --> CTRL : announcementsList
+                deactivate AnnouncementsRepository
+
+                CTRL --> UI : announcementsList
+
+                deactivate CTRL
+
+
+                deactivate UI
+            end
 
             UI --> uUser : displays the respective list of properties
             deactivate UI
-
-
 
 
 @enduml
