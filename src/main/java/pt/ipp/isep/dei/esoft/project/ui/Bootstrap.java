@@ -74,21 +74,21 @@ public class Bootstrap implements Runnable {
         Property p13 = new Land(150, 30, 500000, a1);
         Property p14 = new Land(150, 30, 300000, a1);
         Property p15 = new Land(150, 30, 400000, a1);
-        announcementRepository.addAnnouncement(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p3, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p4, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addAnnouncement(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addAnnouncement(p6, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p9, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addAnnouncement(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addAnnouncement(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null);
-        announcementRepository.addAnnouncement(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
-        announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null);
+        announcementRepository.addAnnouncement(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p3, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p4, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p6, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p9, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
     }
 
     private void addTaskCategories() {

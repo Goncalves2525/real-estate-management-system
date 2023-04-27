@@ -24,9 +24,23 @@ public class ListAnnouncementsController {
 
     }
 
-    //returns the list of properties
-    public ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+    public ArrayList<Announcement> sortAllAnnouncementsByDefaultCriteria() {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
-        return announcementRepository.getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+        return announcementRepository.sortAllAnnouncementsByDefaultCriteria();
+    }
+
+    public ArrayList<Announcement> sortAllAnnouncementsBySortCriteria(String sortCriteria, String order){
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.sortAllAnnouncementsBySortCriteria(sortCriteria, order);
+    }
+
+    public ArrayList<Announcement> filterAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+    }
+
+    public ArrayList<Announcement> filterAndSortAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order){
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.filterAndSortAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
 }

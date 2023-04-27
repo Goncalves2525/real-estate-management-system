@@ -10,16 +10,18 @@ public class Announcement {
     private Date publishDate;
     private Comission comission;
     private ArrayList<Photo> photos = new ArrayList<>();
-    private int id;
+    private boolean isPublished;
+    private final int id;
     public static int idCounter = 0;
 
-    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
+    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
         this.publishDate = publishDate;
         this.comission = comission;
         this.photos = photos;
+        this.isPublished = isPublished;
         id = idCounter++;
     }
 
@@ -66,6 +68,14 @@ public class Announcement {
 
     public Comission getComission() {
         return comission;
+    }
+
+    public boolean isPublished() {
+        return isPublished;
+    }
+
+    public void setPublished(boolean published) {
+        isPublished = published;
     }
 
     public void setComission(Comission comission) {

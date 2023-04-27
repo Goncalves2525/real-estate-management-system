@@ -14,6 +14,10 @@ import java.util.Scanner;
  * @author Paulo Maio pam@isep.ipp.pt
  */
 
+/**
+ * The type List announcements ui.
+ */
+
 public class ListAnnouncementsUI implements Runnable {
 
     private final ListAnnouncementsController controller = new ListAnnouncementsController();
@@ -26,6 +30,7 @@ public class ListAnnouncementsUI implements Runnable {
     }
 
     public void run() {
+        ArrayList<Announcement> announcementsList;
         TypeOfProperty typeOfProperty = null;
         TransactionType transactionType = null;
         Integer integerNumberOfRooms = -1;
@@ -34,7 +39,7 @@ public class ListAnnouncementsUI implements Runnable {
         Object[] filters;
         String[] sort;
 
-        filters = requestFilters(typeOfProperty, transactionType, integerNumberOfRooms);
+        filters = requestFilters();
         sort = requestSortCriteria(sortCriteria, order);
         clearScreen();
 
@@ -45,58 +50,63 @@ public class ListAnnouncementsUI implements Runnable {
         sortCriteria = sort[0];
         order = sort[1];
 
-        ArrayList<Announcement> anouncementsList = getController().getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
-        showAnnouncements(anouncementsList);
+        announcementsList = getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+        showAnnouncements(announcementsList);
     }
 
-    private Object[] requestFilters(TypeOfProperty typeOfProperty, TransactionType transactionType, Integer numberOfRooms){
-        Scanner sc = new Scanner(System.in);
+    public ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+        ArrayList<Announcement> announcementsList;
+        AnnouncementListOptionType inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
+        switch (inputType) {
+            case NO_FILTER_NO_SORT:
+                announcementsList = getController().sortAllAnnouncementsByDefaultCriteria();
+                break;
+            case ONLY_SORT:
+                announcementsList = getController().sortAllAnnouncementsBySortCriteria(sortCriteria, order);
+                break;
+            case ONLY_FILTER:
+                announcementsList = getController().filterAnnouncements(typeOfProperty, transactionType, numberOfRooms);
+                break;
+            case FILTER_AND_SORT:
+                announcementsList = getController().filterAndSortAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
+                break;
+            default:
+                announcementsList = null;
+        }
+        return announcementsList;
+    }
+    private AnnouncementListOptionType checkInputType(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria) {
+        AnnouncementListOptionType inputType;
+        if (typeOfProperty == null && transactionType == null && numberOfRooms == -1 && sortCriteria == null) {
+            inputType = AnnouncementListOptionType.NO_FILTER_NO_SORT;
+        } else if (typeOfProperty == null && transactionType == null && numberOfRooms == -1) {
+            inputType = AnnouncementListOptionType.ONLY_SORT;
+        } else if (sortCriteria == null) {
+            inputType = AnnouncementListOptionType.ONLY_FILTER;
+        } else {
+            inputType = AnnouncementListOptionType.FILTER_AND_SORT;
+        }
+        return inputType;
+    }
+
+    private Object[] requestFilters() {
         boolean invalidFilters;
-        boolean exception;
         Object[] filters;
 
         clearScreen();
+        TypeOfProperty typeOfProperty;
+        TransactionType transactionType;
+        Integer numberOfRooms;
         do {
             int[] filterValidater = {0, 0, 0};
             System.out.println("PLEASE CHOSE FILTERS AND SORT CRITERIA FOR THE LIST OF PROPERTIES\n" +
                     "(You must choose all 3 filters or none)");
             showTypeOfPropertyOptions();
-            do {
-                exception = false;
-                try {
-                    typeOfProperty = checkTypeOfProperty(filterValidater, sc.nextInt());
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. Please use numbers only.");
-                    exception = true;
-                    sc.nextLine();
-                }
-            }while(exception);
-
+            typeOfProperty = getTypeOfPropertyFilterOption(filterValidater);
             showTypeOfBusinessOptions();
-            do {
-                exception = false;
-                try {
-                    transactionType = checkTransactionType(filterValidater, sc.nextInt());
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. Please use numbers only.");
-                    exception = true;
-                    sc.nextLine();
-                }
-            }while(exception);
-
-            clearScreen();
+            transactionType = getTypeOfTransactionFilterOption(filterValidater);
             showNumberOfRoomsOptions();
-
-            do {
-                exception = false;
-                try {
-                    numberOfRooms = checkNumberOfRooms(filterValidater, sc.nextInt());
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. Please use numbers only.");
-                    exception = true;
-                    sc.nextLine();
-                }
-            }while(exception);
+            numberOfRooms = getNumberOfRoomsFilterOption(filterValidater);
 
             invalidFilters = verifyFilters(filterValidater);
         } while (invalidFilters);
@@ -105,6 +115,50 @@ public class ListAnnouncementsUI implements Runnable {
 
         return filters;
     }
+
+    public TypeOfProperty getTypeOfPropertyFilterOption(int[] filterValidater){
+        Scanner sc = new Scanner(System.in);
+        TypeOfProperty typeOfProperty;
+
+        try {
+            typeOfProperty =  checkTypeOfProperty(filterValidater, sc.nextInt());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please use numbers only.");
+            typeOfProperty = getTypeOfPropertyFilterOption(filterValidater);
+            sc.nextLine();
+        }
+
+        return typeOfProperty;
+    }
+
+    private TransactionType getTypeOfTransactionFilterOption(int[] filterValidater) {
+        Scanner sc = new Scanner(System.in);
+        TransactionType transactionType;
+
+        try {
+            transactionType =  checkTransactionType(filterValidater, sc.nextInt());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please use numbers only.");
+            transactionType = getTypeOfTransactionFilterOption(filterValidater);
+            sc.nextLine();
+        }
+        return transactionType;
+    }
+
+    private Integer getNumberOfRoomsFilterOption(int[] filterValidater) {
+        Scanner sc = new Scanner(System.in);
+        Integer numberOfRooms;
+
+        try {
+            numberOfRooms =  checkNumberOfRooms(filterValidater, sc.nextInt());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please use numbers only.");
+            numberOfRooms = getNumberOfRoomsFilterOption(filterValidater);
+            sc.nextLine();
+        }
+        return numberOfRooms;
+    }
+
 
     private String[] requestSortCriteria(String sortCriteria, String order) {
         String[] sort = new String[2];
@@ -122,7 +176,7 @@ public class ListAnnouncementsUI implements Runnable {
                 exception = true;
                 sc.nextLine();
             }
-        }while(exception);
+        } while (exception);
 
         if (Objects.equals(sortCriteria, "price") || Objects.equals(sortCriteria, "state")) {
             clearScreen();
@@ -137,7 +191,7 @@ public class ListAnnouncementsUI implements Runnable {
                         exception = true;
                         sc.nextLine();
                     }
-                }while (exception);
+                } while (exception);
                 verifyOrder(order);
             } while (order == null);
         }
@@ -163,7 +217,8 @@ public class ListAnnouncementsUI implements Runnable {
                 "Type of Property:\n" +
                 "1- House\n" +
                 "2- Apartment\n" +
-                "3- Land");
+                "3- Land" +
+                "(Insert any other number to skip this filter)");
     }
 
     private TypeOfProperty checkTypeOfProperty(int[] filterValidater, int option) {
@@ -189,7 +244,9 @@ public class ListAnnouncementsUI implements Runnable {
 
                 "Type of Business:\n" +
                 "1- Sale\n" +
-                "2- Rent\n");
+                "2- Rent\n" +
+                "(Insert any other number to skip this filter)");
+
     }
 
     private TransactionType checkTransactionType(int[] filterValidater, int option) {
@@ -215,7 +272,8 @@ public class ListAnnouncementsUI implements Runnable {
                 "2- T2\n" +
                 "3- T3\n" +
                 "4- T4\n" +
-                "5- T5\n");
+                "5- T5\n" +
+                "(Insert any other number to skip this filter)");
     }
 
     private int checkNumberOfRooms(int[] filterValidater, int option) {
@@ -246,7 +304,8 @@ public class ListAnnouncementsUI implements Runnable {
                 "------------------\n\n" +
 
                 "1- Price\n" +
-                "2- State\n");
+                "2- State\n" +
+                "(Insert another number to skip this option)");
     }
 
     private String checkSortCriteria(int option) {
@@ -315,7 +374,6 @@ public class ListAnnouncementsUI implements Runnable {
             System.out.println("You must choose an order.");
         }
     }
-
 
     // Prints multiple empty lines to simulate a cleared screen
     private void clearScreen() {
