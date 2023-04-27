@@ -1,88 +1,42 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Employee extends User{
-   private Role role;
+public class Employee extends User {
 
-    /**
-     * Instantiates a new Employee.
-     *
-     * @param name               the name
-     * @param email              the email
-     * @param passportCardNumber the passport card number
-     * @param taxNumber          the tax number
-     * @param telephoneNumber    the telephone number
-     * @param address            the address
-     * @param agency             the agency
-     */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency);
-        this.role = Role.EMPLOYEE;
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
     }
 
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Role role) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, role);
-        this.role = Role.EMPLOYEE;
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Set<Role> roles) {
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
     }
 
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
-        this.role = role;
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Set<Role> roles) {
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
     }
 
-
-    //address is optional
-    /**
-     * Instantiates a new Employee.
-     *
-     * @param name               the name
-     * @param email              the email
-     * @param passportCardNumber the passport card number
-     * @param taxNumber          the tax number
-     * @param telephoneNumber    the telephone number
-     * @param role               the role
-     */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Role role) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, role);
-    }
-
-    //para não dar problema com o outro
-    /**
-     * Instantiates a new Employee.
-     *
-     * @param email the email
-     */
     public Employee(String email) {
         super(email);
     }
 
-    /**
-     * Gets role.
-     *
-     * @return the role
-     */
-    @Override
-    public Role getRole() {
-        return role;
+    public void addRole(Role role) {
+        Set<Role> roles = getRoles();
+        roles.add(role);
+        setRoles(roles);
     }
 
-    /**
-     * Sets role.
-     *
-     * @param role the role
-     */
-    @Override
-    public void setRole(Role role) {
-        this.role = role;
+    public void removeRole(Role role) {
+        Set<Role> roles = getRoles();
+        roles.remove(role);
+        setRoles(roles);
     }
 
-    /**
-     * Equals boolean.
-     *
-     * @param o the o
-     * @return the boolean
-     */
+    public boolean hasRole(Role role) {
+        return getRoles().contains(role);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -96,38 +50,26 @@ public class Employee extends User{
                 getPassportCardNumber() == employee.getPassportCardNumber() &&
                 getTaxNumber() == employee.getTaxNumber() &&
                 getTelephoneNumber() == employee.getTelephoneNumber() &&
-                Objects.equals(getAddress(), employee.getAddress()) &&
-                Objects.equals(role, employee.role);
+                getAddress().equals(employee.getAddress()) &&
+                getRoles().equals(employee.getRoles());
     }
 
-    //resolver isto
-    /**
-     * Hash code int.
-     *
-     * @return the int
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), role);
+        int result = getEmail().hashCode();
+        result = 31 * result + getPassportCardNumber();
+        result = 31 * result + getTaxNumber();
+        result = 31 * result + getTelephoneNumber();
+        result = 31 * result + getAddress().hashCode();
+        result = 31 * result + getRoles().hashCode();
+        return result;
     }
 
-    /**
-     * Returns email string.
-     *
-     * @return the string
-     */
     public boolean hasEmail(String email) {
         return getEmail().equals(email);
     }
 
-
-    /**
-     * Clone method.
-     *
-     * @return A clone of the current instance.
-     */
-    //resolver isto
     public Employee clone() {
-        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), role);
+        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), new HashSet<>(getRoles()));
     }
 }

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class User {
     private String name;
@@ -9,8 +10,7 @@ public abstract class User {
     private int taxNumber;
     private int telephoneNumber;
     private Address address;
-    private Role role;
-
+    private Set<Role> roles;
     private Agency agency;
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
@@ -21,9 +21,10 @@ public abstract class User {
         this.telephoneNumber = telephoneNumber;
         this.address = address;
         this.agency = agency;
+        this.roles = new HashSet<>();
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -31,32 +32,45 @@ public abstract class User {
         this.telephoneNumber = telephoneNumber;
         this.address = address;
         this.agency = agency;
-        this.role = role;
+        this.roles = roles;
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Role role) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Set<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
         this.address = address;
-        this.role = role;
+        this.roles = roles;
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Role role) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Set<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
-        this.role = role;
+        this.roles = roles;
     }
 
-    //para não dar problema com o outro
     public User(String email) {
         this.email = email;
+        this.roles = new HashSet<>();
     }
+
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.passportCardNumber = passportCardNumber;
+        this.taxNumber = taxNumber;
+        this.telephoneNumber = telephoneNumber;
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.EMPLOYEE);
+        this.setRoles(roles);
+    }
+
+    // ... outros métodos ...
 
     public String getName() {
         return name;
@@ -70,26 +84,18 @@ public abstract class User {
         return email;
     }
 
-
     public int getPassportCardNumber() {
         return passportCardNumber;
     }
-
 
     public int getTaxNumber() {
         return taxNumber;
     }
 
-
     public int getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    /**
-     * Sets the telephone number.
-     *
-     * @param telephoneNumber telephone number
-     */
     public void setTelephoneNumber(int telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
@@ -98,32 +104,39 @@ public abstract class User {
         return address;
     }
 
-    /**
-     * Sets the address.
-     *
-     * @param address address
-     */
     public void setAddress(Address address) {
         this.address = address;
     }
 
-    /**
-     * Returns a string representation of the object.
-     */
+    public Agency getAgency() {
+        return agency;
+    }
+
+    public void setAgency(Agency agency) {
+        this.agency = agency;
+    }
+
     @Override
     public String toString() {
-        return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address==null?"":this.address.toString(),this.role==null?"":this.role.toString());
+        return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address == null ? "" : this.address.toString(), this.roles == null ? "" : this.roles.toString());
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
 
     public boolean hasRole(Role role) {
-        return this.role == role;
+        return roles != null && roles.contains(role);
     }
 }

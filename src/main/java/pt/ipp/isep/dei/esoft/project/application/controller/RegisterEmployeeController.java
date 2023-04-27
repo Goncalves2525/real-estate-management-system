@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.RoleRepository;
 
 
 import java.util.List;
+import java.util.Set;
 
 public class RegisterEmployeeController {
 
@@ -33,10 +34,11 @@ public class RegisterEmployeeController {
         this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
     }
 
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
-        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
         return employeeRepository.addEmployee(employee);
     }
+
 
     public String generatePassword() {
         return passwordGenerator.generatePassword();

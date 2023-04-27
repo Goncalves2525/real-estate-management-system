@@ -11,8 +11,11 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+
 public class RegisterEmployeeUI implements Runnable {
 
 
@@ -27,14 +30,23 @@ public class RegisterEmployeeUI implements Runnable {
 
     @Override
     public void run() {
-        Role role;
         Scanner scanner = new Scanner(System.in);
 
-        showRoles();
-        System.out.println();
-        System.out.print("Select a role option: ");
-        role = selectRole(scanner.nextInt());
-        scanner.nextLine(); // Consume newline character from previous input
+        Set<Role> selectedRoles = new HashSet<>();
+
+        boolean addMoreRoles;
+        do {
+            showRoles();
+            System.out.println();
+            System.out.print("Select a role option: ");
+            Role role = selectRole(scanner.nextInt());
+            scanner.nextLine(); // Consume newline character from previous input
+            selectedRoles.add(role);
+
+            System.out.println("Do you want to add more roles? (Y/N)");
+            String answer = scanner.nextLine();
+            addMoreRoles = answer.equalsIgnoreCase("Y");
+        } while (addMoreRoles);
 
         System.out.println();
         System.out.println();
@@ -83,8 +95,8 @@ public class RegisterEmployeeUI implements Runnable {
 
         String password = controller.generatePassword();
 
-        String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
-        processRegistration(password, answer, name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
+        String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
+        processRegistration(password, answer, name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
 
 
     }
@@ -112,7 +124,7 @@ public class RegisterEmployeeUI implements Runnable {
         return agencyListRepository.getAgencyById(id);
     }
 
-    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
+    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> selectedRoles) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please confirm the following information:");
         System.out.println("Name: " + name);
@@ -122,21 +134,25 @@ public class RegisterEmployeeUI implements Runnable {
         System.out.println("Telephone Number: " + telephoneNumber);
         System.out.println("Address: " + address.toString());
         System.out.println("Agency: " + agency.getName());
-        System.out.println("Role: " + role.toString());
+        System.out.print("Roles: ");
+        for (Role role : selectedRoles) {
+            System.out.print(role.toString() + " ");
+        }
         System.out.println();
         System.out.println("Is this information correct? (Y/N)");
         return scanner.nextLine();
     }
 
-    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Role role) {
+
+    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> selectedRoles) {
         if (answer.equalsIgnoreCase("Y")) {
-            boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, role);
+            boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
             if (success) {
                 writePasswordToFile(password, "passwords.txt");
                 System.out.println();
                 System.out.println("|------------------------------------------------------------|\n" +
-                                   "| Employee registered successfully and password sent to email|\n" +
-                                   "|------------------------------------------------------------|");
+                        "| Employee registered successfully and password sent to email|\n" +
+                        "|------------------------------------------------------------|");
 
             } else {
                 System.out.println("Failed to register employee. Employee with the same email may already exist.");
@@ -147,6 +163,7 @@ public class RegisterEmployeeUI implements Runnable {
                     "|--------------------------|");
         }
     }
+
 
     private void writePasswordToFile(String password, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {

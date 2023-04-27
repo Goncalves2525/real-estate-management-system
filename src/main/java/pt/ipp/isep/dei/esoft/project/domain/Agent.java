@@ -1,27 +1,41 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class Agent extends User implements Cloneable{
+import java.util.HashSet;
+import java.util.Set;
+
+public class Agent extends User implements Cloneable {
 
     private Agency agency;
 
-    public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency);
+    public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
+        this.agency = agency;
     }
 
     public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, Role.EMPLOYEE);
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber);
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.EMPLOYEE);
+        this.setRoles(roles);
     }
 
     public Agent(String email) {
         super(email);
     }
 
-    public boolean isAgentInAgency(Agency agency){
+    public boolean isAgentInAgency(Agency agency) {
         return agency.agents.contains(this);
     }
 
+    public Agency getAgency() {
+        return agency;
+    }
 
-    public Agent clone(){
+    public void setAgency(Agency agency) {
+        this.agency = agency;
+    }
+
+    public Agent clone() {
         try {
             return (Agent) super.clone();
         } catch (CloneNotSupportedException e) {
@@ -29,10 +43,8 @@ public class Agent extends User implements Cloneable{
         }
     }
 
-    //to string
     @Override
     public String toString() {
-        return super.toString()  + " agency=" + agency;
+        return super.toString() + " agency=" + agency;
     }
-
 }
