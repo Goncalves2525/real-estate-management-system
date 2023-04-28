@@ -7,12 +7,14 @@ import java.util.Set;
 
 public class MainTest {
     public static void main(String[] args) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.ADMIN);
+       // Set<Role> roles = new HashSet<>();
+       // roles.add(Role.ADMIN);
+       // Employee employee = new Employee("João", "wfreb", 123, 123, 123, roles);
+       // System.out.println(employee.toString());
 
-        Employee employee = new Employee("João", "wfreb", 123, 123, 123, roles);
+        Comission comission = new Comission(10, 10);
 
-        System.out.println(employee.toString());
+        System.out.println(comission);
     }
 
 }

@@ -74,7 +74,7 @@ public class ListAnnouncementsUI implements Runnable {
 
 
     /**
-     *
+     * Gets a list of announcements regarding the filters and sort criteria chosen by the user.
      * @param typeOfProperty - type of property
      * @param transactionType - transaction type
      * @param numberOfRooms - number of rooms

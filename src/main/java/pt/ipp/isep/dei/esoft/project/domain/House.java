@@ -60,6 +60,6 @@ public class House extends Residency{
     }
     @Override
     public String toString(){
-        return String.format(super.toString() + "\n-Has basement: %b\n-Has inhabitable loft: %b\n-This is a House.", hasBasement, hasInhabitableLoft);
+        return String.format(super.toString() + "\n-Has basement: %b\n-Has inhabitable loft: %b", hasBasement, hasInhabitableLoft);
     }
 }

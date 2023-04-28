@@ -75,23 +75,30 @@ public class RegisterEmployeeUI implements Runnable {
 
         scanner.nextLine(); // Consume newline character from previous input
 
-        System.out.print("Street: ");
-        String street = scanner.nextLine();
+        System.out.print("Do you want to add an address? (Y/N)");
+        String answerAdress = scanner.nextLine();
 
-        System.out.print("City: ");
-        String city = scanner.nextLine();
+        Address address = new Address(" "," "," "," ",0);
 
-        System.out.print("District: ");
-        String district = scanner.nextLine();
+        if (answerAdress.equalsIgnoreCase("Y")) {
+            System.out.print("Street: ");
+            String street = scanner.nextLine();
 
-        System.out.print("State: ");
-        String state = scanner.nextLine();
+            System.out.print("City: ");
+            String city = scanner.nextLine();
 
-        System.out.print("Zipcode: ");
-        int zipcode = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character from previous input
+            System.out.print("District: ");
+            String district = scanner.nextLine();
 
-        Address address = new Address(street, city, district, state, zipcode);
+            System.out.print("State: ");
+            String state = scanner.nextLine();
+
+            System.out.print("Zipcode: ");
+            int zipcode = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character from previous input
+
+            address = new Address(street, city, district, state, zipcode);
+        }
 
         String password = controller.generatePassword();
 
@@ -148,7 +155,7 @@ public class RegisterEmployeeUI implements Runnable {
         if (answer.equalsIgnoreCase("Y")) {
             boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
             if (success) {
-                writePasswordToFile(password, "passwords.txt");
+                writePasswordToFile(name, email, password, "email.txt");
                 System.out.println();
                 System.out.println("|------------------------------------------------------------|\n" +
                         "| Employee registered successfully and password sent to email|\n" +
@@ -165,9 +172,18 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-    private void writePasswordToFile(String password, String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(password);
+    private void writePasswordToFile(String name, String email, String password, String fileName) {
+        String welcomeMessage = String.format("Dear %s,%n%n" +
+                "I would like to extend a warm welcome to you as a new member of our team.%n" +
+                "Please find your login details below:%n%n" +
+                "Username: %s%n" +
+                "Password: %s%n%n" +
+                "Please keep this information secure and do not share it with anyone else.%n%n" +
+                "Best regards,%n" +
+                "admin", name, email, password);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+            writer.write(welcomeMessage);
             writer.newLine();
         } catch (IOException e) {
             System.err.println("Error writing password to file: " + e.getMessage());

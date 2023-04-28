@@ -164,7 +164,6 @@ public class CreateRequestUI implements Runnable {
 
         } else {
 
-
         }
 
         property = new Property( area, distanceFromCenter, price, address);

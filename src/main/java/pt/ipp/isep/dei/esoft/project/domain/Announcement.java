@@ -11,7 +11,6 @@ public class Announcement {
     private Comission comission;
     private ArrayList<Photo> photos = new ArrayList<>();
 
-
     private House house;
 
     private Land land;
@@ -160,13 +159,6 @@ public class Announcement {
 
     @Override
     public String toString() {
-        return "Anouncement{" +
-                "property=" + property +
-                ", typeOfProperty=" + typeOfProperty +
-                ", transactionType=" + transactionType +
-                ", publishDate=" + publishDate +
-                ", commission=" + comission +
-                ", id=" + id +
-                '}';
+        return String.format("Property Information: %s \n-Type of Property: %s \n-Transaction Type: %s \n-Publish Date: %s \n-Comission: %s \n-Photos: %s", property, typeOfProperty, transactionType, publishDate, comission, photos);
     }
 }
