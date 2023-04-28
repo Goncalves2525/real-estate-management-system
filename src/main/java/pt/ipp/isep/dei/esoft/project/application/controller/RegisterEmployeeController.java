@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class RegisterEmployeeController {
 
-    private EmployeeRepository employeeRepository = null;
-    private RoleRepository roleRepository = null;
+    private EmployeeRepository employeeRepository;
+    private RoleRepository roleRepository;
     private PasswordGenerator passwordGenerator;
 
     public RegisterEmployeeController() {
