@@ -16,12 +16,14 @@ public class CreateRequestController {
     private EmployeeRepository employeeRepository = null;
     private AnnouncementRepository announcementRepository = null;
     private CreateRequestController controller = null;
-
+    private Agency[] agencyList;
     public CreateRequestController() {
+
         //getAgencyListRepository();
         //getAgentListRepository();
         this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
         this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+        this.agencyListRepository = Repositories.getInstance().getAgencyListRepository();
     }
 
     public List<Agent> getAgentList() {
@@ -34,6 +36,7 @@ public class CreateRequestController {
 
     public Agent getAgentByEmail(String agentEmail) {
         return employeeRepository.getAgentByEmail(agentEmail);
+
     }
 
 
@@ -62,4 +65,25 @@ public class CreateRequestController {
         Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos,apartment);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
+
+ public Agency[] AgencyOptions() {
+        Agency[] agencyList = new Agency[agencyListRepository.getAgencies().size()];
+        for (int i = 0; i < agencyListRepository.getAgencies().size(); i++) {
+            agencyList[i] = agencyListRepository.getAgencies().get(i);
+            //System.out.printf("%-8s %20s %15s %s%n", i+1, agencyList[i].getId(), agencyList[i].getName(),agencyList[i].getEmailAddress());
+
+        }
+        return agencyList;
+    }
+
+    public Agent[] AgentOptions() {
+        Agent[] agentList = new Agent[employeeRepository.getAgentList().size()];
+        for (int i = 0; i < employeeRepository.getAgentList().size(); i++) {
+            agentList[i] = employeeRepository.getAgentList().get(i);
+            System.out.printf("%-8s %20s %15s %s%n", i+1, agentList[i].getName(), agentList[i].getEmail());
+
+        }
+        return agentList;
+    }
+
 }

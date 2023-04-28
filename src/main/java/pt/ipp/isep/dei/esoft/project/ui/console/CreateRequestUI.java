@@ -14,8 +14,6 @@ public class CreateRequestUI implements Runnable {
     private final CreateRequestController controller = new CreateRequestController();
 
 
-
-
     public CreateRequestUI() {
     }
 
@@ -25,21 +23,18 @@ public class CreateRequestUI implements Runnable {
 
     @Override
     public void run() {
-        boolean hasCentralHeating=false;
-        boolean hasAirConditioning= false;
-        boolean hasLoft=false;
-        boolean hasBasement=false;
-        double price=0;
-        int numberOfBedrooms=0;
-        int numberOfBathrooms=0;
-        int numberOfParkingSpaces=0;
-        int contractDuration=0;
-        double distanceFromCenter=0;
-        double area=0;
+        boolean hasCentralHeating = false;
+        boolean hasAirConditioning = false;
+        boolean hasLoft = false;
+        boolean hasBasement = false;
+        double price = 0;
+        int numberOfBedrooms = 0;
+        int numberOfBathrooms = 0;
+        int numberOfParkingSpaces = 0;
+        int contractDuration = 0;
+        double distanceFromCenter = 0;
+        double area = 0;
         int sunExposureOption;
-
-
-
 
 
         TransactionType transactionType;
@@ -48,9 +43,32 @@ public class CreateRequestUI implements Runnable {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please insert the name of the agency: ");
-        String agencyName = sc.nextLine();
-        AgentOptions();
-        System.out.println("From the list, choose an Agent and enter their email: ");
+        AgencyOptions();
+        System.out.println();
+        int agencyID = sc.nextInt();
+
+        List<Agent> agents = controller.getAgentList();
+        for (Agent agent : agents) {
+            if (agent.getAgency().getId() == agencyID) {
+                System.out.println(agent.toString());
+            }
+        }
+
+
+
+        // from array list of agents, get the agents from the agency
+
+
+
+
+
+        System.out.println("List of Agents: ");
+        for (Agent agent : agents) {
+            System.out.println(agent.toString());
+        }
+
+
+        //System.out.println("From the list, choose an Agent and enter their email: ");
         Agent agent = controller.getAgentByEmail(sc.nextLine());
         String agentemail = sc.nextLine();
         System.out.println("Please insert you passport ID: ");
@@ -166,29 +184,39 @@ public class CreateRequestUI implements Runnable {
 
         }
 
-        property = new Property( area, distanceFromCenter, price, address);
+        property = new Property(area, distanceFromCenter, price, address);
 
-        if (typeOfProperty.equals(TypeOfProperty.HOUSE)){
-            property = new House(area, distanceFromCenter, price,address,numberOfBedrooms,numberOfBathrooms,numberOfParkingSpaces,hasCentralHeating,hasAirConditioning,hasBasement,hasLoft, sunExposure);
-            controller.createannouncemntHouse(agent, transactionType, contractDuration,typeOfProperty, property);
-        }else if (typeOfProperty.equals(TypeOfProperty.LAND)){
-            property= new Land(area,price, distanceFromCenter, address);
+        if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
+            property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasLoft, sunExposure);
+            controller.createannouncemntHouse(agent, transactionType, contractDuration, typeOfProperty, property);
+        } else if (typeOfProperty.equals(TypeOfProperty.LAND)) {
+            property = new Land(area, price, distanceFromCenter, address);
             //controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property);
-        }else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)){
-            property = new Apartment(area, distanceFromCenter, price , address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
+        } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
+            property = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
             //controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property);
         }
 
         System.out.println("Property added successfully!");
 
     }
-    
 
     private void AgentOptions() {
-        for (Agent agent : this.controller.getAgentList()) {
+        for (Agent agent : this.controller.AgentOptions()) {
+
             System.out.println(agent.toString());
         }
     }
+
+    private void AgencyOptions() {
+        int i = 1;
+        for (Agency agency : this.controller.AgencyOptions()) {
+            System.out.printf(" %10s %15s %s%n", agency.getId(), agency.getName(), agency.getEmailAddress());
+            i++;
+            //System.out.println(agency.toString());
+        }
+    }
+
 
     private void TransactionTypeOptions() {
         System.out.println(
@@ -243,6 +271,7 @@ public class CreateRequestUI implements Runnable {
         }
 
     }
+
     private void checkSunExposure() {
         System.out.println("Please insert the sun exposure:\n" +
                 "1- North\n" +
@@ -251,8 +280,3 @@ public class CreateRequestUI implements Runnable {
                 "4- West");
     }
 }
-
-
-
-
-

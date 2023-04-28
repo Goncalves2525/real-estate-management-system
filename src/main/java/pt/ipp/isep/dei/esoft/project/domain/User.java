@@ -58,6 +58,11 @@ public abstract class User {
         this.email = email;
         this.roles = new HashSet<>();
     }
+    public User(String email, Agency agency) {
+        this.email = email;
+        this.roles = new HashSet<>();
+        this.agency = agency;
+    }
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
         this.name = name;

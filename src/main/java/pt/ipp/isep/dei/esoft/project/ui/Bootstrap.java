@@ -35,12 +35,6 @@ public class Bootstrap implements Runnable {
         AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
         List<Agent> agents = new ArrayList<>();
         List<Agent> agents2 = new ArrayList<>();
-        agents.add(new Agent("Agent1"));
-        agents.add(new Agent("Agent2"));
-        agents.add(new Agent("Agent3"));
-        agents2.add(new Agent("Agent1"));
-        agents2.add(new Agent("Agent2"));
-        agents2.add(new Agent("Agent3"));
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
         agencyListRepository.add(agency);
@@ -50,8 +44,17 @@ public class Bootstrap implements Runnable {
     private void addAgents(){
         //get Agency repository
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-        Agent agent = new Agent("Agent1@this.app");
-        employeeRepository.add(agent);
+        List<Agent> agents = new ArrayList<>();
+        List<Agent> agents2 = new ArrayList<>();
+        Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
+        Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
+
+        employeeRepository.add(new Agent("Agent1",agency2));
+        employeeRepository.add(new Agent("Agent2",agency));
+        employeeRepository.add(new Agent("Agent3",agency));
+        employeeRepository.add(new Agent("Agent1",agency2));
+        employeeRepository.add(new Agent("Agent2"));
+        employeeRepository.add(new Agent("Agent3"));
     }
 
     private void addAnnouncements(){

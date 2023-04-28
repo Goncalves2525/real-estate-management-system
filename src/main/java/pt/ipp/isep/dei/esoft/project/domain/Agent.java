@@ -18,6 +18,9 @@ public class Agent extends User implements Cloneable {
         roles.add(Role.EMPLOYEE);
         this.setRoles(roles);
     }
+    public Agent(String email, Agency agency) {
+        super(email, agency);
+    }
 
     public Agent(String email) {
         super(email);
@@ -28,7 +31,7 @@ public class Agent extends User implements Cloneable {
     }
 
     public Agency getAgency() {
-        return agency;
+        return this.agency;
     }
 
     public void setAgency(Agency agency) {
@@ -47,4 +50,5 @@ public class Agent extends User implements Cloneable {
     public String toString() {
         return super.toString() + " agency=" + agency;
     }
+
 }
