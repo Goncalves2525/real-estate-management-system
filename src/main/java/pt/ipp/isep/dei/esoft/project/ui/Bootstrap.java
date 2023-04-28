@@ -49,9 +49,9 @@ public class Bootstrap implements Runnable {
 
     private void addAgents(){
         //get Agency repository
-        AgentListRepository agentListRepository = Repositories.getInstance().getAgentListRepository();
+        EmployeeRepository employeeRepository = Repositories.getInstance().getAgentListRepository();
         Agent agent = new Agent("Agent1@this.app");
-        agentListRepository.add(agent);
+        employeeRepository.add(agent);
     }
 
     private void addAnnouncements(){

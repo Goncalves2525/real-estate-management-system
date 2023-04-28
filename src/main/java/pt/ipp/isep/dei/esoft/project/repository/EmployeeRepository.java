@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
+import pt.ipp.isep.dei.esoft.project.domain.Agent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +8,36 @@ import java.util.Optional;
 
 public class EmployeeRepository {
 
-    private final ArrayList<Employee> employeeList = new ArrayList<>();
+    private final List<Agent> AgentList = new ArrayList<>();
 
-    public boolean addEmployee(Employee employee) {
-        if (!employeeExists(employee.getEmail())) {
-            return employeeList.add(employee);
+    public Optional<Agent> add(Agent agent) {
+
+        Optional<Agent> newAgent = Optional.empty();
+        boolean operationSuccess = false;
+
+        newAgent = Optional.of(agent.clone());
+        operationSuccess = AgentList.add(newAgent.get());
+
+        if (!operationSuccess) {
+            newAgent = Optional.empty();
         }
-        return false;
+
+        return newAgent;
+
     }
 
-    public boolean employeeExists(String email) {
-        return employeeList.stream().anyMatch(employee -> employee.hasEmail(email));
+    public Agent getAgentByEmail(String agentEmail) {
+        for (Agent agent : AgentList) {
+            if (agent.getEmail().equals(agentEmail)) {
+                return agent;
+            }
+        }
+        return null;
     }
 
-
+    //returns the list of agents
+    public List<Agent> getAgentList() {
+        return this.AgentList;
+    }
 
 }
