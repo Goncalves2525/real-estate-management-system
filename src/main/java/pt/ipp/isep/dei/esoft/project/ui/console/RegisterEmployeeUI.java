@@ -61,8 +61,15 @@ public class RegisterEmployeeUI implements Runnable {
         System.out.print("Name: ");
         String name = scanner.nextLine();
 
+
         System.out.print("Email: ");
         String email = scanner.nextLine();
+        while (!email.contains("@")) {
+            System.out.println("Invalid email. Please enter a valid email address:");
+            System.out.print("Email: ");
+            email = scanner.nextLine();
+        }
+
 
         System.out.print("Passport Card Number: ");
         int passportCardNumber = scanner.nextInt();
@@ -72,6 +79,13 @@ public class RegisterEmployeeUI implements Runnable {
 
         System.out.print("Telephone Number: ");
         int telephoneNumber = scanner.nextInt();
+
+        while (String.valueOf(telephoneNumber).length() != 10) {
+            System.out.println("Invalid telephone number. Please enter a 10-digit telephone number:");
+            System.out.print("Telephone Number: ");
+            telephoneNumber = scanner.nextInt();
+        }
+
 
         scanner.nextLine(); // Consume newline character from previous input
 
@@ -189,6 +203,8 @@ public class RegisterEmployeeUI implements Runnable {
             System.err.println("Error writing password to file: " + e.getMessage());
         }
     }
+
+
 
 
 

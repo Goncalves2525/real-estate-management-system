@@ -9,9 +9,7 @@ public class Repositories {
     AnnouncementRepository announcementRepository = new AnnouncementRepository();
     AgencyListRepository agencyListRepository = new AgencyListRepository();
     EmployeeRepository employeeRepository = new EmployeeRepository();
-    BackRepository backRepository = new BackRepository();
     RoleRepository roleRepository = new RoleRepository();
-    
 
     private Repositories() {
     }
@@ -35,15 +33,13 @@ public class Repositories {
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
     }
+
     public AgencyListRepository getAgencyListRepository() {
         return agencyListRepository;
     }
-    public EmployeeRepository getAgentListRepository() {
-        return employeeRepository;
-    }
 
-    public BackRepository getEmployeeRepository() {
-        return backRepository;
+    public EmployeeRepository getEmployeeRepository() {
+        return employeeRepository;
     }
 
     public RoleRepository getRoleRepository() {

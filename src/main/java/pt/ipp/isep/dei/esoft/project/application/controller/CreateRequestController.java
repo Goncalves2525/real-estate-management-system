@@ -16,26 +16,24 @@ public class CreateRequestController {
     private EmployeeRepository employeeRepository = null;
     private AnnouncementRepository announcementRepository = null;
     private CreateRequestController controller = null;
-    
-public CreateRequestController() {
+
+    public CreateRequestController() {
         //getAgencyListRepository();
         //getAgentListRepository();
-    this.employeeRepository = Repositories.getInstance().getAgentListRepository();
-    this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+        this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
+        this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
     }
-
 
     public List<Agent> getAgentList() {
         return employeeRepository.getAgentList();
     }
 
     private void getAgencyListRepository() {
-        
+
     }
 
     public Agent getAgentByEmail(String agentEmail) {
         return employeeRepository.getAgentByEmail(agentEmail);
-
     }
 
 
