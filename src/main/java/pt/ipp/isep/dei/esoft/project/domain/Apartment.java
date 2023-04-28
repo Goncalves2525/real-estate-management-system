@@ -13,6 +13,6 @@ public class Apartment extends Residency{
 
     @Override
     public String toString(){
-        return String.format(super.toString() + "\n-This is an Apartment");
+        return String.format(super.toString());
     }
 }

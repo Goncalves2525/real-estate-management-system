@@ -18,15 +18,29 @@ class UnregisteredUser{
 
 }
 
-class Property{
-    area
-    location
-    distanceFromCenter
-    price
-    photos
+class SunExposure{
+    NORTH
+    SOUTH
+    EAST
+    WEST
 }
 
-class PublishedProperty{
+class Equipment{
+}
+
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+}
+
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+class Announcement{
     typeOfBuisness
     typeOfProperty
     publishedDate
@@ -34,29 +48,49 @@ class PublishedProperty{
     comission
 }
 
-class House extends Property{
-        numberOfBedrooms
-        numberOfBathrooms
-        numberOfParkingSpaces
-        availableEquipment
+class House extends Residency{
         basement
         inhabitableLoft
-        sunExposure
 }
 
-class Apartment extends Property{
-        numberOfBedrooms
-        numberOfBathrooms
-        numberOfParkingSpaces
-        availableEquipment
+class Address{
+    doorNumber
+    zipCode
+}
+
+class Apartment extends Residency{
+
 }
 
 class Land extends Property{
-    typeOfLand
+
 }
 
-UnregisteredUser "1" --> "*" PublishedProperty : views
-PublishedProperty "1" --> "1" Property : has
+class State{
+}
+
+class District{
+}
+
+class City{
+}
+
+class Street{
+}
+
+class Photo{
+}
+
+UnregisteredUser "1" --> "*" Announcement : views
+Announcement "1" --> "1" Property : has
+Residency "1" --> "*" Equipment : has
+House "1" --> "1" SunExposure : has
+Property "1" --> "1" Address : has
+Address "1" --> "1" State : has
+District "*" --> "1" State : part of
+City "*" --> "1" District : part of
+Street "*" --> "1" City : part of
+Announcement "1" --> "*" Photo : has
 
 
 @enduml

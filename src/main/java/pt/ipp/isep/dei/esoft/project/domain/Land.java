@@ -10,6 +10,6 @@ public class Land extends Property {
 
     @Override
     public String toString(){
-        return String.format(super.toString() + "\n-This is a Land");
+        return String.format(super.toString());
     }
 }
