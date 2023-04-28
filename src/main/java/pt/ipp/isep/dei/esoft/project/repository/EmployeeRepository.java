@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Agent;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 
 import java.util.ArrayList;
@@ -33,5 +34,9 @@ public class EmployeeRepository {
     //returns the list of employees
     public List<Employee> getEmployeeList() {
         return this.employeeList;
+    }
+
+    public void add(Employee employee) {
+        employeeList.add(employee);
     }
 }

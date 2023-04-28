@@ -12,9 +12,9 @@ public class Agency {
 
     private Address address;
 
-    List<Agent> agents = new ArrayList<>();
+    List<Employee> agents = new ArrayList<>();
 
-    public Agency(int id, String name, String emailAddress, int phoneNumber, Address address, List<Agent> agents) {
+    public Agency(int id, String name, String emailAddress, int phoneNumber, Address address, List<Employee> agents) {
         this.id = id;
         this.name = name;
         this.emailAddress = emailAddress;
@@ -36,11 +36,11 @@ public class Agency {
         this.address = address;
     }
 
-    public List<Agent> getAgents() {
+    public List<Employee> getAgents() {
         return agents;
     }
 
-    public void setAgents(List<Agent> agents) {
+    public void setAgents(List<Employee> agents) {
         this.agents = agents;
     }
 

@@ -21,6 +21,10 @@ public class Employee extends User {
         super(email);
     }
 
+    public Employee(String email, Agency agency){
+        super(email,agency);
+    }
+
     public void addRole(Role role) {
         Set<Role> roles = getRoles();
         roles.add(role);

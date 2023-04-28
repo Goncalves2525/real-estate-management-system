@@ -26,23 +26,23 @@ public class CreateRequestController {
         this.agencyListRepository = Repositories.getInstance().getAgencyListRepository();
     }
 
-    public List<Agent> getAgentList() {
-        return employeeRepository.getAgentList();
+    public List<Employee> getAgentList() {
+        return employeeRepository.getEmployeeList();
     }
 
     private void getAgencyListRepository() {
 
     }
 
-    public Agent getAgentByEmail(String agentEmail) {
-        return employeeRepository.getAgentByEmail(agentEmail);
+    public Employee getAgentByEmail(String agentEmail) {
+        return employeeRepository.getEmployeeByEmail(agentEmail);
 
     }
 
 
 
 
-    public void createannouncemntHouse(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
+    public void createannouncemntHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
@@ -50,7 +50,7 @@ public class CreateRequestController {
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 
-    public void createannouncemntLand(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property,Land land) {
+    public void createannouncemntLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property,Land land) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
@@ -58,7 +58,7 @@ public class CreateRequestController {
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 
-    public void createannouncemntApartment(Agent agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, Apartment apartment) {
+    public void createannouncemntApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, Apartment apartment) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
@@ -76,14 +76,15 @@ public class CreateRequestController {
         return agencyList;
     }
 
-    public Agent[] AgentOptions() {
-        Agent[] agentList = new Agent[employeeRepository.getAgentList().size()];
-        for (int i = 0; i < employeeRepository.getAgentList().size(); i++) {
-            agentList[i] = employeeRepository.getAgentList().get(i);
-            System.out.printf("%-8s %20s %15s %s%n", i+1, agentList[i].getName(), agentList[i].getEmail());
+   public Employee[] AgentOptions() {
+       Employee[] agentList = new Employee[employeeRepository.getEmployeeList().size()];
+       for (int i = 0; i < employeeRepository.getEmployeeList().size(); i++) {
+           agentList[i] = employeeRepository.getEmployeeList().get(i);
+           System.out.printf("%-8s %20s %15s %s%n", i+1, agentList[i].getName(), agentList[i].getEmail());
 
-        }
-        return agentList;
-    }
+       }
+       return agentList;
+   }
+
 
 }

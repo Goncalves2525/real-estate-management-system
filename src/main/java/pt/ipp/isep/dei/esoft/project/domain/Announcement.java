@@ -22,7 +22,7 @@ public class Announcement {
     private boolean isPublished;
     public static int idCounter = 0;
 
-    public Announcement(Agent agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
+    public Announcement(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
@@ -63,7 +63,7 @@ public class Announcement {
         id = idCounter++;
     }
 
-    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission,  ArrayList<Photo> photos, Land land) {
+    public Announcement(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, Land land) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
@@ -74,7 +74,7 @@ public class Announcement {
         id = idCounter++;
     }
 
-    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission,  ArrayList<Photo> photos, Apartment apartment) {
+    public Announcement(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, Apartment apartment) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;

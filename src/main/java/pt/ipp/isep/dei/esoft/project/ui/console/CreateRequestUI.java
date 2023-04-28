@@ -47,8 +47,8 @@ public class CreateRequestUI implements Runnable {
         System.out.println();
         int agencyID = sc.nextInt();
 
-        List<Agent> agents = controller.getAgentList();
-        for (Agent agent : agents) {
+        List<Employee> agents = controller.getAgentList();
+        for (Employee agent : agents) {
             if (agent.getAgency().getId() == agencyID) {
                 System.out.println(agent.toString());
             }
@@ -56,20 +56,20 @@ public class CreateRequestUI implements Runnable {
 
 
 
-        // from array list of agents, get the agents from the agency
+
 
 
 
 
 
         System.out.println("List of Agents: ");
-        for (Agent agent : agents) {
+        for (Employee agent : agents) {
             System.out.println(agent.toString());
         }
 
 
         //System.out.println("From the list, choose an Agent and enter their email: ");
-        Agent agent = controller.getAgentByEmail(sc.nextLine());
+        Employee agent = controller.getAgentByEmail(sc.nextLine());
         String agentemail = sc.nextLine();
         System.out.println("Please insert you passport ID: ");
         String passportID = sc.nextLine();
@@ -202,7 +202,7 @@ public class CreateRequestUI implements Runnable {
     }
 
     private void AgentOptions() {
-        for (Agent agent : this.controller.AgentOptions()) {
+        for (Employee agent : this.controller.AgentOptions()) {
 
             System.out.println(agent.toString());
         }
