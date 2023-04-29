@@ -50,19 +50,19 @@ public class CreateRequestController {
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 
-    public void createannouncemntLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property,Land land) {
+    public void createannouncemntLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos,land);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 
-    public void createannouncemntApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property, Apartment apartment) {
+    public void createannouncemntApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Comission comission = new Comission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos,apartment);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 

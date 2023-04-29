@@ -1,13 +1,17 @@
-Anouncement{property=Property Information: 
--area: 1,000000
--Distance from center: 1,000000
--Price: 1,000000
--Address: 1, 1, 1, 21, 1
+Property Information: 
+-Area: 1,00
+-Distance from center: 1,00
+-Price: 1500,00
+-Address: 1, h, h, h, 1
 -Number of bedrooms: 1
 -Number of bathrooms: 1
 -Number of parking spaces: 1
 -Has central heating: false
 -Has air conditioning: false
 -Has basement: false
--Has inhabitable loft: false
--This is a House., typeOfProperty=HOUSE, transactionType=SALE, publishDate=Fri Apr 28 01:23:42 WEST 2023, commission=pt.ipp.isep.dei.esoft.project.domain.Comission@5a61f5df, id=23}
+-Has inhabitable loft: false 
+-Type of Property: HOUSE 
+-Transaction Type: SALE 
+-Publish Date: Sat Apr 29 15:14:19 WEST 2023 
+-Comission: Value: 0,00 Percentage: 0 
+-Photos: []

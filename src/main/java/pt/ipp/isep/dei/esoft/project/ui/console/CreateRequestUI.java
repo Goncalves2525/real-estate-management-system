@@ -27,9 +27,6 @@ public class CreateRequestUI implements Runnable {
 
     @Override
     public void run() {
-        boolean hasCentralHeating = false;
-        boolean hasAirConditioning = false;
-        boolean hasLoft = false;
         boolean hasBasement = false;
         double price = 0;
         String passportID;
@@ -39,9 +36,12 @@ public class CreateRequestUI implements Runnable {
         int contractDuration = 0;
         double distanceFromCenter = 0;
         double area = 0;
-        int sunExposureOption;
         boolean control=false;
         int agencyID=0;
+        boolean hasCentralHeating= false;
+        boolean hasAirConditioning= false;
+        boolean hasInhabitableLoft= false;
+
 
 
         TransactionType transactionType;
@@ -121,6 +121,9 @@ public class CreateRequestUI implements Runnable {
         TypeOfPropertyOptions();
         TypeOfProperty typeOfProperty = checkTypeOfProperty(sc.nextInt());
 
+
+
+
         /**
          * Insert Area and Distance from the center
          * @param area
@@ -165,38 +168,14 @@ public class CreateRequestUI implements Runnable {
             numberOfBathrooms = sc.nextInt();
             System.out.println("Please insert the number of parking spaces: ");
             numberOfParkingSpaces = sc.nextInt();
+            hasCentralHeating = validationYN("Air Conditioning");
+            hasAirConditioning = validationYN("Air Conditioning");
+            TypeOfSunExposureOptions();
+            sunExposure = SunExposureOption(sc.nextInt());
             sc.nextLine();
-            System.out.println("Has central heating? (y/n): ");
-            String centralHeating = sc.nextLine();
-            System.out.println("Has air conditioning? (y/n): ");
-            String airConditioning = sc.nextLine();
-            if (centralHeating.equals("y")) {
-                hasCentralHeating = true;
-            } else if (centralHeating.equals("n")) {
-                hasCentralHeating = false;
-            }
-            if (airConditioning.equals("y")) {
-                hasAirConditioning = true;
-            } else if (airConditioning.equals("n")) {
-                hasAirConditioning = false;
-            }
-            checkSunExposure();
-            sunExposureOption = sc.nextInt();
-            sc.nextLine();
-            System.out.println("The house have basement? (Y/N)");
-            String basement = sc.nextLine();
-            System.out.println("The house inhabitable loft? (Y/N)");
-            String loft = sc.nextLine();
-            if (basement.equals("y")) {
-                hasBasement = true;
-            } else if (basement.equals("n")) {
-                hasBasement = false;
-            }
-            if (loft.equals("y")) {
-                hasLoft = true;
-            } else if (loft.equals("n")) {
-                hasLoft = false;
-            }
+            hasBasement = validationYN("Basement");
+            hasInhabitableLoft = validationYN("Loft");
+
 
         } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
             System.out.println("Please insert the number of bedrooms: ");
@@ -205,44 +184,30 @@ public class CreateRequestUI implements Runnable {
             numberOfBathrooms = sc.nextInt();
             System.out.println("Please insert the number of parking spaces: ");
             numberOfParkingSpaces = sc.nextInt();
+            hasCentralHeating = validationYN("Air Conditioning");
+            hasAirConditioning = validationYN("Air Conditioning");
 
-
-            System.out.println("Has central heating? (y/n): ");
-            String centralHeating = sc.nextLine();
-            System.out.println("Has air conditioning? (y/n): ");
-            String airConditioning = sc.nextLine();
-            if (centralHeating.equals("y")) {
-                hasCentralHeating = true;
-            } else if (centralHeating.equals("n")) {
-                hasCentralHeating = false;
-            }
-            if (airConditioning.equals("y")) {
-                hasAirConditioning = true;
-            } else if (airConditioning.equals("n")) {
-                hasAirConditioning = false;
-            }
-
-
-        } else {
 
         }
 
-        property = new Property(area, distanceFromCenter, price, address);
+        //property = new Property(area, distanceFromCenter, price, address);
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
-            property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasLoft, sunExposure);
+            property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
             controller.createannouncemntHouse(agent, transactionType, contractDuration, typeOfProperty, property);
         } else if (typeOfProperty.equals(TypeOfProperty.LAND)) {
             property = new Land(area, price, distanceFromCenter, address);
-            //controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property);
+            controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property);
         } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
             property = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-            //controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property);
+            controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property);
         }
 
         System.out.println("Property added successfully!");
 
     }
+
+
 
     private Employee getAgentByEmail(String agentEmail) {
         return controller.getAgentByEmail(agentEmail);
@@ -261,7 +226,6 @@ public class CreateRequestUI implements Runnable {
         for (Agency agency : this.controller.AgencyOptions()) {
             System.out.printf("%-10s %-10s %s%n", agency.getId(), agency.getName(), agency.getEmailAddress());
             i++;
-            //System.out.println(agency.toString());
         }
     }
 
@@ -320,7 +284,7 @@ public class CreateRequestUI implements Runnable {
 
     }
 
-    private void checkSunExposure() {
+    private void TypeOfSunExposureOptions() {
         System.out.println("Please insert the sun exposure:\n" +
                 "1- North\n" +
                 "2- South\n" +
@@ -361,6 +325,23 @@ public class CreateRequestUI implements Runnable {
 
         }
         return control;
+    }
+
+    public boolean validationYN(String option) {
+        Scanner sc = new Scanner(System.in);
+       String optionMenuToValidate = "";
+        while (!optionMenuToValidate.equalsIgnoreCase("y") && !optionMenuToValidate.equalsIgnoreCase("n")) {
+            System.out.println("Has "+option+" ? (y/n): ");
+            optionMenuToValidate = sc.nextLine();
+            if (!optionMenuToValidate.equalsIgnoreCase("y") && !optionMenuToValidate.equalsIgnoreCase("n")) {
+                System.out.println("Please enter 'y' for yes or 'n' for no.");
+            }
+        }
+        if (optionMenuToValidate.equalsIgnoreCase("y")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
