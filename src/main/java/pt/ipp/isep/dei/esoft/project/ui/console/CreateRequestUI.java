@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class CreateRequestUI implements Runnable {
     private CreateRequestController getController() {
         return controller;
     }
-
+    Scanner sc = new Scanner(System.in);
     @Override
     public void run() {
         boolean hasBasement = false;
@@ -41,13 +42,14 @@ public class CreateRequestUI implements Runnable {
         boolean hasCentralHeating= false;
         boolean hasAirConditioning= false;
         boolean hasInhabitableLoft= false;
+        String photoURI = null;
 
 
 
         TransactionType transactionType;
         Property property = null;
         SunExposure sunExposure = null;
-        Scanner sc = new Scanner(System.in);
+
 
 
         /**
@@ -105,11 +107,9 @@ public class CreateRequestUI implements Runnable {
         transactionType = checkTransactionType(sc.nextInt());
 
         if (transactionType.equals(TransactionType.RENT)) {
-            System.out.println("Please insert contract duration: ");
-            contractDuration = sc.nextInt();
+            contractDuration = validatePositiveIntegerInput("Please insert contract duration: ");
         } else {
-            System.out.println("Please insert the price: ");
-            price = sc.nextDouble();
+            price = validatePositiveDoubleInput("Please insert the price: ");
         }
 
         /**
@@ -130,10 +130,8 @@ public class CreateRequestUI implements Runnable {
          * @param distanceFromCenter
          */
 
-        System.out.println("Please insert the area (m2): ");
-        area = sc.nextDouble();
-        System.out.println("Please insert the distance from the center (km): ");
-        distanceFromCenter = sc.nextDouble();
+        area = validatePositiveDoubleInput("Please insert the area (m2): ");
+        distanceFromCenter = validatePositiveDoubleInput("Please insert the distance from the center (km): ");
 
         /**
          * Insert Address, Street, City, District, State, ZipCode
@@ -155,42 +153,46 @@ public class CreateRequestUI implements Runnable {
         String district = sc.nextLine();
         System.out.println("Pleses insert State");
         String state = sc.nextLine();
-        System.out.println("Pleses insert ZipCode");
-        int zipcode = sc.nextInt();
+        int zipcode = validatePositiveIntegerInput("Please insert the ZipCode: ");
         Address address = new Address(street, city, district, state, zipcode);
 
+        /**
+         * Insert number of bedrooms, bathrooms, parking spaces, central heating, air conditioning, basement, inhabitable loft and sun exposure
+         * @param numberOfBedrooms
+         * @param numberOfBathrooms
+         * @param numberOfParkingSpaces
+         * @param hasCentralHeating
+         * @param hasAirConditioning
+         * @param hasBasement
+         * @param hasInhabitableLoft
+         * @param sunExposure
+         * @return Property
+         *
+         */
 
-
-        if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
-            System.out.println("Please insert the number of bedrooms: ");
-            numberOfBedrooms = sc.nextInt();
-            System.out.println("Please insert the number of bathrooms: ");
-            numberOfBathrooms = sc.nextInt();
-            System.out.println("Please insert the number of parking spaces: ");
-            numberOfParkingSpaces = sc.nextInt();
+        if (typeOfProperty.equals(TypeOfProperty.HOUSE) || typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
+            numberOfBedrooms = validatePositiveIntegerInput("Please insert the number of bedrooms: ");
+            numberOfBathrooms = validatePositiveIntegerInput("Please insert the number of bathrooms: ");
+            numberOfParkingSpaces = validatePositiveIntegerInput("Please insert the number of parking spaces: ");
             hasCentralHeating = validationYN("Air Conditioning");
             hasAirConditioning = validationYN("Air Conditioning");
-            TypeOfSunExposureOptions();
-            sunExposure = SunExposureOption(sc.nextInt());
-            sc.nextLine();
-            hasBasement = validationYN("Basement");
-            hasInhabitableLoft = validationYN("Loft");
-
-
-        } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
-            System.out.println("Please insert the number of bedrooms: ");
-            numberOfBedrooms = sc.nextInt();
-            System.out.println("Please insert the number of bathrooms: ");
-            numberOfBathrooms = sc.nextInt();
-            System.out.println("Please insert the number of parking spaces: ");
-            numberOfParkingSpaces = sc.nextInt();
-            hasCentralHeating = validationYN("Air Conditioning");
-            hasAirConditioning = validationYN("Air Conditioning");
-
-
+            if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
+                TypeOfSunExposureOptions();
+                sunExposure = SunExposureOption(sc.nextInt());
+                sc.nextLine();
+                hasBasement = validationYN("Basement");
+                hasInhabitableLoft = validationYN("Loft");
+            }
+        }
+        System.out.println("Please insert the Photo URI: ");
+        photoURI = sc.nextLine();
+        while (photoURI.isEmpty()) {
+            System.out.println("Invalid input. Please insert the Photo URI: ");
+            photoURI = sc.nextLine();
         }
 
-        //property = new Property(area, distanceFromCenter, price, address);
+
+
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
             property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
@@ -343,5 +345,46 @@ public class CreateRequestUI implements Runnable {
             return false;
         }
     }
+
+    public int validatePositiveIntegerInput(String message) {
+        int input = 0;
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            System.out.println(message);
+            try {
+                input = sc.nextInt();
+                if (input <= 0) {
+                    System.out.println("Invalid input. Please enter a positive number.");
+                } else {
+                    isValidInput = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                sc.nextLine();
+            }
+        }
+        return input;
+    }
+    public double validatePositiveDoubleInput(String message) {
+        double input = 0.0;
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            System.out.println(message);
+            try {
+                input = sc.nextDouble();
+                if (input <= 0) {
+                    System.out.println("Invalid input. Please enter a positive number.");
+                } else {
+                    isValidInput = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                sc.nextLine();
+            }
+        }
+        return input;
+    }
+
+
 
 }
