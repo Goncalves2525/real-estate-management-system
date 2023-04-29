@@ -113,7 +113,34 @@ public class CreateRequestUI implements Runnable {
         }
 
         /**
+         * Select Type of Property
+         * @param typeOfProperty
+         * @return TypeOfProperty
+         */
+
+        TypeOfPropertyOptions();
+        TypeOfProperty typeOfProperty = checkTypeOfProperty(sc.nextInt());
+
+        /**
+         * Insert Area and Distance from the center
+         * @param area
+         * @param distanceFromCenter
+         */
+
+        System.out.println("Please insert the area (m2): ");
+        area = sc.nextDouble();
+        System.out.println("Please insert the distance from the center (km): ");
+        distanceFromCenter = sc.nextDouble();
+
+        /**
          * Insert Address, Street, City, District, State, ZipCode
+         * @param address
+         * @param street
+         * @param city
+         * @param district
+         * @param state
+         * @param zipcode
+         * @return Address
          */
 
         sc.nextLine();
@@ -129,19 +156,6 @@ public class CreateRequestUI implements Runnable {
         int zipcode = sc.nextInt();
         Address address = new Address(street, city, district, state, zipcode);
 
-
-        /**
-         * Property
-         *
-         */
-
-        System.out.println("Please insert the area (m2): ");
-        area = sc.nextDouble();
-        System.out.println("Please insert the distance from the center (km): ");
-        distanceFromCenter = sc.nextDouble();
-
-        TypeOfPropertyOptions();
-        TypeOfProperty typeOfProperty = checkTypeOfProperty(sc.nextInt());
 
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {

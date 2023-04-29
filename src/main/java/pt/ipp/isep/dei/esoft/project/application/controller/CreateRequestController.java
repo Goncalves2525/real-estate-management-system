@@ -70,7 +70,6 @@ public class CreateRequestController {
         Agency[] agencyList = new Agency[agencyListRepository.getAgencies().size()];
         for (int i = 0; i < agencyListRepository.getAgencies().size(); i++) {
             agencyList[i] = agencyListRepository.getAgencies().get(i);
-            //System.out.printf("%-8s %20s %15s %s%n", i+1, agencyList[i].getId(), agencyList[i].getName(),agencyList[i].getEmailAddress());
 
         }
         return agencyList;
