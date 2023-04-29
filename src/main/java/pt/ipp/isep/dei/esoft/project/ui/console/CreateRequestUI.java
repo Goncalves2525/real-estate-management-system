@@ -239,6 +239,11 @@ public class CreateRequestUI implements Runnable {
                         "2- Rent\n");
     }
 
+
+
+
+
+
     private TransactionType checkTransactionType(int option) {
         switch (option) {
             case 1:
