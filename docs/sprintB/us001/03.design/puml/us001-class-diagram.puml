@@ -37,7 +37,7 @@ class AnnouncementRepository {
     +getAllAnnouncementsSortedByDefualtCriteria()
     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
     +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
+    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
 }
 
 class Repositories {
@@ -51,19 +51,20 @@ class ListAnnouncementsController {
     +getAllAnnouncementsSortedByDefualtCriteria()
     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
     +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
+    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
 }
 
 class ListAnouncementsUI {
 +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria)
-+getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
++getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
 +getController()
 }
 
 class Address{
     - String street
     - String city
-    - String country
+    - String district
+    - String state
     - int zipCode
 }
 

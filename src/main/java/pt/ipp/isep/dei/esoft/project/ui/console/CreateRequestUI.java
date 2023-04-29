@@ -362,7 +362,6 @@ public class CreateRequestUI implements Runnable {
 
                 control++;                ;
             }
-
         }
         return control;
     }

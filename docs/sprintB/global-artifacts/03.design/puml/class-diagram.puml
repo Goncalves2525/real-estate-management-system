@@ -63,7 +63,8 @@ class ListAnouncementsUI {
 class Address{
     - String street
     - String city
-    - String country
+    - String district
+    - String state
     - int zipCode
 }
 
