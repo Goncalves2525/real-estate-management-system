@@ -116,10 +116,7 @@ public class AnnouncementRepository {
      * @param isPublished     - is published
      */
     public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
-        boolean alreadyExists = true;
         Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
-        alreadyExists = verifyIfAnnouncementExists(announcement);
-        if (!alreadyExists)
             announcements.add(announcement);
     }
 
@@ -215,17 +212,6 @@ public class AnnouncementRepository {
     private void removeAllAnnouncements(ArrayList<Announcement> announcements){
         announcements.removeAll(announcements);
     }
-
-    private boolean verifyIfAnnouncementExists(Announcement resultAnnouncement){
-        for (Announcement announcement : announcements) {
-            if (announcement.getProperty().getAddress().getZipcode() == resultAnnouncement.getProperty().getAddress().getZipcode()) {
-                System.out.println("This announcement already exists!");
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
         @Override

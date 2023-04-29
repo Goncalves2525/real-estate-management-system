@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.ls.LSOutput;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import java.util.ArrayList;
 import java.util.Date;
