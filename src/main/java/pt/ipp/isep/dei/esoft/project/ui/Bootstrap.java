@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -18,16 +19,6 @@ public class Bootstrap implements Runnable {
         addAgencies();
         addAgents();
         addAnnouncements();
-    }
-
-    private void addOrganization() {
-        //TODO: add organizations bootstrap here
-        //get organization repository
-        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-        Organization organization = new Organization("This Company");
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
-        organizationRepository.add(organization);
     }
 
     private void addAgencies(){
@@ -49,18 +40,18 @@ public class Bootstrap implements Runnable {
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
 
-        employeeRepository.add(new Employee("Agent1@",agency));
-        employeeRepository.add(new Employee("Agent11@",agency));
-        employeeRepository.add(new Employee("Agent111@",agency));
-        employeeRepository.add(new Employee("Agent2@",agency2));
-        employeeRepository.add(new Employee("Agent22@",agency2));
-        employeeRepository.add(new Employee("Agent222@",agency2));;
+        employeeRepository.add(new Employee("Agent1",agency));
+        employeeRepository.add(new Employee("Agent11",agency));
+        employeeRepository.add(new Employee("Agent111",agency));
+        employeeRepository.add(new Employee("Agent2",agency2));
+        employeeRepository.add(new Employee("Agent22",agency2));
+        employeeRepository.add(new Employee("Agent222",agency2));
     }
 
     private void addAnnouncements(){
         AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
         Comission c1 = new Comission();
-        Date d1 = new Date(2019, 10, 10);
+        Date d1 = new Date(2022, Calendar.APRIL, 10);
         Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
         Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
@@ -103,19 +94,6 @@ public class Bootstrap implements Runnable {
         announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
     }
 
-    private void addTaskCategories() {
-        //TODO: add bootstrap Task Categories here
-
-        //get task category repository
-//        TaskCategoryRepository taskCategoryRepository = Repositories.getInstance().getTaskCategoryRepository();
-//        taskCategoryRepository.add(new TaskCategory("Analysis"));
-//        taskCategoryRepository.add(new TaskCategory("Design"));
-//        taskCategoryRepository.add(new TaskCategory("Implementation"));
-//        taskCategoryRepository.add(new TaskCategory("Development"));
-//        taskCategoryRepository.add(new TaskCategory("Testing"));
-//        taskCategoryRepository.add(new TaskCategory("Deployment"));
-//        taskCategoryRepository.add(new TaskCategory("Maintenance"));
-    }
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
