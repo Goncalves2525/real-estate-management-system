@@ -1,17 +1,15 @@
 Property Information: 
--Area: 1252,20
--Distance from center: 1252,00
--Price: 125,20
--Address: 12, h, h, h, 1234
--Number of bedrooms: 1
--Number of bathrooms: 1
--Number of parking spaces: 2
+-Area: 12,00
+-Distance from center: 122,00
+-Price: 1111,00
+-Address: 25, 2, 2, 2, 2
+-Number of bedrooms: 2
+-Number of bathrooms: 5
+-Number of parking spaces: 5
 -Has central heating: true
--Has air conditioning: false
--Has basement: true
--Has inhabitable loft: true 
--Type of Property: HOUSE 
+-Has air conditioning: true 
+-Type of Property: APARTMENT 
 -Transaction Type: SALE 
--Publish Date: Sat Apr 29 16:12:32 WEST 2023 
+-Publish Date: Sat Apr 29 16:38:09 WEST 2023 
 -Comission: Value: 0,00 Percentage: 0 
 -Photos: []

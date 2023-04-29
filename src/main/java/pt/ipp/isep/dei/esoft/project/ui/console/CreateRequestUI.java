@@ -174,7 +174,7 @@ public class CreateRequestUI implements Runnable {
             numberOfBedrooms = validatePositiveIntegerInput("Please insert the number of bedrooms: ");
             numberOfBathrooms = validatePositiveIntegerInput("Please insert the number of bathrooms: ");
             numberOfParkingSpaces = validatePositiveIntegerInput("Please insert the number of parking spaces: ");
-            hasCentralHeating = validationYN("Air Conditioning");
+            hasCentralHeating = validationYN("Central Heating");
             hasAirConditioning = validationYN("Air Conditioning");
             if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
                 TypeOfSunExposureOptions();
@@ -238,11 +238,6 @@ public class CreateRequestUI implements Runnable {
                         "1- Sale\n" +
                         "2- Rent\n");
     }
-
-
-
-
-
 
     private TransactionType checkTransactionType(int option) {
         switch (option) {
