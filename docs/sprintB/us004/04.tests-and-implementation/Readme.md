@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 004 - Owner submit sale or rent
 
 # 4. Tests 
 

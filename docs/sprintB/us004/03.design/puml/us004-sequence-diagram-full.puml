@@ -6,24 +6,20 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Owner" as ADM
+actor "Owner" as OWNER
 participant ":CreateRequestUI" as UI
 participant ":CreateRequestController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "RequestListRepository:\nRequestListRepository" as RequestListRepository
+participant "AnnouncementRepository:\nAnnouncementRepository" as AnnouncementRepository
 participant "AgencyListRepository:\nAgencyListRepository" as AgencyListRepository
-participant "AgentListRepository:\nAgentListRepository" as AgentListRepository
-'participant "OwnerListRepository:\nOwnerListRepository" as OwnerListRepository
+participant "EmployeeRepository:\nEmployeeRepository" as EmployeeRepository
 participant "request\n:Request" as REQUEST
 
 
-activate ADM
+activate OWNER
 
-        ADM -> UI : ask to create Sale or Rent
+        OWNER -> UI : ask to create Sale or Rent
 
         activate UI
 
@@ -55,15 +51,15 @@ activate ADM
                 CTRL--> UI : AgencyList
                 deactivate
 
-                UI --> ADM : displays list of Agencies
+                UI --> OWNER : displays list of Agencies
 
                 deactivate  UI
 
-                    ADM -> UI :submits selected Agency
+                    OWNER -> UI :submits selected Agency
 
                 activate UI
                 UI --> UI : Keep data Agency
-                UI --> CTRL : getAgentList()
+                UI --> CTRL : getEmployeeList()
                 activate CTRL
 
                  CTRL -> RepositorySingleton : getInstance()
@@ -74,85 +70,74 @@ activate ADM
 
                  deactivate RepositorySingleton
 
-                 CTRL -> PLAT : getAgentListRepository()
+                 CTRL -> PLAT : getEmployeeListRepository()
                  activate PLAT
 
-                 PLAT --> CTRL: AgentListRepository
+                 PLAT --> CTRL: EmployeeRepository
                  deactivate PLAT
 
 
 
-                CTRL --> AgentListRepository : getAgentList()
-                activate AgentListRepository
+                CTRL --> EmployeeRepository : getEmployeeList()
+                activate EmployeeRepository
 
-                AgentListRepository --> CTRL : AgentList
-                deactivate AgentListRepository
-                CTRL--> UI : AgentList
+                EmployeeRepository --> CTRL : EmployeeList
+                deactivate EmployeeRepository
+                CTRL--> UI : EmployeeList
                 deactivate CTRL
 
-                UI --> ADM :displays list of Agent
+                UI --> OWNER :displays list of Employees as Agents
                 deactivate UI
 
 
-                ADM -> UI : submits selected Agent
+                OWNER -> UI : submits selected Agent
                 activate UI
                 UI --> UI : Keep data Agent
 
 
-                'UI --> : getOwnerListCharactristics()
-
-                UI --> ADM : requests ADM data
-                deactivate UI
-
-                    ADM -> UI : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
-
-                activate UI
-
-                    UI --> UI : Keep data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number)
-                    'UI --> : getTransactionType()
-                    UI --> ADM : requests type of transaction
+                    UI --> OWNER : requests type of transaction
 
                     deactivate UI
-                    ADM -> UI : types requested data (Sale or Rent)
+                    OWNER -> UI : types requested data (Sale or Rent)
 
                 activate UI
                     UI --> UI : Keep data TransactionType
 
                 opt Rent
                  '   UI --> : getContractDuration()
-                    UI --> ADM: request contract duration
+                    UI --> OWNER: request contract duration
                     deactivate UI
 
-                    ADM -> UI: types requested data
+                    OWNER -> UI: types requested data
                     activate UI
                     UI --> UI : Keep data contract
                 end
                     'UI --> : getPropertyTypeList()
-                    UI --> ADM : requests type of property
+                    UI --> OWNER : requests type of property
                 deactivate UI
 
-                    ADM -> UI : types requested data (Apartement, House, Land)
+                    OWNER -> UI : types requested data (Apartement, House, Land)
                 activate UI
 
                        UI --> UI : Keep data type of property
-                        UI --> ADM : requests data of property
+                        UI --> OWNER : requests data of property
                 deactivate UI
 
                 alt  Land
 
-                    ADM -> UI: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
+                    OWNER -> UI: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
                 activate UI
                 else  Apartement
-                    ADM -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
+                    OWNER -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
                 else  House
-                    ADM -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
+                    OWNER -> UI: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
                 end
                 UI --> UI : Keep data of property
 
-                        UI --> ADM : ask to confirm data
+                        UI --> OWNER : ask to confirm data
                 deactivate UI
 
-                        ADM -> UI: confirm entered data
+                        OWNER -> UI: confirm entered data
                 activate UI
                 UI -> CTRL : create Request with all data
                 activate CTRL
@@ -164,21 +149,19 @@ activate ADM
 
                  deactivate RepositorySingleton
 
-                 CTRL -> RequestListRepository : getRequestListRepository()
-                 activate RequestListRepository
+                 CTRL -> AnnouncementRepository : getAnnouncementRepository()
+                 activate AnnouncementRepository
 
-                 RequestListRepository --> CTRL : RequestListRepository
-                 CTRL -> RequestListRepository : create Request with all data
+                 AnnouncementRepository --> CTRL : AnnouncementRepository
+                 CTRL -> AnnouncementRepository: create Request with all data
 
-                 RequestListRepository -> REQUEST**: create Request with all data
-                 RequestListRepository --> CTRL : request
-
-                 deactivate RequestListRepository
+                 AnnouncementRepository -> REQUEST**: create AnnouncementRequest with all data
+                 AnnouncementRepository --> CTRL : request
 
                  CTRL --> UI :request
                  deactivate CTRL
 
-                    UI --> ADM : displays operation success
+                    UI --> OWNER : displays operation success
                 deactivate UI
 
 

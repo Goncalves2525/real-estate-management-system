@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateRequestUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.PublishAnnouncementUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.ClientUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -60,7 +61,7 @@ public class AuthenticationUI implements Runnable {
             } else if (role.getDescription().equals(AuthenticationController.ROLE_EMPLOYEE)) {
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_EMPLOYEE, new PublishAnnouncementUI()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_CLIENT)) {
-                rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENT, new CreateRequestUI()));
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENT, new ClientUI()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_NETWORK_MANAGER)) {
                 //currently not in use; ignore the UI used
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, new MainMenuUI()));
