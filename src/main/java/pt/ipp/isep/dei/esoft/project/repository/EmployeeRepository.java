@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class EmployeeRepository {
 
-    private final ArrayList<Employee> employeeList = new ArrayList<>();
+    private ArrayList<Employee> employeeList = new ArrayList<>();
 
     public boolean addEmployee(Employee employee) {
         if (!employeeExists(employee.getEmail())) {
@@ -25,6 +25,17 @@ public class EmployeeRepository {
             }
         }
         return null;
+    }
+
+    public List<Employee> getAgentsByAgencyId(int agencyId) {
+        List<Employee> allAgents = getEmployeeList();
+        List<Employee> agentsByAgency = new ArrayList<>();
+        for (Employee agent : allAgents) {
+            if (agent.getAgency() != null && agent.getAgency().getId() == agencyId) {
+                agentsByAgency.add(agent);
+            }
+        }
+        return agentsByAgency;
     }
 
     public boolean employeeExists(String email) {

@@ -76,4 +76,16 @@ public class Employee extends User {
     public Employee clone() {
         return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), new HashSet<>(getRoles()));
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+                "Email: " + getEmail() + "\n" +
+                "Passport Card Number: " + getPassportCardNumber() + "\n" +
+                "Tax Number: " + getTaxNumber() + "\n" +
+                "Telephone Number: " + getTelephoneNumber() + "\n" +
+                "Address: " + getAddress() + "\n" +
+                "Role: " + getRoles();
+    }
+
 }

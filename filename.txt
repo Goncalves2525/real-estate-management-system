@@ -1,0 +1,17 @@
+Property Information: 
+-Area: 34,00
+-Distance from center: 34,00
+-Price: 23,00
+-Address: 123, 34, 34, 34, 34
+-Number of bedrooms: 2
+-Number of bathrooms: 3
+-Number of parking spaces: 2
+-Has central heating: false
+-Has air conditioning: false
+-Has basement: false
+-Has inhabitable loft: false 
+-Type of Property: HOUSE 
+-Transaction Type: SALE 
+-Publish Date: Sat Apr 29 01:36:36 WEST 2023 
+-Comission: Value: 0,00 Percentage: 0 
+-Photos: []
