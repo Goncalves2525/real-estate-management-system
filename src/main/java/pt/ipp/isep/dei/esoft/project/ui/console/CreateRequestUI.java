@@ -78,11 +78,14 @@ public class CreateRequestUI implements Runnable {
          * @return Agent
          */
 
+
         System.out.print("From the list above choose Agent choose an agent by entering email:");
         String agentEmail = sc.nextLine();
-        sc.nextLine();
+        while (getAgentByEmail(agentEmail) == null){
+            System.out.println("Please insert a valid email: ");
+            agentEmail = sc.nextLine();
+        }
         Employee agent = getAgentByEmail(agentEmail);
-
         /**
          * Insert Passport ID and check if it is valid
          * @param passportID
