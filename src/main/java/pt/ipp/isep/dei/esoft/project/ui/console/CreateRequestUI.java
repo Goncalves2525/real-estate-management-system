@@ -192,7 +192,11 @@ public class CreateRequestUI implements Runnable {
         }
 
 
-
+        /**
+         * Create Announcement
+         * @param property
+         *
+         */
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
             property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
@@ -209,19 +213,18 @@ public class CreateRequestUI implements Runnable {
 
     }
 
-
-
+    /**
+     * Get Agent by Email
+     * @param agentEmail
+     * @return
+     */
     private Employee getAgentByEmail(String agentEmail) {
         return controller.getAgentByEmail(agentEmail);
     }
 
-    private void AgentOptions() {
-        for (Employee agent : this.controller.AgentOptions()) {
-
-            System.out.println(agent.toString());
-        }
-    }
-
+    /**
+     * List agencies
+     */
     private void AgencyOptions() {
         int i = 1;
         System.out.printf("%-10s %-10s %s%n", "Option", "Name", "Email");
@@ -238,6 +241,11 @@ public class CreateRequestUI implements Runnable {
                         "1- Sale\n" +
                         "2- Rent\n");
     }
+    /**
+     * Select Transaction Type
+     * @param option
+     * @return TransactionType
+     */
 
     private TransactionType checkTransactionType(int option) {
         switch (option) {
@@ -250,12 +258,18 @@ public class CreateRequestUI implements Runnable {
         }
     }
 
+
     private void TypeOfPropertyOptions() {
         System.out.println("Type of Property:\n" +
                 "1- House\n" +
                 "2- Apartment\n" +
                 "3- Land");
     }
+    /**
+     * Select Type of Property
+     * @param option
+     * @return TypeOfProperty
+     */
 
     private TypeOfProperty checkTypeOfProperty(int option) {
         switch (option) {
@@ -269,6 +283,11 @@ public class CreateRequestUI implements Runnable {
                 return null;
         }
     }
+    /**
+     * Select Sun Exposure
+     * @param option
+     * @return SunExposure option
+     */
 
     private SunExposure SunExposureOption(int option) {
         switch (option) {
@@ -293,7 +312,11 @@ public class CreateRequestUI implements Runnable {
                 "3- East\n" +
                 "4- West");
     }
-
+    /**
+     * Check if the passport number is valid
+     * @param passportNumber
+     * @return boolean
+     */
     public boolean validatePassportNumber(String numeroPassaporte) {
         if (numeroPassaporte.length() != 9) {
             System.out.println("Invalid passport number!\n"+
@@ -314,6 +337,12 @@ public class CreateRequestUI implements Runnable {
 
         return true;
     }
+
+    /**
+     * list all the agents of an agency by id
+     * @param id
+     */
+
     private int listAgents(int id) {
         int control = 0;
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
@@ -328,9 +357,13 @@ public class CreateRequestUI implements Runnable {
         }
         return control;
     }
+    /**
+     * Validates a yes or no input.
+     * @param option the option to be displayed
+     * @return true if the input is yes, false if the input is no
+     */
 
     public boolean validationYN(String option) {
-        Scanner sc = new Scanner(System.in);
        String optionMenuToValidate = "";
         while (!optionMenuToValidate.equalsIgnoreCase("y") && !optionMenuToValidate.equalsIgnoreCase("n")) {
             System.out.println("Has "+option+" ? (y/n): ");
@@ -345,7 +378,11 @@ public class CreateRequestUI implements Runnable {
             return false;
         }
     }
-
+    /**
+     * Validates a positive integer input.
+     * @param message the message to be displayed
+     * @return the input
+     */
     public int validatePositiveIntegerInput(String message) {
         int input = 0;
         boolean isValidInput = false;
@@ -365,6 +402,12 @@ public class CreateRequestUI implements Runnable {
         }
         return input;
     }
+
+    /**
+     * Validates a positive double input.
+     * @param message the message to be displayed
+     * @return the input
+     */
     public double validatePositiveDoubleInput(String message) {
         double input = 0.0;
         boolean isValidInput = false;
