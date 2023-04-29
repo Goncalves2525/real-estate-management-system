@@ -174,8 +174,11 @@ public class CreateRequestUI implements Runnable {
             numberOfBedrooms = validatePositiveIntegerInput("Please insert the number of bedrooms: ");
             numberOfBathrooms = validatePositiveIntegerInput("Please insert the number of bathrooms: ");
             numberOfParkingSpaces = validatePositiveIntegerInput("Please insert the number of parking spaces: ");
+            sc.nextLine();
             hasCentralHeating = validationYN("Central Heating");
+            System.out.println();
             hasAirConditioning = validationYN("Air Conditioning");
+            System.out.println();
             if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
                 TypeOfSunExposureOptions();
                 sunExposure = SunExposureOption(sc.nextInt());
@@ -367,6 +370,7 @@ public class CreateRequestUI implements Runnable {
        String optionMenuToValidate = "";
         while (!optionMenuToValidate.equalsIgnoreCase("y") && !optionMenuToValidate.equalsIgnoreCase("n")) {
             System.out.println("Has "+option+" ? (y/n): ");
+
             optionMenuToValidate = sc.nextLine();
             if (!optionMenuToValidate.equalsIgnoreCase("y") && !optionMenuToValidate.equalsIgnoreCase("n")) {
                 System.out.println("Please enter 'y' for yes or 'n' for no.");
