@@ -18,7 +18,7 @@ public class Announcement {
     private Apartment apartment;
 
     private Agent agent;
-    private int id;
+    private final int id;
     private boolean isPublished;
     public static int idCounter = 0;
 

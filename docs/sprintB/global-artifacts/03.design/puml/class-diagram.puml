@@ -9,129 +9,62 @@ skinparam classAttributeIconSize 0
 
 'left to right directio
 class Property{
-    - double area
-    - double distanceFromCenter
-    - double price
-    - Address address
-    + getAddress()
-    + getArea()
-    + getDistanceFromCenter()
-    + getPrice()
-    + setAddress()
-    + setArea()
-    + setDistanceFromCenter()
-    + setPrice()
-    + toString()
+      - double area
+      - double distanceFromCenter
+      - double price
+      - Address address
+      + getAddress()
+      + getArea()
+      + getDistanceFromCenter()
+      + getPrice()
+      + toString()
 }
 
 class Announcement {
-    - Property property
-    - TypeOfProperty typeOfProperty
-    - TransactionType transactionType
-    - Date publishDate
-    - Comission comission
-    - ArrayList<Photo> photos
-    - boolean isPublished
-    - int id
-    - int idCounter
-    + Announcement()
-    + Announcement() construtor diferente???
-    + getTransactionType()
-    + getProperty()
-    + getTypeOfProperty()
-    + getPublishDate()
-    + getComission()
-    + getId()
-    + getIdCounter()
-    + isPublished()
-    + setTransactionType()
-    + setProperty()
-    + setTypeOfProperty()
-    + setPublished()
-    + setComission()
-    + setPublishDate()
-    + hasProperty()
-    + hasTypeOfProperty()
-    + hasPublishDate()
-    + hasCommission()
-    +toString()
-
-
+   - TypeOfProperty typeOfProperty
+   - TransactionType transactionType
+   - Date publishDate
+   - Comission comission
+   - ArrayList<Photo> photos
+   - boolean isPublished
+   - int id
+   - int idCounter
+   + getProperty()
+   + toString()
 }
 
 class AnnouncementRepository {
-    - ArrayList<Announcement> announcements
     +getAllAnnouncementsSortedByDefualtCriteria()
     +getAllAnnouncementsSortedBySortCriteria()
     +getFilteredAnnouncements()
     +getFilteredAndSortedAnnouncements()
-    +sortAnnouncements()
-    +addAnnouncement()
-    +addAnnouncementByRequest()
-    +removeNonPublishedAnnouncements()
-    +copyAnnouncements()
 }
 
 class Repositories {
-    - Repositories instance
-    - AuthenticationRepository authenticationRepository
-    - AnnouncementRepository announcementRepository
-    - AgencyListRepository agencyListRepository
-    - AgentListRepository agentListRepository
-    - EmployeeRepository employeeRepository
-    - RoleRepository roleRepository
     +Repositories()
-    +getOrganizationRepository()
-    +getTaskCategoryRepository()
+    +getInstance()
     +getAnnouncementRepository()
-    +getAuthenticationRepository()
-    +getAgencyListRepository()
-    +getAgentListRepository()
-    +getEmployeeRepository()
-    +getRoleRepository()
 }
 
 class ListAnnouncementsController {
-    - AnnouncementRepository announcementRepository
-    +ListAnnouncementsController()
-    +getAnnoucementRepository()
-    +getAllAnnouncementsSortedByDefualtCriteria()
-    +getAllAnnouncementsSortedBySortCriteria()
-    +getFilteredAnnouncements()
-    +getFilteredAndSortedAnnouncements()
+     +getAnnoucementRepository()
+     +getAllAnnouncementsSortedByDefualtCriteria()
+     +getAllAnnouncementsSortedBySortCriteria()
+     +getFilteredAnnouncements()
+     +getFilteredAndSortedAnnouncements()
 }
 
 class ListAnouncementsUI {
--ListAnnouncementsController listAnnouncementsController
-+ListAnnouncementsUI()
-+getController()
-+run()
-+getAnnouncements()
-+checkInputType()
-+showOptions()
-+requestFilters()
-+requestSortCriteria()
-+getTypeOfPropertyFilterOption()
-+getTypeOfTransactionFilterOption()
-+getNumberOfRoomsFilterOption()
-+writeToArray()
-+showTypeOfPropertyOptions()
-+showTypeOfBusinessOptions()
-+showNumberOfRoomsOptions()
-+showSortOptions()
-+showOrderOptions()
-+checkTypeOfProperty()
-+checkTransactionType()
-+checkSortCriteria()
-+checkNumberOfRooms()
-+checkOrder()
-+showAnnouncements()
-+verifyFilters()
-+verifyOrder()
-+clearScreen()
+    +checkInputType()
+    +getAnnouncements()
+    +getController()
+}
 
-
-
+class Address{
+    - String street
+    - String city
+    - String country
+    - int zipCode
 }
 
 Repositories -> Repositories : instances
@@ -147,6 +80,8 @@ ListAnnouncementsController ..> AnnouncementRepository
 AnnouncementRepository "1" --> "*" Announcement : has
 
 Announcement "1" --> "1" Property : has
+
+Property "1" --> "1" Address : has
 
 
 @enduml

@@ -28,9 +28,9 @@ public class ListAnnouncementsUI implements Runnable {
     /**
      * Creates a new instance of ListAnnouncementsUI.
      */
+
     public ListAnnouncementsUI() {
     }
-
 
     /**
      * Gets the ListAnnouncementsController.
@@ -44,6 +44,7 @@ public class ListAnnouncementsUI implements Runnable {
      * Runs the UI for listing announcements.
      * Asks user for filters and sort criteria and shows the announcements list.
      */
+
     public void run() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Announcement> announcementsList;
@@ -72,7 +73,6 @@ public class ListAnnouncementsUI implements Runnable {
         showAnnouncements(announcementsList);
     }
 
-
     /**
      * Gets a list of announcements regarding the filters and sort criteria chosen by the user.
      * @param typeOfProperty - type of property
@@ -82,7 +82,7 @@ public class ListAnnouncementsUI implements Runnable {
      * @param order - order
      * @return announcementsList
      */
-    public ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
+    private ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<Announcement> announcementsList;
         AnnouncementListOptionType inputType = checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria);
         switch (inputType) {
@@ -207,7 +207,7 @@ public class ListAnnouncementsUI implements Runnable {
      * @param filterValidater - filter validater
      * @return typeOfProperty
      */
-    public TypeOfProperty getTypeOfPropertyFilterOption(int[] filterValidater){
+    private TypeOfProperty getTypeOfPropertyFilterOption(int[] filterValidater){
         Scanner sc = new Scanner(System.in);
         TypeOfProperty typeOfProperty;
 
