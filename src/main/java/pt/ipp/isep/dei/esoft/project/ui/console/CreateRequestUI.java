@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateRequestController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.AgencyListRepository;
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ public class CreateRequestUI implements Runnable {
 
 
     private final CreateRequestController controller = new CreateRequestController();
+    private EmployeeRepository employeeRepository;
 
 
     public CreateRequestUI() {
@@ -28,6 +32,7 @@ public class CreateRequestUI implements Runnable {
         boolean hasLoft = false;
         boolean hasBasement = false;
         double price = 0;
+        String passportID;
         int numberOfBedrooms = 0;
         int numberOfBathrooms = 0;
         int numberOfParkingSpaces = 0;
@@ -35,6 +40,8 @@ public class CreateRequestUI implements Runnable {
         double distanceFromCenter = 0;
         double area = 0;
         int sunExposureOption;
+        boolean control=false;
+        int agencyID=0;
 
 
         TransactionType transactionType;
@@ -42,37 +49,58 @@ public class CreateRequestUI implements Runnable {
         SunExposure sunExposure = null;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Please insert the name of the agency: ");
-        AgencyOptions();
-        System.out.println();
-        int agencyID = sc.nextInt();
 
-        List<Employee> agents = controller.getAgentList();
-        for (Employee agent : agents) {
-            if (agent.getAgency().getId() == agencyID) {
-                System.out.println(agent.toString() + "\n");
+        /**
+         * Select Agency
+         * @param agencyID
+         * @return Agency
+         */
+
+        while(control == false) {
+            System.out.println("Please select the option number of the Agency you want to work with: ");
+            AgencyOptions();
+            System.out.println();
+            agencyID = sc.nextInt();
+
+            if (listAgents(agencyID) == 0) {
+                System.out.println("This Agency not exist. ");
+
+            } else {
+                control = true;
             }
         }
 
+        /**
+         * Select Agent
+         * @param agentEmail
+         * @return Agent
+         */
 
+        System.out.print("From the list above choose Agent choose an agent by entering email:");
+        String agentEmail = sc.nextLine();
+        sc.nextLine();
+        Employee agent = getAgentByEmail(agentEmail);
 
+        /**
+         * Insert Passport ID and check if it is valid
+         * @param passportID
+         * @return boolean
+         */
 
+        System.out.println("Please insert your passport ID: ");
+        passportID = sc.nextLine();
+        while (validatePassportNumber(passportID) == false ) {
+            System.out.println("Please insert a valid passport ID: ");
+            passportID = sc.nextLine();
+        }
 
+        /**
+         * Select Transaction Type (Rent or Sale) and contract duration an price
+         * @param transactionType
+         * @param contractDuration
+         * @param price
+         */
 
-
-
-
-        /*System.out.println("List of Agents: ");
-        for (Employee agent : agents) {
-            System.out.println(agent.toString());
-        }*/
-
-
-        System.out.println("From the list, choose an Agent and enter their email: ");
-        Employee agent = controller.getAgentByEmail(sc.nextLine());
-        String agentemail = sc.nextLine();
-        System.out.println("Please insert you passport ID: ");
-        String passportID = sc.nextLine();
         TransactionTypeOptions();
         transactionType = checkTransactionType(sc.nextInt());
 
@@ -85,9 +113,9 @@ public class CreateRequestUI implements Runnable {
         }
 
         /**
-         * Address
-         *
+         * Insert Address, Street, City, District, State, ZipCode
          */
+
         sc.nextLine();
         System.out.println("Pleses insert Street");
         String street = sc.nextLine();
@@ -106,6 +134,7 @@ public class CreateRequestUI implements Runnable {
          * Property
          *
          */
+
         System.out.println("Please insert the area (m2): ");
         area = sc.nextDouble();
         System.out.println("Please insert the distance from the center (km): ");
@@ -201,6 +230,10 @@ public class CreateRequestUI implements Runnable {
 
     }
 
+    private Employee getAgentByEmail(String agentEmail) {
+        return controller.getAgentByEmail(agentEmail);
+    }
+
     private void AgentOptions() {
         for (Employee agent : this.controller.AgentOptions()) {
 
@@ -210,8 +243,9 @@ public class CreateRequestUI implements Runnable {
 
     private void AgencyOptions() {
         int i = 1;
+        System.out.printf("%-10s %-10s %s%n", "Option", "Name", "Email");
         for (Agency agency : this.controller.AgencyOptions()) {
-            System.out.printf(" %10s %15s %s%n", agency.getId(), agency.getName(), agency.getEmailAddress());
+            System.out.printf("%-10s %-10s %s%n", agency.getId(), agency.getName(), agency.getEmailAddress());
             i++;
             //System.out.println(agency.toString());
         }
@@ -279,4 +313,40 @@ public class CreateRequestUI implements Runnable {
                 "3- East\n" +
                 "4- West");
     }
+
+    public boolean validatePassportNumber(String numeroPassaporte) {
+        if (numeroPassaporte.length() != 9) {
+            System.out.println("Invalid passport number!\n"+
+                    "The passport number must have exactly 9 characters.");
+            return false;
+        }
+
+        int i = 0;
+        while (i < numeroPassaporte.length()) {
+            char c = numeroPassaporte.charAt(i);
+            if (!Character.isLetterOrDigit(c) || (Character.isLetter(c) && !Character.isUpperCase(c))) {
+                System.out.println("Invalid passport number!\n"+
+                        "The character is not a letter or a digit, or is a lowercase letter.");
+                return false;
+            }
+            i++;
+        }
+
+        return true;
+    }
+    private int listAgents(int id) {
+        int control = 0;
+        EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+        List<Employee> agents = employeeRepository.getEmployeeList();
+        for (Employee agent : agents) {
+            if (agent.getAgency().getId() == id) {
+                System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");
+
+                control++;                ;
+            }
+
+        }
+        return control;
+    }
+
 }
