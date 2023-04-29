@@ -43,6 +43,11 @@ public class CreateRequestUI implements Runnable {
         boolean hasAirConditioning= false;
         boolean hasInhabitableLoft= false;
         String photoURI = null;
+        String street = null;
+        String city = null;
+        String district = null;
+        String state = null;
+
 
 
 
@@ -148,14 +153,12 @@ public class CreateRequestUI implements Runnable {
          */
 
         sc.nextLine();
-        System.out.println("Pleses insert Street");
-        String street = sc.nextLine();
-        System.out.println("Pleses insert City");
-        String city = sc.nextLine();
-        System.out.println("Pleses insert District");
-        String district = sc.nextLine();
-        System.out.println("Pleses insert State");
-        String state = sc.nextLine();
+
+        street = validateNotEmpty("Please insert Street");
+        city = validateNotEmpty("Please insert City");
+        district = validateNotEmpty("Please insert District");
+        state = validateNotEmpty("Please insert State");
+
         int zipcode = validatePositiveIntegerInput("Please insert the ZipCode: ");
         Address address = new Address(street, city, district, state, zipcode);
 
@@ -432,6 +435,14 @@ public class CreateRequestUI implements Runnable {
                 sc.nextLine();
             }
         }
+        return input;
+    }
+    private String validateNotEmpty(String prompt) {
+        String input = "";
+        do {
+            System.out.println(prompt);
+            input = sc.nextLine();
+        } while (input.isEmpty());
         return input;
     }
 
