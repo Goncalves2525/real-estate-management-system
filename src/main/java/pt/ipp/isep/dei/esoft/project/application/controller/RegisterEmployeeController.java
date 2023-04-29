@@ -8,22 +8,44 @@ import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import java.util.List;
 import java.util.Set;
 
-public class RegisterEmployeeController {
+/**
+ * Register Employee Controller.
+ * <p>
+ * This class represents the Register Employee Controller.
+ * </p>
+ */
 
+public class RegisterEmployeeController {
+    /**
+     * Instance variables.
+     */
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
     private PasswordGenerator passwordGenerator;
 
+    /**
+     * Instantiates a new Register Employee Controller.
+     */
     public RegisterEmployeeController() {
         employeeRepository = Repositories.getInstance().getEmployeeRepository();
         passwordGenerator = new PasswordGenerator();
     }
 
+    /**
+     * Gets the list of Roles to create.
+     *
+     * @return list of Roles to create
+     */
     public List<Role> getRolesToCreate() {
         this.roleRepository = Repositories.getInstance().getRoleRepository();
         return this.roleRepository.getRolesToCreate();
     }
 
+    /**
+     * Gets the list of Roles to create.
+     *
+     * @return list of Roles to create
+     */
     public Role getRoleByVale(int value) {
         this.roleRepository = Repositories.getInstance().getRoleRepository();
         return this.roleRepository.getRoleByValue(value);

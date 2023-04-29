@@ -15,7 +15,23 @@ hide methods
 
 title Domain Model for User Story 3 - Register a New Employee
 
-class SystemAdministrator {
+class SystemAdministrator extends Employee{
+}
+
+class StoreManager extends Employee{
+}
+
+class StoreNetworkManager extends Employee{
+}
+
+class Agent extends Employee{
+}
+
+class Agency{
+    ID
+    name
+    emailAddress
+    phoneNumber
 }
 
 class User {
@@ -50,6 +66,8 @@ class Role {
     ADMIN
     EMPLOYEE
     CLIENT
+    STORE_NETWORK_MANAGER
+    STORE_MANAGER
 }
 
 SystemAdministrator "1" -- "1" Employee: registers >
@@ -59,5 +77,9 @@ Address "1" -- "1" State: part of >
 Street "1" -- "1" City: part of >
 City "1" -- "1" District: part of >
 District "1" -- "1" State: part of >
+Agency "1" -- "1" Address: has >
+StoreNetworkManager "1" -- "*" StoreManager: manages >
+StoreManager "1" -- "1" Agency: manages >
+Agency "1" -- "*" Agent: has >
 
 @enduml

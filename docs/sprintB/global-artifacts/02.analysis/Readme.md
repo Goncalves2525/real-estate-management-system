@@ -210,8 +210,8 @@ To identify domain conceptual classes, start by making a list of candidate conce
 |--------------------------|:-----------------------------------------------------------:|-------------------------------------------------------:|
 | Store Network Manager  	 |                       manages    		 	                       |                                                 Agency |
 | Agency  	                |                  has <br/> managed by		 	                   |                                Agent<br/>Store Manager |
-| System Administrator  	  |                        creates  		 	                        |                                       Agent<br/>Agency |
-| System Administrator  	  |                        updates  		 	                        |                                       Agent<br/>Agency |
+| System Administrator  	  |                        creates  		 	                        |                                    Employee<br/>Agency |
+| System Administrator  	  |                        updates  		 	                        |                                       Employee<br/>Agency |
 | Property Owner  	        |            owns <br/>contacts for Sale/Rent		 	             |                                    Property <br/>Agent |
 | Buyer 	                  | views <br/> sorts and filters	<br/>contacts for Purchase	 	 | Published Property<br/> Published Property <br/> Agent |
 | Unregistered User 	      |              views <br/> sorts and filters	 	               |             Published Property<br/> Published Property |

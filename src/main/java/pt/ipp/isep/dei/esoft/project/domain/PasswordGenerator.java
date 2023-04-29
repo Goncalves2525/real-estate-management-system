@@ -2,6 +2,12 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.security.SecureRandom;
 
+/**
+ * Password Generator.
+ * <p>
+ * This class represents a Password Generator.
+ * </p>
+ */
 public class PasswordGenerator {
 
     private static final int PASSWORD_LENGTH = 7;
@@ -18,6 +24,9 @@ public class PasswordGenerator {
         random = new SecureRandom();
     }
 
+    /**
+     * @return
+     */
     public String generatePassword() {
         StringBuilder password = new StringBuilder();
 
@@ -36,11 +45,19 @@ public class PasswordGenerator {
         return shuffleString(password.toString());
     }
 
+    /**
+     * @param characters
+     * @return
+     */
     private char randomCharacter(String characters) {
         int index = random.nextInt(characters.length());
         return characters.charAt(index);
     }
 
+    /**
+     * @param input
+     * @return
+     */
     private String shuffleString(String input) {
         char[] characters = input.toCharArray();
         for (int i = 0; i < characters.length; i++) {

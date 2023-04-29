@@ -1,16 +1,25 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Agent;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * Employee Repository.
+ * <p>
+ * This class will be responsible for managing a list of employees.
+ */
 public class EmployeeRepository {
 
+    /**
+     * List of employees.
+     */
     private ArrayList<Employee> employeeList = new ArrayList<>();
 
+    /**
+     * Instantiates a new Employee repository.
+     */
     public boolean addEmployee(Employee employee) {
         if (!employeeExists(employee.getEmail())) {
             return employeeList.add(employee);
@@ -18,6 +27,12 @@ public class EmployeeRepository {
         return false;
     }
 
+    /**
+     * Gets employee by email.
+     *
+     * @param employeeEmail the employee email
+     * @return the employee by email
+     */
     public Employee getEmployeeByEmail(String employeeEmail) {
         for (Employee employee : employeeList) {
             if (employee.getEmail().equals(employeeEmail)) {
@@ -38,6 +53,7 @@ public class EmployeeRepository {
         return agentsByAgency;
     }
 
+
     public boolean employeeExists(String email) {
         return employeeList.stream().anyMatch(employee -> employee.hasEmail(email));
     }
@@ -47,6 +63,11 @@ public class EmployeeRepository {
         return this.employeeList;
     }
 
+    /**
+     * Add employee.
+     *
+     * @param employee the employee
+     */
     public void add(Employee employee) {
         employeeList.add(employee);
     }

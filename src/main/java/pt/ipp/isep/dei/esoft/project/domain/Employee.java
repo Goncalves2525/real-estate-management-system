@@ -3,7 +3,12 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Employee.
+ * <p>
+ * This class represents an employee.
+ * </p>
+ */
 public class Employee extends User {
 
     public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
@@ -42,6 +47,7 @@ public class Employee extends User {
         return getRoles().contains(role);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -59,6 +65,11 @@ public class Employee extends User {
                 getRoles().equals(employee.getRoles());
     }
 
+    /**
+     * Hash code.
+     *
+     * @return hash code
+     */
     @Override
     public int hashCode() {
         int result = getEmail().hashCode();
@@ -70,14 +81,24 @@ public class Employee extends User {
         return result;
     }
 
+    /**
+     * Checks if has email.
+     *
+     * @param email email
+     * @return true if has email, false otherwise
+     */
     public boolean hasEmail(String email) {
         return getEmail().equals(email);
     }
+
 
     public Employee clone() {
         return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), getRoles());
     }
 
+    /**
+     * @return
+     */
     public int getNumberOfRoles() {
         return getRoles().size();
     }
