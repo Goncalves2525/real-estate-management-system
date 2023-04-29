@@ -1,15 +1,19 @@
-Property Information: 
--Area: 12,00
--Distance from center: 122,00
--Price: 1111,00
--Address: 25, 2, 2, 2, 2
--Number of bedrooms: 2
--Number of bathrooms: 5
--Number of parking spaces: 5
--Has central heating: true
--Has air conditioning: true
--Type of Property: APARTMENT
--Transaction Type: SALE
--Publish Date: Sat Apr 29 16:38:09 WEST 2023
--Comission: Value: 0,00 Percentage: 0 
--Photos: []
+-ID: 0 
+-Property Information: 
+-Area: 100.00
+-Distance from center: 20.00
+-Price: 100000.00
+-Address: dwfev, afdgsh, dgfsfh, afgsdhfd, 123456789
+-Number of bedrooms: 1
+-Number of bathrooms: 1
+-Number of parking spaces: 1
+-Has central heating: false
+-Has air conditioning: false
+-Has basement: false
+-Has inhabitable loft: false 
+-Type of Property: House 
+-Transaction Type: Sale 
+-Publish Date: Sat Apr 29 22:03:08 WEST 2023 
+-Comission: Value: 0.00 Percentage: 0.00 
+-Photos: [] 
+-IsPublished: false
