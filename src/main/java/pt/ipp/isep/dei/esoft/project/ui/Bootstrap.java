@@ -49,12 +49,12 @@ public class Bootstrap implements Runnable {
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
 
-        employeeRepository.add(new Employee("Agent1",agency2));
-        employeeRepository.add(new Employee("Agent2",agency));
-        employeeRepository.add(new Employee("Agent3",agency));
-        employeeRepository.add(new Employee("Agent1",agency2));
-        employeeRepository.add(new Employee("Agent2"));
-        employeeRepository.add(new Employee("Agent3"));
+        employeeRepository.add(new Employee("Agent1",agency));
+        employeeRepository.add(new Employee("Agent11",agency));
+        employeeRepository.add(new Employee("Agent111",agency));
+        employeeRepository.add(new Employee("Agent2",agency2));
+        employeeRepository.add(new Employee("Agent22",agency2));
+        employeeRepository.add(new Employee("Agent222",agency2));;
     }
 
     private void addAnnouncements(){
