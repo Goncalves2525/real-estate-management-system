@@ -46,10 +46,11 @@ As an unregistered user, I want to display listed properties.
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** The properties can be consulted by type of business, type of property and number of rooms.
-* **AC2:** The properties can be sorted by price and state.
+* **AC1:** The properties can be filtered by type of business, type of property and number of rooms.
+* **AC2:** The properties can be sorted by price, state and city.
 * **AC3:** It is possible to only filter or only sort the properties.
 * **AC4:** It is possible to filter and sort properties simultaneously.
+* **AC5:** If the user does not select any filter or sort criteria, the properties are sorted by default criteria (most recently added).
 
 
 
@@ -82,19 +83,10 @@ As an unregistered user, I want to display listed properties.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Other alternatives might exist.**
 
-#### Alternative One
+![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram.svg)
 
-![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us001-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us001-system-sequence-diagram-alternative-three.svg)
 
 ### 1.7 Other Relevant Remarks
 

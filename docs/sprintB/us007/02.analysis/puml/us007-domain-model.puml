@@ -12,13 +12,15 @@ hide methods
 
 title Domain Model
 
+class UnregisteredUser{
+}
+
 class User{
     name
-    citizenCardNumber
+    passportCardNumber
     taxNumber
-    address
     email
-    contactTelephone
+    telephoneNumber
 }
 
 'class SystemAdministrator {
@@ -26,7 +28,7 @@ class User{
 '   password
 '}
 
-Application "1" --- "*" User : registers <
+UnregisteredUser "1" --- "1" User : registers to become >
 
 
 @enduml

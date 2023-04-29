@@ -16,7 +16,6 @@ public class Repositories {
         return instance;
     }
 
-
     public AnnouncementRepository getAnnouncementRepository() {
         return announcementRepository;
     }

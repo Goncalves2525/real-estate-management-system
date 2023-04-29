@@ -27,6 +27,7 @@ class User{
     taxNumber
     email
     telephoneNumber
+    password
 }
 
 class Agency{
@@ -137,6 +138,7 @@ class UnregisteredUser{
 'class Request{
 '}
 
+UnregisteredUser "1" -- "1" User : registers to become >
 Agent "1" -- "1" Announcement: publishes >
 Announcement "1" -- "1" TypeOfProperty: has >
 StoreNetworkManager "1" -- "*" StoreManager: manages >

@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Owner
 
-        Owner -> System : Click on the "Register" button
+        Owner -> System : Requests to register in the system
     activate System
 
         System --> Owner : Displays the registration form with its fields
