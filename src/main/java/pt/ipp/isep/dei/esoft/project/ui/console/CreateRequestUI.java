@@ -12,19 +12,19 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * this class is responsible for creating a request
+ *
+ */
 public class CreateRequestUI implements Runnable {
+
 
 
     private final CreateRequestController controller = new CreateRequestController();
     private EmployeeRepository employeeRepository;
 
 
-    public CreateRequestUI() {
-    }
-
-    private CreateRequestController getController() {
-        return controller;
-    }
     Scanner sc = new Scanner(System.in);
     @Override
     public void run() {
