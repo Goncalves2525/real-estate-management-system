@@ -4,16 +4,13 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * The Announcement repository.
- *
+ * <p>
  * This class saves the announcements in an ArrayList.
- *
+ * <p>
  * This class ofers the methods to filter and sort the announcements.
  */
 public class AnnouncementRepository {
@@ -23,6 +20,7 @@ public class AnnouncementRepository {
 
     /**
      * This is the method used for when the user doesn't want to filter or sort the announcements
+     *
      * @return resultAnnouncements
      */
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
@@ -34,22 +32,29 @@ public class AnnouncementRepository {
 
     /**
      * This is the method used for when the user wants to only sort the announcements
+     *
      * @param sortCriteria - sort criteria
-     * @param order - sort order
+     * @param order        - sort order
      * @return resultAnnouncements
      */
     public ArrayList<Announcement> getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        sortAnnouncements(resultAnnouncements, sortCriteria, order);
-        removeNonPublishedAnnouncements(resultAnnouncements);
-        return resultAnnouncements;
+        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")){
+            sortAnnouncements(resultAnnouncements, sortCriteria, order);
+            removeNonPublishedAnnouncements(resultAnnouncements);
+            return resultAnnouncements;
+        }else{
+            removeAllAnnouncements(resultAnnouncements);
+            return resultAnnouncements;
+        }
     }
 
     /**
      * This is the method used for when the user wants to only filter the announcements
-     * @param typeOfProperty - type of property
+     *
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param numberOfRooms - number of rooms
+     * @param numberOfRooms   - number of rooms
      * @return resultAnnouncements
      */
     public ArrayList<Announcement> getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
@@ -78,47 +83,53 @@ public class AnnouncementRepository {
 
     /**
      * This is the method used for when the user wants to filter and sort the announcements
-     * @param typeOfProperty - type of property
+     *
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param numberOfRooms - number of rooms
-     * @param sortCriteria - sort criteria
-     * @param order - sort order
+     * @param numberOfRooms   - number of rooms
+     * @param sortCriteria    - sort criteria
+     * @param order           - sort order
      * @return resultAnnouncements
      */
     public ArrayList<Announcement> getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements;
         resultAnnouncements = getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
-        sortAnnouncements(resultAnnouncements, sortCriteria, order);
-        removeNonPublishedAnnouncements(resultAnnouncements);
-        return resultAnnouncements;
+        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")){
+            sortAnnouncements(resultAnnouncements, sortCriteria, order);
+            removeNonPublishedAnnouncements(resultAnnouncements);
+            return resultAnnouncements;
+        }else{
+            removeAllAnnouncements(resultAnnouncements);
+            return resultAnnouncements;
+        }
     }
 
     /**
      * Adds an announcement to the repository
-     * @param property - property
-     * @param typeOfProperty - type of property
+     *
+     * @param property        - property
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param date - date
-     * @param comission - comission
-     * @param photos - photos
-     * @param isPublished - is published
+     * @param date            - date
+     * @param comission       - comission
+     * @param photos          - photos
+     * @param isPublished     - is published
      */
     public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
         Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
-        announcements.add(announcement);
+            announcements.add(announcement);
     }
 
     public void addAnnouncementFromOwner(Announcement announcement) {
         announcements.add(announcement);
         try {
             FileWriter myWriter = new FileWriter("filename.txt");
-            myWriter.write( announcement.toString());
+            myWriter.write(announcement.toString());
             myWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void addAnnouncementByRequest(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, ArrayList<Photo> photos) {
@@ -126,39 +137,50 @@ public class AnnouncementRepository {
         announcements.add(announcement);
     }
 
-
     /**
      * Sorts the announcements using the criteria chosen by the user
+     *
      * @param resultAnnouncements - result announcements
-     * @param sortCriteria - sort criteria
-     * @param order - sort order
+     * @param sortCriteria        - sort criteria
+     * @param order               - sort order
      */
     private void sortAnnouncements(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
-        if (sortCriteria.equals("price")) {
-            if (order.equals("ascending")) {
-                resultAnnouncements.sort(ascendingPriceCriteria);
-            } else {
-                resultAnnouncements.sort(descendingPriceCriteria);
-            }
-        } else if (sortCriteria.equals("state")) {
-            if (order.equals("ascending")) {
-                resultAnnouncements.sort(ascendingStateCriteria);
-            } else {
-                resultAnnouncements.sort(descendingStateCriteria);
-            }
-        }
-        else {
-            if (order.equals("ascending")) {
-                resultAnnouncements.sort(ascendingCityCriteria);
-            } else {
-                resultAnnouncements.sort(descendingCityCriteria);
-            }
-        }
+        switch (sortCriteria){
+            case "price":
+                resultAnnouncements.sort(new Comparator<Announcement>() {
+                    @Override
+                    public int compare(Announcement a1, Announcement a2) {
+                        return (int) (a1.getProperty().getPrice() - a2.getProperty().getPrice());
+                    }
+                });
+                break;
+            case "city":
+                resultAnnouncements.sort(new Comparator<Announcement>() {
+                    @Override
+                    public int compare(Announcement a1, Announcement a2) {
+                        return a1.getProperty().getAddress().getCity().compareTo(a2.getProperty().getAddress().getCity());
+                    }
+                });
+                break;
+
+            case "state":
+                resultAnnouncements.sort(new Comparator<Announcement>() {
+                    @Override
+                    public int compare(Announcement a1, Announcement a2) {
+                        return a1.getProperty().getAddress().getState().compareTo(a2.getProperty().getAddress().getState());
+                    }
+                });
+                break;
+        };
+
+        if(Objects.equals(order, "descending")) Collections.reverse(resultAnnouncements);
+
     }
 
 
     /**
      * This method prevents the user from seeing an announcement that is not published
+     *
      * @param resultAnnouncements - resultannouncements
      */
     private void removeNonPublishedAnnouncements(ArrayList<Announcement> resultAnnouncements) {
@@ -173,6 +195,7 @@ public class AnnouncementRepository {
 
     /**
      * This method copies the original list of announcements into a new list
+     *
      * @param announcements - announcements
      * @return copy of announcements
      */
@@ -180,89 +203,15 @@ public class AnnouncementRepository {
         return new ArrayList<>(announcements);
     }
 
-    Comparator<Announcement> ascendingPriceCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement p1, Announcement p2) {
-            double price1 = p1.getProperty().getPrice();
-            double price2 = p2.getProperty().getPrice();
-
-            if (price1 < price2) {
-                return -1;
-            } else if (price1 > price2) {
-                return 1;
-            } else return 0;
-        }
-    };
-
-    Comparator<Announcement> descendingPriceCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement p1, Announcement p2) {
-            double price1 = p1.getProperty().getPrice();
-            double price2 = p2.getProperty().getPrice();
-
-            if (price1 > price2) {
-                return -1;
-            } else if (price1 < price2) {
-                return 1;
-            } else return 0;
-        }
-    };
-
-    Comparator<Announcement> ascendingStateCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement s1, Announcement s2) {
-            String state1 = s1.getProperty().getAddress().getState();
-            String state2 = s2.getProperty().getAddress().getState();
-
-            if (state1.compareTo(state2) > 0) {
-                return 1;
-            } else if (state1.compareTo(state2) < 0) {
-                return -1;
-            } else return 0;
-        }
-    };
-
-    Comparator<Announcement> descendingStateCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement s1, Announcement s2) {
-            String state1 = s1.getProperty().getAddress().getState();
-            String state2 = s2.getProperty().getAddress().getState();
-
-            if (state1.compareTo(state2) < 0) {
-                return 1;
-            } else if (state1.compareTo(state2) > 0) {
-                return -1;
-            } else return 0;
-        }
-    };
-
-    Comparator<Announcement> ascendingCityCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement s1, Announcement s2) {
-            String city1 = s1.getProperty().getAddress().getCity();
-            String city2 = s2.getProperty().getAddress().getCity();
-
-            if (city1.compareTo(city2) > 0) {
-                return 1;
-            } else if (city1.compareTo(city2) < 0) {
-                return -1;
-            } else return 0;
-        }
-    };
-
-    Comparator<Announcement> descendingCityCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement s1, Announcement s2) {
-            String city1 = s1.getProperty().getAddress().getCity();
-            String city2 = s2.getProperty().getAddress().getCity();
-
-            if (city1.compareTo(city2) < 0) {
-                return 1;
-            } else if (city1.compareTo(city2) > 0) {
-                return -1;
-            } else return 0;
-        }
-    };
+    /**
+     * This method removes all the announcements from the list
+     *
+     * @param announcements - announcements
+     * @return announcements
+     */
+    private void removeAllAnnouncements(ArrayList<Announcement> announcements){
+        announcements.removeAll(announcements);
+    }
 
     Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
         @Override

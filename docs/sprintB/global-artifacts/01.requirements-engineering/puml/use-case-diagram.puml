@@ -28,11 +28,7 @@ rectangle "Use Cases" as usecases{
             "System Administrator" --> UC3
     usecase "UC4 - Submit Sale or Rent" as UC4
             "Owner" --> UC4
-    usecase "UC5 - Register a Store" as UC5
-            "System Administrator" --> UC5
-    usecase "UC6 - Specify states, districts and cities in the system" as UC6
-            "System Administrator" --> UC6
-    usecase "UC7 - register in the system to buy, sell or rent properties" as UC7
+    usecase "UC7 - Register in the system to buy, sell or rent properties" as UC7
             "Unregistered User" --> UC7
 }
 

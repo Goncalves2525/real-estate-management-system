@@ -1,13 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.ls.LSOutput;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnnouncementRepositoryTest {
@@ -27,18 +23,22 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
         TransactionType typeRent = TransactionType.RENT;
         TransactionType typeSale = TransactionType.SALE;
         Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+        Address a2 = new Address("Rua 2", "Porto", "Porto", "Porto", 54321);
+        Address a3 = new Address("Rua 3", "Lisboa", "Lisboa", "Lisboa", 123111);
+        Address a4 = new Address("Rua 4", "Faro", "Faro", "Algarve", 123222);
         Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
-        Property p2 = new Apartment(150, 30, 100000, a1, 2, 2);
-        Property p3 = new Land(150, 30, 50000, a1);
-        Property p4 = new House(150, 30, 3000000, a1, 3, 2, true, true);
+        Property p2 = new Apartment(150, 30, 100000, a2, 4, 2);
+        Property p3 = new Land(150, 30, 50000, a3);
+        Property p4 = new House(150, 30, 3000000, a4, 1, 2, true, true);
+        Announcement.idCounter = 0;
         announcementRepository.addAnnouncement(p1, typeHouse, typeSale, d1, c1, null, true);
         announcementRepository.addAnnouncement(p2, typeApartment, typeRent, d2, c1, null, true);
-        announcementRepository.addAnnouncement(p3, typeLand, typeSale, d3, c1, null, true);
-        announcementRepository.addAnnouncement(p4, typeHouse, typeRent, d3, c1, null, true);
+        announcementRepository.addAnnouncement(p3, typeLand, typeRent, d3, c1, null, true);
+        announcementRepository.addAnnouncement(p4, typeHouse, typeSale, d3, c1, null, true);
     }
 
     @Test
-    void ensureGetAllAnnouncementsSortedByDefualtCriteria_ReturnCorrectList() {
+    void ensureGetAllAnnouncementsSortedByDefualtCriteria_ReturnsCorrectList() {
         ArrayList<Announcement> result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
 
         int expectedFirst = 3;
@@ -51,40 +51,96 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
     }
 
     @Test
-    void ensureGetAllAnnouncementsSortedByDefualtCriteria_FailsWithWrongParameters() {
+    void ensureGetAllAnnouncementsSortedBySortCriteria_ReturnsCorrectList() {
+        ArrayList<Announcement> result = announcementRepository.getAllAnnouncementsSortedBySortCriteria("price", "descending");
 
-        ArrayList<Announcement> result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
-
-        int expectedFirst = 3;
-        int expectedLast = 0;
-        int resultFirst = result.get(0).getId();
-        int resultLast = result.get(3).getId();
+        double expectedFirst = 3000000;
+        double expectedLast = 50000;
+        double resultFirst = result.get(0).getProperty().getPrice();
+        double resultLast = result.get(3).getProperty().getPrice();
 
         assertEquals(expectedFirst, resultFirst);
         assertEquals(expectedLast, resultLast);
     }
 
     @Test
-    void getAllAnnouncementsSortedBySortCriteria() {
+    void ensureGetAllAnnouncementsSortedBySortCriteria_ReturnsEmptyWithWrongParameters() {
+        ArrayList<Announcement> result = announcementRepository.getAllAnnouncementsSortedBySortCriteria("wrong", "parameter");
+
+        String expected = "[]";
+        String resultString = result.toString();
+
+        assertEquals(expected, resultString);
     }
 
     @Test
-    void getFilteredAnnouncements() {
+    void ensureGetFilteredAnnouncements_FiltersCorrectly() {
+        ArrayList<Announcement> result = announcementRepository.getFilteredAnnouncements(TypeOfProperty.HOUSE, TransactionType.SALE, 1);
+
+        int expected = 2;
+        int resultInt = result.size();
+        TypeOfProperty resultType = result.get(0).getTypeOfProperty();
+        TransactionType resultTransaction = result.get(0).getTransactionType();
+        int resultRooms = ((House) result.get(0).getProperty()).getNumberOfBedrooms();
+
+        //asserts array size
+        assertEquals(expected, resultInt);
+
+        //asserts filters
+        assertEquals(TypeOfProperty.HOUSE, resultType);
+        assertEquals(TransactionType.SALE, resultTransaction);
+        assertEquals(1, resultRooms);
     }
 
     @Test
-    void getFilteredAndSortedAnnouncements() {
+    void ensureGetFilteredAnnouncements_ReturnsEmptyWithNoFilters() {
+        ArrayList<Announcement> result = announcementRepository.getFilteredAnnouncements(null, null, -1);
+
+        int expected = 0;
+        int resultInt = result.size();
+        String expectedString = "[]";
+        String resultString = result.toString();
+
+        assertEquals(expected, resultInt);
+        assertEquals(expectedString, resultString);
+
     }
 
     @Test
-    void addAnnouncement() {
+    void ensureGetFilteredAndSortedAnnouncements_FiltersAndSortsCorrectly() {
+        ArrayList<Announcement> result = announcementRepository.getFilteredAndSortedAnnouncements(TypeOfProperty.HOUSE, TransactionType.SALE, 1, "price", "descending");
+
+        int expected = 2;
+        int resultInt = result.size();
+        double expectedFirst = 3000000;
+        double expectedLast = 250000;
+        double resultFirst = result.get(0).getProperty().getPrice();
+        double resultLast = result.get(1).getProperty().getPrice();
+        TypeOfProperty resultType = result.get(0).getTypeOfProperty();
+        TransactionType resultTransaction = result.get(0).getTransactionType();
+        int resultRooms = ((House) result.get(0).getProperty()).getNumberOfBedrooms();
+
+        //asserts array size
+        assertEquals(expected, resultInt);
+
+        //asserts sort order
+        assertEquals(expectedFirst, resultFirst);
+        assertEquals(expectedLast, resultLast);
+
+        //asserts filters
+        assertEquals(TypeOfProperty.HOUSE, resultType);
+        assertEquals(TransactionType.SALE, resultTransaction);
+        assertEquals(1, resultRooms);
     }
 
     @Test
-    void addAnnouncementFromOwner() {
-    }
+    void ensureAddAnnouncement_Works() {
+        Property property = new House(150, 30, 250000, new Address("Rua 1", "Braga", "Braga", "Minho", 123333), 1, 2, true, true);
+        announcementRepository.addAnnouncement(property, TypeOfProperty.HOUSE, TransactionType.SALE, new Date(2019, 10, 10), new Comission(), null, true);
 
-    @Test
-    void addAnnouncementByRequest() {
+        int expected = 5;
+        int result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria().size();
+
+        assertEquals(expected, result);
     }
 }

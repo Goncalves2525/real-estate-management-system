@@ -228,8 +228,13 @@ activate uUser
                 deactivate UI
             end
 
+
+            UI -> UI : showAnnouncements(announcementsList)
+            activate UI
+
             UI --> uUser : displays the respective list of properties
             deactivate UI
+
 
 
 @enduml
