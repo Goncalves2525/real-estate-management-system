@@ -8,115 +8,126 @@ autonumber
 'hide footbox
 actor "Agent" as AGENT
 participant ":PublishSaleAnnouncementUI" as UI
-participant ":PublishSaleAnnouncementController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "saleAnnouncementRepository:\nSaleAnnouncementRepository" as SaleAnnouncementRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "saleAnnouncement\n:SaleAnnouncement" as SALE
+participant ":PublishAnnouncementController" as CTRL
+participant ":AnnouncementRepository" as RepositorySingleton
+participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
+participant ":AuthenticationRepository" as AuthSingleton
+participant "authRepository:\nAuthenticationRepository" as AuthenticationRepository
+'participant "Commission" as COMMISSION
+'participant "Announcement" as ANN
 
 activate AGENT
 
-        AGENT -> UI : asks to publish a sale announcement
+AGENT -> UI : asks to publish an announcement
 
-        activate UI
+activate UI
 
-            UI -> CTRL** : create
+UI -> CTRL : getAnnouncementsByUser()
+activate CTRL
 
-            UI -> CTRL : getSaleAnnouncementCategories()
-            activate CTRL
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-                CTRL -> PLAT : getSaleAnnouncementRepository()
-                activate PLAT
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-                    PLAT --> CTRL: saleAnnouncementRepository
-                deactivate PLAT
+    CTRL -> AuthenticationRepository : getCurrentUserSession()
+    activate AuthenticationRepository
 
-                CTRL -> SaleAnnouncementRepository : getSaleAnnouncementCategories()
-                activate SaleAnnouncementRepository
+        AuthenticationRepository --> CTRL: UserSession
+    deactivate AuthenticationRepository
 
-                    SaleAnnouncementRepository --> CTRL : saleAnnouncementCategoryList
-                deactivate SaleAnnouncementRepository
+    CTRL -> AnnouncementRepository : getAnnouncementsByAgent(getCurrentUserSession().getUserId().getEmail())
+    activate AnnouncementRepository
 
-                CTRL --> UI : saleAnnouncementCategoryList
-            deactivate CTRL
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
 
-            UI --> AGENT : shows sale announcement category list\n and asks to select one
-        deactivate UI
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
 
-    AGENT -> UI : selects a sale announcement category
-    activate UI
+UI -> CTRL : publishAnnouncement(announcement, commission)
+activate CTRL
 
-        UI --> AGENT : requests data
-    deactivate UI
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-    AGENT -> UI : types requested data (title, description, price, location, etc.)
-    activate UI
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-        UI --> AGENT : shows selected category and requested data
-    deactivate UI
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-    AGENT -> UI : submits data
-    activate UI
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-        UI -> CTRL : publishSaleAnnouncement(title, description, price, location, saleAnnouncementCategoryDescription)
-        activate CTRL
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
 
-            CTRL -> CTRL : getSaleAnnouncementCategoryByDescription(saleAnnouncementCategoryDescription)
-            activate CTRL
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+    CTRL -> AnnouncementRepository : publishAnnouncement(announcement.getId())
+    activate AnnouncementRepository
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+        AnnouncementRepository --> CTRL: success
+    deactivate AnnouncementRepository
 
-                CTRL -> PLAT : getSaleAnnouncementCategoryRepository()
-                activate PLAT
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
 
-                    PLAT -> CTRL : saleAnnouncementCategoryRepository
-                deactivate PLAT
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
 
-                CTRL -> SaleAnnouncementCategoryRepository : getSaleAnnouncementCategoryByDescription(saleAnnouncementCategoryDescription)
-                activate SaleAnnouncementCategoryRepository
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
 
-                    SaleAnnouncementCategoryRepository --> CTRL : saleAnnouncementCategory
-                deactivate SaleAnnouncementCategoryRepository
-                    CTRL --> CTRL : saleAnnouncementCategory
-            deactivate CTRL
+UI -> AGENT : shows non published announcements
+deactivate UI
 
-            |||
-            CTRL -> CTRL : getAgentFromSession()
-            activate CTRL
+AGENT -> UI : selects ID of the Announcement to publish
+activate UI
 
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+UI -> CTRL : getAnnouncementById(id)
+activate CTRL
 
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-                CTRL -> APP: getCurrentSession()
-                activate APP
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-                    APP --> CTRL: currentSession
-                deactivate APP
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
 
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
 
-                CTRL -> PLAT: getOrganizationRepository(email)
-                @enduml
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
+
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
+
+UI --> AGENT : shows non published announcements
+deactivate UI
+
+AGENT -> UI : closes UI
+deactivate AGENT
+deactivate UI
+@enduml

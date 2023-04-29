@@ -55,9 +55,9 @@ public class CreateRequestController {
      */
     public void createannouncemntHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
-        Comission comission = new Comission();
+        Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, commission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
     /**
@@ -70,9 +70,9 @@ public class CreateRequestController {
      */
     public void createannouncemntLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
-        Comission comission = new Comission();
+        Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, commission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
     /**
@@ -86,9 +86,9 @@ public class CreateRequestController {
 
     public void createannouncemntApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
-        Comission comission = new Comission();
+        Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();
-        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, comission, photos);
+        Announcement announcement = new Announcement(agent, property,typeOfProperty, transactionType, publishDate, commission, photos);
         announcementRepository.addAnnouncementFromOwner(announcement);
     }
 

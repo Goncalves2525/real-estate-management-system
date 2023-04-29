@@ -9,13 +9,12 @@ autonumber
 actor "Agent" as AGENT
 participant ":PublishSaleAnnouncementUI" as UI
 participant ":PublishAnnouncementController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as REPO
-participant "saleAnnouncementRepository:\nSaleAnnouncementRepository" as SaleAnnouncementRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSION
-participant "Announcement" as ANN
+participant ":AnnouncementRepository" as RepositorySingleton
+participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
+participant ":AuthenticationRepository" as AuthSingleton
+participant "authRepository:\nAuthenticationRepository" as AuthenticationRepository
+'participant "Commission" as COMMISSION
+'participant "Announcement" as ANN
 
 activate AGENT
 
@@ -23,103 +22,109 @@ AGENT -> UI : asks to publish an announcement
 
 activate UI
 
-    UI -> CTRL : publishAnnouncement(announcement)
-    activate CTRL
+UI -> CTRL : getAnnouncementsByUser()
+activate CTRL
 
-        CTRL -> RepositorySingleton : getInstance()
-        activate RepositorySingleton
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-            RepositorySingleton --> CTRL: repositories
-        deactivate RepositorySingleton
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-        CTRL -> REPO : getSaleAnnouncementRepository()
-        activate REPO
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-            REPO --> CTRL: saleAnnouncementRepository
-        deactivate REPO
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-        CTRL -> SaleAnnouncementRepository : updateAnnouncement(announcement)
-        activate SaleAnnouncementRepository
+    CTRL -> AuthenticationRepository : getCurrentUserSession()
+    activate AuthenticationRepository
 
-            SaleAnnouncementRepository --> CTRL : updatedAnnouncement
-        deactivate SaleAnnouncementRepository
+        AuthenticationRepository --> CTRL: UserSession
+    deactivate AuthenticationRepository
 
-        CTRL -> CTRL : getAgentFromSession()
-        activate CTRL
+    CTRL -> AnnouncementRepository : getAnnouncementsByAgent(getCurrentUserSession().getUserId().getEmail())
+    activate AnnouncementRepository
 
-            CTRL -> _APP: getInstance()
-            activate _APP
-                _APP -> CTRL: appSession
-            deactivate _APP
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
 
-            CTRL -> APP: getCurrentSession()
-            activate APP
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
 
-                APP --> CTRL: currentSession
-            deactivate APP
+UI -> CTRL : publishAnnouncement(announcement, commission)
+activate CTRL
 
-            CTRL -> SESSION: email = getUserEmail()
-            activate SESSION
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-                SESSION --> CTRL: email
-            deactivate SESSION
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-        CTRL --> UI : updatedAnnouncement
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-    deactivate CTRL
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-    UI --> AGENT : shows updated announcement
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
+
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
+
+    CTRL -> AnnouncementRepository : publishAnnouncement(announcement.getId())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: success
+    deactivate AnnouncementRepository
+
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
+
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
+
+UI -> AGENT : shows non published announcements
 deactivate UI
 
-AGENT -> UI : confirms publication
+AGENT -> UI : selects ID of the Announcement to publish
 activate UI
 
-    UI -> CTRL : publishAnnouncement(announcement)
-    activate CTRL
+UI -> CTRL : getAnnouncementById(id)
+activate CTRL
 
-        CTRL -> RepositorySingleton : getInstance()
-        activate RepositorySingleton
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-            RepositorySingleton --> CTRL: repositories
-        deactivate RepositorySingleton
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
 
-        CTRL -> REPO : getSaleAnnouncementRepository()
-        activate REPO
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
 
-            REPO --> CTRL: saleAnnouncementRepository
-        deactivate REPO
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
 
-        CTRL -> SaleAnnouncementRepository : updateAnnouncement(announcement)
-        activate SaleAnnouncementRepository
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
 
-            SaleAnnouncementRepository --> CTRL : updatedAnnouncement
-        deactivate SaleAnnouncementRepository
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
 
-        CTRL -> CTRL : getAgentFromSession()
-        activate CTRL
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
 
-            CTRL -> _APP: getInstance()
-            activate _APP
-                _APP -> CTRL: appSession
-            deactivate _APP
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
 
-            CTRL -> APP: getCurrentSession()
-            activate APP
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
 
-                APP --> CTRL: currentSession
-            deactivate APP
-
-            CTRL -> SESSION: email = getUserEmail()
-            activate SESSION
-
-                SESSION --> CTRL: email
-            deactivate SESSION
-
-        CTRL --> UI : updatedAnnouncement
-
-    deactivate CTRL
-
-    UI --> AGENT : shows updated announcement
+UI --> AGENT : shows non published announcements
 deactivate UI
 
 AGENT -> UI : closes UI

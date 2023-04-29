@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class User {
@@ -10,7 +12,7 @@ public abstract class User {
     private int taxNumber;
     private int telephoneNumber;
     private Address address;
-    private Set<Role> roles;
+    private List<Role> roles;
     private Agency agency;
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
@@ -21,10 +23,9 @@ public abstract class User {
         this.telephoneNumber = telephoneNumber;
         this.address = address;
         this.agency = agency;
-        this.roles = new HashSet<>();
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -35,7 +36,7 @@ public abstract class User {
         this.roles = roles;
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Set<Role> roles) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -45,7 +46,7 @@ public abstract class User {
         this.roles = roles;
     }
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Set<Role> roles) {
+    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -56,11 +57,9 @@ public abstract class User {
 
     public User(String email) {
         this.email = email;
-        this.roles = new HashSet<>();
     }
     public User(String email, Agency agency) {
         this.email = email;
-        this.roles = new HashSet<>();
         this.agency = agency;
     }
 
@@ -70,7 +69,7 @@ public abstract class User {
         this.passportCardNumber = passportCardNumber;
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         roles.add(Role.EMPLOYEE);
         this.setRoles(roles);
     }
@@ -126,17 +125,16 @@ public abstract class User {
         return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address == null ? "" : this.address.toString(), this.roles == null ? "" : this.roles.toString());
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
     public void addRole(Role role) {
         if (roles == null) {
-            roles = new HashSet<>();
         }
         roles.add(role);
     }

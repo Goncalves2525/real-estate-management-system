@@ -68,7 +68,7 @@ public class CreateRequestUI implements Runnable {
             AgencyOptions();
             System.out.println();
             agencyID = sc.nextInt();
-
+            sc.nextLine();
             if (listAgents(agencyID) == 0) {
                 System.out.println("This Agency not exist. ");
 
@@ -355,7 +355,7 @@ public class CreateRequestUI implements Runnable {
     private int listAgents(int id) {
         int control = 0;
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-        List<Employee> agents = employeeRepository.getEmployeeList();
+        ArrayList<Employee> agents = employeeRepository.getEmployeeList();
         for (Employee agent : agents) {
             if (agent.getAgency().getId() == id) {
                 System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");

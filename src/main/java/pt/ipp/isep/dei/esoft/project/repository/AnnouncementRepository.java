@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class AnnouncementRepository {
 
-    private final ArrayList<Announcement> announcements = new ArrayList<>();
+    private ArrayList<Announcement> announcements = new ArrayList<>();
 
 
     /**
@@ -112,17 +112,28 @@ public class AnnouncementRepository {
      * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
      * @param date            - date
-     * @param comission       - comission
+     * @param commission       - comission
      * @param photos          - photos
      * @param isPublished     - is published
      */
-    public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
-        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, comission, photos, isPublished);
+    public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, commission, photos, isPublished);
             announcements.add(announcement);
     }
 
-    public void addAnnouncementWithAgent(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
-        Announcement announcement = new Announcement(agent,property, typeOfProperty, transactionType, date, comission, photos, isPublished);
+    /**
+     * Adds an announcement to the repository, with an agent associated
+     * @param agent - agent
+     * @param property - property
+     * @param typeOfProperty - type of property
+     * @param transactionType - transaction type
+     * @param date - date
+     * @param commission - commission
+     * @param photos - photos
+     * @param isPublished - is published
+     */
+    public void addAnnouncementWithAgent(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(agent,property, typeOfProperty, transactionType, date, commission, photos, isPublished);
         announcements.add(announcement);
     }
 

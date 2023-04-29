@@ -13,7 +13,7 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
     @BeforeEach
     void setUp() {
 
-        Comission c1 = new Comission();
+        Commission c1 = new Commission();
         Date d1 = new Date(2019, 10, 10);
         Date d2 = new Date(2019, 10, 11);
         Date d3 = new Date(2019, 10, 12);
@@ -136,7 +136,7 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
     @Test
     void ensureAddAnnouncement_Works() {
         Property property = new House(150, 30, 250000, new Address("Rua 1", "Braga", "Braga", "Minho", 123333), 1, 2, true, true);
-        announcementRepository.addAnnouncement(property, TypeOfProperty.HOUSE, TransactionType.SALE, new Date(2019, 10, 10), new Comission(), null, true);
+        announcementRepository.addAnnouncement(property, TypeOfProperty.HOUSE, TransactionType.SALE, new Date(2019, 10, 10), new Commission(), null, true);
 
         int expected = 5;
         int result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria().size();

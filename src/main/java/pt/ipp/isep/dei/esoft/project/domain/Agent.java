@@ -1,20 +1,22 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Agent extends User implements Cloneable {
 
     private Agency agency;
 
-    public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+    public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
         this.agency = agency;
     }
 
     public Agent(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber);
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         roles.add(Role.EMPLOYEE);
         this.setRoles(roles);
     }

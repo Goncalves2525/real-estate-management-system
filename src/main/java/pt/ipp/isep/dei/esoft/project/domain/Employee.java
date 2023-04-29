@@ -1,19 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Employee extends User {
 
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
     }
 
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Set<Role> roles) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
     }
 
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Set<Role> roles) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
     }
 
@@ -26,13 +27,13 @@ public class Employee extends User {
     }
 
     public void addRole(Role role) {
-        Set<Role> roles = getRoles();
+        List<Role> roles = getRoles();
         roles.add(role);
         setRoles(roles);
     }
 
     public void removeRole(Role role) {
-        Set<Role> roles = getRoles();
+        List<Role> roles = getRoles();
         roles.remove(role);
         setRoles(roles);
     }
@@ -74,7 +75,7 @@ public class Employee extends User {
     }
 
     public Employee clone() {
-        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), new HashSet<>(getRoles()));
+        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), getRoles());
     }
 
     public int getNumberOfRoles() {

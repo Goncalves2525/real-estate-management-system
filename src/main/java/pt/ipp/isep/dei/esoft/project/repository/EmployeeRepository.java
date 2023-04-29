@@ -27,9 +27,9 @@ public class EmployeeRepository {
         return null;
     }
 
-    public List<Employee> getAgentsByAgencyId(int agencyId) {
-        List<Employee> allAgents = getEmployeeList();
-        List<Employee> agentsByAgency = new ArrayList<>();
+    public ArrayList<Employee> getAgentsByAgencyId(int agencyId) {
+        ArrayList<Employee> allAgents = getEmployeeList();
+        ArrayList<Employee> agentsByAgency = new ArrayList<>();
         for (Employee agent : allAgents) {
             if (agent.getAgency() != null && agent.getAgency().getId() == agencyId) {
                 agentsByAgency.add(agent);
@@ -43,7 +43,7 @@ public class EmployeeRepository {
     }
 
     //returns the list of employees
-    public List<Employee> getEmployeeList() {
+    public ArrayList<Employee> getEmployeeList() {
         return this.employeeList;
     }
 

@@ -1,4 +1,4 @@
-# US 006 - To create a Task 
+# US 002 - To publish a Sale 
 
 # 4. Tests 
 

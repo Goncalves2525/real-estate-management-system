@@ -1,8 +1,8 @@
 -ID: 27 
 -Property Information: 
--Area: 1,00
--Distance from center: 1,00
--Price: 1,00
+-Area: 1.00
+-Distance from center: 1.00
+-Price: 1.00
 -Address: 1, 1, 1, 1, 1
 -Number of bedrooms: 1
 -Number of bathrooms: 1
@@ -13,7 +13,7 @@
 -Has inhabitable loft: true 
 -Type of Property: House 
 -Transaction Type: Sale 
--Publish Date: Sat Apr 29 22:52:01 WEST 2023 
--Comission: Value: 0,00 Percentage: 0,00 
+-Publish Date: Sat Apr 29 23:21:20 WEST 2023 
+-Comission: Value: 0.00 Percentage: 0.00 
 -Photos: [] 
 -IsPublished: false

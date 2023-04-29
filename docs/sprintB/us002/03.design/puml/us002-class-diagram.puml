@@ -9,104 +9,37 @@ skinparam linetype polyline
 
 skinparam classAttributeIconSize 0
 
-
-
-class Address {
- +getFullAddress(): String
-}
-
-
-
-class Property {
- +getPrice(): double
- +getTypeOfProperty(): TypeOfProperty
- +getTransactionType(): TransactionType
-}
-
-
-
-class Agent {
- +getName(): String
- +getEmployee(): Employee
-}
-
-
-
-class Employee {
- +getName(): String
- +getAddress(): Address
-}
-
-
-
-class House {
- +getNumberOfRooms(): int
- +getNumberOfBathrooms(): int
-}
-
-
-
-class Land {
- +getArea(): double
-}
-
-
-
-class Apartment {
- +getNumberOfRooms(): int
- +getNumberOfBathrooms(): int
- +getFloor(): int
-}
-
-
-
-class Comission {
- +calculate(): double
-}
-
-
-
-class TransactionType {
- +getName(): String
-}
-
-
-
-class TypeOfProperty {
- +getName(): String
-}
-
-
-
-class Photo {
- +getUrl(): String
-}
-
-
-
 class Announcement {
- +getProperty(): Property
- +getAgent(): Agent
- +getPhotos(): List<Photo>
- +getComission(): Comission
+    +setIsPublished(): void
+    +toString(): String
 }
 
+class Commission {
+ -value: float
+ -percentage: double
+ +getValue(): float
+ +getPercentage(): double
+}
 
 
 class AnnouncementRepository {
- +save(announcement: Announcement): void
- +findAll(): List<Announcement>
+ -ArrayList<> announcements: List<Announcement>
+ +removeNonPublishedAnnouncements(ArrayList<Announcement>: resultAnnouncements): void
+ +getAnnouncementsByAgent(String: agentEmail): ArrayList<Announcement>
+ +removePublishedAnnouncements(ArrayList<Announcement>: resultAnnouncements): void
+ +getAnnouncementById(int: id): Announcement
 }
 
 
 
 class AuthenticationRepository{
- +authenticate(agent: Agent): boolean
+ +getCurrentUserSession(): UserSession
 }
 
 
 
 class Repositories {
+ +getInstance(): Repositories
  +getAuthenticationRepository(): AuthenticationRepository
  +getAnnouncementRepository(): AnnouncementRepository
 }
@@ -114,74 +47,32 @@ class Repositories {
 
 
 class PublishAnnouncementController {
- +publishAnnouncement(announcement: Announcement): boolean
+ -announcementRepository: AnnouncementRepository
+ -authenticationRepository: AuthenticationRepository
+ +publishAnnouncement(int: id): void
+ +getAnnouncementById(int: id): Announcement
+ +getAnnouncementsByUser(): List<Announcement>
+ +setCommission(int: id, Commission: commission): void
 }
 
 
 
 class PublishAnnouncementUI {
- +interact(): void
+ -controller: PublishAnnouncementController
+ +PublishAnnouncementUI(): void
+ +run(): void
+ +getAnnouncementByUser(): List<Announcement>
+ +chooseCommissionOrValue(int: id): void
 }
 
-
-
 Repositories -> Repositories : instances
-
-
-
 PublishAnnouncementUI .> PublishAnnouncementController
-
-
-
 PublishAnnouncementController ..> Repositories
-
-
-
 Repositories "1" --> "1" AuthenticationRepository : has
 Repositories "1" --> "1" AnnouncementRepository : has
-
-
-
 PublishAnnouncementController ..> AnnouncementRepository
 PublishAnnouncementController ..> AuthenticationRepository
-
-
-
 AnnouncementRepository "1" --> "*" Announcement : has
-
-
-
-Announcement "1" --> "1" Property : has
-Announcement "1" --> "1" Comission : has
-Announcement "1" --> "1" Agent : has
-Announcement "1" --> "*" Photo : has
-
-
-
-Property "1" --> "1" Address : has
-Property "1" --> "1" TransactionType : has
-Property "1" --> "1" TypeOfProperty : has
-
-
-
-Employee "1" --> "1" Address : has
-
-
-
-Agent "1" --> "1" Employee : has
-
-
-
-House "1" --|> Property : has
-
-
-
-Land "1" --|> Property : has
-
-
-
-Apartment "1" --|> Property : has
-
-
+Announcement "1" --> "1" Commission : has
 
 @enduml

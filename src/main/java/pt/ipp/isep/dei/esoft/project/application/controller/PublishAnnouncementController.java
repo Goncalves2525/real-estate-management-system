@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Comission;
+import pt.ipp.isep.dei.esoft.project.domain.Commission;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PublishAnnouncementController {
     private AnnouncementRepository announcementRepository = null;
@@ -23,13 +21,6 @@ public class PublishAnnouncementController {
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
 
-    private AnnouncementRepository getAnnouncementRepository(){
-        if(announcementRepository == null){
-            Repositories repositories = Repositories.getInstance();
-            announcementRepository = repositories.getAnnouncementRepository();
-        }
-        return announcementRepository;
-    }
 
     /**
      * @return List<Announcement> the list of announcements
@@ -46,7 +37,7 @@ public class PublishAnnouncementController {
         }
     }
 
-    public void setCommission(int id, Comission commission) {
+    public void setCommission(int id, Commission commission) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
         if (announcement.getId() >= 0) {
             announcement.setComission(commission);

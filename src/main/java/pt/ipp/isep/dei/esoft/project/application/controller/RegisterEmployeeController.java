@@ -29,7 +29,7 @@ public class RegisterEmployeeController {
         return this.roleRepository.getRoleByValue(value);
     }
 
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> roles) {
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
         return employeeRepository.addEmployee(employee);
     }

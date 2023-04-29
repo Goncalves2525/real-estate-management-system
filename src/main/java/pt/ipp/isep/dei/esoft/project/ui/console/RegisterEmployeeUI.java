@@ -31,7 +31,7 @@ public class RegisterEmployeeUI implements Runnable {
 
 
 
-        Set<Role> selectedRoles = new HashSet<>();
+        ArrayList<Role> selectedRoles = new ArrayList<>();
         boolean addMoreRoles;
         do {
             showRoles();
@@ -247,10 +247,6 @@ public class RegisterEmployeeUI implements Runnable {
             address = new Address(street, city, district, state, zipcode);
         }
 
-
-
-
-
         String password = controller.generatePassword();
 
         String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
@@ -281,7 +277,7 @@ public class RegisterEmployeeUI implements Runnable {
         return agencyListRepository.getAgencyById(id);
     }
 
-    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> selectedRoles) {
+    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, ArrayList<Role> selectedRoles) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please confirm the following information:");
         System.out.println("Name: " + name);
@@ -308,7 +304,7 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, Set<Role> selectedRoles) {
+    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> selectedRoles) {
         if (answer.equalsIgnoreCase("Y")) {
             boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
             if (success) {

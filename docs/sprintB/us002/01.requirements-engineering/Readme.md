@@ -33,9 +33,9 @@ example received through a phone call.
 > **Answer:** The Owner attributes are: the name, the citizen's card number, the tax number, the address, the email address and the contact
 telephone number. The Agent is an employee of the company.
 
-> **Question:** Does the agency have any comission (fixed or percentage) on top of the one that the agent sets, or the agent must set a comission that already includes the company's?
+> **Question:** Does the agency have any commission (fixed or percentage) on top of the one that the agent sets, or the agent must set a commission that already includes the company's?
 >
-> **Answer:** The comission value includes the agent and the company comission.
+> **Answer:** The commission value includes the agent and the company commission.
 
 ### 1.3. Acceptance Criteria
 

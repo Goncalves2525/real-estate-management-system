@@ -24,8 +24,8 @@ public class Bootstrap implements Runnable {
     private void addAgencies(){
         //get Agency repository
         AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
-        List<Employee> agents = new ArrayList<>();
-        List<Employee> agents2 = new ArrayList<>();
+        ArrayList<Employee> agents = new ArrayList<>();
+        ArrayList<Employee> agents2 = new ArrayList<>();
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
         agencyListRepository.add(agency);
@@ -35,8 +35,8 @@ public class Bootstrap implements Runnable {
     private void addAgents(){
         //get Agency repository
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-        List<Employee> agents = new ArrayList<>();
-        List<Employee> agents2 = new ArrayList<>();
+        ArrayList<Employee> agents = new ArrayList<>();
+        ArrayList<Employee> agents2 = new ArrayList<>();
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
 
@@ -50,12 +50,15 @@ public class Bootstrap implements Runnable {
 
     private void addAnnouncements(){
        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
-       Comission c1 = new Comission();
+       Commission c1 = new Commission();
+       ArrayList<Employee> agents = new ArrayList<>();
        Date d1 = new Date(2022, Calendar.APRIL, 10);
-       Agent agent1 = new Agent("employee@this.app");
-       Agent agent2 = new Agent("employee2@this.app");
        Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
-       Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
+       ArrayList<Role> roles = new ArrayList<>();
+       Employee agent1 = new Employee("Employee","employee@this.app",123456789,123,123,new Address("street","city","district","state",1234),new Agency(1,"agency","",123,a1, agents),roles);
+       Employee agent2 = new Employee("Employee","employee2@this.app",123456789,123,123,new Address("street","city","district","state",1234),new Agency(1,"agency","",123,a1, agents),roles);
+       Address a2 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+       Address a3 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
        Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
        Property p2 = new House(150, 30, 100000, a1, 2, 2, true, true);
        Property p3 = new House(150, 30, 500000, a1, 3, 2, true, true);
