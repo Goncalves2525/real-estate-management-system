@@ -33,6 +33,14 @@ public class AuthenticationController {
         }
     }
 
+    //get user email
+    public String getUserEmail() {
+        if (authenticationRepository.getCurrentUserSession().isLoggedIn()) {
+            return authenticationRepository.getCurrentUserSession().getUserId().getEmail();
+        }
+        return null;
+    }
+
     public List<UserRoleDTO> getUserRoles() {
         if (authenticationRepository.getCurrentUserSession().isLoggedIn()) {
             return authenticationRepository.getCurrentUserSession().getUserRoles();

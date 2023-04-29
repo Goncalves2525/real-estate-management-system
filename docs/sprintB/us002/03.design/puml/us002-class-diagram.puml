@@ -1,258 +1,187 @@
-'@startuml
-''skinparam monochrome true
-'skinparam packageStyle rectangle
-'skinparam shadowing false
-'skinparam linetype polyline
-''skinparam linetype orto
-'
-'skinparam classAttributeIconSize 0
-'
-''left to right direction
-'
-'class ApplicationSession
-'{
-'    + static getInstance()
-'    + getCurrentSession()
-'}
-'
-'class UserSession
-'{
-'    + getUserEmail()
-'}
-'
-'class Employee {
-'    - name
-'    - email
-'    - position
-'    - phone
-'}
-'
-'class Task {
-'    - String reference
-'    - String description
-'    - String informalDescription
-'    - String technicalDescription
-'    - Integer duration
-'    - Double cost
-'
-'    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
-'}
-'
-'class TaskCategory {
-'    - String description
-'
-'    + TaskCategory(description)
-'}
-'
-'class Organization {
-'    - String name
-'    - String vatNumber
-'    - String website
-'    - String phone
-'    - String email
-'
-'    - addTask(task)
-'    - validateTask(task)
-'    + anyEmployeeHasEmail(email)
-'    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-'    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
-'    - getEmployeeByEmail(email)
-'
-''  +saveTask(task)
-'}
-'
-'class TaskCategoryRepository {
-'    + getTaskCategoryByDescription(description)
-'}
-'
-'class OrganizationRepository {
-'    + getOrganizationByEmployeeEmail(email)
-'}
-'
-'class Repositories {
-'    - Repositories()
-'    + getInstance() : Repositories
-'    + getTaskCategoryRepository()
-'    + getOrganizationRepository()
-'}
-'
-'class CreateTaskController {
-'    + CreateTaskController(organizationRepository, taskCategoryRepository)
-'    + getTaskCategories()
-'    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
-'    - getTaskCategoryByDescription(taskCategoryDescription)
-'    - getEmployeeFromSession()
-'}
-'
-'note right of CreateTaskController
-'    - userEmail is obtained
-'    from the user session
-'    - categoryDescription
-'    is retrieved from selected data
-'end note
-'
-'note bottom of TaskCategoryRepository
-'    - used for displaying
-'    the category list
-'end note
-'
-'class CreateTaskUI {
-'}
-'
-'Repositories -> Repositories : instance
-'ApplicationSession -> ApplicationSession : instance
-'
-'CreateTaskUI .> CreateTaskController
-'
-'CreateTaskController .> Repositories : repositories
-'
-'Repositories -> "1" TaskCategoryRepository
-'
-'CreateTaskController ..> TaskCategory
-'CreateTaskController ..> OrganizationRepository : organizationRepository
-'CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
-'
-'Repositories --> "1" OrganizationRepository
-'
-'OrganizationRepository --> "*" Organization
-'ApplicationSession --> "1" UserSession : userSession
-'
-'CreateTaskController ..> "1" Organization : organization
-'CreateTaskController ..> ApplicationSession
-'CreateTaskController ..> UserSession
-'Task "*" --> "1" TaskCategory : taskCategory
-'TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
-'Organization "1" --> "*" Task : tasks
-'Task --> Employee : createdBy
-'
-'Organization --> "*" Employee : employs
-'
-'@enduml
-
 @startuml
-skinparam monochrome false
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+
+
 skinparam classAttributeIconSize 0
 
-title Class Diagram
 
-class Client extends User{
+
+class Address {
+ +getFullAddress(): String
 }
 
-class Owner{
+
+
+class Property {
+ +getPrice(): double
+ +getTypeOfProperty(): TypeOfProperty
+ +getTransactionType(): TransactionType
 }
 
-class Employee extends User{
+
+
+class Agent {
+ +getName(): String
+ +getEmployee(): Employee
 }
 
-class Agent extends Employee{
+
+
+class Employee {
+ +getName(): String
+ +getAddress(): Address
 }
 
-class Property{
-    area
-    distanceFromCenter
-    price
+
+
+class House {
+ +getNumberOfRooms(): int
+ +getNumberOfBathrooms(): int
 }
 
-class Photos {
+
+
+class Land {
+ +getArea(): double
 }
 
-class Address{
-    doorNumber
-    zipCode
+
+
+class Apartment {
+ +getNumberOfRooms(): int
+ +getNumberOfBathrooms(): int
+ +getFloor(): int
 }
 
-class Street{
+
+
+class Comission {
+ +calculate(): double
 }
 
-class City{
+
+
+class TransactionType {
+ +getName(): String
 }
 
-class District{
+
+
+class TypeOfProperty {
+ +getName(): String
 }
 
-class State{
+
+
+class Photo {
+ +getUrl(): String
 }
 
-class Apartment extends Residency{
+
+
+class Announcement {
+ +getProperty(): Property
+ +getAgent(): Agent
+ +getPhotos(): List<Photo>
+ +getComission(): Comission
 }
 
-class House extends Residency{
-    basement
-    inhabitableLoft
+
+
+class AnnouncementRepository {
+ +save(announcement: Announcement): void
+ +findAll(): List<Announcement>
 }
 
-class Residency extends Property{
-    numberOfBedrooms
-    numberOfBathrooms
-    numberOfParkingSpaces
+
+
+class AuthenticationRepository{
+ +authenticate(agent: Agent): boolean
 }
 
-class PublishedProperty{
-    publishedDate
-    publishedBy
+
+
+class Repositories {
+ +getAuthenticationRepository(): AuthenticationRepository
+ +getAnnouncementRepository(): AnnouncementRepository
 }
 
-class Commission{
-    percentage
-    value
+
+
+class PublishAnnouncementController {
+ +publishAnnouncement(announcement: Announcement): boolean
 }
 
-class TypeOfProperty{
-    APARTMENT
-    HOUSE
-    LAND
+
+
+class PublishAnnouncementUI {
+ +interact(): void
 }
 
-class Land extends Property{
-}
 
-class Equipment{
-    equipmentName
-}
 
-class SunExposure{
-    NORTH
-    SOUTH
-    EAST
-    WEST
-}
+Repositories -> Repositories : instances
 
-class TransactionType{
-    RENT
-    SALE
-    BUY
-}
 
-class Request{
-}
 
-class User{
-}
+PublishAnnouncementUI .> PublishAnnouncementController
 
-PublishedProperty "1" -- "1" TypeOfProperty: has a >
-Agency "1" -- "*" Agent: has >
-Agent "1" -- "1" Owner : contacted by >
-Agent "*" - "*" Property: publishes >
-Agent "1" - "*" Property: sets commission >
-Owner "1" -- "*" Property: owns >
-Owner "1" - "*" Request: makes >
-Request "*" -- "1" Agent: is sent to >
-Request "1" - "1" Property: has >
-Request "1" - "1" TransactionType: has >
-Address "1" -- "1" State : part of <
-City "*" -- "1" District : part of >
-Street "*" -- "1" City : part of >
-District "*" --- "1" State : part of >
-Client "1" -- "*" Address: has an >
-Property "1" -- "1..*" Photos: has >
-PublishedProperty "1" -- "1" Commission: is set for <
-Residency "1" -- "*" Equipment: has >
-PublishedProperty "1" -- "1" Property: part of <
-Property "1" - "1" Address: has an >
-PublishedProperty "1" -- "1" Commission : has a >
-House "1" -- "1" SunExposure: has a value of >
-PublishedProperty "1" -- "1" TransactionType: has a value of >
-Agency "1" -- "1" Address: has an >
+
+
+PublishAnnouncementController ..> Repositories
+
+
+
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" AnnouncementRepository : has
+
+
+
+PublishAnnouncementController ..> AnnouncementRepository
+PublishAnnouncementController ..> AuthenticationRepository
+
+
+
+AnnouncementRepository "1" --> "*" Announcement : has
+
+
+
+Announcement "1" --> "1" Property : has
+Announcement "1" --> "1" Comission : has
+Announcement "1" --> "1" Agent : has
+Announcement "1" --> "*" Photo : has
+
+
+
+Property "1" --> "1" Address : has
+Property "1" --> "1" TransactionType : has
+Property "1" --> "1" TypeOfProperty : has
+
+
+
+Employee "1" --> "1" Address : has
+
+
+
+Agent "1" --> "1" Employee : has
+
+
+
+House "1" --|> Property : has
+
+
+
+Land "1" --|> Property : has
+
+
+
+Apartment "1" --|> Property : has
+
+
+
 @enduml

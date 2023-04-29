@@ -38,6 +38,10 @@ public class Agent extends User implements Cloneable {
         this.agency = agency;
     }
 
+    public String getAgentName() {
+        return super.getName();
+    }
+
     public Agent clone() {
         try {
             return (Agent) super.clone();

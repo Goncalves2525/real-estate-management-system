@@ -7,9 +7,9 @@ Property Information:
 -Number of bathrooms: 5
 -Number of parking spaces: 5
 -Has central heating: true
--Has air conditioning: true 
--Type of Property: APARTMENT 
--Transaction Type: SALE 
--Publish Date: Sat Apr 29 16:38:09 WEST 2023 
+-Has air conditioning: true
+-Type of Property: APARTMENT
+-Transaction Type: SALE
+-Publish Date: Sat Apr 29 16:38:09 WEST 2023
 -Comission: Value: 0,00 Percentage: 0 
 -Photos: []

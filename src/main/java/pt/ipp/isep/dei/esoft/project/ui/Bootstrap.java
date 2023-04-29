@@ -40,7 +40,7 @@ public class Bootstrap implements Runnable {
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
 
-        employeeRepository.add(new Employee("Agent1",agency));
+        employeeRepository.add(new Employee("employee@this.app",agency));
         employeeRepository.add(new Employee("Agent11",agency));
         employeeRepository.add(new Employee("Agent111",agency));
         employeeRepository.add(new Employee("Agent2",agency2));
@@ -52,6 +52,8 @@ public class Bootstrap implements Runnable {
         AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
         Comission c1 = new Comission();
         Date d1 = new Date(2022, Calendar.APRIL, 10);
+        Agent agent1 = new Agent("employee@this.app");
+        Agent agent2 = new Agent("employee2@this.app");
         Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
         Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
@@ -92,6 +94,10 @@ public class Bootstrap implements Runnable {
         announcementRepository.addAnnouncement(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1, p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent1, p13, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent1, p14, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent2, p12, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, false);
     }
 
 

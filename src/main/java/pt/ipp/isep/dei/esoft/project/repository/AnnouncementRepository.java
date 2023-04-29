@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -120,6 +121,11 @@ public class AnnouncementRepository {
             announcements.add(announcement);
     }
 
+    public void addAnnouncementWithAgent(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(agent,property, typeOfProperty, transactionType, date, comission, photos, isPublished);
+        announcements.add(announcement);
+    }
+
     public void addAnnouncementFromOwner(Announcement announcement) {
         announcements.add(announcement);
         try {
@@ -194,6 +200,56 @@ public class AnnouncementRepository {
     }
 
     /**
+     * This is the method used to return all the announcements assigned to the logged in Agent, sorted by the default criteria
+     * @return resultAnnouncements
+     */
+    public ArrayList<Announcement> getAllAnnouncementsByAgent() {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        resultAnnouncements.sort(defaultCriteria);
+        String agentName = getEmployee().getUserName();
+        getAnnouncementsByAgent(agentName);
+        removePublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
+    }
+
+    /**
+     * This is the method used to return the current user session
+     * @return resultAnnouncements
+     */
+    public UserSession getEmployee() {
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        return authenticationRepository.getCurrentUserSession();
+    }
+
+    //getAnnouncementsByAgent
+    public ArrayList<Announcement> getAnnouncementsByAgent(String agentEmail) {
+        ArrayList<Announcement> resultAnnouncements = announcements;
+        Iterator<Announcement> iterator = resultAnnouncements.iterator();
+        while (iterator.hasNext()) {
+            Announcement announcement = iterator.next();
+            if(!announcement.getAgentEmail().equals(agentEmail) || announcement.isPublished()) {
+                iterator.remove();
+            }
+        }
+        return resultAnnouncements;
+    }
+
+
+    /**
+     * This method prevents the user from seeing an announcement that is published
+     * @param resultAnnouncements - resultannouncements
+     */
+    private void removePublishedAnnouncements(ArrayList<Announcement> resultAnnouncements) {
+        Iterator<Announcement> iterator = resultAnnouncements.iterator();
+        while (iterator.hasNext()) {
+            Announcement announcement = iterator.next();
+            if (announcement.isPublished()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
      * This method copies the original list of announcements into a new list
      *
      * @param announcements - announcements
@@ -228,4 +284,12 @@ public class AnnouncementRepository {
     };
 
 
+    public Announcement getAnnouncementById(int id) {
+        for (Announcement announcement : announcements) {
+            if (announcement.getId()==id) {
+                return announcement;
+            }
+        }
+        return null;
+    }
 }

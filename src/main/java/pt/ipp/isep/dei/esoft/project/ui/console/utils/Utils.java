@@ -72,6 +72,20 @@ public class Utils {
         } while (true);
     }
 
+    static public Float readFloatFromConsole(String prompt) {
+        do {
+            try {
+                String input = readLineFromConsole(prompt);
+
+                Float value = Float.parseFloat(input);
+
+                return value;
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } while (true);
+    }
+
     static public boolean confirm(String message) {
         String input;
         do {

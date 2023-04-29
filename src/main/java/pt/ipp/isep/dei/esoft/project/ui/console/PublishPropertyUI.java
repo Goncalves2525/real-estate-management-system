@@ -18,7 +18,7 @@ public class PublishPropertyUI implements Runnable {
 
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
-        options.add(new MenuItem("Publish Existing Order", new PublishRequestUI()));
+        options.add(new MenuItem("Publish Existing Order", new PublishAnnouncementUI()));
 //        options.add(new MenuItem("Option 1 ", new ShowTextUI("You have chosen Option A.")));
 //        options.add(new MenuItem("Option 2 ", new ShowTextUI("You have chosen Option B.")));
 //        options.add(new MenuItem("Option 3 ", new ShowTextUI("You have chosen Option C.")));

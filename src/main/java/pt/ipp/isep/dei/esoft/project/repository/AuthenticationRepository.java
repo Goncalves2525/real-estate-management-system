@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.mappers.dto.UserDTO;
+
+import java.util.Optional;
 
 public class AuthenticationRepository {
     private final AuthFacade authenticationFacade = new AuthFacade();

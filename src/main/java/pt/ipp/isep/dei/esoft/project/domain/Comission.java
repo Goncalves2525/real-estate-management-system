@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 public class Comission {
     private float value;
-    private int percentage;
+    private double percentage;
     private final float DEFAULT_VALUE = 0;
     private final int DEFAULT_PERCENTAGE = 0;
 
@@ -15,7 +15,7 @@ public class Comission {
         this.value = value;
     }
 
-    public Comission(int percentage){
+    public Comission(double percentage){
         this.percentage = percentage;
     }
 
@@ -27,7 +27,7 @@ public class Comission {
         return this.value;
     }
 
-    public float getPercentage(){
+    public double getPercentage(){
         return this.percentage;
     }
 
@@ -35,11 +35,11 @@ public class Comission {
         this.value = value;
     }
 
-    public void setPercentage(int percentage){
+    public void setPercentage(double percentage){
         this.percentage = percentage;
     }
 
     public String toString(){
-        return String.format("Value: %.2f Percentage: %d", value, percentage);
+        return String.format("Value: %.2f Percentage: %.2f", value, percentage);
     }
 }

@@ -28,13 +28,12 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Organization
- * Task
+ * Announcement
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * CreateTaskUI  
- * CreateTaskController
+ * PublishAnnouncementUI  
+ * PublishAnnouncementController
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -45,29 +44,40 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - Full](svg/us002-sequence-diagram-full.svg)
 
-### Alternative 2 - Split Diagram
+[//]: # (### Alternative 2 - Split Diagram)
 
-This diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
+[//]: # ()
+[//]: # (This diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.)
 
-It uses interaction ocurrence.
+[//]: # ()
+[//]: # (It uses interaction ocurrence.)
 
-![Sequence Diagram - split](svg/us002-sequence-diagram-split.svg)
+[//]: # ()
+[//]: # (![Sequence Diagram - split]&#40;svg/us002-sequence-diagram-split.svg&#41;)
 
-**Get Task Category List Partial SD**
+[//]: # ()
+[//]: # (**Get Task Category List Partial SD**)
 
-![Sequence Diagram - Partial - Get Task Category List](svg/us002-sequence-diagram-partial-get-task-category-list.svg)
+[//]: # ()
+[//]: # (![Sequence Diagram - Partial - Get Task Category List]&#40;svg/us002-sequence-diagram-partial-get-task-category-list.svg&#41;)
 
-**Get Task Category Object**
+[//]: # ()
+[//]: # (**Get Task Category Object**)
 
-![Sequence Diagram - Partial - Get Task Category Object](svg/us002-sequence-diagram-partial-get-task-category.svg)
+[//]: # ()
+[//]: # (![Sequence Diagram - Partial - Get Task Category Object]&#40;svg/us002-sequence-diagram-partial-get-task-category.svg&#41;)
 
-**Get Employee**
+[//]: # ()
+[//]: # (**Get Employee**)
 
-![Sequence Diagram - Partial - Get Employee](svg/us002-sequence-diagram-partial-get-employee.svg)
+[//]: # ()
+[//]: # (![Sequence Diagram - Partial - Get Employee]&#40;svg/us002-sequence-diagram-partial-get-employee.svg&#41;)
 
-**Create Task**
+[//]: # ()
+[//]: # (**Create Task**)
 
-![Sequence Diagram - Partial - Create Task](svg/us002-sequence-diagram-partial-create-task.svg)
+[//]: # ()
+[//]: # (![Sequence Diagram - Partial - Create Task]&#40;svg/us002-sequence-diagram-partial-create-task.svg&#41;)
 
 ## 3.3. Class Diagram (CD)
 

@@ -43,6 +43,30 @@ public class Announcement {
         id = idCounter++;
     }
 
+    public Announcement(Agent agent,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
+        this.agent = agent;
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.comission = comission;
+        this.photos = photos;
+        this.isPublished = isPublished;
+        id = idCounter++;
+    }
+
+    public Announcement(Employee employee,Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Comission comission, ArrayList<Photo> photos, boolean isPublished) {
+        //this.agent = employee;
+        this.property = property;
+        this.typeOfProperty = typeOfProperty;
+        this.transactionType = transactionType;
+        this.publishDate = publishDate;
+        this.comission = comission;
+        this.photos = photos;
+        this.isPublished = isPublished;
+        id = idCounter++;
+    }
+
     public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate,  ArrayList<Photo> photos) {
         this.property = property;
         this.typeOfProperty = typeOfProperty;
@@ -118,7 +142,7 @@ public class Announcement {
     }
 
     public boolean isPublished() {
-        return isPublished;
+        return this.isPublished;
     }
 
     public void setPublished(boolean published) {
@@ -130,7 +154,11 @@ public class Announcement {
     }
 
     public int getId() {
-        return id;
+        try{
+            return id;
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 
     public static int getIdCounter() {
@@ -149,6 +177,19 @@ public class Announcement {
         return this.typeOfProperty.equals(typeOfProperty);
     }
 
+    /**
+     * This method returns the Agent's name.
+     *
+     * @return name
+     */
+    public String getAgentEmail() {
+        try{
+            return this.agent.getEmail();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
     public boolean hasPublishDate(Date publishDate) {
         return this.publishDate.equals(publishDate);
     }
@@ -159,6 +200,11 @@ public class Announcement {
 
     @Override
     public String toString() {
-        return String.format("Property Information: %s \n-Type of Property: %s \n-Transaction Type: %s \n-Publish Date: %s \n-Comission: %s \n-Photos: %s", property, typeOfProperty, transactionType, publishDate, comission, photos);
+        return String.format("-ID: %d \n-Property Information: %s \n-Type of Property: %s \n-Transaction Type: %s \n-Publish Date: %s \n-Comission: %s \n-Photos: %s \n-IsPublished: %b",id, property, typeOfProperty.toString(), transactionType.toString(), publishDate, comission, photos, isPublished);
+    }
+
+    public void setIsPublished() {
+        this.isPublished = true;
+        this.publishDate = new Date();
     }
 }
