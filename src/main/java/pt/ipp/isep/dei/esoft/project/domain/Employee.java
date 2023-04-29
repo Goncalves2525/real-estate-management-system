@@ -77,6 +77,10 @@ public class Employee extends User {
         return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), new HashSet<>(getRoles()));
     }
 
+    public int getNumberOfRoles() {
+        return getRoles().size();
+    }
+
     @Override
     public String toString() {
         return "Name: " + getName() + "\n" +

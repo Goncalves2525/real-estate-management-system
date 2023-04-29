@@ -11,10 +11,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class RegisterEmployeeUI implements Runnable {
 
@@ -32,34 +29,91 @@ public class RegisterEmployeeUI implements Runnable {
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
-        Set<Role> selectedRoles = new HashSet<>();
 
+
+        Set<Role> selectedRoles = new HashSet<>();
         boolean addMoreRoles;
         do {
             showRoles();
             System.out.println();
             System.out.print("Select a role option: ");
-            Role role = selectRole(scanner.nextInt());
-            scanner.nextLine(); // Consume newline character from previous input
+            int roleValue;
+            do {
+                try {
+                    roleValue = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character from previous input
+                    if (roleValue < 1 || roleValue > controller.getRolesToCreate().size()) {
+                        System.out.println("Invalid role option. Please select a value between 1 and " + controller.getRolesToCreate().size() + ":");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter an integer value:");
+                    scanner.nextLine(); // Consume the invalid input
+                    roleValue = -1; // Set roleValue to an invalid value to trigger the loop again
+                }
+            } while (roleValue < 1 || roleValue > controller.getRolesToCreate().size());
+
+            Role role = selectRole(roleValue);
             selectedRoles.add(role);
 
-            System.out.println("Do you want to add more roles? (Y/N)");
-            String answer = scanner.nextLine();
+            String answer;
+            do {
+                System.out.println("Do you want to add more roles? (Y/N)");
+                answer = scanner.nextLine();
+                if (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
+                    System.out.println("You have to select Y to add another Role or N if you don't want to add another Role");
+                }
+            } while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N"));
+
             addMoreRoles = answer.equalsIgnoreCase("Y");
         } while (addMoreRoles);
 
+
+
+
         System.out.println();
         System.out.println();
+
+
+
 
         listAgencies();
         System.out.print("Select an agency by ID: ");
-        int agencyId = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character from previous input
+        int agencyId;
+        do {
+            try {
+                agencyId = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character from previous input
+                if (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyListRepository().getAgencies().size()) {
+                    System.out.println("Invalid agency ID. Please select a value between 1 and " + Repositories.getInstance().getAgencyListRepository().getAgencies().size() + ":");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter an integer value:");
+                scanner.nextLine(); // Consume the invalid input
+                agencyId = -1; // Set agencyId to an invalid value to trigger the loop again
+            }
+        } while (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyListRepository().getAgencies().size());
+
         Agency agency = getAgencyById(agencyId);
 
 
+
+
+
         System.out.print("Name: ");
-        String name = scanner.nextLine();
+        String name;
+        do {
+            name = scanner.nextLine();
+            String trimmedName = name.trim(); // Remove leading and trailing spaces
+            if (trimmedName.isEmpty()) {
+                System.out.println("Name cannot be empty. Please enter a valid name:");
+            } else {
+                name = trimmedName;
+            }
+        } while (name.trim().isEmpty());
+
+
+
+
 
 
         System.out.print("Email: ");
@@ -71,54 +125,136 @@ public class RegisterEmployeeUI implements Runnable {
         }
 
 
+
+
         System.out.print("Passport Card Number: ");
-        int passportCardNumber = scanner.nextInt();
-
-        System.out.print("Tax Number: ");
-        int taxNumber = scanner.nextInt();
-
-        System.out.print("Telephone Number: ");
-        int telephoneNumber = scanner.nextInt();
-
-        while (String.valueOf(telephoneNumber).length() != 10) {
-            System.out.println("Invalid telephone number. Please enter a 10-digit telephone number:");
-            System.out.print("Telephone Number: ");
-            telephoneNumber = scanner.nextInt();
+        int passportCardNumber;
+        while (true) {
+            try {
+                passportCardNumber = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character from previous input
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter an integer value for the Passport Card Number:");
+                scanner.nextLine(); // Consume the invalid input
+            }
         }
 
 
-        scanner.nextLine(); // Consume newline character from previous input
 
-        System.out.print("Do you want to add an address? (Y/N)");
-        String answerAdress = scanner.nextLine();
 
-        Address address = new Address(" "," "," "," ",0);
+        System.out.print("Tax Number: ");
+        int taxNumber;
+        while (true) {
+            try {
+                taxNumber = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character from previous input
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter an integer value for the Tax Number:");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+
+
+
+
+        System.out.print("Telephone Number: ");
+        int telephoneNumber;
+        while (true) {
+            try {
+                telephoneNumber = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character from previous input
+                if (String.valueOf(telephoneNumber).length() == 10) {
+                    break;
+                } else {
+                    System.out.println("Invalid telephone number. Please enter a 10-digit telephone number:");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter an integer value for the Telephone Number:");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+
+
+
+
+
+
+        System.out.print("Do you want to add an address? (Y/N): ");
+        String answerAdress;
+        while (true) {
+            answerAdress = scanner.nextLine();
+            if (answerAdress.equalsIgnoreCase("Y") || answerAdress.equalsIgnoreCase("N")) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter Y or N:");
+            }
+        }
+
+        Address address = new Address(" ", " ", " ", " ", 0);
 
         if (answerAdress.equalsIgnoreCase("Y")) {
             System.out.print("Street: ");
-            String street = scanner.nextLine();
+            String street;
+            do {
+                street = scanner.nextLine();
+                if (street.trim().isEmpty()) {
+                    System.out.println("Street cannot be empty. Please enter a street name:");
+                }
+            } while (street.trim().isEmpty());
 
             System.out.print("City: ");
-            String city = scanner.nextLine();
+            String city;
+            do {
+                city = scanner.nextLine();
+                if (city.trim().isEmpty()) {
+                    System.out.println("City cannot be empty. Please enter a city name:");
+                }
+            } while (city.trim().isEmpty());
 
             System.out.print("District: ");
-            String district = scanner.nextLine();
+            String district;
+            do {
+                district = scanner.nextLine();
+                if (district.trim().isEmpty()) {
+                    System.out.println("District cannot be empty. Please enter a district name:");
+                }
+            } while (district.trim().isEmpty());
 
             System.out.print("State: ");
-            String state = scanner.nextLine();
+            String state;
+            do {
+                state = scanner.nextLine();
+                if (state.trim().isEmpty()) {
+                    System.out.println("State cannot be empty. Please enter a state name:");
+                }
+            } while (state.trim().isEmpty());
 
             System.out.print("Zipcode: ");
-            int zipcode = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character from previous input
+            int zipcode;
+            while (true) {
+                try {
+                    zipcode = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character from previous input
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter an integer value for the Zipcode:");
+                    scanner.nextLine(); // Consume the invalid input
+                }
+            }
 
             address = new Address(street, city, district, state, zipcode);
         }
+
+
+
+
 
         String password = controller.generatePassword();
 
         String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
         processRegistration(password, answer, name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
-
 
     }
 
@@ -159,9 +295,16 @@ public class RegisterEmployeeUI implements Runnable {
         for (Role role : selectedRoles) {
             System.out.print(role.toString() + " ");
         }
-        System.out.println();
-        System.out.println("Is this information correct? (Y/N)");
-        return scanner.nextLine();
+        String answer;
+        do {
+            System.out.println("Is this information correct? (Y/N)");
+            answer = scanner.nextLine();
+            if (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
+                System.out.println("Invalid input. Please enter Y or N:");
+            }
+        } while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N"));
+
+        return answer;
     }
 
 
