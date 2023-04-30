@@ -2,8 +2,8 @@
 -Property Information: 
 -Area: 1.00
 -Distance from center: 1.00
--Price: 50000.00
--Address: wdfe, defrvg, cdfvrg, dcfrv, 123
+-Price: 500.00
+-Address: defg, dfcvrgtb, cfervgtby, dxcefvr, 123456789
 -Number of bedrooms: 1
 -Number of bathrooms: 1
 -Number of parking spaces: 1
@@ -13,7 +13,7 @@
 -Has inhabitable loft: false 
 -Type of Property: House 
 -Transaction Type: Sale 
--Publish Date: Sat Apr 29 23:28:38 WEST 2023 
+-Publish Date: Sun Apr 30 11:56:47 WEST 2023 
 -Comission: Value: 0.00 Percentage: 0.00 
 -Photos: [] 
 -IsPublished: false

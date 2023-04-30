@@ -4,6 +4,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterEmployeeController;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Address;
 
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
@@ -496,6 +497,8 @@ public class RegisterEmployeeUI implements Runnable {
             boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
 
             if (success) {
+
+                controller.createUser(name, email, password, AuthenticationController.ROLE_EMPLOYEE);
 
                 writePasswordToFile(name, email, password, "email.txt");
 

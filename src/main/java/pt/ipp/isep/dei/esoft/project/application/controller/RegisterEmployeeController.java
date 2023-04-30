@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.RoleRepository;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
@@ -22,6 +23,7 @@ public class RegisterEmployeeController {
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
     private PasswordGenerator passwordGenerator;
+    private AuthenticationRepository authenticationRepository;
 
     /**
      * Instantiates a new Register Employee Controller.
@@ -29,6 +31,7 @@ public class RegisterEmployeeController {
     public RegisterEmployeeController() {
         employeeRepository = Repositories.getInstance().getEmployeeRepository();
         passwordGenerator = new PasswordGenerator();
+        authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
 
     /**
@@ -74,5 +77,9 @@ public class RegisterEmployeeController {
      */
     public String generatePassword() {
         return passwordGenerator.generatePassword();
+    }
+
+    public void createUser(String name, String email, String password, String role) {
+        authenticationRepository.addUserWithRole(name, email, password, role);
     }
 }

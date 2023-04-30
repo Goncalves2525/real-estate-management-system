@@ -102,7 +102,6 @@ public class Bootstrap implements Runnable {
        announcementRepository.addAnnouncementWithAgent(agent2, p12, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, false);
     }
 
-
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
