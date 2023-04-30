@@ -1,11 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+/**
+ * Sun Exposure, North, South, West, East.
+ */
+
 public enum SunExposure {
          NORTH,
          SOUTH,
          WEST,
          EAST;
 
+         /**
+          * Returns a string representation of the object.
+          *
+          * @return string representation of the object.
+          */
         @Override
         public String toString() {
             switch(this) {
