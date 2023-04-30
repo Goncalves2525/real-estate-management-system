@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a User and its characteristics.
+ */
 public abstract class User {
     private String name;
     private String email;
@@ -12,6 +15,18 @@ public abstract class User {
     private Address address;
     private List<Role> roles;
     private Agency agency;
+
+    /**
+     * Instantiates a new User.
+     *
+     * @param name                the name
+     * @param email               the email
+     * @param passportCardNumber  the passport card number
+     * @param taxNumber           the tax number
+     * @param telephoneNumber     the telephone number
+     * @param address             the address
+     * @param agency              the agency
+     */
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
         this.name = name;
@@ -23,6 +38,19 @@ public abstract class User {
         this.agency = agency;
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param name                the name
+     * @param email               the email
+     * @param passportCardNumber  the passport card number
+     * @param taxNumber           the tax number
+     * @param telephoneNumber     the telephone number
+     * @param address             the address
+     * @param agency              the agency
+     * @param roles               the roles
+     */
+
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         this.name = name;
         this.email = email;
@@ -33,6 +61,17 @@ public abstract class User {
         this.agency = agency;
         this.roles = roles;
     }
+    /**
+     * Instantiates a new User.
+     *
+     * @param name                the name
+     * @param email               the email
+     * @param passportCardNumber  the passport card number
+     * @param taxNumber           the tax number
+     * @param telephoneNumber     the telephone number
+     * @param address             the address
+     * @param roles               the roles
+     */
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         this.name = name;
@@ -43,6 +82,16 @@ public abstract class User {
         this.address = address;
         this.roles = roles;
     }
+    /**
+     * Instantiates a new User.
+     *
+     * @param name                the name
+     * @param email               the email
+     * @param passportCardNumber  the passport card number
+     * @param taxNumber           the tax number
+     * @param telephoneNumber     the telephone number
+     * @param roles               the roles
+     */
 
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         this.name = name;
@@ -53,14 +102,34 @@ public abstract class User {
         this.roles = roles;
     }
 
+    /**
+     * Instantiates a new User.
+
+     * @param email               the email
+     */
+
     public User(String email) {
         this.email = email;
     }
+    /**
+     * Instantiates a new User.
+     *
+     * @param email               the email
+     * @param agency              the agency
+     */
     public User(String email, Agency agency) {
         this.email = email;
         this.agency = agency;
     }
-
+    /**
+     * Instantiates a new User.
+     *
+     * @param name                the name
+     * @param email               the email
+     * @param passportCardNumber  the passport card number
+     * @param taxNumber           the tax number
+     * @param telephoneNumber     the telephone number
+     */
     public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
         this.name = name;
         this.email = email;
@@ -110,6 +179,7 @@ public abstract class User {
         this.address = address;
     }
 
+
     public Agency getAgency() {
         return agency;
     }
@@ -118,10 +188,12 @@ public abstract class User {
         this.agency = agency;
     }
 
+
     @Override
     public String toString() {
         return String.format("Name: %s%nEmail: %s%nPassport Card Number: %d%nTax Number: %d%nTelephone Number: %d%nAddress: %s%nRole: %s%%n ", this.name, this.email, this.passportCardNumber, this.taxNumber, this.telephoneNumber, this.address == null ? "" : this.address.toString(), this.roles == null ? "" : this.roles.toString());
     }
+
 
     public List<Role> getRoles() {
         return roles;
@@ -130,6 +202,7 @@ public abstract class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 
     public void addRole(Role role) {
         if (roles == null) {
