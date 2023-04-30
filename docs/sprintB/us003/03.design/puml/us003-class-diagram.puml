@@ -57,7 +57,7 @@ class Address{
     - zipCode : int
 }
 
-class Role{
+enum Role{
     - ADMIN
     - AGENT
     - STORE_NETWORK_MANAGER
