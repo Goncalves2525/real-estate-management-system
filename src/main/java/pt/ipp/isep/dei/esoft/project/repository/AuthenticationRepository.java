@@ -6,7 +6,9 @@ import pt.isep.lei.esoft.auth.UserSession;
 import pt.isep.lei.esoft.auth.mappers.dto.UserDTO;
 
 import java.util.Optional;
-
+    /**
+     * This class represents the repository for authentication.
+     */
 public class AuthenticationRepository {
     private final AuthFacade authenticationFacade = new AuthFacade();
 

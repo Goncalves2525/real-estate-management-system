@@ -1,5 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+/**
+ *  Repositories.
+ * <p>
+ * This class will be responsible for managing all repositories.
+ /**
+ *
+ */
 public class Repositories {
 
     private static final Repositories instance = new Repositories();

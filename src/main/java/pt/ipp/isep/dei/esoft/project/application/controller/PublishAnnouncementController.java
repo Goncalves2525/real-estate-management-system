@@ -8,6 +8,9 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
 
+    /**
+    * This class is the controller for the user story of publishing announcements.
+    */
 public class PublishAnnouncementController {
     /**
      * The Announcement repository.
