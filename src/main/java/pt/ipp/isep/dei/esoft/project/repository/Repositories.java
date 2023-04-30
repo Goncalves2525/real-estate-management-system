@@ -5,7 +5,7 @@ public class Repositories {
     private static final Repositories instance = new Repositories();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     AnnouncementRepository announcementRepository = new AnnouncementRepository();
-    AgencyListRepository agencyListRepository = new AgencyListRepository();
+    AgencyRepository agencyRepository = new AgencyRepository();
     EmployeeRepository employeeRepository = new EmployeeRepository();
     RoleRepository roleRepository = new RoleRepository();
 
@@ -24,8 +24,8 @@ public class Repositories {
         return authenticationRepository;
     }
 
-    public AgencyListRepository getAgencyListRepository() {
-        return agencyListRepository;
+    public AgencyRepository getAgencyListRepository() {
+        return agencyRepository;
     }
 
     public EmployeeRepository getEmployeeRepository() {

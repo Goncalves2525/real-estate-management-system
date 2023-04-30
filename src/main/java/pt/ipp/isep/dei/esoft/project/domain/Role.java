@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 public enum Role {
     ADMIN,
-    EMPLOYEE,
+    AGENT,
     STORE_NETWORK_MANAGER,
     STORE_MANAGER,
     CLIENT;
@@ -19,8 +19,8 @@ public enum Role {
         switch (this) {
             case ADMIN:
                 return "ADMIN";
-            case EMPLOYEE:
-                return "EMPLOYEE";
+            case AGENT:
+                return "AGENT";
             case STORE_NETWORK_MANAGER:
                 return "STORE_NETWORK_MANAGER";
             case STORE_MANAGER:

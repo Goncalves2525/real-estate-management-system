@@ -6,9 +6,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Address;
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Role;
-import pt.ipp.isep.dei.esoft.project.repository.AgencyListRepository;
+import pt.ipp.isep.dei.esoft.project.repository.AgencyRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.RoleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ class RegisterEmployeeControllerTest {
         int taxNumber = 123456789;
         int telephoneNumber = 987654321;
         Address address = new Address("Street", "City", "District", "State", 12345);
-        AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
         List<Employee> agents = new ArrayList<>();
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
 

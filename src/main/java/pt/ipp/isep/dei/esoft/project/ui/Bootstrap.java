@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class Bootstrap implements Runnable {
 
@@ -23,13 +22,13 @@ public class Bootstrap implements Runnable {
 
     private void addAgencies(){
         //get Agency repository
-        AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
         ArrayList<Employee> agents = new ArrayList<>();
         ArrayList<Employee> agents2 = new ArrayList<>();
         Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
         Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
-        agencyListRepository.add(agency);
-        agencyListRepository.add(agency2);
+        agencyRepository.add(agency);
+        agencyRepository.add(agency2);
     }
 
     private void addAgents(){

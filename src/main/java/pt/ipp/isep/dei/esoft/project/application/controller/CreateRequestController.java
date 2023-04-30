@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.AgencyListRepository;
+import pt.ipp.isep.dei.esoft.project.repository.AgencyRepository;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -23,7 +23,7 @@ public class CreateRequestController {
      *
      * Repository instances are obtained from the Repositories class
      */
-    private AgencyListRepository agencyListRepository = null;
+    private AgencyRepository agencyRepository = null;
     private EmployeeRepository employeeRepository = null;
     private AnnouncementRepository announcementRepository = null;
     private CreateRequestController controller = null;
@@ -34,7 +34,7 @@ public class CreateRequestController {
 
         this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
         this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
-        this.agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        this.agencyRepository = Repositories.getInstance().getAgencyListRepository();
     }
 
 
@@ -96,9 +96,9 @@ public class CreateRequestController {
      * This method returns the list of agencies
      */
  public Agency[] AgencyOptions() {
-        Agency[] agencyList = new Agency[agencyListRepository.getAgencies().size()];
-        for (int i = 0; i < agencyListRepository.getAgencies().size(); i++) {
-            agencyList[i] = agencyListRepository.getAgencies().get(i);
+        Agency[] agencyList = new Agency[agencyRepository.getAgencies().size()];
+        for (int i = 0; i < agencyRepository.getAgencies().size(); i++) {
+            agencyList[i] = agencyRepository.getAgencies().get(i);
 
         }
         return agencyList;

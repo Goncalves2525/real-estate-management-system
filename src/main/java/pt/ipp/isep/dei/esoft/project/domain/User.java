@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public abstract class User {
     private String name;
@@ -70,7 +68,7 @@ public abstract class User {
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
         List<Role> roles = new ArrayList<>();
-        roles.add(Role.EMPLOYEE);
+        roles.add(Role.AGENT);
         this.setRoles(roles);
     }
 

@@ -1,13 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AgencyListRepository {
+public class AgencyRepository {
 
     private final List<Agency> agencies = new ArrayList<>();
 

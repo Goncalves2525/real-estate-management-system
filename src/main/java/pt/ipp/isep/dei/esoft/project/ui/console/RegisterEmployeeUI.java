@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Agency;
 
 import pt.ipp.isep.dei.esoft.project.domain.Role;
 
-import pt.ipp.isep.dei.esoft.project.repository.AgencyListRepository;
+import pt.ipp.isep.dei.esoft.project.repository.AgencyRepository;
 
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -193,9 +193,9 @@ public class RegisterEmployeeUI implements Runnable {
 
     private void listAgencies() {
 
-        AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
 
-        List<Agency> agencies = agencyListRepository.getAgencies();
+        List<Agency> agencies = agencyRepository.getAgencies();
 
         for (Agency agency : agencies) {
 
@@ -207,9 +207,9 @@ public class RegisterEmployeeUI implements Runnable {
 
     private Agency getAgencyById(int id) {
 
-        AgencyListRepository agencyListRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
 
-        return agencyListRepository.getAgencyById(id);
+        return agencyRepository.getAgencyById(id);
 
     }
 

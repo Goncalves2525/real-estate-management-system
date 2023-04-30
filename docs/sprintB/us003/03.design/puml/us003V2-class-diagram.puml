@@ -47,12 +47,17 @@ class Repositories {
 
 
 class RegisterEmployeeController {
--EmployeeRepository: EmployeeRepository
--authenticationRepository: AuthenticationRepository
-+publishAnnouncement(int: id): void
-+getAnnouncementById(int: id): Announcement
-+getAnnouncementsByUser(): List<Announcement>
-+setCommission(int: id, Commission: commission): void
+  -employeeRepository: EmployeeRepository
+  -roleRepository: RoleRepository
+  -passwordGenerator: PasswordGenerator
+
+  +RegisterEmployeeController()
+  +getRolesToCreate(): List<Role>
+  +getRoleByVale(value: int): Role
+  +registerEmployee(name: String, email: String, passportCardNumber: int,
+  taxNumber: int,telephoneNumber: int, address: Address
+  agency: Agency, roles: Set<Role>): boolean
+  +generatePassword(): String
 }
 
 
