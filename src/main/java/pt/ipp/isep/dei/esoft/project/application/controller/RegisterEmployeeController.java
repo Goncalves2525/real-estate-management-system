@@ -71,10 +71,24 @@ public class RegisterEmployeeController {
         return employeeRepository.addEmployee(employee);
     }
 
+
+    /**
+     * Generates a password.
+     *
+     * @return password
+     */
     public String generatePassword() {
         return passwordGenerator.generatePassword();
     }
 
+
+    /** Creates a user for the authentication repository.
+     *
+     * @param name    name
+     * @param email  email
+     * @param password password
+     * @param role role
+     */
     public void createUser(String name, String email, String password, String role) {
         authenticationRepository.addUserWithRole(name, email, password, role);
     }

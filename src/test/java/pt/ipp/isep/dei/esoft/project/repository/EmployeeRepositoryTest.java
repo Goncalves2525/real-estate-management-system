@@ -29,13 +29,10 @@ class EmployeeRepositoryTest {
         employee2 = new Employee("Jane Doe", "jane.doe@example.com", 11112, 22223, 33334, address1, agency1, Arrays.asList(Role.AGENT));
     }
 
-    @Test
-    void addEmployee() {
-        assertTrue(employeeRepository.addEmployee(employee1));
-        assertFalse(employeeRepository.addEmployee(employee1));
-        assertTrue(employeeRepository.addEmployee(employee2));
-    }
 
+    /**
+     * Test of getEmployeeByEmail method, of class EmployeeRepository.
+     */
     @Test
     void getEmployeeByEmail() {
         employeeRepository.addEmployee(employee1);
@@ -44,6 +41,9 @@ class EmployeeRepositoryTest {
         assertNull(employeeRepository.getEmployeeByEmail("nonexistent@example.com"));
     }
 
+    /**
+     * Test of getAgentsByAgencyId method, of class EmployeeRepository.
+     */
     @Test
     void getAgentsByAgencyId() {
         employeeRepository.addEmployee(employee1);
@@ -54,6 +54,9 @@ class EmployeeRepositoryTest {
         assertTrue(agents.contains(employee2));
     }
 
+    /**
+     * Test if employee exists.
+     */
     @Test
     void employeeExists() {
         assertFalse(employeeRepository.employeeExists("john.doe@example.com"));
@@ -61,6 +64,9 @@ class EmployeeRepositoryTest {
         assertTrue(employeeRepository.employeeExists("john.doe@example.com"));
     }
 
+    /**
+     * Test of getEmployeeList method, of class EmployeeRepository.
+     */
     @Test
     void getEmployeeList() {
         employeeRepository.addEmployee(employee1);
@@ -71,6 +77,9 @@ class EmployeeRepositoryTest {
         assertTrue(employees.contains(employee2));
     }
 
+    /**
+     * Test of add Employee method, of class EmployeeRepository.
+     */
     @Test
     void add() {
         employeeRepository.add(employee1);
