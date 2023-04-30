@@ -42,27 +42,21 @@
 
 [//]: # (| Step 8  		                                         | 	... informing operation success?             | CreateTaskUI                  | IE: is responsible for user interactions.                                                                     | )
 
-| Interaction ID | Question: Which class is responsible for... | Answer | Justification (with patterns) |
-| --- | --- | --- | --- |
-| Step 1 : User requests to publish announcement | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
-|  | ... instantiating a new announcement? | Announcement | Creator (Rule 1): in the DM, Organization has a Task. |
-|  | ... knowing the user using the system? | UserSession |  |
-|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-|  | ... retrieving the user's authentication session? | AuthenticationRepository | Repository |
-| Step 2 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-| Step 3 : User selects announcement to publish | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
-|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-| Step 4 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-| Step 5 : User confirms publishing announcement | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
-|  | ... retrieving the user's authentication session? | AuthenticationRepository | Repository |
-|  | ... publishing the selected announcement? | AnnouncementRepository | Repository |
-|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-| Step 6 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
-| Step 7 : User closes the UI | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
+| Interaction ID                                    | Question: Which class is responsible for...              | Answer                        | Justification (with patterns)                                                                                 |
+|---------------------------------------------------|----------------------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Step 1 : User requests to publish announcement    | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
+|                                                   | ... knowing the user using the system?                   | UserSession                   |                                                                                                               |
+|                                                   | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
+|                                                   | ... retrieving the user's authentication session?        | AuthenticationRepository      | Repository                                                                                                    |
+| Step 2 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
+| Step 3 : User selects announcement to publish     | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
+| Step 4 : User confirms publishing announcement    | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
+|                                                   | ... publishing the selected announcement?                | AnnouncementRepository        | Repository                                                                                                    |
+|                                                   | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
+| Step 5 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
 
 
 ### Systematization ##

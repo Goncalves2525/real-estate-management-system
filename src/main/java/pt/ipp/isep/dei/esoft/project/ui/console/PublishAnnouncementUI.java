@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 
 //import pt.ipp.isep.dei.esoft.project.ui.console.CreateTaskUI;
+import jdk.jshell.execution.Util;
 import pt.ipp.isep.dei.esoft.project.application.controller.PublishAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Commission;
@@ -55,12 +56,12 @@ public class PublishAnnouncementUI implements Runnable {
                     if(controller.getAnnouncementById(id) != null){
                         chooseCommissionFixedAmountOrPercentage(id);
                         System.out.println("You've set the commission for the announcement with ID " + id + ".\n");
-                        System.out.println("You've chosen to publish the announcement with ID " + id + ".\nDo you confirm? (Y/N)");
-                        String confirmation = sc.next();
+                        String confirmation = "";
                         do{
+                            confirmation = Utils.readLineFromConsole("You've chosen to publish the announcement with ID " + id + ".\nDo you confirm? (Y/N)");
                             if(confirmation.equals("Y") || confirmation.equals("y")){
                                 controller.publishAnnouncement(id);
-                                System.out.println("Announcement published successfully!\n");
+                                System.out.println("Announcement with ID " + id + " published successfully!\n");
                                 announcements = controller.getAnnouncementsByUser();
                             }
                         }while (!confirmation.equals("Y") && !confirmation.equals("y") && !confirmation.equals("N") && !confirmation.equals("n"));
@@ -101,7 +102,7 @@ public class PublishAnnouncementUI implements Runnable {
                     if(commissionFixedAmount<0){
                         System.out.println("The value you have entered is not valid. Please try again.\n");
                     }
-                }while(commissionFixedAmount > 0);
+                }while(commissionFixedAmount < 0);
             }
             else if (option == 2) {
                 double commissionPercentage = 0;
@@ -111,7 +112,7 @@ public class PublishAnnouncementUI implements Runnable {
                     if(commissionPercentage <= 0 || commissionPercentage > 1){
                         System.out.println("The value you have entered is not valid. Please try again.\n");
                     }
-                }while (commissionPercentage > 0 && commissionPercentage <= 1);
+                }while (commissionPercentage <= 0 || commissionPercentage > 1);
             }
         }while (option != 1 && option != 2);
         if(commission.getValue() > 0 || commission.getPercentage() > 0) {

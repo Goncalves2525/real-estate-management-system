@@ -147,6 +147,8 @@ class EmployeeRepository{
 }
 
 class RoleRepository{
++getRolesToCreate(): List<Role>
+
 }
 
 class AuthenticationUI{
