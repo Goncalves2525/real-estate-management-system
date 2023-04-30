@@ -22,15 +22,23 @@ class Announcement {
 +toString(): String
 }
 
+enum TransactionType {
+    RENT
+    SALE
+}
+
 class AnnouncementRepository {
++addAnnouncementFromOwner: void
 
 }
 
 class AgencyListRepository{
++getAgencyList(id) : ArrayList<Agencies>
 
 }
 
 class EmployeeRepository{
++getEmployeeList(Agency) : ArrayList<Employee>
 }
 
 
@@ -38,18 +46,21 @@ class EmployeeRepository{
 
 class Repositories {
 +getInstance(): Repositories
-+AgencyListRepository(): AgencyListRepository
-+getAnnouncementRepository(): AnnouncementRepository
++AgencyListRepository()
++getAnnouncementRepository()
++getEmployeeListRepository()
 }
 
 
 
 
 class CreateRequestController {
++CreateRequestController(AnnouncementRepository,\nAgencyListRepository,EmployeeRepository)
 +getAgencyList()
 +getEmployeeList()
--getEmployeeListRepository()
--getAgencyListRepository()
++Createannouncemnt (Employee agent, TransactionType,\n TypeOfProperty,Property)
+-getEmployeeList(Agency) : ArrayList<Employee>
+-getAgencyListRepository() :
 -getAnnouncementRepository()
 }
 
@@ -57,8 +68,6 @@ class CreateRequestController {
 
 
 class CreateRequestUI {
-+getAgencyList()
-
 }
 
 class Property{
@@ -84,38 +93,89 @@ class Announcement {
     + getProperty()
     + toString()
 }
-class House {
+class Residence {
+-int numberOfBedrooms
+-int numberOfBathrooms
+-int numberOfParkingSpaces
+-boolean hasCentralHeating
+-boolean hasAirConditioning
+}
+
+enum sunExposure{
+NORTH
+SOUTH
+EAST
+WEST
 }
 class Land {
 }
 class Apartment {
-
+}
+class House {
+-boolean hasBasement
+-boolean hasInhabitableLoft,
 }
 
+class Agency{
+- int id
+- String name
+- String emailAddress
+- int phoneNumber
+- Address address
+}
 
+class Employee{
+- int id
+- String name
+- String emailAddress
+- int phoneNumber
+- Address address
+-
+}
 
-Repositories -> Repositories : instances
+enum Role{
+ADMIN
+AGENT
+STORE_NETWORK_MANAGER
+STORE_MANAGER
+CLIENT
+}
+
+class User{
+}
+
 
 CreateRequestUI .> CreateRequestController
 
 CreateRequestController ..> Repositories
-
+Repositories --> Repositories : instances
 Repositories "1" --> "1" AgencyListRepository : has
 Repositories "1" --> "1" AnnouncementRepository : has
 Repositories "1" --> "1" EmployeeRepository : has
 
-CreateRequestController ..> AnnouncementRepository
-CreateRequestController ..> AgencyListRepository
-CreateRequestController ..> EmployeeRepository
+CreateRequestController ..> AnnouncementRepository : AnnouncementRepository
+CreateRequestController ..> AgencyListRepository : AgencyListRepository
+CreateRequestController ..> EmployeeRepository : EmployeeRepository
 
 AnnouncementRepository "1" --> "*" Announcement : has
 
 Announcement "1" --> "1" Property : has
+Announcement "1" --> "1" TransactionType : has
 
-Property "1" --> "1" House : has
+Property "1" --> "1" Residence : has
 Property "1" --> "1" Land : has
-Property "1" --> "1" Apartment : has
+Residence  "1" --> "1" Apartment : has
+Residence  "1" --> "1" House : has
+House "1" --> "1" sunExposure
 
+AgencyListRepository "1" --> "*" Agency : has
+
+EmployeeRepository "1" --> "*" Employee : has
+Employee "1" --> "1" Role : has
+
+Agency --> "*" Employee : employs
+
+Property "*" --> "1" User : Created by
 @enduml
 
 

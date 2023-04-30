@@ -320,19 +320,19 @@ public class CreateRequestUI implements Runnable {
     }
     /**
      * Check if the passport number is valid
-     * @param numeroPassaporte
+     * @param passportNumber
      * @return boolean
      */
-    public boolean validatePassportNumber(String numeroPassaporte) {
-        if (numeroPassaporte.length() != 9) {
+    public boolean validatePassportNumber(String passportNumber) {
+        if (passportNumber.length() != 9) {
             System.out.println("Invalid passport number!\n"+
                     "The passport number must have exactly 9 characters.");
             return false;
         }
 
         int i = 0;
-        while (i < numeroPassaporte.length()) {
-            char c = numeroPassaporte.charAt(i);
+        while (i < passportNumber.length()) {
+            char c = passportNumber.charAt(i);
             if (!Character.isLetterOrDigit(c) || (Character.isLetter(c) && !Character.isUpperCase(c))) {
                 System.out.println("Invalid passport number!\n"+
                         "The character is not a letter or a digit, or is a lowercase letter.");
@@ -354,7 +354,7 @@ public class CreateRequestUI implements Runnable {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         ArrayList<Employee> agents = employeeRepository.getEmployeeList();
         for (Employee agent : agents) {
-            if (agent.getAgency().getId() == id) {
+            if (agent.getAgency().getId() == id && agent.getRoles().equals(Role.AGENT)){
                 System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");
 
                 control++;                ;
