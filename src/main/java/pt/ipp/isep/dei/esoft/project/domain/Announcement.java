@@ -3,6 +3,10 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Announcement class that contains all the information about an announcement.
+ */
+
 public class Announcement {
     private Property property;
     private TypeOfProperty typeOfProperty;
