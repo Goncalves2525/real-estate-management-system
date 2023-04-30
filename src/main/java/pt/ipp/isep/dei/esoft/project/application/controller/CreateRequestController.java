@@ -53,7 +53,7 @@ public class CreateRequestController {
      * @param typeOfProperty - type of property
      * @param property - property
      */
-    public void createannouncemntHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
+    public void createAnnouncementHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();
@@ -68,7 +68,7 @@ public class CreateRequestController {
      * @param typeOfProperty - type of property
      * @param property - property
      */
-    public void createannouncemntLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
+    public void createAnnouncementLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();
@@ -84,7 +84,7 @@ public class CreateRequestController {
      * @param property - property
      */
 
-    public void createannouncemntApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
+    public void createAnnouncementApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) {
         Date publishDate = new Date();
         Commission commission = new Commission();
         ArrayList<Photo> photos = new ArrayList<>();

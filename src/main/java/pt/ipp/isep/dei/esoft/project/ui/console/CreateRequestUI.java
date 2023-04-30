@@ -19,7 +19,7 @@ public class CreateRequestUI implements Runnable {
 
 
     private final CreateRequestController controller = new CreateRequestController();
-    private EmployeeRepository employeeRepository;
+
 
 
     Scanner sc = new Scanner(System.in);
@@ -206,13 +206,13 @@ public class CreateRequestUI implements Runnable {
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
             property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
-            controller.createannouncemntHouse(agent, transactionType, contractDuration, typeOfProperty, property);
+            controller.createAnnouncementHouse(agent, transactionType, contractDuration, typeOfProperty, property);
         } else if (typeOfProperty.equals(TypeOfProperty.LAND)) {
             property = new Land(area, price, distanceFromCenter, address);
-            controller.createannouncemntLand(agent, transactionType, contractDuration, typeOfProperty, property);
+            controller.createAnnouncementLand(agent, transactionType, contractDuration, typeOfProperty, property);
         } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
             property = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-            controller.createannouncemntApartment(agent, transactionType, contractDuration, typeOfProperty, property);
+            controller.createAnnouncementApartment(agent, transactionType, contractDuration, typeOfProperty, property);
         }
 
         System.out.println("Property added successfully!");

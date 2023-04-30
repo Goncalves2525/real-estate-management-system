@@ -23,7 +23,7 @@ public class Commission {
         this.value = DEFAULT_VALUE;
         this.percentage = DEFAULT_PERCENTAGE;
     }
-    public double getValue(){
+    public float getValue(){
         return this.value;
     }
 

@@ -26,7 +26,7 @@ public class AgencyRepository {
         return newAgency;
 
     }
-    public List<Agency> getAgencies() {
+    public ArrayList<Agency> getAgencies() {
         return new ArrayList<>(agencies);
     }
 

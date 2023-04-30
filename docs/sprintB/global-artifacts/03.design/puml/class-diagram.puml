@@ -41,6 +41,16 @@ class AnnouncementRepository {
 }
 
 class Repositories {
+    -instance : Repositories
+    -authenticationRepository : AuthenticationRepository
+    -announcementRepository : AnnouncementRepository
+    -employeeRepository : EmployeeRepository
+    -agencyRepository : AgencyRepository
+    -roleRepository : RoleRepository
+    +getAuthenticationRepository() : AuthenticationRepository
+    +getAgencyListRepository() : AgencyRepository
+    +getEmployeeRepository() : EmployeeRepository
+    +getRoleRepository() : RoleRepository
     +Repositories()
     +getInstance() : Repositories
     +getAnnouncementRepository() : AnnouncementRepository
@@ -69,51 +79,154 @@ class Address{
 }
 
 class CreateRequestController{
+-agencyRepository : AgencyRepository
+-employeeRepository : EmployeeRepository
+-announcementRepository : AnnouncementRepository
+-controller : CreateRequestController
+-agencyList : Agency[]
++CreateRequestController() : CreateRequestController
++getAgentByEmail(String agentEmail) : Employee
++createAnnouncementHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++createAnnouncementLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++createAnnouncementApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++AgencyOptions() : Agency[]
 }
 
 class PublishAnnouncementController{
+-announcementRepository : AnnouncementRepository
+-authenticationRepository : AuthenticationRepository
++PublishAnnouncementController() : PublishAnnouncementController
++getAnnouncementsByUser() : ArrayList<Announcement>
++publishAnnouncement(int id) : void
++setCommission(int id, Commission commission) : void
++getAnnouncementById(int id) : Announcement
 }
 
 class RegisterEmployeeController{
+-employeeRepository : EmployeeRepository
+-roleRepository : RoleRepository
+-passwordGenerator : PasswordGenerator
+-authenticationRepository : AuthenticationRepository
++RegisterEmployeeController() : RegisterEmployeeController
++getRolesToCreate() : ArrayList<Role>
++getRoleByVale(int value) : Role
++registerEmployee(String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) : boolean
++generatePassword() : String
++createUser(String name, String email, String password, String role) : void
 }
 
 class AuthenticationController{
+-authenticationRepository : AuthenticationRepository
++AuthenticationController() : AuthenticationController
 }
 
 class UserSession{
++isLoggedIn(User user) : boolean
++hasSession(User user) : boolean
++isAdmin(User user) : boolean
 }
 
 class Agency{
+-id : int
+-name : String
+-emailAddress : String
+-phoneNumber : int
+-address : Address
+-agents : ArrayList<Employee>
++Agency(int id, String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents)
++getId() : int
++getAddress() : Address
++setAddress(Address address) : void
++getAgents() : ArrayList<Employee>
++setAgents(ArrayList<Employee> agents) : void
++getName() : String
++getEmailAddress() : String
++getPhoneNumber() : int
++setName(String name) : void
++setEmailAddress(String emailAddress) : void
++setPhoneNumber(int phoneNumber) : void
++toString() : String
++clone() : Agency
 }
 
 class Agent extends Employee{
-}
-
-class Property{
+-agency : Agency
 }
 
 abstract class Residency extends Property{
+-numberOfBedrooms : int
+-numberOfBathrooms : int
+-numberOfParkingSpaces : int
+-hasCentralHeating : boolean
+-hasAirConditioning : boolean
++Residency(double area, double distanceFromCenter, double price, Address address\n, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning)
++Residency(double area, double distanceFromCenter, double price, Address address\n, int numberOfBedrooms, int numberOfParkingSpaces)
++getNumberOfBedrooms() : int
++getNumberOfBathrooms() : int
++getNumberOfParkingSpaces() : int
++toString() : String
 }
 
 class Apartment extends Residency{
++toString() : String
 }
 
 class House extends Residency{
++toString() : String
 }
 
 class Land extends Property{
++toString() : String
 }
 
 class Commission{
+-value : float
+-percentage : double
+-DEFAULT_VALUE : float
+-DEFAULT_PERCENTAGE : double
++Commission(float value, int percentage)
++Commission(float value)
++Commission(double percentage)
++Commission()
++getValue() : float
++getPercentage() : double
++setValue(float value) : void
++setPercentage(double percentage) : void
++toString() : String
 }
 
 class Employee{
++Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles)
++Employee(String email)
++Employee(String email, Agency agency)
++addRole(Role role) : void
++removeRole(Role role) : void
++hasRole(Role role) : boolean
++equals(Object o) : boolean
++hasEmail(String email) : boolean
++clone() : Employee
++getNumberOfRoles() : int
++toString() : String
 }
 
 class PasswordGenerator{
+    PASSWORD_LENGTH : int
+    NUM_CAPITAL_LETTERS : int
+    NUM_DIGITS : int
+    CAPITAL_LETTERS : String
+    DIGITS : String
+    LOWERCASE_LETTERS : String
+    random : SecureRandom
+    +generatePassword() : String
+    +randomCharacter(String characters) : char
+    +shuffleString(String input) : String
 }
 
 class Photo{
+-URI : String
+-name : String
++Photo(String URI, String fileName)
+
 }
 
 abstract class User{
@@ -128,6 +241,7 @@ enum TypeOfProperty{
 enum TransactionType{
     RENT
     SALE
+    BUY
 }
 
 enum SunExposure{
@@ -135,50 +249,145 @@ enum SunExposure{
     SOUTH
     EAST
     WEST
+    +toString() : String
 }
 
-class AgencyListRepository{
+class AgencyRepository{
+-agencies : ArrayList<Agency>
++add(Agency agency) : Optional<Agency>
++getAgencies() : ArrayList<Agency>
++getAgencyById(int id) : Agency
 }
 
 class AuthenticationRepository{
+-authenticationFacade : AuthFacade
++doLogin(String email, String pwd) : boolean
++doLogout() : void
++getCurrentUserSession() : UserSession
++addUserRole(String id, String description) : boolean
++addUserWithRole(String name, String email, String pwd, String roleId) : boolean
 }
 
 class EmployeeRepository{
+-employeeList : ArrayList<Employee>
++addEmployee(Employee employee) : boolean
++getEmployeeByEmail(String employeeEmail) : Employee
++employeeExists(String email) : boolean
++getEmployeeList() : ArrayList<Employee>
+add(Employee employee) : void
 }
 
 class RoleRepository{
+-roles : List<Role>
 +getRolesToCreate(): List<Role>
++getRoleByValue(int value): Role
+}
 
+enum Role {
+ADMIN
+AGENT
+STORE_NETWORK_MANAGER
+STORE_MANAGER
+CLIENT
++getValue() : int
++toString() : String
 }
 
 class AuthenticationUI{
+-ctrl : AuthenticationController
++AuthenticationUI() : AuthenticationUI
++run() : void
++doLogin() : void
++logout() : void
++redirectToRoleUI(List<MenuItem> rolesUI, UserRoleDTO role) : void
++selectsRole(List<UserRoleDTO> roles) : UserRoleDTO
 }
 
 class AdminUI{
++AdminUI() : AdminUI
++run() : void
 }
 
 class ClientUI{
++ClientUI() : ClientUI
++run() : void
 }
 
 class EmployeeUI{
++EmployeeUI() : EmployeeUI
++run() : void
 }
 
 class MainMenuUI{
+-controller : AuthenticationController
++MainMenuUI() : MainMenuUI
++run() : void
 }
 
 class MenuItem{
+-description : String
+-ui : Runnable
++MenuItem(String description, Runnable ui) : MenuItem
++run() : void
++hasDescription(String description) : boolean
++toString() : String
 }
 
 class CreateRequestUI{
+-controller : CreateRequestController
+-sc : Scanner
++run() : void
++getAgentByEmail(String agentEmail) : Employee
++AgencyOptions() : void
++TransactionTypeOptions() : void
++checkTransactionType(int option) : TransactionType
++TypeOfPropertyOptions() : void
++checkTypeOfProperty(int option) : TypeOfProperty
++SunExposureOption(int option) : SunExposure
++TypeOfSunExposureOptions() : void
++validatePassportNumber(String numeroPassaporte) : boolean
++listAgents(int id) : int
++validationYN(String option) : boolean
++validatePositiveIntegerInput(String message) : int
++validatePositiveDoubleInput(String message) : double
++validateNotEmpty(String prompt) : String
 }
 
 class DevTeamUI{
++DevTeamUI() : DevTeamUI
++run() : void
 }
 
 class PublishAnnouncementUI{
+-controller : PublishAnnouncementController
++PublishAnnouncementUI() : PublishAnnouncementUI
++run() : void
 }
 
 class RegisterEmployeeUI{
+-controller : RegisterEmployeeController
++RegisterEmployeeUI() : RegisterEmployeeUI
++run() : void
++selectRoles(Scanner scanner) : ArrayList<Role>
++inputRoleValue(Scanner scanner) : int
++getIntInput(Scanner scanner) : int
++selectRole(int value) : Role
++showRoles() : void
++inputAddMoreRoles(Scanner scanner) : boolean
++selectAgency(Scanner scanner) : Agency
++listAgencies() : void
++getAgencyById(int id) : Agency
++inputName(Scanner scanner) : String
++inputEmail(Scanner scanner) : String
++isValidEmail(String email) : boolean
++inputPassportCardNumber(Scanner scanner) : int
++inputTaxNumber(Scanner scanner) : int
++inputTelephoneNumber(Scanner scanner) : int
++inputAddress(Scanner scanner) : Address
++displayConfirmation(String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, ArrayList<Role> selectedRoles) : String
++formatPhoneNumber(int phoneNumber) : String
++processRegistration(String password, String answer, String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> selectedRoles) : void
++writePasswordToFile(String name, String email, String password, String fileName) : void
 }
 
 
@@ -191,13 +400,13 @@ CreateRequestUI .> CreateRequestController
 PublishAnnouncementUI .> PublishAnnouncementController
 RegisterEmployeeUI .> RegisterEmployeeController
 Repositories "1" --> "1" AnnouncementRepository : has
-Repositories "1" --> "1" AgencyListRepository : has
+Repositories "1" --> "1" AgencyRepository : has
 Repositories "1" --> "1" AuthenticationRepository : has
 Repositories "1" --> "1" EmployeeRepository : has
 Repositories "1" --> "1" RoleRepository : has
 ListAnnouncementsController ..> AnnouncementRepository
 CreateRequestController ..> AnnouncementRepository
-CreateRequestController ..> AgencyListRepository
+CreateRequestController ..> AgencyRepository
 CreateRequestController ..> EmployeeRepository
 PublishAnnouncementController ..> AnnouncementRepository
 RegisterEmployeeController ..> EmployeeRepository
@@ -206,7 +415,7 @@ RegisterEmployeeController ..> PasswordGenerator
 RegisterEmployeeController ..> AuthenticationRepository
 AuthenticationController ..> AuthenticationRepository
 EmployeeRepository "1" --> "*" Employee : has
-AgencyListRepository "1" --> "*" Agency : has
+AgencyRepository "1" --> "*" Agency : has
 RoleRepository "1" --> "*" Role : has
 Announcement "1" --> "1" Property : has
 Announcement "1" --> "*" Photo : has

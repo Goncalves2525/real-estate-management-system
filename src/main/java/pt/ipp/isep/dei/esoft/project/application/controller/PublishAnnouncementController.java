@@ -9,8 +9,8 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import java.util.List;
 
 public class PublishAnnouncementController {
-    private AnnouncementRepository announcementRepository = null;
-    private AuthenticationRepository authenticationRepository = null;
+    private AnnouncementRepository announcementRepository;
+    private AuthenticationRepository authenticationRepository;
 
 
     /**

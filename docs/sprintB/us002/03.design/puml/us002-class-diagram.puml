@@ -10,8 +10,23 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 class Announcement {
-    +setIsPublished(): void
-    +toString(): String
+ -property : Property
+ -typeOfProperty : TypeOfProperty
+ -transactionType : TransactionType
+ -publishDate : Date
+ -commission : Commission
+ -photos : ArrayList<Photo>
+ -house : House
+ -land : Land
+ -apartment : Apartment
+ -agent : Employee
+ -id : int
+ -isPublished : boolean
+ -idCounter : int
+ +setIsPublished(): void
+ +toString(): String
+ +getId(): int
+ +getAgentEmail(): String
 }
 
 class Commission {
@@ -33,6 +48,7 @@ class AnnouncementRepository {
 
 
 class AuthenticationRepository{
+ -authenticationFacade : AuthFacade
  +getCurrentUserSession(): UserSession
 }
 
