@@ -196,7 +196,7 @@ public abstract class User {
 
 
     public List<Role> getRoles() {
-        return roles;
+        return this.roles;
     }
 
     public void setRoles(List<Role> roles) {

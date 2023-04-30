@@ -9,7 +9,13 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import java.util.List;
 
 public class PublishAnnouncementController {
+    /**
+     * The Announcement repository.
+     */
     private AnnouncementRepository announcementRepository;
+    /**
+     * The Authentication repository.
+     */
     private AuthenticationRepository authenticationRepository;
 
 
@@ -30,6 +36,10 @@ public class PublishAnnouncementController {
         return announcementRepository.getAnnouncementsByAgent(userEmail);
     }
 
+    /**
+     * Publishes an announcement by its id
+     * @param id the id of the announcement
+     */
     public void publishAnnouncement(int id) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
         if (announcement.getId() >= 0) {
@@ -37,6 +47,11 @@ public class PublishAnnouncementController {
         }
     }
 
+    /**
+     * Sets the commission of an announcement by its id
+     * @param id the id of the announcement
+     * @param commission the commission of the announcement
+     */
     public void setCommission(int id, Commission commission) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
         if (announcement.getId() >= 0) {
@@ -44,6 +59,11 @@ public class PublishAnnouncementController {
         }
     }
 
+    /**
+     * Gets the announcement by its id
+     * @param id the id of the announcement
+     * @return Announcement the announcement
+     */
     public Announcement getAnnouncementById(int id){
         try {
             return announcementRepository.getAnnouncementById(id);

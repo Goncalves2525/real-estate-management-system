@@ -137,6 +137,10 @@ public class AnnouncementRepository {
         announcements.add(announcement);
     }
 
+    /**
+     * Adds an Announcement to the repository, created by a Client
+     * @param announcement
+     */
     public void addAnnouncementFromOwner(Announcement announcement) {
         announcements.add(announcement);
         try {
@@ -147,11 +151,6 @@ public class AnnouncementRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void addAnnouncementByRequest(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, ArrayList<Photo> photos) {
-        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, photos);
-        announcements.add(announcement);
     }
 
     /**
@@ -232,7 +231,10 @@ public class AnnouncementRepository {
         return authenticationRepository.getCurrentUserSession();
     }
 
-    //getAnnouncementsByAgent
+    /** This method is used to return all the announcements assigned to the loggedIn Agent's email
+     * @param agentEmail - the loggedIn agent's email
+     * @return resultAnnouncements
+     */
     public ArrayList<Announcement> getAnnouncementsByAgent(String agentEmail) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
@@ -279,6 +281,7 @@ public class AnnouncementRepository {
     private void removeAllAnnouncements(ArrayList<Announcement> announcements){
         announcements.removeAll(announcements);
     }
+
 
     Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
         @Override

@@ -86,6 +86,10 @@ public class PublishAnnouncementUI implements Runnable {
         } while (option != -1);
     }
 
+    /**
+     * Choose commission fixed amount or percentage.
+     * @param id - id of the announcement
+     */
     private void chooseCommissionFixedAmountOrPercentage(int id) {
         Commission commission = new Commission();
         System.out.println("Do you want to set a commission or a value for this announcement?");
@@ -120,16 +124,32 @@ public class PublishAnnouncementUI implements Runnable {
         }
     }
 
+    /**
+     * Instances Commission with a fixed amount.
+     * @param id - id of the announcement
+     * @param commissionFixedValue - fixed amount of the commission
+     * @return Commission
+     */
     private Commission commissionFixedAmount(int id, float commissionFixedValue) {
         Commission commission = new Commission(commissionFixedValue);
         return commission;
     }
 
+    /**
+     * Instances Commission with a percentage.
+     * @param id - id of the announcement
+     * @param commissionPercentage - percentage of the commission
+     * @return Commission
+     */
     private Commission setCommissionPercentage(int id, double commissionPercentage) {
         Commission commission = new Commission(commissionPercentage);
         return commission;
     }
 
+    /**
+     * Print announcement.
+     * @param a - an Announcement
+     */
     private void printAnnouncement(Announcement a) {
         System.out.println("---------------------------------");
         System.out.println(a.toString());
