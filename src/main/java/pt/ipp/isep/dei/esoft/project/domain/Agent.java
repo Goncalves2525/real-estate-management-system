@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Agent class.
- * Extends User class.
- * Implements Cloneable interface.
- *
+ * Agent class extends User class and implements Cloneable interface.
  */
 public class Agent extends User implements Cloneable {
 

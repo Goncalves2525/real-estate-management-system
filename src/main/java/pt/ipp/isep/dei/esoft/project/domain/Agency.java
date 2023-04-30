@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Agency class.
+ * Agency class that contains all the information about an agency.
  */
 public class Agency {
 
