@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 /**
- * Address class.
+ * Address class that represents an address.
+ * <p>
+ * An address is characterized by a street, city, district, state and zipcode.
  */
 public class Address {
     private String street, city, district, state;
