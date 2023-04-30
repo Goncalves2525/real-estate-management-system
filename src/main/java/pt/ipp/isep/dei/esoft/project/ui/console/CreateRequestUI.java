@@ -354,7 +354,7 @@ public class CreateRequestUI implements Runnable {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         ArrayList<Employee> agents = employeeRepository.getEmployeeList();
         for (Employee agent : agents) {
-            if (agent.getAgency().getId() == id && agent.getRoles().equals(Role.AGENT)){
+            if (agent.getAgency().getId() == id){
                 System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");
 
                 control++;                ;

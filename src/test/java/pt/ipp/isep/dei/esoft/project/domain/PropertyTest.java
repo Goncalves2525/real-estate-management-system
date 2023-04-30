@@ -28,7 +28,7 @@ public class PropertyTest {
         property.setArea(150);
         property.setDistanceFromCenter(10);
         property.setPrice(150000);
-        Address newAddress = new Address("Avenida da Boavista", "Porto", "4100-000", 100, 100);
+        Address newAddress = new Address("Avenida da Boavista", "Porto", "4100-000", 100);
         property.setAddress(newAddress);
         Assertions.assertEquals(150, property.getArea());
         Assertions.assertEquals(10, property.getDistanceFromCenter());
