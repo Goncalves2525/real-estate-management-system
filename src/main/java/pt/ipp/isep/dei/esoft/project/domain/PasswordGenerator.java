@@ -20,12 +20,15 @@ public class PasswordGenerator {
 
     private SecureRandom random;
 
+    /**
+     * Instantiates a new Password generator.
+     */
     public PasswordGenerator() {
         random = new SecureRandom();
     }
 
     /**
-     * @return
+     * @return password
      */
     public String generatePassword() {
         StringBuilder password = new StringBuilder();
@@ -55,7 +58,7 @@ public class PasswordGenerator {
     }
 
     /**
-     * @param input
+     * @param input String
      * @return
      */
     private String shuffleString(String input) {

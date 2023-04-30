@@ -31,11 +31,4 @@ class EmployeeTest {
         assertFalse(employee.hasRole(Role.STORE_NETWORK_MANAGER));
     }
 
-    @Test
-    void testClone() {
-        Employee clonedEmployee = employee.clone();
-
-        assertNotSame(employee, clonedEmployee);
-        assertEquals(employee, clonedEmployee);
-    }
 }

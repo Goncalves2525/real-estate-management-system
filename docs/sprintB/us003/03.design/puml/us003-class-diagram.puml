@@ -49,6 +49,19 @@ class RegisterEmployeeController {
   +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address, agency: Agency, roles: Set<Role>): boolean
 }
 
+class PasswordGenerator{
+    PASSWORD_LENGTH : int
+    NUM_CAPITAL_LETTERS : int
+    NUM_DIGITS : int
+    CAPITAL_LETTERS : String
+    DIGITS : String
+    LOWERCASE_LETTERS : String
+    random : SecureRandom
+    +generatePassword() : String
+    +randomCharacter(String characters) : char
+    +shuffleString(String input) : String
+}
+
 class Address{
     - street : String
     - city : String
@@ -96,5 +109,7 @@ RoleRepository "1" --> "*" Role : has
 Employee "1" --> "1" Address : has
 Employee "1" --> "1" Role : has
 Agency "1" --> "*" Employee : has
+RegisterEmployeeController ..> PasswordGenerator
+
 
 @enduml

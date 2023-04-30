@@ -102,17 +102,14 @@ class PublishAnnouncementController{
 +getAnnouncementById(int id) : Announcement
 }
 
-class RegisterEmployeeController{
--employeeRepository : EmployeeRepository
--roleRepository : RoleRepository
--passwordGenerator : PasswordGenerator
--authenticationRepository : AuthenticationRepository
-+RegisterEmployeeController() : RegisterEmployeeController
-+getRolesToCreate() : ArrayList<Role>
-+getRoleByVale(int value) : Role
-+registerEmployee(String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) : boolean
-+generatePassword() : String
-+createUser(String name, String email, String password, String role) : void
+class RegisterEmployeeController {
+  -employeeRepository: EmployeeRepository
+  -roleRepository: RoleRepository
+  -passwordGenerator: PasswordGenerator
+  -authenticationRepository: AuthenticationRepository
+  +RegisterEmployeeController()
+  +getRolesToCreate(): List<Role>
+  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address, agency: Agency, roles: Set<Role>): boolean
 }
 
 class AuthenticationController{
@@ -127,26 +124,12 @@ class UserSession{
 }
 
 class Agency{
--id : int
--name : String
--emailAddress : String
--phoneNumber : int
--address : Address
--agents : ArrayList<Employee>
-+Agency(int id, String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents)
-+getId() : int
-+getAddress() : Address
-+setAddress(Address address) : void
-+getAgents() : ArrayList<Employee>
-+setAgents(ArrayList<Employee> agents) : void
-+getName() : String
-+getEmailAddress() : String
-+getPhoneNumber() : int
-+setName(String name) : void
-+setEmailAddress(String emailAddress) : void
-+setPhoneNumber(int phoneNumber) : void
-+toString() : String
-+clone() : Agency
+    - id: int
+    - name: String
+    - emailAddress: String
+    - phoneNumber: int
+    - address: Address
+    - agents: ArrayList<Employee>
 }
 
 class Agent extends Employee{
@@ -196,17 +179,9 @@ class Commission{
 }
 
 class Employee{
-+Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles)
-+Employee(String email)
-+Employee(String email, Agency agency)
-+addRole(Role role) : void
-+removeRole(Role role) : void
-+hasRole(Role role) : boolean
-+equals(Object o) : boolean
-+hasEmail(String email) : boolean
-+clone() : Employee
-+getNumberOfRoles() : int
-+toString() : String
+extends User
++ addRole(role: Role): void
++ hasRole(role: Role): boolean
 }
 
 class PasswordGenerator{
@@ -268,13 +243,9 @@ class AuthenticationRepository{
 +addUserWithRole(String name, String email, String pwd, String roleId) : boolean
 }
 
-class EmployeeRepository{
--employeeList : ArrayList<Employee>
-+addEmployee(Employee employee) : boolean
-+getEmployeeByEmail(String employeeEmail) : Employee
-+employeeExists(String email) : boolean
-+getEmployeeList() : ArrayList<Employee>
-add(Employee employee) : void
+class EmployeeRepository {
+- employeeList: ArrayList<Employee>
++ addEmployee(employee: Employee): boolean
 }
 
 class RoleRepository{
@@ -289,8 +260,6 @@ AGENT
 STORE_NETWORK_MANAGER
 STORE_MANAGER
 CLIENT
-+getValue() : int
-+toString() : String
 }
 
 class AuthenticationUI{
@@ -364,30 +333,9 @@ class PublishAnnouncementUI{
 +run() : void
 }
 
-class RegisterEmployeeUI{
--controller : RegisterEmployeeController
-+RegisterEmployeeUI() : RegisterEmployeeUI
-+run() : void
-+selectRoles(Scanner scanner) : ArrayList<Role>
-+inputRoleValue(Scanner scanner) : int
-+getIntInput(Scanner scanner) : int
-+selectRole(int value) : Role
-+showRoles() : void
-+inputAddMoreRoles(Scanner scanner) : boolean
-+selectAgency(Scanner scanner) : Agency
-+listAgencies() : void
-+getAgencyById(int id) : Agency
-+inputName(Scanner scanner) : String
-+inputEmail(Scanner scanner) : String
-+isValidEmail(String email) : boolean
-+inputPassportCardNumber(Scanner scanner) : int
-+inputTaxNumber(Scanner scanner) : int
-+inputTelephoneNumber(Scanner scanner) : int
-+inputAddress(Scanner scanner) : Address
-+displayConfirmation(String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, ArrayList<Role> selectedRoles) : String
-+formatPhoneNumber(int phoneNumber) : String
-+processRegistration(String password, String answer, String name, String email, int passportCardNumber\n, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> selectedRoles) : void
-+writePasswordToFile(String name, String email, String password, String fileName) : void
+class RegisterEmployeeUI {
+- controller: RegisterEmployeeController
++ run()
 }
 
 
