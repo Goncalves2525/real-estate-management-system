@@ -357,6 +357,7 @@ public class CreateRequestUI implements Runnable {
             if (agent.getAgency().getId() == id){
                 System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");
 
+
                 control++;                ;
             }
         }
