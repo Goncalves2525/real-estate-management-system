@@ -51,11 +51,27 @@ public class RegisterEmployeeController {
         return this.roleRepository.getRoleByValue(value);
     }
 
+
+    /**
+     * @param name
+     * @param email
+     * @param passportCardNumber
+     * @param taxNumber
+     * @param telephoneNumber
+     * @param address
+     * @param agency
+     * @param roles
+     * @return
+     */
     public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
         return employeeRepository.addEmployee(employee);
     }
 
+    /**
+     * @param email
+     * @return
+     */
     public String generatePassword() {
         return passwordGenerator.generatePassword();
     }

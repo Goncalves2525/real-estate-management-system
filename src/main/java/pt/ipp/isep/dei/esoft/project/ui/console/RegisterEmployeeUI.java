@@ -27,7 +27,9 @@ import java.util.*;
 public class RegisterEmployeeUI implements Runnable {
 
 
-
+    /**
+     * Instance variables.
+     */
     private final RegisterEmployeeController controller = new RegisterEmployeeController();
 
 
@@ -35,12 +37,6 @@ public class RegisterEmployeeUI implements Runnable {
 
     }
 
-
-    private RegisterEmployeeController getController() {
-
-        return controller;
-
-    }
 
 
     @Override
@@ -76,6 +72,11 @@ public class RegisterEmployeeUI implements Runnable {
 
     }
 
+
+    /**
+     * @param scanner
+     * @return
+     */
     private ArrayList<Role> selectRoles(Scanner scanner) {
         ArrayList<Role> selectedRoles = new ArrayList<>();
         boolean addMoreRoles;
@@ -89,6 +90,10 @@ public class RegisterEmployeeUI implements Runnable {
         return selectedRoles;
     }
 
+    /**
+     * @param scanner
+     * @return
+     */
     private int inputRoleValue(Scanner scanner) {
         int roleValue;
         do {
@@ -101,6 +106,10 @@ public class RegisterEmployeeUI implements Runnable {
         return roleValue;
     }
 
+    /**
+     * @param scanner
+     * @return
+     */
     private int getIntInput(Scanner scanner) {
         int input;
         while (true) {
@@ -115,16 +124,31 @@ public class RegisterEmployeeUI implements Runnable {
         }
         return input;
     }
+
+
+    /**
+     * @param value
+     * @return
+     */
     private Role selectRole(int value) {
         return controller.getRoleByVale(value);
     }
 
+
+    /**
+     *
+     */
     private void showRoles() {
         for (Role role : controller.getRolesToCreate()) {
             System.out.println(role.getValue() + " - " + role.toString());
         }
     }
 
+
+    /**
+     * @param scanner
+     * @return
+     */
     private boolean inputAddMoreRoles(Scanner scanner) {
         String answer;
         do {
@@ -291,31 +315,21 @@ public class RegisterEmployeeUI implements Runnable {
         int telephoneNumber;
 
         while (true) {
-
             try {
-
                 telephoneNumber = scanner.nextInt();
-
                 scanner.nextLine(); // Consume newline character from previous input
 
-                if (String.valueOf(telephoneNumber).length() == 10) {
-
+                if (String.valueOf(telephoneNumber).length() == 10 && telephoneNumber != 0) {
                     break;
-
+                } else if (telephoneNumber == 0) {
+                    System.out.println("Telephone number cannot be empty. Please enter a valid 10-digit telephone number:");
                 } else {
-
                     System.out.println("Invalid telephone number. Please enter a 10-digit telephone number:");
-
                 }
-
             } catch (InputMismatchException e) {
-
                 System.out.println("Invalid input. Please enter an integer value for the Telephone Number:");
-
                 scanner.nextLine(); // Consume the invalid input
-
             }
-
         }
 
         return telephoneNumber;
@@ -397,7 +411,12 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-
+    /**
+     * Formats a 10-digit telephone number to the format (XXX) XXX-XXXX
+     *
+     * @param telephoneNumber The 10-digit telephone number to be formatted
+     * @return The formatted telephone number
+     */
     private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, ArrayList<Role> selectedRoles) {
         Scanner scanner = new Scanner(System.in);
 
@@ -442,6 +461,12 @@ public class RegisterEmployeeUI implements Runnable {
         return answer;
     }
 
+    /**
+     * Formats a 10-digit telephone number to the format (XXX) XXX-XXXX
+     *
+     * @param phoneNumber The 10-digit telephone number to be formatted
+     * @return The formatted telephone number
+     */
     private String formatPhoneNumber(int phoneNumber) {
         String rawNumber = String.valueOf(phoneNumber);
         String areaCode = rawNumber.substring(0, 3);
@@ -452,6 +477,18 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
+    /**
+     * @param password
+     * @param answer
+     * @param name
+     * @param email
+     * @param passportCardNumber
+     * @param taxNumber
+     * @param telephoneNumber
+     * @param address
+     * @param agency
+     * @param selectedRoles
+     */
     private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> selectedRoles) {
 
         if (answer.equalsIgnoreCase("Y")) {
@@ -490,7 +527,12 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-
+    /**
+     * @param name
+     * @param email
+     * @param password
+     * @param fileName
+     */
     private void writePasswordToFile(String name, String email, String password, String fileName) {
 
         String welcomeMessage = String.format("Dear %s,%n%n" +

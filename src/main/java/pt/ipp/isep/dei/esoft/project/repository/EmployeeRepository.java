@@ -42,6 +42,11 @@ public class EmployeeRepository {
         return null;
     }
 
+
+    /**
+     * @param agencyId
+     * @return
+     */
     public ArrayList<Employee> getAgentsByAgencyId(int agencyId) {
         ArrayList<Employee> allAgents = getEmployeeList();
         ArrayList<Employee> agentsByAgency = new ArrayList<>();
@@ -53,12 +58,21 @@ public class EmployeeRepository {
         return agentsByAgency;
     }
 
-
+    /**
+     * Employee exists boolean.
+     *
+     * @param email the email
+     * @return the boolean
+     */
     public boolean employeeExists(String email) {
         return employeeList.stream().anyMatch(employee -> employee.hasEmail(email));
     }
 
-    //returns the list of employees
+    /**
+     * Gets employee list.
+     *
+     * @return the employee list
+     */
     public ArrayList<Employee> getEmployeeList() {
         return this.employeeList;
     }
