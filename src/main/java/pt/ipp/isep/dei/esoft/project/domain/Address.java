@@ -1,9 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+/**
+ * Address class.
+ */
 public class Address {
     private String street, city, district, state;
     private int zipcode;
 
+    /**
+     * Address Full Constructor
+     * @param street street
+     * @param city city
+     * @param district district
+     * @param state state
+     * @param zipcode zipcode
+     */
     public Address(String street, String city, String district, String state, int zipcode) {
         this.street = street;
         this.city = city;
@@ -12,15 +23,19 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-    //district is optional
+    /**
+     * Address Constructor without district
+     * @param street street
+     * @param city city
+     * @param state state
+     * @param zipcode zipcode
+     */
     public Address(String street, String city, String state, int zipcode) {
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
     }
-
-
 
     public String getStreet() {
         return street;

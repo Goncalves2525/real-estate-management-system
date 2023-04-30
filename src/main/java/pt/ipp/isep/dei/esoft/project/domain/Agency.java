@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Agency class.
+ */
 public class Agency {
 
     private int id;
@@ -14,6 +17,15 @@ public class Agency {
 
     ArrayList<Employee> agents = new ArrayList<>();
 
+    /**
+     * Agency Constructor
+     * @param id id
+     * @param name name
+     * @param emailAddress email address
+     * @param phoneNumber phone number
+     * @param address address
+     * @param agents agents
+     */
     public Agency(int id, String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents) {
         this.id = id;
         this.name = name;
