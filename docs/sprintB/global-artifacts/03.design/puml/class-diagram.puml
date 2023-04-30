@@ -229,6 +229,9 @@ AuthenticationRepository "1" --> "*" User : has
 EmployeeUI ..> PublishAnnouncementUI
 ClientUI ..> CreateRequestUI
 AdminUI ..> RegisterEmployeeUI
+CreateRequestController ..> Repositories
+PublishAnnouncementController ..> Repositories
+RegisterEmployeeController ..> Repositories
 
 
 
