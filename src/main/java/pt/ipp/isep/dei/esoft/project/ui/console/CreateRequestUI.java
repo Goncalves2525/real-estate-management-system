@@ -112,9 +112,9 @@ public class CreateRequestUI implements Runnable {
         transactionType = checkTransactionType(sc.nextInt());
 
         if (transactionType.equals(TransactionType.RENT)) {
-            contractDuration = validatePositiveIntegerInput("Please insert contract duration: ");
+            contractDuration = validatePositiveIntegerInput("Please insert contract duration in months: ");
         } else {
-            price = validatePositiveDoubleInput("Please insert the price: ");
+            price = validatePositiveDoubleInput("Please insert the price for sale or rent value per month.: ");
         }
 
         /**

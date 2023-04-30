@@ -22,10 +22,6 @@ choosing the responsible agent.
 
 > In case the property is a house, the existence of a basement, an inhabitable loft, and sun exposure must be registered as well.
 
-> 
-
->
-
 
 **From the client clarifications:**
 
@@ -83,9 +79,9 @@ choosing the responsible agent.
 >
 > **Answer:** The owner should select one agent from a list of agents that work in the selected agency. The owner should select the agency before selecting the agent.
 
-> **Question:**
+> **Question:** The actor "Buyer\ Client\ Customer", are the names synonyms . Yes or No?
 >
-> **Answer:**
+> **Answer:** Yes.
 
 > **Question:** In the project description it is mentioned that in the case of a request for the sale of a property, the owner must provide "one or more photographs". Taking that into account, is there a maximum number of photos that can be submitted when publishing an announcement? If so, how many?
 >

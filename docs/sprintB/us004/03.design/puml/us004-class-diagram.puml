@@ -149,6 +149,14 @@ CLIENT
 }
 
 class User{
+-String name : String
+-String email : String
+-passportCardNumber : int
+-taxNumber : int
+-telephoneNumber : int
+-Address address
+-List<Role> roles
+-Agency agency
 }
 
 class Address{
@@ -189,6 +197,7 @@ AgencyListRepository "1" --> "*" Agency : has
 
 EmployeeRepository "1" --> "*" Employee : has
 Employee "1" --> "1" Role : has
+User "1" --> "1" Role : has
 
 Agency --> "*" Employee : employs
 
