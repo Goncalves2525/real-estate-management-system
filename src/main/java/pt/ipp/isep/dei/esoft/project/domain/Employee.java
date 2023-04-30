@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.HashSet;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 /**
  * Employee.
  * <p>
@@ -11,38 +12,80 @@ import java.util.Set;
  */
 public class Employee extends User {
 
+    /**
+     * @param name Name of the employee
+     * @param email Email of the employee
+     * @param passportCardNumber Passport card number of the employee
+     * @param taxNumber Tax number of the employee
+     * @param telephoneNumber Telephone number of the employee
+     * @param address Address of the employee
+     * @param agency Agency of the employee
+     * @param roles Roles of the employee
+     */
     public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
     }
-
+    /**
+     * @param name Name of the employee
+     * @param email Email of the employee
+     * @param passportCardNumber Passport card number of the employee
+     * @param taxNumber Tax number of the employee
+     * @param telephoneNumber Telephone number of the employee
+     * @param address Address of the employee
+     * @param roles Roles of the employee
+     */
     public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
     }
 
+    /**
+     * @param name Name of the employee
+     * @param email Email of the employee
+     * @param passportCardNumber Passport card number of the employee
+     * @param taxNumber Tax number of the employee
+     * @param telephoneNumber Telephone number of the employee
+     */
     public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
     }
-
+    /**
+     * @param email Email of the employee
+     */
     public Employee(String email) {
         super(email);
     }
 
+    /**
+     * @param email Email of the employee
+     * @param agency Agency of the employee
+     */
     public Employee(String email, Agency agency){
         super(email,agency);
     }
 
+
+     /**
+      * @param role Add Role of the employee
+      */
     public void addRole(Role role) {
-        List<Role> roles = getRoles();
+        List<Role> roles = new ArrayList<>(getRoles());
         roles.add(role);
         setRoles(roles);
     }
 
+    /**
+     * @param role Remove Role of the employee
+     */
     public void removeRole(Role role) {
-        List<Role> roles = getRoles();
+        List<Role> roles = new ArrayList<>(getRoles());
         roles.remove(role);
         setRoles(roles);
     }
 
+    /**
+     * @param role Role of the employee
+     * @return true if has role, false otherwise
+     */
     public boolean hasRole(Role role) {
         return getRoles().contains(role);
     }
@@ -92,17 +135,23 @@ public class Employee extends User {
     }
 
 
+    /**
+     * @return clone of employee
+     */
     public Employee clone() {
         return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), getRoles());
     }
 
     /**
-     * @return
+     * @return number of roles
      */
     public int getNumberOfRoles() {
         return getRoles().size();
     }
 
+    /**
+     * @return string of employee
+     */
     @Override
     public String toString() {
         return "Name: " + getName() + "\n" +
