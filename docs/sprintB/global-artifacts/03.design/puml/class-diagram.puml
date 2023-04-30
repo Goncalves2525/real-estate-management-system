@@ -37,7 +37,7 @@ class AnnouncementRepository {
     +getAllAnnouncementsSortedByDefualtCriteria()
     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
     +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
+    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
 }
 
 class Repositories {
@@ -51,12 +51,12 @@ class ListAnnouncementsController {
      +getAllAnnouncementsSortedByDefualtCriteria()
      +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
      +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
+     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
 }
 
 class ListAnouncementsUI {
     +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria)
-    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order)
+    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
     +getController()
 }
 
@@ -68,21 +68,156 @@ class Address{
     - int zipCode
 }
 
+class CreateRequestController{
+}
+
+class PublishAnnouncementController{
+}
+
+class RegisterEmployeeController{
+}
+
+class AuthenticationController{
+}
+
+class UserSession{
+}
+
+class Agency{
+}
+
+class Agent extends Employee{
+}
+
+class Property{
+}
+
+abstract class Residency extends Property{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
+}
+
+class Land extends Property{
+}
+
+class Commission{
+}
+
+class Emplyoee{
+}
+
+class PasswordGenerator{
+}
+
+class Photo{
+}
+
+abstract class User{
+}
+
+enum TypeOfProperty{
+    APARTMENT
+    HOUSE
+    LAND
+}
+
+enum TransactionType{
+    RENT
+    SALE
+}
+
+enum SunExposure{
+    NORTH
+    SOUTH
+    EAST
+    WEST
+}
+
+class AgencyListRepository{
+}
+
+class AuthenticationRepository{
+}
+
+class EmployeeRepository{
+}
+
+class RoleRepository{
+}
+
+class AuthenticationUI{
+}
+
+class AdminUI{
+}
+
+class ClientUI{
+}
+
+class EmployeeUI{
+}
+
+class MainMenuUI{
+}
+
+class MenuItem{
+}
+
+class CreateRequestUI{
+}
+
+class DevTeamUI{
+}
+
+class PublishAnnouncementUI{
+}
+
+class RegisterEmployeeUI{
+}
+
+class ShowTextUI{
+}
+
+
 Repositories -> Repositories : instances
-
-ListAnouncementsUI .> ListAnnouncementsController
-
 ListAnnouncementsController ..> Repositories
-
+ListAnouncementsUI .> ListAnnouncementsController
+AuthenticationUI .> AuthenticationController
+CreateRequestUI .> CreateRequestController
+PublishAnnouncementUI .> PublishAnnouncementController
+RegisterEmployeeUI .> RegisterEmployeeController
 Repositories "1" --> "1" AnnouncementRepository : has
-
+Repositories "1" --> "1" AgencyListRepository : has
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" EmployeeRepository : has
+Repositories "1" --> "1" RoleRepository : has
 ListAnnouncementsController ..> AnnouncementRepository
-
-AnnouncementRepository "1" --> "*" Announcement : has
-
+CreateRequestController ..> AnnouncementRepository
+CreateRequestController ..> AgencyListRepository
+CreateRequestController ..> EmployeeRepository
+PublishAnnouncementController ..> AnnouncementRepository
+RegisterEmployeeController ..> EmployeeRepository
+RegisterEmployeeController ..> RoleRepository
+RegisterEmployeeController ..> PasswordGenerator
+RegisterEmployeeController ..> AuthenticationRepository
+AuthenticationController ..> AuthenticationRepository
+EmployeeRepository "1" --> "*" Employee : has
+AgencyListRepository "1" --> "*" Agency : has
+RoleRepository "1" --> "*" Role : has
 Announcement "1" --> "1" Property : has
-
+Announcement "1" --> "*" Photo : has
+Announcement "1" --> "1" Commission : has
+Announcement "1" --> "1" TransactionType : has
+Announcement "1" --> "1" TypeOfProperty : has
+House "1" --> "1" SunExposure : has
+Announcement ..> Agent
+AnnouncementRepository "1" --> "*" Announcement : has
 Property "1" --> "1" Address : has
+
 
 
 @enduml

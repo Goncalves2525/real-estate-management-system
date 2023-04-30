@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Organization;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 
 import java.util.ArrayList;
 import java.util.List;
