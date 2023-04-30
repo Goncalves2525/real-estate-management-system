@@ -1,79 +1,175 @@
-us003-class-diagram.puml@startuml
+@startuml
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
+'skinparam linetype orto
+
+
+
 skinparam classAttributeIconSize 0
 
-class RegisterEmployeeController {
-    + registerEmployee(role, name, passportCardNumber, taxNumber, email, \ntelephoneNumber, doorNumber, zipCode, state, city, district, street)
+class Employee {
+extends User
+
++ addRole(role: Role): void
++ removeRole(role: Role): void
++ hasRole(role: Role): boolean
++ equals(o: Object): boolean
++ hashCode(): int
++ hasEmail(email: String): boolean
++ clone(): Employee
++ getNumberOfRoles(): int
++ toString(): String
 }
+
+
 
 class EmployeeRepository {
-    + addEmployee(employee)
+- employeeList: ArrayList<Employee>
+
++ addEmployee(employee: Employee): boolean
++ getEmployeeByEmail(employeeEmail: String): Employee
++ getAgentsByAgencyId(agencyId: int): ArrayList<Employee>
++ employeeExists(email: String): boolean
++ getEmployeeList(): ArrayList<Employee>
++ add(employee: Employee): void
 }
+
+class AgencyRepository {
+- agencies: List<Agency>
+
++ add(agency: Agency): Optional<Agency>
++ getAgencies(): List<Agency>
++ getAgencyById(id: int): Agency
+}
+
+class RoleRepository {
+- roles: List<Role>
+
++ getRolesToCreate(): List<Role>
++ getRoleByValue(value: int): Role- roles: List<Role>
+}
+
+
+
+class AuthenticationRepository{
++getCurrentUserSession(): UserSession
+}
+
+
 
 class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getEmployeeRepository() : EmployeeRepository
++getInstance(): Repositories
++getAuthenticationRepository(): AuthenticationRepository
++EmployeeRepository(): EmployeeRepository
++AgencyRepository(): AgencyRepository
++RoleRepository(): RoleRepository
 }
 
-Repositories -down-> Repositories : instance
+
+
+class RegisterEmployeeController {
+  -employeeRepository: EmployeeRepository
+  -roleRepository: RoleRepository
+  -passwordGenerator: PasswordGenerator
+  -authenticationRepository: AuthenticationRepository
+
+  +RegisterEmployeeController()
+  +getRolesToCreate(): List<Role>
+  +getRoleByVale(value: int): Role
+  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address
+  agency: Agency, roles: Set<Role>): boolean
+  +generatePassword(): String
+  +createUser(String name, String email, String password, String role): void
+}
+
+class Address{
+    - street : String
+    - city : String
+    - district : String
+    - state : String
+    - zipCode : int
+}
+
+class Role{
+    - ADMIN
+    - AGENT
+    - STORE_NETWORK_MANAGER
+    - STORE_MANAGER
+    - CLIENT
+
+    + getValue(): int
+}
+
+class Agency{
+    - id: int
+    - name: String
+    - emailAddress: String
+    - phoneNumber: int
+    - address: Address
+    - agents: ArrayList<Employee>
+
+    + getId(): int
+    + getAddress(): Address
+    + setAddress(address: Address): void
+    + getAgents(): ArrayList<Employee>
+    + setAgents(agents: ArrayList<Employee>): void
+    + getName(): String
+    + getEmailAddress(): String
+    + getPhoneNumber(): int
+    + setName(name: String): void
+    + setEmailAddress(emailAddress: String): void
+    + setPhoneNumber(phoneNumber: int): void
+    + toString(): String
+    + clone(): Agency
+}
 
 class RegisterEmployeeUI {
+
+
+- controller: RegisterEmployeeController
+
++ run()
+- selectRoles(scanner: Scanner): ArrayList<Role>
+- inputRoleValue(scanner: Scanner): int
+- getIntInput(scanner: Scanner): int
+- selectRole(value: int): Role
+- showRoles(): void
+- inputAddMoreRoles(scanner: Scanner): boolean
+- selectAgency(scanner: Scanner): Agency
+- listAgencies(): void
+- getAgencyById(id: int): Agency
+- inputName(scanner: Scanner): String
+- inputEmail(scanner: Scanner): String
+- isValidEmail(email: String): boolean
+- inputPassportCardNumber(scanner: Scanner): int
+- inputTaxNumber(scanner: Scanner): int
+- inputTelephoneNumber(scanner: Scanner): int
+- inputAddress(scanner: Scanner): Address
+- displayConfirmation(name: String, email: String, passportCardNumber: int, taxNumber: int, telephoneNumber: int, address: Address, agency: Agency, selectedRoles: ArrayList<Role>): String
+- formatPhoneNumber(phoneNumber: int): String
+- processRegistration(password: String, answer: String, name: String, email: String, passportCardNumber: int, taxNumber: int, telephoneNumber: int, address: Address, agency: Agency, selectedRoles: List<Role>): void
+- writePasswordToFile(name: String, email: String, password: String, fileName: String): void
 }
 
-RegisterEmployeeUI ..> RegisterEmployeeController
+Repositories -> Repositories : instances
+RegisterEmployeeUI .> RegisterEmployeeController
+RegisterEmployeeController ..> Repositories
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" EmployeeRepository : has
+Repositories "1" --> "1" AgencyRepository : has
+Repositories "1" --> "1" RoleRepository : has
+RegisterEmployeeController ..> EmployeeRepository
+RegisterEmployeeController ..> RoleRepository
+RegisterEmployeeController ..> AgencyRepository
+RegisterEmployeeController ..> AuthenticationRepository
+EmployeeRepository "1" --> "*" Employee : has
+AgencyRepository "1" --> "*" Agency : has
+RoleRepository "1" --> "*" Role : has
 
-RegisterEmployeeController ...> Repositories : repositories
-
-Repositories --> "1" EmployeeRepository
-
-EmployeeRepository --> "*" Employee
-
-class SystemAdministrator {
-}
-
-class User {
-    - name
-    - passportCardNumber
-    - taxNumber
-    - email
-    - telephoneNumber
-}
-
-class Employee extends User {
-}
-
-class Address {
-    - doorNumber
-    - zipCode
-}
-
-class Street {
-}
-
-class City {
-}
-
-class District {
-}
-
-class State {
-}
-
-class Role {
-    ADMIN
-    EMPLOYEE
-    CLIENT
-}
-
-SystemAdministrator "1" -- "1" Employee: registers >
-User "1" -- "*" Address: has >
-User "1" -- "1" Role: has >
-Address "1" -- "1" State: part of <
-Street "1" -- "1" City: part of >
-City "1" -- "1" District: part of >
-District "1" -- "1" State: part of >
+Employee "1" --> "1" Address : has
+Employee "1" --> "1" Role : has
+Agency "1" --> "*" Employee : has
 
 @enduml

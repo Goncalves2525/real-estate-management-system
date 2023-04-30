@@ -64,7 +64,7 @@ class State {
 
 class Role {
     ADMIN
-    EMPLOYEE
+    AGENT
     CLIENT
     STORE_NETWORK_MANAGER
     STORE_MANAGER

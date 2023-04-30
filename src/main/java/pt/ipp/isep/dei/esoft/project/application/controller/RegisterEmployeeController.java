@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.esoft.project.repository.RoleRepository;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Register Employee Controller.
@@ -71,10 +71,6 @@ public class RegisterEmployeeController {
         return employeeRepository.addEmployee(employee);
     }
 
-    /**
-     * @param email
-     * @return
-     */
     public String generatePassword() {
         return passwordGenerator.generatePassword();
     }
