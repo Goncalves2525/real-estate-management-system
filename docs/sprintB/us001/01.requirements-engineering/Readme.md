@@ -71,6 +71,7 @@ As an unregistered user, I want to display listed properties.
     * Business type (filter)
     * Number of rooms (filter)
     * Price (sort)
+    * City (sort)
     * State (sort)
 
 

@@ -107,7 +107,7 @@ class Land extends Property{
 class Commission{
 }
 
-class Emplyoee{
+class Employee{
 }
 
 class PasswordGenerator{
@@ -181,8 +181,6 @@ class PublishAnnouncementUI{
 class RegisterEmployeeUI{
 }
 
-class ShowTextUI{
-}
 
 
 Repositories -> Repositories : instances
@@ -219,6 +217,18 @@ House "1" --> "1" SunExposure : has
 Announcement ..> Agent
 AnnouncementRepository "1" --> "*" Announcement : has
 Property "1" --> "1" Address : has
+MainMenuUI "1" --> "*" MenuItem : has
+MainMenuUI ..> ListAnouncementsUI
+MainMenuUI ..> AuthenticationUI
+MainMenuUI ..> DevTeamUI
+AuthenticationUI ..> ClientUI
+AuthenticationUI ..> EmployeeUI
+AuthenticationUI ..> AdminUI
+User ..> UserSession
+AuthenticationRepository "1" --> "*" User : has
+EmployeeUI ..> PublishAnnouncementUI
+ClientUI ..> CreateRequestUI
+AdminUI ..> RegisterEmployeeUI
 
 
 
