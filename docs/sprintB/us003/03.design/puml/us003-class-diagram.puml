@@ -1,63 +1,35 @@
 @startuml
-'skinparam monochrome true
+skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
-
-
-
+skinparam linetype orto
 skinparam classAttributeIconSize 0
 
 class Employee {
 extends User
-
 + addRole(role: Role): void
-+ removeRole(role: Role): void
 + hasRole(role: Role): boolean
-+ equals(o: Object): boolean
-+ hashCode(): int
-+ hasEmail(email: String): boolean
-+ clone(): Employee
-+ getNumberOfRoles(): int
-+ toString(): String
 }
-
-
 
 class EmployeeRepository {
 - employeeList: ArrayList<Employee>
-
 + addEmployee(employee: Employee): boolean
-+ getEmployeeByEmail(employeeEmail: String): Employee
-+ getAgentsByAgencyId(agencyId: int): ArrayList<Employee>
-+ employeeExists(email: String): boolean
-+ getEmployeeList(): ArrayList<Employee>
-+ add(employee: Employee): void
 }
 
 class AgencyRepository {
 - agencies: List<Agency>
-
-+ add(agency: Agency): Optional<Agency>
 + getAgencies(): List<Agency>
-+ getAgencyById(id: int): Agency
 }
 
 class RoleRepository {
 - roles: List<Role>
-
 + getRolesToCreate(): List<Role>
-+ getRoleByValue(value: int): Role- roles: List<Role>
 }
-
-
 
 class AuthenticationRepository{
 +getCurrentUserSession(): UserSession
 }
-
-
 
 class Repositories {
 +getInstance(): Repositories
@@ -67,21 +39,14 @@ class Repositories {
 +RoleRepository(): RoleRepository
 }
 
-
-
 class RegisterEmployeeController {
   -employeeRepository: EmployeeRepository
   -roleRepository: RoleRepository
   -passwordGenerator: PasswordGenerator
   -authenticationRepository: AuthenticationRepository
-
   +RegisterEmployeeController()
   +getRolesToCreate(): List<Role>
-  +getRoleByVale(value: int): Role
-  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address
-  agency: Agency, roles: Set<Role>): boolean
-  +generatePassword(): String
-  +createUser(String name, String email, String password, String role): void
+  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address, agency: Agency, roles: Set<Role>): boolean
 }
 
 class Address{
@@ -98,8 +63,6 @@ class Role{
     - STORE_NETWORK_MANAGER
     - STORE_MANAGER
     - CLIENT
-
-    + getValue(): int
 }
 
 class Agency{
@@ -109,48 +72,11 @@ class Agency{
     - phoneNumber: int
     - address: Address
     - agents: ArrayList<Employee>
-
-    + getId(): int
-    + getAddress(): Address
-    + setAddress(address: Address): void
-    + getAgents(): ArrayList<Employee>
-    + setAgents(agents: ArrayList<Employee>): void
-    + getName(): String
-    + getEmailAddress(): String
-    + getPhoneNumber(): int
-    + setName(name: String): void
-    + setEmailAddress(emailAddress: String): void
-    + setPhoneNumber(phoneNumber: int): void
-    + toString(): String
-    + clone(): Agency
 }
 
 class RegisterEmployeeUI {
-
-
 - controller: RegisterEmployeeController
-
 + run()
-- selectRoles(scanner: Scanner): ArrayList<Role>
-- inputRoleValue(scanner: Scanner): int
-- getIntInput(scanner: Scanner): int
-- selectRole(value: int): Role
-- showRoles(): void
-- inputAddMoreRoles(scanner: Scanner): boolean
-- selectAgency(scanner: Scanner): Agency
-- listAgencies(): void
-- getAgencyById(id: int): Agency
-- inputName(scanner: Scanner): String
-- inputEmail(scanner: Scanner): String
-- isValidEmail(email: String): boolean
-- inputPassportCardNumber(scanner: Scanner): int
-- inputTaxNumber(scanner: Scanner): int
-- inputTelephoneNumber(scanner: Scanner): int
-- inputAddress(scanner: Scanner): Address
-- displayConfirmation(name: String, email: String, passportCardNumber: int, taxNumber: int, telephoneNumber: int, address: Address, agency: Agency, selectedRoles: ArrayList<Role>): String
-- formatPhoneNumber(phoneNumber: int): String
-- processRegistration(password: String, answer: String, name: String, email: String, passportCardNumber: int, taxNumber: int, telephoneNumber: int, address: Address, agency: Agency, selectedRoles: List<Role>): void
-- writePasswordToFile(name: String, email: String, password: String, fileName: String): void
 }
 
 Repositories -> Repositories : instances
@@ -167,7 +93,6 @@ RegisterEmployeeController ..> AuthenticationRepository
 EmployeeRepository "1" --> "*" Employee : has
 AgencyRepository "1" --> "*" Agency : has
 RoleRepository "1" --> "*" Role : has
-
 Employee "1" --> "1" Address : has
 Employee "1" --> "1" Role : has
 Agency "1" --> "*" Employee : has
