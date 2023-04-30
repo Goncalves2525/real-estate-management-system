@@ -234,7 +234,7 @@ public class AnnouncementRepository {
 
     //getAnnouncementsByAgent
     public ArrayList<Announcement> getAnnouncementsByAgent(String agentEmail) {
-        ArrayList<Announcement> resultAnnouncements = announcements;
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
             Announcement announcement = iterator.next();

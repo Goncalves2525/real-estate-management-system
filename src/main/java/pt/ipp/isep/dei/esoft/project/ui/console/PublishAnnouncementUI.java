@@ -37,42 +37,43 @@ public class PublishAnnouncementUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         List<Announcement> announcements = controller.getAnnouncementsByUser();
 
-        do{
-            System.out.println("The following announcements are available to publish:");
-            for (Announcement a : announcements) {
-                printAnnouncement(a);
-            }
-            int id = 0;
-            try{
-                System.out.println("Please select the ID of the announcement you want to publish:\n");
-                //id = Utils.readIntegerFromConsole("Please select the ID of the announcement you want to publish: ");
-                Scanner sc = new Scanner(System.in);
-                id = sc.nextInt();
-                if(controller.getAnnouncementById(id) != null){
-                    chooseCommissionFixedAmountOrPercentage(id);
-                    System.out.println("You've set the commission for the announcement with ID " + id + ".\n");
-                    System.out.println("You've chosen to publish the announcement with ID " + id + ".\nDo you confirm? (Y/N)");
-                    String confirmation = sc.next();
-                    do{
-                        if(confirmation.equals("Y") || confirmation.equals("y")){
-                            controller.publishAnnouncement(id);
-                            System.out.println("Announcement published successfully!\n");
-                            announcements = controller.getAnnouncementsByUser();
-                        }
-                    }while (!confirmation.equals("Y") && !confirmation.equals("y") && !confirmation.equals("N") && !confirmation.equals("n"));
-                }
-                else{
-                    System.out.println("The ID you have entered is not valid or is not associated with your email. Please try again.\n");
-                }
-            } catch (Exception e) {
-                System.out.println("The ID you have entered is not valid. Please try again.\n");
-            }
-        }
-        while (!announcements.isEmpty());
         if (announcements.isEmpty()) {
             System.out.println("There are no announcements to publish!");
         }
-
+        else{
+            do{
+                System.out.println("The following announcements are available to publish:");
+                for (Announcement a : announcements) {
+                    printAnnouncement(a);
+                }
+                int id = 0;
+                try{
+                    System.out.println("Please select the ID of the announcement you want to publish:\n");
+                    //id = Utils.readIntegerFromConsole("Please select the ID of the announcement you want to publish: ");
+                    Scanner sc = new Scanner(System.in);
+                    id = sc.nextInt();
+                    if(controller.getAnnouncementById(id) != null){
+                        chooseCommissionFixedAmountOrPercentage(id);
+                        System.out.println("You've set the commission for the announcement with ID " + id + ".\n");
+                        System.out.println("You've chosen to publish the announcement with ID " + id + ".\nDo you confirm? (Y/N)");
+                        String confirmation = sc.next();
+                        do{
+                            if(confirmation.equals("Y") || confirmation.equals("y")){
+                                controller.publishAnnouncement(id);
+                                System.out.println("Announcement published successfully!\n");
+                                announcements = controller.getAnnouncementsByUser();
+                            }
+                        }while (!confirmation.equals("Y") && !confirmation.equals("y") && !confirmation.equals("N") && !confirmation.equals("n"));
+                    }
+                    else{
+                        System.out.println("The ID you have entered is not valid or is not associated with your email. Please try again.\n");
+                    }
+                } catch (Exception e) {
+                    System.out.println("The ID you have entered is not valid. Please try again.\n");
+                }
+            }
+            while (!announcements.isEmpty());
+        }
 
         int option = 0;
         do {

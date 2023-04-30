@@ -4,25 +4,66 @@
 
 ### 3.1. Rationale
 
-**SSD - Alternative 1 is adopted.**
+[//]: # (**SSD - Alternative 1 is adopted.**)
+**SSD**
 
-| Interaction ID | Question: Which class is responsible for...   | Answer                        | Justification (with patterns)                                                                                 |
-|:-------------  |:----------------------------------------------|:------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		 | 	... interacting with the actor?              | PublishAnnouncementUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		 | 	... coordinating the US?                     | PublishAnnouncementController | Controller                                                                                                    |
-| 			  		 | 	... instantiating a new Announcement?        | Announcement                  | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		 | ... knowing the user using the system?        | UserSession                   |                                                                                                               |
-| 			  		 | 							                                       | Announcement                  | IE: knows/has its own Announcements                                                                           |
-| 			  		 | 							                                       | Property                      | IE: knows its own data (e.g. TypeOfProperty)                                                                  |
-| Step 2  		 | 							                                       |                               |                                                                                                               |
-| Step 3  		 | 	...saving the inputted data?                 | Task                          | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		 | 	...knowing the task categories to show?      | System                        | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5  		 | 	... saving the selected category?            | Task                          | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 6  		 | 							                                       |                               |                                                                                                               |              
-| Step 7  		 | 	... validating all data (local validation)?  | Task                          | IE: owns its data.                                                                                            | 
-| 			  		 | 	... validating all data (global validation)? | Organization                  | IE: knows all its tasks.                                                                                      | 
-| 			  		 | 	... saving the created task?                 | Organization                  | IE: owns all its tasks.                                                                                       | 
-| Step 8  		 | 	... informing operation success?             | CreateTaskUI                  | IE: is responsible for user interactions.                                                                     | 
+[//]: # ()
+[//]: # (| Interaction ID                                     | Question: Which class is responsible for...   | Answer                        | Justification &#40;with patterns&#41;                                                                                 |)
+
+[//]: # (|:---------------------------------------------------|:----------------------------------------------|:------------------------------|:--------------------------------------------------------------------------------------------------------------|)
+
+[//]: # (| Step 1 : User requests to publish announcement  		 | 	... interacting with the actor?              | PublishAnnouncementUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |)
+
+[//]: # (| 			  		                                            | 	... coordinating the US?                     | PublishAnnouncementController | Controller                                                                                                    |)
+
+[//]: # (| 			  		                                            | 	... instantiating a new Announcement?        | Announcement                  | Creator &#40;Rule 1&#41;: in the DM Organization has a Task.                                                          |)
+
+[//]: # (| 			  		                                            | ... knowing the user using the system?        | UserSession                   |                                                                                                               |)
+
+[//]: # (| 			  		                                            | 							                                       | Announcement                  | IE: knows/has its own Announcements                                                                           |)
+
+[//]: # (| 			  		                                            | 							                                       | Property                      | IE: knows its own data &#40;e.g. TypeOfProperty&#41;                                                                  |)
+
+[//]: # (| Step 2  		                                         | 							                                       |                               |                                                                                                               |)
+
+[//]: # (| Step 3  		                                         | 	...saving the inputted data?                 | Task                          | IE: object created in step 1 has its own data.                                                                |)
+
+[//]: # (| Step 4  		                                         | 	...knowing the task categories to show?      | System                        | IE: Task Categories are defined by the Administrators.                                                        |)
+
+[//]: # (| Step 5  		                                         | 	... saving the selected category?            | Task                          | IE: object created in step 1 is classified in one Category.                                                   |)
+
+[//]: # (| Step 6  		                                         | 							                                       |                               |                                                                                                               |              )
+
+[//]: # (| Step 7  		                                         | 	... validating all data &#40;local validation&#41;?  | Task                          | IE: owns its data.                                                                                            | )
+
+[//]: # (| 			  		                                            | 	... validating all data &#40;global validation&#41;? | Organization                  | IE: knows all its tasks.                                                                                      | )
+
+[//]: # (| 			  		                                            | 	... saving the created task?                 | Organization                  | IE: owns all its tasks.                                                                                       | )
+
+[//]: # (| Step 8  		                                         | 	... informing operation success?             | CreateTaskUI                  | IE: is responsible for user interactions.                                                                     | )
+
+| Interaction ID | Question: Which class is responsible for... | Answer | Justification (with patterns) |
+| --- | --- | --- | --- |
+| Step 1 : User requests to publish announcement | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
+|  | ... instantiating a new announcement? | Announcement | Creator (Rule 1): in the DM, Organization has a Task. |
+|  | ... knowing the user using the system? | UserSession |  |
+|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+|  | ... retrieving the user's authentication session? | AuthenticationRepository | Repository |
+| Step 2 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+| Step 3 : User selects announcement to publish | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
+|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+| Step 4 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+| Step 5 : User confirms publishing announcement | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
+|  | ... retrieving the user's authentication session? | AuthenticationRepository | Repository |
+|  | ... publishing the selected announcement? | AnnouncementRepository | Repository |
+|  | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+| Step 6 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository | Repository |
+| Step 7 : User closes the UI | ... interacting with the actor? | PublishSaleAnnouncementUI | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|  | ... coordinating the use case? | PublishAnnouncementController | Controller |
+
 
 ### Systematization ##
 
@@ -34,11 +75,11 @@ Other software classes (i.e. Pure Fabrication) identified:
 
  * PublishAnnouncementUI  
  * PublishAnnouncementController
+ * AnnouncementRepository
+ * AuthenticationRepository
 
 
 ## 3.2. Sequence Diagram (SD)
-
-### Alternative 1 - Full Diagram
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
