@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 
 public class RegisterEmployeeUI implements Runnable {
@@ -47,8 +48,6 @@ public class RegisterEmployeeUI implements Runnable {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Role> selectedRoles = selectRoles(scanner);
-
-        System.out.println();
 
         Agency agency = selectAgency(scanner);
 
@@ -79,6 +78,8 @@ public class RegisterEmployeeUI implements Runnable {
      * @return
      */
     private ArrayList<Role> selectRoles(Scanner scanner) {
+        System.out.println();
+        System.out.println("Available roles:");
         ArrayList<Role> selectedRoles = new ArrayList<>();
         boolean addMoreRoles;
         do {
@@ -167,6 +168,9 @@ public class RegisterEmployeeUI implements Runnable {
 
 
     private Agency selectAgency(Scanner scanner) {
+        System.out.println();
+        System.out.println("Available agencies:");
+
         listAgencies();
 
         System.out.print("Select an agency by ID: ");
@@ -219,6 +223,7 @@ public class RegisterEmployeeUI implements Runnable {
 
 
     private String inputName(Scanner scanner) {
+        System.out.println();
         System.out.print("Name: ");
         String name;
 
@@ -241,8 +246,8 @@ public class RegisterEmployeeUI implements Runnable {
         System.out.print("Email: ");
         String email = scanner.nextLine();
 
-        while (!email.contains("@")) {
-            System.out.println("Invalid email. Please enter a valid email address:");
+        while (!isValidEmail(email)) {
+            System.out.println("Invalid email. Please enter a valid email address like x@x.xx");
             System.out.print("Email: ");
             email = scanner.nextLine();
         }
@@ -250,6 +255,17 @@ public class RegisterEmployeeUI implements Runnable {
         return email;
     }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+        return pat.matcher(email).matches();
+    }
+
+
+    /**
+     * @param scanner
+     * @return
+     */
     private int inputPassportCardNumber(Scanner scanner) {
         System.out.print("Passport Card Number: ");
 
@@ -278,7 +294,10 @@ public class RegisterEmployeeUI implements Runnable {
         return passportCardNumber;
     }
 
-
+    /**
+     * @param scanner
+     * @return
+     */
     private int inputTaxNumber(Scanner scanner) {
         System.out.print("Tax Number: ");
 
@@ -309,32 +328,36 @@ public class RegisterEmployeeUI implements Runnable {
 
 
 
-
+    /**
+     * @param scanner
+     * @return
+     */
     private int inputTelephoneNumber(Scanner scanner) {
         System.out.print("Telephone Number: ");
 
         int telephoneNumber;
+        String telephoneNumberStr;
 
         while (true) {
             try {
-                telephoneNumber = scanner.nextInt();
-                scanner.nextLine(); // Consume newline character from previous input
+                telephoneNumberStr = scanner.nextLine();
+                telephoneNumber = Integer.parseInt(telephoneNumberStr);
 
-                if (String.valueOf(telephoneNumber).length() == 10 && telephoneNumber != 0) {
+                if (telephoneNumberStr.length() == 10 && telephoneNumber != 0) {
                     break;
                 } else if (telephoneNumber == 0) {
                     System.out.println("Telephone number cannot be empty. Please enter a valid 10-digit telephone number:");
                 } else {
                     System.out.println("Invalid telephone number. Please enter a 10-digit telephone number:");
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter an integer value for the Telephone Number:");
-                scanner.nextLine(); // Consume the invalid input
             }
         }
 
         return telephoneNumber;
     }
+
 
 
     private Address inputAddress(Scanner scanner) {
@@ -469,7 +492,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @return The formatted telephone number
      */
     private String formatPhoneNumber(int phoneNumber) {
-        String rawNumber = String.valueOf(phoneNumber);
+        String rawNumber = String.format("%010d", phoneNumber); // Pad with zeros if needed
         String areaCode = rawNumber.substring(0, 3);
         String firstThreeDigits = rawNumber.substring(3, 6);
         String lastFourDigits = rawNumber.substring(6);
