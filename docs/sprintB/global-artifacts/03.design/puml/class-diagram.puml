@@ -34,10 +34,13 @@ class Announcement {
 }
 
 class AnnouncementRepository {
+    -announcements : ArrayList<Announcement>
     +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
     +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+
+
 }
 
 class Repositories {
@@ -57,6 +60,8 @@ class Repositories {
 }
 
 class ListAnnouncementsController {
+     -announcementRepository : AnnouncementRepository
+     +ListAnnouncementsController()
      +getAnnoucementRepository() : Repository
      +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
      +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
@@ -65,9 +70,13 @@ class ListAnnouncementsController {
 }
 
 class ListAnouncementsUI {
+    - controller : ListAnnouncementsController
+    +ListAnnouncementsUI()
     +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria) : AnnouncementListOptionType
     +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
     +getController() : ListAnnouncementsController
+
+
 }
 
 class Address{
