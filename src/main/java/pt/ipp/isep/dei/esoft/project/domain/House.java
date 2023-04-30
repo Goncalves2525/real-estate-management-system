@@ -1,16 +1,47 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+/**
+ * This class represents a House extends Residency.
+ */
 public class House extends Residency{
     private boolean hasBasement;
     private boolean hasInhabitableLoft;
     private SunExposure sunExposure;
 
+    /**
+     * Instantiates a new House.
+     *
+     * @param area              the area
+     * @param distanceFromCenter the distance from center
+     * @param price             the price
+     * @param address           the address
+     * @param numberOfBedrooms  the number of bedrooms
+     * @param numberOfBathrooms the number of bathrooms
+     * @param numberOfParkingSpaces the number of parking spaces
+     * @param hasCentralHeating the has central heating
+     * @param hasAirConditioning the has air conditioning
+     * @param hasBasement the has basement
+     * @param hasInhabitableLoft the has inhabitable loft
+     * @param sunExposure the sun exposure
+     */
     public House (double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, boolean hasBasement, boolean hasInhabitableLoft, SunExposure sunExposure) {
         super(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
         this.hasBasement = hasBasement;
         this.hasInhabitableLoft = hasInhabitableLoft;
         this.sunExposure = sunExposure;
     }
+    /**
+     * Instantiates a new House.
+     *
+     * @param area              the area
+     * @param distanceFromCenter the distance from center
+     * @param price             the price
+     * @param address           the address
+     * @param numberOfBedrooms  the number of bedrooms
+     * @param numberOfParkingSpaces the number of parking spaces
+     * @param hasBasement the has basement
+     * @param hasInhabitableLoft the has inhabitable loft
+     */
 
     //bathrooms, equipment and sunExposure are not mandatory
     public House(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfParkingSpaces, boolean hasBasement, boolean hasInhabitableLoft) {
