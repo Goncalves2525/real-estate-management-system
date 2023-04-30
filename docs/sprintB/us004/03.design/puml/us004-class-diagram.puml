@@ -71,34 +71,40 @@ class CreateRequestUI {
 }
 
 class Property{
-    - double area
-    - double distanceFromCenter
-    - double price
-    - Address address
-    + getAddress()
-    + getArea()
-    + getDistanceFromCenter()
-    + getPrice()
-    + toString()
+      - area : double
+      - distanceFromCenter : double
+      - price : double
+      - address : Address
+      + getAddress() : Address
+      + getArea() : double
+      + getDistanceFromCenter() : int
+      + getPrice() : double
+      + toString() : String
 }
 class Announcement {
-    - TypeOfProperty typeOfProperty
-    - TransactionType transactionType
-    - Date publishDate
-    - Comission comission
-    - ArrayList<Photo> photos
-    - boolean isPublished
-    - int id
-    - int idCounter
-    + getProperty()
-    + toString()
+   - typeOfProperty : TypeOfProperty
+   - transactionType : TransactionType
+   - publishDate : Date
+   - comission : Commission
+   - photos ArrayList<Photo>
+   - isPublished : boolean
+   - id : int
+   - idCounter : int
+   + getProperty() : Property
+   + toString() : String
 }
+
 class Residence {
--int numberOfBedrooms
--int numberOfBathrooms
--int numberOfParkingSpaces
--boolean hasCentralHeating
--boolean hasAirConditioning
+- numberOfBedrooms : int
+- numberOfBathrooms : int
+- numberOfParkingSpaces : int
+- hasCentralHeating : boolean
+- hasAirConditioning : boolean
++getNumberOfParkingSpaces():int
++getNumberOfBathrooms():int
++getHasAirConditioning():boolean
++getHasCentralHeating():boolean
+
 }
 
 enum sunExposure{
@@ -112,25 +118,26 @@ class Land {
 class Apartment {
 }
 class House {
--boolean hasBasement
--boolean hasInhabitableLoft,
+- hasBasement : boolean
+- hasInhabitableLoft : boolean
++getInhabitableLoft():boolean
++getHasBasement():boolean
 }
 
 class Agency{
-- int id
-- String name
-- String emailAddress
-- int phoneNumber
+- id : int
+- name : String
+- emailAddress : String
+- phoneNumber : int
 - Address address
 }
 
 class Employee{
-- int id
-- String name
-- String emailAddress
-- int phoneNumber
+- id : int
+- name : String
+- emailAddress : String
+- phoneNumber : int
 - Address address
--
 }
 
 enum Role{
@@ -143,6 +150,15 @@ CLIENT
 
 class User{
 }
+
+class Address{
+-street : String
+-city : String
+-district : String
+-state : String
+-zipCode : int
+}
+
 
 
 CreateRequestUI .> CreateRequestController
@@ -164,6 +180,7 @@ Announcement "1" --> "1" TransactionType : has
 
 Property "1" --> "1" Residence : has
 Property "1" --> "1" Land : has
+Property "1" --> "1" Address : has
 Residence  "1" --> "1" Apartment : has
 Residence  "1" --> "1" House : has
 House "1" --> "1" sunExposure
