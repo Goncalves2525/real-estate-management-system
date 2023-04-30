@@ -138,6 +138,7 @@ public class RegisterEmployeeUI implements Runnable {
 
 
     /**
+     * Show the roles.
      *
      */
     private void showRoles() {
@@ -166,7 +167,10 @@ public class RegisterEmployeeUI implements Runnable {
 
 
 
-
+    /** Select an agency from the list of agencies.
+     * @param scanner
+     * @return
+     */
     private Agency selectAgency(Scanner scanner) {
         System.out.println();
         System.out.println("Available agencies:");
@@ -196,6 +200,10 @@ public class RegisterEmployeeUI implements Runnable {
         return getAgencyById(agencyId);
     }
 
+    /** List the agencies.
+     *
+     * @return
+     */
     private void listAgencies() {
 
         AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
@@ -210,6 +218,11 @@ public class RegisterEmployeeUI implements Runnable {
 
     }
 
+    /** Get an agency by ID.
+     *
+     * @param id of the agency
+     * @return the agency
+     */
     private Agency getAgencyById(int id) {
 
         AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
@@ -221,7 +234,10 @@ public class RegisterEmployeeUI implements Runnable {
 
 
 
-
+    /** Verifu the name
+     * @param scanner
+     * @return name
+     */
     private String inputName(Scanner scanner) {
         System.out.println();
         System.out.print("Name: ");
@@ -241,7 +257,10 @@ public class RegisterEmployeeUI implements Runnable {
         return name;
     }
 
-
+    /** Verify the email
+     * @param scanner
+     * @return email
+     */
     private String inputEmail(Scanner scanner) {
         System.out.print("Email: ");
         String email = scanner.nextLine();
@@ -255,6 +274,10 @@ public class RegisterEmployeeUI implements Runnable {
         return email;
     }
 
+    /** Verify if the email is valid
+     * @param email
+     * @return email
+     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
@@ -262,9 +285,9 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-    /**
+    /** verify the Passport Card Number
      * @param scanner
-     * @return
+     * @return Passport Card Number
      */
     private int inputPassportCardNumber(Scanner scanner) {
         System.out.print("Passport Card Number: ");
@@ -294,9 +317,9 @@ public class RegisterEmployeeUI implements Runnable {
         return passportCardNumber;
     }
 
-    /**
+    /** Verify the Tax Number
      * @param scanner
-     * @return
+     * @return Tax Number
      */
     private int inputTaxNumber(Scanner scanner) {
         System.out.print("Tax Number: ");
@@ -328,9 +351,9 @@ public class RegisterEmployeeUI implements Runnable {
 
 
 
-    /**
+    /** verify the Telephone Number
      * @param scanner
-     * @return
+     * @return Telephone Number
      */
     private int inputTelephoneNumber(Scanner scanner) {
         System.out.print("Telephone Number: ");
@@ -359,7 +382,10 @@ public class RegisterEmployeeUI implements Runnable {
     }
 
 
-
+    /** verify the Address
+     * @param scanner
+     * @return Address
+     */
     private Address inputAddress(Scanner scanner) {
         System.out.print("Do you want to add an address? (Y/N): ");
         String answerAdress;

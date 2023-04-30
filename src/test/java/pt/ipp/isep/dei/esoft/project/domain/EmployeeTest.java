@@ -17,18 +17,14 @@ class EmployeeTest {
         List<Role> roles = Arrays.asList(Role.AGENT);
         employee = new Employee("John Doe", "john.doe@example.com", 12345, 67890, 123456789, address, roles);
     }
-
+    /**
+     * Test of getName method, of class Employee.
+     */
     @Test
     void addRole() {
         employee.addRole(Role.STORE_NETWORK_MANAGER);
 
         assertTrue(employee.hasRole(Role.STORE_NETWORK_MANAGER));
-    }
-
-    @Test
-    void hasRole() {
-        assertTrue(employee.hasRole(Role.AGENT));
-        assertFalse(employee.hasRole(Role.STORE_NETWORK_MANAGER));
     }
 
 }

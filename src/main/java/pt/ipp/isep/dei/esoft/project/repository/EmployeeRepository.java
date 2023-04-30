@@ -44,7 +44,9 @@ public class EmployeeRepository {
 
 
     /**
-     * @param agencyId
+     * Gets employee by id.
+     *
+     * @param agencyId The agency id
      * @return
      */
     public ArrayList<Employee> getAgentsByAgencyId(int agencyId) {

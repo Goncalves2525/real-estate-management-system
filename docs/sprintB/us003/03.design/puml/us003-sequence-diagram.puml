@@ -115,6 +115,9 @@ activate UI
 UI --> sysAdmin : operation success message
 deactivate UI
 
+UI -> UI : generatePassword()
+activate UI
+
 UI -> UI : sendPasswordByEmail(email, generatedPassword)
 activate UI
 
