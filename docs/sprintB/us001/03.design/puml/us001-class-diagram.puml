@@ -9,63 +9,63 @@ skinparam classAttributeIconSize 0
 
 'left to right directio
 class Property{
-    - double area
-    - double distanceFromCenter
-    - double price
-    - Address address
-    + getAddress()
-    + getArea()
-    + getDistanceFromCenter()
-    + getPrice()
-    + toString()
+      - area : double
+      - distanceFromCenter : double
+      - price : double
+      - address : Address
+      + getAddress() : Address
+      + getArea() : double
+      + getDistanceFromCenter() : int
+      + getPrice() : double
+      + toString() : String
 }
 
 class Announcement {
-    - TypeOfProperty typeOfProperty
-    - TransactionType transactionType
-    - Date publishDate
-    - Comission comission
-    - ArrayList<Photo> photos
-    - boolean isPublished
-    - int id
-    - int idCounter
-    + getProperty()
-    + toString()
+   - typeOfProperty : TypeOfProperty
+   - transactionType : TransactionType
+   - publishDate : Date
+   - comission : Commission
+   - photos ArrayList<Photo>
+   - isPublished : boolean
+   - id : int
+   - idCounter : int
+   + getProperty() : Property
+   + toString() : String
 }
 
 class AnnouncementRepository {
-    +getAllAnnouncementsSortedByDefualtCriteria()
-    +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
-    +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
+    +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
+    +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
+    +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
+    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
 }
 
 class Repositories {
     +Repositories()
-    +getInstance()
-    +getAnnouncementRepository()
+    +getInstance() : Repositories
+    +getAnnouncementRepository() : AnnouncementRepository
 }
 
 class ListAnnouncementsController {
-    +getAnnoucementRepository()
-    +getAllAnnouncementsSortedByDefualtCriteria()
-    +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order)
-    +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms)
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
+     +getAnnoucementRepository() : Repository
+     +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
+     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
+     +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
+     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
 }
 
 class ListAnouncementsUI {
-+checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria)
-+getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order)
-+getController()
+    +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria) : AnnouncementListOptionType
+    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+    +getController() : ListAnnouncementsController
 }
 
 class Address{
-    - String street
-    - String city
-    - String district
-    - String state
-    - int zipCode
+    - street : String
+    - city : String
+    - district : String
+    - state : String
+    - zipCode : int
 }
 
 Repositories -> Repositories : instances
