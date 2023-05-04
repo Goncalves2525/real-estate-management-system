@@ -1,0 +1,404 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right directio
+class Property{
+      - area : double
+      - distanceFromCenter : double
+      - price : double
+      - address : Address
+      + getAddress() : Address
+      + getArea() : double
+      + getDistanceFromCenter() : int
+      + getPrice() : double
+      + toString() : String
+}
+
+class Announcement {
+   - typeOfProperty : TypeOfProperty
+   - transactionType : TransactionType
+   - publishDate : Date
+   - comission : Commission
+   - photos ArrayList<Photo>
+   - isPublished : boolean
+   - id : int
+   - idCounter : int
+   + getProperty() : Property
+   + toString() : String
+}
+
+class AnnouncementRepository {
+    -announcements : ArrayList<Announcement>
+    +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
+    +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
+    +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
+    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+
+
+}
+
+class Repositories {
+    -instance : Repositories
+    -authenticationRepository : AuthenticationRepository
+    -announcementRepository : AnnouncementRepository
+    -employeeRepository : EmployeeRepository
+    -agencyRepository : AgencyRepository
+    -roleRepository : RoleRepository
+    +getAuthenticationRepository() : AuthenticationRepository
+    +getAgencyListRepository() : AgencyRepository
+    +getEmployeeRepository() : EmployeeRepository
+    +getRoleRepository() : RoleRepository
+    +Repositories()
+    +getInstance() : Repositories
+    +getAnnouncementRepository() : AnnouncementRepository
+}
+
+class ListAnnouncementsController {
+     -announcementRepository : AnnouncementRepository
+     +ListAnnouncementsController()
+     +getAnnoucementRepository() : Repository
+     +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
+     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
+     +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
+     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+}
+
+class ListAnouncementsUI {
+    - controller : ListAnnouncementsController
+    +ListAnnouncementsUI()
+    +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria) : AnnouncementListOptionType
+    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+    +getController() : ListAnnouncementsController
+
+
+}
+
+class Address{
+    - street : String
+    - city : String
+    - district : String
+    - state : String
+    - zipCode : int
+}
+
+class CreateRequestController{
+-agencyRepository : AgencyRepository
+-employeeRepository : EmployeeRepository
+-announcementRepository : AnnouncementRepository
+-controller : CreateRequestController
+-agencyList : Agency[]
++CreateRequestController() : CreateRequestController
++getAgentByEmail(String agentEmail) : Employee
++createAnnouncementHouse(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++createAnnouncementLand(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++createAnnouncementApartment(Employee agent, TransactionType transactionType, int contractDuration, TypeOfProperty typeOfProperty,Property property) : void
++AgencyOptions() : Agency[]
+}
+
+class PublishAnnouncementController{
+-announcementRepository : AnnouncementRepository
+-authenticationRepository : AuthenticationRepository
++PublishAnnouncementController() : PublishAnnouncementController
++getAnnouncementsByUser() : ArrayList<Announcement>
++publishAnnouncement(int id) : void
++setCommission(int id, Commission commission) : void
++getAnnouncementById(int id) : Announcement
+}
+
+class RegisterEmployeeController {
+  -employeeRepository: EmployeeRepository
+  -roleRepository: RoleRepository
+  -passwordGenerator: PasswordGenerator
+  -authenticationRepository: AuthenticationRepository
+  +RegisterEmployeeController()
+  +getRolesToCreate(): List<Role>
+  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address, agency: Agency, roles: Set<Role>): boolean
+}
+
+class AuthenticationController{
+-authenticationRepository : AuthenticationRepository
++AuthenticationController() : AuthenticationController
+}
+
+class UserSession{
++isLoggedIn(User user) : boolean
++hasSession(User user) : boolean
++isAdmin(User user) : boolean
+}
+
+class Agency{
+    - id: int
+    - name: String
+    - emailAddress: String
+    - phoneNumber: int
+    - address: Address
+    - agents: ArrayList<Employee>
+}
+
+class Agent extends Employee{
+-agency : Agency
+}
+
+abstract class Residency extends Property{
+-numberOfBedrooms : int
+-numberOfBathrooms : int
+-numberOfParkingSpaces : int
+-hasCentralHeating : boolean
+-hasAirConditioning : boolean
++Residency(double area, double distanceFromCenter, double price, Address address\n, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning)
++Residency(double area, double distanceFromCenter, double price, Address address\n, int numberOfBedrooms, int numberOfParkingSpaces)
++getNumberOfBedrooms() : int
++getNumberOfBathrooms() : int
++getNumberOfParkingSpaces() : int
++toString() : String
+}
+
+class Apartment extends Residency{
++toString() : String
+}
+
+class House extends Residency{
++toString() : String
+}
+
+class Land extends Property{
++toString() : String
+}
+
+class Commission{
+-value : float
+-percentage : double
+-DEFAULT_VALUE : float
+-DEFAULT_PERCENTAGE : double
++Commission(float value, int percentage)
++Commission(float value)
++Commission(double percentage)
++Commission()
++getValue() : float
++getPercentage() : double
++setValue(float value) : void
++setPercentage(double percentage) : void
++toString() : String
+}
+
+class Employee{
+extends User
++ addRole(role: Role): void
++ hasRole(role: Role): boolean
+}
+
+class PasswordGenerator{
+    PASSWORD_LENGTH : int
+    NUM_CAPITAL_LETTERS : int
+    NUM_DIGITS : int
+    CAPITAL_LETTERS : String
+    DIGITS : String
+    LOWERCASE_LETTERS : String
+    random : SecureRandom
+    +generatePassword() : String
+    +randomCharacter(String characters) : char
+    +shuffleString(String input) : String
+}
+
+class Photo{
+-URI : String
+-name : String
++Photo(String URI, String fileName)
+
+}
+
+abstract class User{
+}
+
+enum TypeOfProperty{
+    APARTMENT
+    HOUSE
+    LAND
+}
+
+enum TransactionType{
+    RENT
+    SALE
+    BUY
+}
+
+enum SunExposure{
+    NORTH
+    SOUTH
+    EAST
+    WEST
+    +toString() : String
+}
+
+class AgencyRepository{
+-agencies : ArrayList<Agency>
++add(Agency agency) : Optional<Agency>
++getAgencies() : ArrayList<Agency>
++getAgencyById(int id) : Agency
+}
+
+class AuthenticationRepository{
+-authenticationFacade : AuthFacade
++doLogin(String email, String pwd) : boolean
++doLogout() : void
++getCurrentUserSession() : UserSession
++addUserRole(String id, String description) : boolean
++addUserWithRole(String name, String email, String pwd, String roleId) : boolean
+}
+
+class EmployeeRepository {
+- employeeList: ArrayList<Employee>
++ addEmployee(employee: Employee): boolean
+}
+
+class RoleRepository{
+-roles : List<Role>
++getRolesToCreate(): List<Role>
++getRoleByValue(int value): Role
+}
+
+enum Role {
+ADMIN
+AGENT
+STORE_NETWORK_MANAGER
+STORE_MANAGER
+CLIENT
+}
+
+class AuthenticationUI{
+-ctrl : AuthenticationController
++AuthenticationUI() : AuthenticationUI
++run() : void
++doLogin() : void
++logout() : void
++redirectToRoleUI(List<MenuItem> rolesUI, UserRoleDTO role) : void
++selectsRole(List<UserRoleDTO> roles) : UserRoleDTO
+}
+
+class AdminUI{
++AdminUI() : AdminUI
++run() : void
+}
+
+class ClientUI{
++ClientUI() : ClientUI
++run() : void
+}
+
+class EmployeeUI{
++EmployeeUI() : EmployeeUI
++run() : void
+}
+
+class MainMenuUI{
+-controller : AuthenticationController
++MainMenuUI() : MainMenuUI
++run() : void
+}
+
+class MenuItem{
+-description : String
+-ui : Runnable
++MenuItem(String description, Runnable ui) : MenuItem
++run() : void
++hasDescription(String description) : boolean
++toString() : String
+}
+
+class CreateRequestUI{
+-controller : CreateRequestController
+-sc : Scanner
++run() : void
++getAgentByEmail(String agentEmail) : Employee
++AgencyOptions() : void
++TransactionTypeOptions() : void
++checkTransactionType(int option) : TransactionType
++TypeOfPropertyOptions() : void
++checkTypeOfProperty(int option) : TypeOfProperty
++SunExposureOption(int option) : SunExposure
++TypeOfSunExposureOptions() : void
++validatePassportNumber(String numeroPassaporte) : boolean
++listAgents(int id) : int
++validationYN(String option) : boolean
++validatePositiveIntegerInput(String message) : int
++validatePositiveDoubleInput(String message) : double
++validateNotEmpty(String prompt) : String
+}
+
+class DevTeamUI{
++DevTeamUI() : DevTeamUI
++run() : void
+}
+
+class PublishAnnouncementUI{
+-controller : PublishAnnouncementController
++PublishAnnouncementUI() : PublishAnnouncementUI
++run() : void
+}
+
+class RegisterEmployeeUI {
+- controller: RegisterEmployeeController
++ run()
+}
+
+
+
+Repositories -> Repositories : instances
+ListAnnouncementsController ..> Repositories
+ListAnouncementsUI .> ListAnnouncementsController
+AuthenticationUI .> AuthenticationController
+CreateRequestUI .> CreateRequestController
+PublishAnnouncementUI .> PublishAnnouncementController
+RegisterEmployeeUI .> RegisterEmployeeController
+Repositories "1" --> "1" AnnouncementRepository : has
+Repositories "1" --> "1" AgencyRepository : has
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" EmployeeRepository : has
+Repositories "1" --> "1" RoleRepository : has
+ListAnnouncementsController ..> AnnouncementRepository
+CreateRequestController ..> AnnouncementRepository
+CreateRequestController ..> AgencyRepository
+CreateRequestController ..> EmployeeRepository
+PublishAnnouncementController ..> AnnouncementRepository
+RegisterEmployeeController ..> EmployeeRepository
+RegisterEmployeeController ..> RoleRepository
+RegisterEmployeeController ..> PasswordGenerator
+RegisterEmployeeController ..> AuthenticationRepository
+AuthenticationController ..> AuthenticationRepository
+EmployeeRepository "1" --> "*" Employee : has
+AgencyRepository "1" --> "*" Agency : has
+RoleRepository "1" --> "*" Role : has
+Announcement "1" --> "1" Property : has
+Announcement "1" --> "*" Photo : has
+Announcement "1" --> "1" Commission : has
+Announcement "1" --> "1" TransactionType : has
+Announcement "1" --> "1" TypeOfProperty : has
+House "1" --> "1" SunExposure : has
+Announcement ..> Agent
+AnnouncementRepository "1" --> "*" Announcement : has
+Property "1" --> "1" Address : has
+MainMenuUI "1" --> "*" MenuItem : has
+MainMenuUI ..> ListAnouncementsUI
+MainMenuUI ..> AuthenticationUI
+MainMenuUI ..> DevTeamUI
+AuthenticationUI ..> ClientUI
+AuthenticationUI ..> EmployeeUI
+AuthenticationUI ..> AdminUI
+User ..> UserSession
+AuthenticationRepository "1" --> "*" User : has
+EmployeeUI ..> PublishAnnouncementUI
+ClientUI ..> CreateRequestUI
+AdminUI ..> RegisterEmployeeUI
+CreateRequestController ..> Repositories
+PublishAnnouncementController ..> Repositories
+RegisterEmployeeController ..> Repositories
+
+
+
+@enduml

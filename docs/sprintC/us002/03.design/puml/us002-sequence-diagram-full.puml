@@ -1,0 +1,133 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as AGENT
+participant ":PublishSaleAnnouncementUI" as UI
+participant ":PublishAnnouncementController" as CTRL
+participant ":AnnouncementRepository" as RepositorySingleton
+participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
+participant ":AuthenticationRepository" as AuthSingleton
+participant "authRepository:\nAuthenticationRepository" as AuthenticationRepository
+'participant "Commission" as COMMISSION
+'participant "Announcement" as ANN
+
+activate AGENT
+
+AGENT -> UI : asks to publish an announcement
+
+activate UI
+
+UI -> CTRL : getAnnouncementsByUser()
+activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
+
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
+
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
+
+    CTRL -> AuthenticationRepository : getCurrentUserSession()
+    activate AuthenticationRepository
+
+        AuthenticationRepository --> CTRL: UserSession
+    deactivate AuthenticationRepository
+
+    CTRL -> AnnouncementRepository : getAnnouncementsByAgent(getCurrentUserSession().getUserId().getEmail())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
+
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
+
+UI -> CTRL : publishAnnouncement(announcement, commission)
+activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
+
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
+
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
+
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
+
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
+
+    CTRL -> AnnouncementRepository : publishAnnouncement(announcement.getId())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: success
+    deactivate AnnouncementRepository
+
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
+
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
+
+UI -> AGENT : shows non published announcements
+deactivate UI
+
+AGENT -> UI : selects ID of the Announcement to publish
+activate UI
+
+UI -> CTRL : getAnnouncementById(id)
+activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+
+        RepositorySingleton --> CTRL: announcementRepository
+    deactivate RepositorySingleton
+
+    CTRL -> AuthSingleton : getInstance()
+    activate AuthSingleton
+
+        AuthSingleton --> CTRL: authenticationRepository
+    deactivate AuthSingleton
+
+    CTRL -> AuthenticationRepository : getCurrentSession()
+    activate AuthenticationRepository
+
+        AuthenticationRepository --> CTRL: session
+    deactivate AuthenticationRepository
+
+    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
+    activate AnnouncementRepository
+
+        AnnouncementRepository --> CTRL: announcements
+    deactivate AnnouncementRepository
+
+    CTRL --> UI : shows non published announcements
+deactivate CTRL
+
+UI --> AGENT : shows non published announcements
+deactivate UI
+
+AGENT -> UI : closes UI
+deactivate AGENT
+deactivate UI
+@enduml

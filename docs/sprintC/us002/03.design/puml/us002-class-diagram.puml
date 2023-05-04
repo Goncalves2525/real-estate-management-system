@@ -1,0 +1,94 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+
+
+skinparam classAttributeIconSize 0
+
+class Announcement {
+ -property : Property
+ -typeOfProperty : TypeOfProperty
+ -transactionType : TransactionType
+ -publishDate : Date
+ -commission : Commission
+ -photos : ArrayList<Photo>
+ -house : House
+ -land : Land
+ -apartment : Apartment
+ -agent : Employee
+ -id : int
+ -isPublished : boolean
+ -idCounter : int
+ +setIsPublished(): void
+ +toString(): String
+ +getId(): int
+ +getAgentEmail(): String
+}
+
+class Commission {
+ -value: float
+ -percentage: double
+ +getValue(): float
+ +getPercentage(): double
+}
+
+
+class AnnouncementRepository {
+ -ArrayList<> announcements: List<Announcement>
+ +removeNonPublishedAnnouncements(ArrayList<Announcement>: resultAnnouncements): void
+ +getAnnouncementsByAgent(String: agentEmail): ArrayList<Announcement>
+ +removePublishedAnnouncements(ArrayList<Announcement>: resultAnnouncements): void
+ +getAnnouncementById(int: id): Announcement
+}
+
+
+
+class AuthenticationRepository{
+ -authenticationFacade : AuthFacade
+ +getCurrentUserSession(): UserSession
+}
+
+
+
+class Repositories {
+ +getInstance(): Repositories
+ +getAuthenticationRepository(): AuthenticationRepository
+ +getAnnouncementRepository(): AnnouncementRepository
+}
+
+
+
+class PublishAnnouncementController {
+ -announcementRepository: AnnouncementRepository
+ -authenticationRepository: AuthenticationRepository
+ +publishAnnouncement(int: id): void
+ +getAnnouncementById(int: id): Announcement
+ +getAnnouncementsByUser(): List<Announcement>
+ +setCommission(int: id, Commission: commission): void
+}
+
+
+
+class PublishAnnouncementUI {
+ -controller: PublishAnnouncementController
+ +PublishAnnouncementUI(): void
+ +run(): void
+ +getAnnouncementByUser(): List<Announcement>
+ +chooseCommissionOrValue(int: id): void
+}
+
+Repositories -> Repositories : instances
+PublishAnnouncementUI .> PublishAnnouncementController
+PublishAnnouncementController ..> Repositories
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" AnnouncementRepository : has
+PublishAnnouncementController ..> AnnouncementRepository
+PublishAnnouncementController ..> AuthenticationRepository
+AnnouncementRepository "1" --> "*" Announcement : has
+Announcement "1" --> "1" Commission : has
+
+@enduml

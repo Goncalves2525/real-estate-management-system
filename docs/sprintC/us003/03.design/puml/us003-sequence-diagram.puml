@@ -1,0 +1,130 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "System Administrator" as sysAdmin
+participant ":RegisterEmployeeUI" as UI
+participant ":RegisterEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant ":RoleRepository" as RoleRepo
+participant ":AgencyRepository" as AgencyRepo
+participant ":EmployeeRepository" as EmployeeRepo
+
+activate sysAdmin
+
+sysAdmin -> UI : requests to register a new employee
+activate UI
+
+UI -> CTRL : getRolesToCreate()
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+CTRL -> PLAT : getRoleRepository()
+activate PLAT
+
+PLAT --> CTRL: roleRepository
+deactivate PLAT
+
+CTRL -> RoleRepo : getRolesToCreate()
+activate RoleRepo
+
+RoleRepo --> CTRL : roleList
+deactivate RoleRepo
+
+CTRL --> UI : roleList
+deactivate CTRL
+
+UI --> sysAdmin : requests the role of the new employee
+deactivate UI
+
+sysAdmin -> UI : provides the role of the new employee
+activate UI
+
+UI -> CTRL : getAgencies()
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+CTRL -> PLAT : getAgencyRepository()
+activate PLAT
+
+PLAT --> CTRL: agencyRepository
+deactivate PLAT
+
+CTRL -> AgencyRepo : getAgencies()
+activate AgencyRepo
+
+AgencyRepo --> CTRL : agencyList
+deactivate AgencyRepo
+
+CTRL --> UI : agencyList
+deactivate CTRL
+
+UI --> sysAdmin : shows the list of agencies
+deactivate UI
+
+sysAdmin -> UI : selects the agency from the list
+activate UI
+
+UI --> sysAdmin : requests the name, passport card number, tax number,\naddress, email address, contact telephone number
+deactivate UI
+
+sysAdmin -> UI : provides the necessary data
+activate UI
+
+UI -> CTRL : registerEmployee(name, email, passportCardNumber, taxNumber, \naddress, telephoneNumber, selectedAgency, roles)
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+CTRL -> PLAT : getEmployeeRepository()
+activate PLAT
+
+PLAT --> CTRL: employeeRepository
+deactivate PLAT
+
+CTRL -> EmployeeRepo : addEmployee(name, email, passportCardNumber, taxNumber, \naddress, telephoneNumber, selectedAgency, roles)
+activate EmployeeRepo
+
+EmployeeRepo --> CTRL : success
+deactivate EmployeeRepo
+
+CTRL --> UI : success
+deactivate CTRL
+
+UI -> UI : displaySuccessMessage()
+activate UI
+
+UI --> sysAdmin : operation success message
+deactivate UI
+
+UI -> UI : generatePassword()
+activate UI
+
+UI -> UI : sendPasswordByEmail(email, generatedPassword)
+activate UI
+
+UI --> sysAdmin : password sent to the employee's email
+deactivate UI
+
+deactivate sysAdmin
+
+@enduml
+
