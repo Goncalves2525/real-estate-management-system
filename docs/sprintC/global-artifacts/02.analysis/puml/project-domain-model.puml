@@ -21,7 +21,9 @@ class Employee extends User{
 class Agent extends Employee{
 }
 
-
+class Order{
+    orderAmount
+}
 
 class User{
     name
@@ -171,6 +173,8 @@ House "1" -- "1" SunExposure: has >
 Announcement "1" --- "1" TransactionType: has >
 Agency "1" -- "1" Address: has >
 UnregisteredUser "1" -- "*" Announcement: views >
+Client "1" -- "*" Order : makes >
+Order "*" -- "1" Agent : requested to >
 
 
 @enduml
