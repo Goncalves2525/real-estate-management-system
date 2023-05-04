@@ -7,48 +7,30 @@ title System Sequence Diagram (SSD) - US003: Register New Employee
 
 autonumber
 
-actor "System Administrator" as Admin
+actor "Client" as Client
 participant ":System" as System
 
-activate Admin
+activate Client
 
-    Admin -> System : requests to register a new employee
+    Client -> System : requests to make an order to purchase a property
     activate System
 
-    System --> Admin : list the available roles
+    System --> Client : requests order amount
     deactivate System
 
-    Admin -> System : provide the roles of the new employee
+    Client -> System : inserts order amount (equal or lower to the price set by the owner)
     activate System
 
+    opt request already made by this client
+           System --> Client : informs that the request has already been made by this "Client"
+    end
 
+    opt order amount already made to this property
+           System --> Client : informs that the order amount has already been made to this property
+    end
 
-    System --> Admin : list the available agencies
+    System --> Client : informs that the order has been successfully requested
     deactivate System
 
-    Admin -> System : select the agency from the list
-        activate System
-
-
-
-    System --> Admin : requests the name, email, the passport card number,   \ntax number, contact telephone number and address
-    deactivate System
-
-    Admin -> System : provide the necessary data
-        activate System
-
-
-
-
-    System --> Admin : shows the data and requests a confirmation
-    deactivate System
-
-    Admin -> System : confirm the information
-    activate System
-
-    System --> Admin : validate the data and display operation success message
-    System --> Admin : send the password to the employee's email
-
-    deactivate System
 
 @enduml

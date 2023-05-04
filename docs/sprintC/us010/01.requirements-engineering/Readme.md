@@ -1,4 +1,4 @@
-# US 001 - Display Listed Properties
+# US 010 - Place an order to purchase the property
 
 ## 1. Requirements Engineering
 
@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an unregistered user, I want to display listed properties.
+As a client, I place an order to purchase the property, submitting the order amount.
 
 
 
@@ -15,49 +15,32 @@ As an unregistered user, I want to display listed properties.
 
 **From the specifications document:**
 
->	Unregistered users are able to consult the properties by type, number of rooms, and sort by criteria such as price or the parish where the property is located.
+>	When the client decides to buy/rent the property, he sends a request for the purchase/lease of the property to the agent.
 
 
 
 
 **From the client clarifications:**
 
-> Non-authenticated users can only list properties.
 
-> The client should be able to select the type of business (renting or buying), the type of property and the number of rooms. Then, the client should be able to sort properties by price, city and state where the property is located.
- 
-> If the client does not select the type of business, the type of property and the number of rooms, the application should allow the client to sort all properties that are on sale or on renting.
-
-> If the system does not contain any properties, the system should show an empty list of properties.
-
-> **Question:**  When an unregistered user wants to list properties, the list given by the program is sorted by default with which criteria? For example the list is shown with the properties sorted by most recently added?
+> **Question:**  What data is required, in addition to the order value, so that a client can place an order to purchase a property?
 >  
-> **Answer:** Thank you for your suggestion. By default, the list should be shown with the properties sorted by most recently added.
-
-> **Question:** Can the properties be in sale and lease at the same time?
->  
-> **Answer:** No.
-
-> **Question:** Can a user filter the properties list for example by a type but choosing multiple value?
->
-> **Answer:** The user should only select one value for each feature of the property.
+> **Answer:** Only the order amount.
 
 
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** The properties can be filtered by type of business, type of property and number of rooms.
-* **AC2:** The properties can be sorted by price, state and city.
-* **AC3:** It is possible to only filter or only sort the properties.
-* **AC4:** It is possible to filter and sort properties simultaneously.
-* **AC5:** If the user does not select any filter or sort criteria, the properties are sorted by default criteria (most recently added).
+* **AC1:** The order amount submitted by the client must be equal to or lower than the price set by the owner for the property.
+* **AC2:** If the order amount submitted by the client has already been posted for the property (by another request from this client or any other client), the system must state that on the screen and the order placed previously should be considered first when selling the property.
+* **AC3:**  A client can only submit a new order to purchase the same property after the previous one is declined.
 
 
 
 ### 1.4. Found out Dependencies
 
 
-* There is a dependency to "US002 To publish a Sale" since listing the properties depends on what the agents published.
+* There's a dependency to US011 since the orders the client places are accepted or declined by an agent.
 
 
 ### 1.5 Input and Output Data
@@ -66,21 +49,13 @@ As an unregistered user, I want to display listed properties.
 **Input Data:**
 	
 	
-* Selected data:
-	* Property type (filter)
-    * Business type (filter)
-    * Number of rooms (filter)
-    * Price (sort)
-    * City (sort)
-    * State (sort)
-
+* Typed data:
+	* order amount
 
 **Output Data:**
 
-* Filtered and ordered list of properties
-* Filtered list of properties ordered by default criteria
-* Ordered list of all properties
-* All properties ordered by default criteria
+* Order request success message
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -91,4 +66,4 @@ As an unregistered user, I want to display listed properties.
 
 ### 1.7 Other Relevant Remarks
 
-*  By default, if there are no properties to be displayed, en empty list is shown.
+*   

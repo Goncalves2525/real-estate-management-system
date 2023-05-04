@@ -21,6 +21,8 @@ class Employee extends User{
 class Agent extends Employee{
 }
 
+
+
 class User{
     name
     passportCardNumber
