@@ -1,0 +1,85 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model for User Story 3 - Register a New Employee
+
+class SystemAdministrator extends Employee{
+}
+
+class StoreManager extends Employee{
+}
+
+class StoreNetworkManager extends Employee{
+}
+
+class Agent extends Employee{
+}
+
+class Agency{
+    ID
+    name
+    emailAddress
+    phoneNumber
+}
+
+class User {
+    name
+    passportCardNumber
+    taxNumber
+    email
+    telephoneNumber
+}
+
+class Employee extends User {
+}
+
+class Address {
+    doorNumber
+    zipCode
+}
+
+class Street {
+}
+
+class City {
+}
+
+class District {
+}
+
+class State {
+}
+
+class Role {
+    ADMIN
+    AGENT
+    CLIENT
+    STORE_NETWORK_MANAGER
+    STORE_MANAGER
+}
+
+SystemAdministrator "1" -- "1" Employee: registers >
+User "1" -- "*" Address: has >
+User "1" -- "1" Role: has a >
+Address "1" -- "1" State: part of >
+Street "1" -- "1" City: part of >
+City "1" -- "1" District: part of >
+District "1" -- "1" State: part of >
+Agency "1" -- "1" Address: has >
+StoreNetworkManager "1" -- "*" StoreManager: manages >
+StoreManager "1" -- "1" Agency: manages >
+Agency "1" -- "*" Agent: has >
+
+@enduml

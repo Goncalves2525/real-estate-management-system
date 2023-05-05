@@ -1,0 +1,180 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+'skinparam linetype ortho
+hide circle
+hide methods
+
+title Domain Model
+
+class Client extends User{
+}
+
+class Owner extends User {
+}
+
+class Employee extends User{
+}
+
+class Agent extends Employee{
+}
+
+class Order{
+    orderAmount
+}
+
+class User{
+    name
+    passportCardNumber
+    taxNumber
+    email
+    telephoneNumber
+    password
+}
+
+class Agency{
+    ID
+    name
+    emailAddress
+    phoneNumber
+}
+
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+class Photo {
+}
+
+class Address{
+    doorNumber
+    zipCode
+}
+
+class Street{
+}
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
+    basement
+    inhabitableLoft
+}
+
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+
+}
+
+class Announcement{
+    publishedDate
+    publishedBy
+    isPublished
+}
+
+class Commission{
+    percentage
+    value
+}
+
+class TypeOfProperty{
+    APARTMENT
+    HOUSE
+    LAND
+}
+
+class Land extends Property{
+}
+
+class Equipment{
+    equipmentName
+}
+
+class Role{
+ADMIN
+AGENT
+CLIENT
+STORE_NETWORK_MANAGER
+STORE_MANAGER
+}
+
+class SystemAdministrator extends Employee{
+}
+
+class StoreManager extends Employee{
+}
+
+class StoreNetworkManager extends Employee{
+}
+
+class SunExposure{
+NORTH
+SOUTH
+EAST
+WEST
+}
+
+class TransactionType{
+RENT
+SALE
+BUY
+}
+
+class UnregisteredUser{
+}
+
+'class Request{
+'}
+
+UnregisteredUser "1" -- "1" User : registers to become >
+Agent "1" -- "1" Announcement: publishes >
+Announcement "1" -- "1" TypeOfProperty: has >
+StoreNetworkManager "1" -- "*" StoreManager: manages >
+Agency "1" -- "*" Agent: has >
+SystemAdministrator "1" -- "*" Employee: creates >
+Role "1" -- "1" User: has <
+Agent "1" -- "1" Owner : contacted by >
+Agent "1" - "*" Property: sets commission >
+Owner "1" -- "*" Property: owns >
+Owner "1" - "*" Announcement: makes >
+Announcement "*" -- "1" Agent: requested to >
+Announcement "1" - "1" Property: has >
+Announcement "1" -- "1" TransactionType: has >
+Address "1" -- "1" State : has >
+City "*" -- "1" District : part of >
+Street "*" -- "1" City : part of >
+District "*" --- "1" State : part of >
+Client "1" -- "*" Address: has >
+Announcement "1" -- "1..*" Photo: has >
+Announcement "1" -- "1" Commission: set for <
+Residency "1" -- "*" Equipment: has >
+Announcement "1" -- "1" Property: part of <
+User "1" -- "*" Address: has >
+Property "1" -- "1" Address: has >
+Announcement "1" -- "1" Commission : has >
+StoreManager "1" -- "1" Agency: manages >
+House "1" -- "1" SunExposure: has >
+Announcement "1" --- "1" TransactionType: has >
+Agency "1" -- "1" Address: has >
+UnregisteredUser "1" -- "*" Announcement: views >
+Client "1" -- "*" Order : makes >
+Order "*" -- "1" Agent : requested to >
+
+
+@enduml

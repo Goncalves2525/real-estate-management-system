@@ -13,7 +13,7 @@ _Specifies functionalities that:_
 
 ## Usability 
 
-_Evaluates the user interface. It has several subcategories,
+_Evaluates the endUser interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 

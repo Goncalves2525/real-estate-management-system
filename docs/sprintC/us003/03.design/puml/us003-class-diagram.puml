@@ -1,0 +1,115 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype orto
+skinparam classAttributeIconSize 0
+
+class Employee {
+extends User
++ addRole(role: Role): void
++ hasRole(role: Role): boolean
+}
+
+class EmployeeRepository {
+- employeeList: ArrayList<Employee>
++ addEmployee(employee: Employee): boolean
+}
+
+class AgencyRepository {
+- agencies: List<Agency>
++ getAgencies(): List<Agency>
+}
+
+class RoleRepository {
+- roles: List<Role>
++ getRolesToCreate(): List<Role>
+}
+
+class AuthenticationRepository{
++getCurrentUserSession(): UserSession
+}
+
+class Repositories {
++getInstance(): Repositories
++getAuthenticationRepository(): AuthenticationRepository
++EmployeeRepository(): EmployeeRepository
++AgencyRepository(): AgencyRepository
++RoleRepository(): RoleRepository
+}
+
+class RegisterEmployeeController {
+  -employeeRepository: EmployeeRepository
+  -roleRepository: RoleRepository
+  -passwordGenerator: PasswordGenerator
+  -authenticationRepository: AuthenticationRepository
+  +RegisterEmployeeController()
+  +getRolesToCreate(): List<Role>
+  +registerEmployee(name: String, email: String, passportCardNumber: int, taxNumber: int,telephoneNumber: int, address: Address, agency: Agency, roles: Set<Role>): boolean
+}
+
+class PasswordGenerator{
+    PASSWORD_LENGTH : int
+    NUM_CAPITAL_LETTERS : int
+    NUM_DIGITS : int
+    CAPITAL_LETTERS : String
+    DIGITS : String
+    LOWERCASE_LETTERS : String
+    random : SecureRandom
+    +generatePassword() : String
+    +randomCharacter(String characters) : char
+    +shuffleString(String input) : String
+}
+
+class Address{
+    - street : String
+    - city : String
+    - district : String
+    - state : String
+    - zipCode : int
+}
+
+enum Role{
+    - ADMIN
+    - AGENT
+    - STORE_NETWORK_MANAGER
+    - STORE_MANAGER
+    - CLIENT
+}
+
+class Agency{
+    - id: int
+    - name: String
+    - emailAddress: String
+    - phoneNumber: int
+    - address: Address
+    - agents: ArrayList<Employee>
+}
+
+class RegisterEmployeeUI {
+- controller: RegisterEmployeeController
++ run()
+}
+
+Repositories -> Repositories : instances
+RegisterEmployeeUI .> RegisterEmployeeController
+RegisterEmployeeController ..> Repositories
+Repositories "1" --> "1" AuthenticationRepository : has
+Repositories "1" --> "1" EmployeeRepository : has
+Repositories "1" --> "1" AgencyRepository : has
+Repositories "1" --> "1" RoleRepository : has
+RegisterEmployeeController ..> EmployeeRepository
+RegisterEmployeeController ..> RoleRepository
+RegisterEmployeeController ..> AgencyRepository
+RegisterEmployeeController ..> AuthenticationRepository
+EmployeeRepository "1" --> "*" Employee : has
+AgencyRepository "1" --> "*" Agency : has
+RoleRepository "1" --> "*" Role : has
+Employee "1" --> "1" Address : has
+Employee "1" --> "1" Role : has
+Agency "1" --> "*" Employee : has
+RegisterEmployeeController ..> PasswordGenerator
+
+
+@enduml

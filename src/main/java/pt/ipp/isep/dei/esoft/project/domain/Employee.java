@@ -10,7 +10,7 @@ import java.util.List;
  * This class represents an employee.
  * </p>
  */
-public class Employee extends User {
+public class Employee extends EndUser {
 
     /**
      * @param name Name of the employee

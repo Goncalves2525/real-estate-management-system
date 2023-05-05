@@ -2,8 +2,10 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * List Announcements Controller Class.
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class ListAnnouncementsController {
 
     private AnnouncementRepository announcementRepository = null;
+    private AuthenticationRepository authenticationRepository = null;
 
     /**
      * Instantiates a new List Announcements Controller.
@@ -24,6 +27,19 @@ public class ListAnnouncementsController {
 
     public ListAnnouncementsController() {
         getAnnoucementRepository();
+        getAuthenticationRepository();
+    }
+
+    /**
+     * Allows receiving the repositories as parameters for testing purposes
+     * @return authentication repository
+     */
+    private AuthenticationRepository getAuthenticationRepository() {
+        if (authenticationRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            authenticationRepository = repositories.getAuthenticationRepository();
+        }
+        return authenticationRepository;
     }
 
     /**
@@ -84,4 +100,13 @@ public class ListAnnouncementsController {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
+
+    /**
+     * @return true if user is logged in, false otherwise
+     */
+    public boolean userIsLoggedInWithClientRole() {
+        return getAuthenticationRepository().getCurrentUserSession().isLoggedInWithRole("CLIENT");
+    }
+
+
 }

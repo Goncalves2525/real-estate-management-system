@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Client" as Client
+participant ":System" as System
+
+activate Client
+
+    Client -> System : requests to make an order to purchase a property
+    activate System
+
+    System --> Client : requests order amount
+    deactivate System
+
+    Client -> System : inserts order amount (equal or lower to the price set by the owner)
+    activate System
+
+    opt request already made by this client
+           System --> Client : informs that the request has already been made by this "Client"
+    end
+
+    opt order amount already made to this property
+           System --> Client : informs that the order amount has already been made to this property
+    end
+
+    System --> Client : informs that the order has been successfully requested
+    deactivate System
+
+
+
+@enduml

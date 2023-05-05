@@ -16,6 +16,10 @@ public class Repositories {
     EmployeeRepository employeeRepository = new EmployeeRepository();
     RoleRepository roleRepository = new RoleRepository();
 
+    ClientRepository clientRepository = new ClientRepository();
+
+    OrderRepository orderRepository = new OrderRepository();
+
     private Repositories() {
     }
 
@@ -41,6 +45,14 @@ public class Repositories {
 
     public RoleRepository getRoleRepository() {
         return roleRepository;
+    }
+
+    public ClientRepository getClientRepository() {
+        return clientRepository;
+    }
+
+    public OrderRepository getOrderRepository() {
+        return orderRepository;
     }
 
 }

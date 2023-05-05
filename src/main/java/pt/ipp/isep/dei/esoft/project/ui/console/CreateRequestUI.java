@@ -363,6 +363,7 @@ public class CreateRequestUI implements Runnable {
         }
         return control;
     }
+
     /**
      * Validates a yes or no input.
      * @param option the option to be displayed
