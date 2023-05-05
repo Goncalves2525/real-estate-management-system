@@ -18,7 +18,7 @@
 
 [//]: # (| 			  		                                            | 	... instantiating a new Announcement?        | Announcement                  | Creator &#40;Rule 1&#41;: in the DM Organization has a Task.                                                          |)
 
-[//]: # (| 			  		                                            | ... knowing the user using the system?        | UserSession                   |                                                                                                               |)
+[//]: # (| 			  		                                            | ... knowing the endUser using the system?        | UserSession                   |                                                                                                               |)
 
 [//]: # (| 			  		                                            | 							                                       | Announcement                  | IE: knows/has its own Announcements                                                                           |)
 
@@ -40,23 +40,23 @@
 
 [//]: # (| 			  		                                            | 	... saving the created task?                 | Organization                  | IE: owns all its tasks.                                                                                       | )
 
-[//]: # (| Step 8  		                                         | 	... informing operation success?             | CreateTaskUI                  | IE: is responsible for user interactions.                                                                     | )
+[//]: # (| Step 8  		                                         | 	... informing operation success?             | CreateTaskUI                  | IE: is responsible for endUser interactions.                                                                     | )
 
 | Interaction ID                                    | Question: Which class is responsible for...              | Answer                        | Justification (with patterns)                                                                                 |
 |---------------------------------------------------|----------------------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------|
 | Step 1 : User requests to publish announcement    | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
-|                                                   | ... knowing the user using the system?                   | UserSession                   |                                                                                                               |
-|                                                   | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
-|                                                   | ... retrieving the user's authentication session?        | AuthenticationRepository      | Repository                                                                                                    |
-| Step 2 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
+|                                                   | ... knowing the endUser using the system?                   | UserSession                   |                                                                                                               |
+|                                                   | ... retrieving non-published announcements for the endUser? | AnnouncementRepository        | Repository                                                                                                    |
+|                                                   | ... retrieving the endUser's authentication session?        | AuthenticationRepository      | Repository                                                                                                    |
+| Step 2 : UI retrieves non-published announcements | ... retrieving non-published announcements for the endUser? | AnnouncementRepository        | Repository                                                                                                    |
 | Step 3 : User selects announcement to publish     | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
 | Step 4 : User confirms publishing announcement    | ... interacting with the agent?                          | PublishSaleAnnouncementUI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                                                   | ... coordinating the use case?                           | PublishAnnouncementController | Controller                                                                                                    |
 |                                                   | ... publishing the selected announcement?                | AnnouncementRepository        | Repository                                                                                                    |
-|                                                   | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
-| Step 5 : UI retrieves non-published announcements | ... retrieving non-published announcements for the user? | AnnouncementRepository        | Repository                                                                                                    |
+|                                                   | ... retrieving non-published announcements for the endUser? | AnnouncementRepository        | Repository                                                                                                    |
+| Step 5 : UI retrieves non-published announcements | ... retrieving non-published announcements for the endUser? | AnnouncementRepository        | Repository                                                                                                    |
 
 
 ### Systematization ##
@@ -75,14 +75,14 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
+This diagram shows the full sequence of interactions between the classes involved in the realization of this endUser story.
 
 ![Sequence Diagram - Full](svg/us002-sequence-diagram-full.svg)
 
 [//]: # (### Alternative 2 - Split Diagram)
 
 [//]: # ()
-[//]: # (This diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.)
+[//]: # (This diagram shows the same sequence of interactions between the classes involved in the realization of this endUser story, but it is split in partial diagrams to better illustrate the interactions between the classes.)
 
 [//]: # ()
 [//]: # (It uses interaction ocurrence.)

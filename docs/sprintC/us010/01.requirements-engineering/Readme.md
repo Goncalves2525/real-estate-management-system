@@ -26,7 +26,20 @@ As a client, I place an order to purchase the property, submitting the order amo
 > **Question:**  What data is required, in addition to the order value, so that a client can place an order to purchase a property?
 >  
 > **Answer:** Only the order amount.
+ 
+> **Question** When the client intends to place a purchase order, should the list of properties (announcements) be presented initially and then asked to select a property?
+>
+> **Answer:** The system should show a list of properties to the client.
 
+> **Question:** Can the client remove an offer they made at any point, in order to replace it with a different one?
+> 
+> **Answer:** No.
+
+> **Question:**
+>
+> **Answer:**
+
+> To place an order the actor should be registered in the system.
 
 ### 1.3. Acceptance Criteria
 
@@ -60,7 +73,7 @@ As a client, I place an order to purchase the property, submitting the order amo
 ### 1.6. System Sequence Diagram (SSD)
 
 
-![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram.svg)
+![System Sequence Diagram - Alternative One](svg/us010-system-sequence-diagram.svg)
 
 
 

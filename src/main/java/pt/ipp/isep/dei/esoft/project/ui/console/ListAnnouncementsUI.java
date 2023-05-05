@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
+import pt.ipp.isep.dei.esoft.project.application.session.UserSession;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
@@ -16,14 +18,14 @@ import java.util.Scanner;
 
 /**
  * List Announcements UI class implements Runnable.
- *
+ * <p>
  * This class is responsible for creating the UI for feature of listing announcements.
- *
  */
 
 public class ListAnnouncementsUI implements Runnable {
 
     private final ListAnnouncementsController controller = new ListAnnouncementsController();
+
 
     /**
      * Creates a new instance of ListAnnouncementsUI.
@@ -34,6 +36,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Gets the ListAnnouncementsController.
+     *
      * @return ListAnnouncementsController
      */
     private ListAnnouncementsController getController() {
@@ -52,6 +55,7 @@ public class ListAnnouncementsUI implements Runnable {
         TransactionType transactionType = null;
         Integer integerNumberOfRooms = -1;
         int numberOfRooms;
+        int menu;
         String sortCriteria = null, order = null;
         Object[] filters;
         String[] sort;
@@ -71,15 +75,66 @@ public class ListAnnouncementsUI implements Runnable {
         order = sort[1];
         announcementsList = getAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
         showAnnouncements(announcementsList);
+        if (userIsLoggedInWithClientRole()) {
+            createOrder();
+        }
+        menuChoice();
     }
+
+    private void menuChoice() {
+        Scanner sc = new Scanner(System.in);
+        int choice = -1;
+        System.out.println("1 - List Again");
+        System.out.println("0 - Return to Main Menu");
+        try {
+            choice = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Insert number please.");
+            menuChoice();
+        }
+        switch (choice) {
+            case 1:
+                run();
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Invalid option");
+                menuChoice();
+        }
+    }
+
+    private boolean userIsLoggedInWithClientRole() {
+        if (controller.userIsLoggedInWithClientRole()) {
+            return true;
+        }
+        return false;
+    }
+
+    private void createOrder() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Do you want to create an order? (Y/N)");
+        try {
+            String answer = sc.nextLine();
+            if (answer.equalsIgnoreCase("Y")) {
+                CreateOrderUI ui = new CreateOrderUI();
+                ui.run();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Insert Y or N please.");
+            createOrder();
+        }
+    }
+
 
     /**
      * Gets a list of announcements regarding the filters and sort criteria chosen by the user.
-     * @param typeOfProperty - type of property
+     *
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param numberOfRooms - number of rooms
-     * @param sortCriteria - sort criteria
-     * @param order - order
+     * @param numberOfRooms   - number of rooms
+     * @param sortCriteria    - sort criteria
+     * @param order           - order
      * @return announcementsList
      */
     private ArrayList<Announcement> getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
@@ -106,10 +161,11 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks the choice the user made to list announcements.
-     * @param typeOfProperty - type of property
+     *
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param numberOfRooms - number of rooms
-     * @param sortCriteria - sort criteria
+     * @param numberOfRooms   - number of rooms
+     * @param sortCriteria    - sort criteria
      * @return inputType
      */
     private AnnouncementListOptionType checkInputType(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria) {
@@ -128,8 +184,9 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Shows the users choice for listing announcements.
+     *
      * @param filters - filters
-     * @param sort - sort criterias
+     * @param sort    - sort criterias
      */
     private void showOptions(Object[] filters, String[] sort) {
 
@@ -144,7 +201,7 @@ public class ListAnnouncementsUI implements Runnable {
         } else {
             System.out.println("Type of Transaction: " + filters[1]);
         }
-        if (filters[2].equals(-1)){
+        if (filters[2].equals(-1)) {
             System.out.println("Number of Rooms: None");
         } else {
             System.out.println("Number of Rooms: " + filters[2]);
@@ -161,9 +218,9 @@ public class ListAnnouncementsUI implements Runnable {
             System.out.println("All properties will be listed and sorted by most recently added.");
         } else if (filters[0] != null && filters[1] != null && !filters[2].equals(-1) && sort[0] != null) {
             System.out.println("Properties will be listed using your filters and sort criteria");
-        } else if (filters[0] == null && filters[1] == null && filters[2].equals(-1) && sort[0] != null){
+        } else if (filters[0] == null && filters[1] == null && filters[2].equals(-1) && sort[0] != null) {
             System.out.println("All properties will be listed using your sort criteria.");
-        } else if (filters[0] != null && filters[1] != null && !filters[2].equals(-1) && sort[0] == null){
+        } else if (filters[0] != null && filters[1] != null && !filters[2].equals(-1) && sort[0] == null) {
             System.out.println("Properties will be listed using your filters and sorted by most recently added.");
         }
 
@@ -173,6 +230,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Requests filter options from the user.
+     *
      * @return filters
      */
     private Object[] requestFilters() {
@@ -204,15 +262,16 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Validates users input for choosing type of property.
+     *
      * @param filterValidater - filter validater
      * @return typeOfProperty
      */
-    private TypeOfProperty getTypeOfPropertyFilterOption(int[] filterValidater){
+    private TypeOfProperty getTypeOfPropertyFilterOption(int[] filterValidater) {
         Scanner sc = new Scanner(System.in);
         TypeOfProperty typeOfProperty;
 
         try {
-            typeOfProperty =  checkTypeOfProperty(filterValidater, sc.nextInt());
+            typeOfProperty = checkTypeOfProperty(filterValidater, sc.nextInt());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please use numbers only.");
             typeOfProperty = getTypeOfPropertyFilterOption(filterValidater);
@@ -222,7 +281,9 @@ public class ListAnnouncementsUI implements Runnable {
         return typeOfProperty;
     }
 
-    /** Validates users input for choosing type of transaction.
+    /**
+     * Validates users input for choosing type of transaction.
+     *
      * @param filterValidater - filter validater
      * @return transactionType
      */
@@ -231,7 +292,7 @@ public class ListAnnouncementsUI implements Runnable {
         TransactionType transactionType;
 
         try {
-            transactionType =  checkTransactionType(filterValidater, sc.nextInt());
+            transactionType = checkTransactionType(filterValidater, sc.nextInt());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please use numbers only.");
             transactionType = getTypeOfTransactionFilterOption(filterValidater);
@@ -242,6 +303,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Validates users input for choosing number of rooms.
+     *
      * @param filterValidater - filter validater
      * @return numberOfRooms
      */
@@ -250,7 +312,7 @@ public class ListAnnouncementsUI implements Runnable {
         Integer numberOfRooms;
 
         try {
-            numberOfRooms =  checkNumberOfRooms(filterValidater, sc.nextInt());
+            numberOfRooms = checkNumberOfRooms(filterValidater, sc.nextInt());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please use numbers only.");
             numberOfRooms = getNumberOfRoomsFilterOption(filterValidater);
@@ -261,8 +323,9 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Validates users input for choosing sort criteria.
+     *
      * @param sortCriteria - sort criteria
-     * @param order - order
+     * @param order        - order
      * @return sort
      */
     private String[] requestSortCriteria(String sortCriteria, String order) {
@@ -283,7 +346,7 @@ public class ListAnnouncementsUI implements Runnable {
             }
         } while (exception);
 
-        if (Objects.equals(sortCriteria, "price") || Objects.equals(sortCriteria, "state") || Objects.equals(sortCriteria, "city")){
+        if (Objects.equals(sortCriteria, "price") || Objects.equals(sortCriteria, "state") || Objects.equals(sortCriteria, "city")) {
             clearScreen();
             do {
                 showOrderOptions();
@@ -308,9 +371,10 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Writes filter options to an array of filters.
-     * @param typeOfProperty - type of property
+     *
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param numberOfRooms - number of rooms
+     * @param numberOfRooms   - number of rooms
      * @return filters
      */
     private Object[] writeToArray(TypeOfProperty typeOfProperty, TransactionType transactionType, Integer numberOfRooms) {
@@ -338,8 +402,9 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks type of property filter chosen by user.
+     *
      * @param filterValidater - filter validater
-     * @param option - option
+     * @param option          - option
      * @return typeOfProperty
      */
     private TypeOfProperty checkTypeOfProperty(int[] filterValidater, int option) {
@@ -375,8 +440,9 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks type of business filter chosen by user.
+     *
      * @param filterValidater - filter validater
-     * @param option - option
+     * @param option          - option
      * @return transactionType
      */
     private TransactionType checkTransactionType(int[] filterValidater, int option) {
@@ -411,8 +477,9 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks number of rooms filter chosen by user.
+     *
      * @param filterValidater - filter validater
-     * @param option - option
+     * @param option          - option
      * @return numberOfRooms
      */
     private int checkNumberOfRooms(int[] filterValidater, int option) {
@@ -453,6 +520,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks sort criteria chosen by user.
+     *
      * @param option - option
      * @return sortCriteria
      */
@@ -483,6 +551,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Checks sort order chosen by user.
+     *
      * @param option - option
      * @return order
      */
@@ -499,6 +568,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * Shows announcements to user using filters and the sort criteria he chose.
+     *
      * @param publishedPropertiesList - published properties list
      */
     private void showAnnouncements(ArrayList<Announcement> publishedPropertiesList) {
@@ -516,6 +586,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * This method is used to verify if the user has chosen all filters or none.
+     *
      * @param filterValidater - filter validater
      * @return notValid
      */
@@ -538,6 +609,7 @@ public class ListAnnouncementsUI implements Runnable {
 
     /**
      * This method is used to verify if the user has chosen a sort order.
+     *
      * @param order - order
      */
     private void verifyOrder(String order) {
@@ -554,4 +626,6 @@ public class ListAnnouncementsUI implements Runnable {
             System.out.println();
         }
     }
+
+
 }

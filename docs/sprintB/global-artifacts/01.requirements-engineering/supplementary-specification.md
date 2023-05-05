@@ -2,16 +2,16 @@
 
 ## Functionality
 
-The system should support authentication and authorization for different user roles (System Administrator, Store Manager, Store Network Manager, Agent, and Client).
+The system should support authentication and authorization for different endUser roles (System Administrator, Store Manager, Store Network Manager, Agent, and Client).
 
 The system must provide reporting functionality for monitoring business performance and sales activities.
 
-The system must log user activities for auditing purposes.
+The system must log endUser activities for auditing purposes.
 
 
 ## Usability 
 
-The user interface should follow a consistent design throughout the system.
+The endUser interface should follow a consistent design throughout the system.
 
 Error messages should be clear and informative, helping users to recover from errors.
 
@@ -29,7 +29,7 @@ The system should have a low failure rate, aiming for a high Mean Time Between F
 The system should maintain data integrity and comply with relevant industry standards and regulations.
 
 ## Performance
-The system should have a fast response time to user actions, aiming for sub-second response times.
+The system should have a fast response time to endUser actions, aiming for sub-second response times.
 
 The system should start up quickly and be available for use within a reasonable time.
 
@@ -74,7 +74,7 @@ The system should be optimized for resource usage, including memory and CPU.
 
 
 ### Interface Constraints
-The system should provide an intuitive and user-friendly interface for interacting with external systems, minimizing the need for manual intervention.
+The system should provide an intuitive and endUser-friendly interface for interacting with external systems, minimizing the need for manual intervention.
 
 ### Physical Constraints
 

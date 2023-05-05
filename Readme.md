@@ -38,9 +38,9 @@ The junit-platform-surefire-provider dependency allows us to run tests that use 
 If we want to run tests that use JUnit 5, we have to declare the junit-jupiter-engine dependency.
 
 * Junit Jupiter Dependency graph
-    - https://junit.org/junit5/docs/current/user-guide/
+    - https://junit.org/junit5/docs/current/endUser-guide/
 * JUnit Annotation
-    - https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations
+    - https://junit.org/junit5/docs/current/endUser-guide/#writing-tests-annotations
 
 
 ## Maven goals

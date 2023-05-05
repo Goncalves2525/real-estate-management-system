@@ -2,7 +2,7 @@
 
 # 4. Tests 
 
-**Test 1:** Checks that when a user doesn't choose filters nor sort criteria, a list of all properties sorted by default criteria (most recently added) is returned - AC5.
+**Test 1:** Checks that when a endUser doesn't choose filters nor sort criteria, a list of all properties sorted by default criteria (most recently added) is returned - AC5.
 
     @Test
     void ensureGetAllAnnouncementsSortedByDefualtCriteria_ReturnsCorrectList() {
@@ -19,7 +19,7 @@
 
 
 
-**Test 2:** Checks that when a user only choses to sort, the list of properties is correctly ordered - AC2 and AC4. 
+**Test 2:** Checks that when a endUser only choses to sort, the list of properties is correctly ordered - AC2 and AC4. 
 
 	@Test
     void ensureGetAllAnnouncementsSortedBySortCriteria_ReturnsCorrectList() {
@@ -46,7 +46,7 @@
         assertEquals(expected, resultString);
     }
 
-**Test 4:** Checks that when a user only choses to filter, the list of properties is correctly filtered  - AC1 and AC3. 
+**Test 4:** Checks that when a endUser only choses to filter, the list of properties is correctly filtered  - AC1 and AC3. 
 
     @Test
     void ensureGetFilteredAnnouncements_FiltersCorrectly() {
@@ -83,7 +83,7 @@
 
     }
 
-**Test 6:** Checks that when a user choses to filter and sort, the list of properties is correctly filtered and sorted - AC1, AC2 and AC4. 
+**Test 6:** Checks that when a endUser choses to filter and sort, the list of properties is correctly filtered and sorted - AC1, AC2 and AC4. 
 
     @Test
     void ensureGetFilteredAndSortedAnnouncements_FiltersAndSortsCorrectly() {

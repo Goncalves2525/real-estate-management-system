@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This class represents a User and its characteristics.
  */
-public abstract class User {
+public abstract class EndUser {
     private String name;
     private String email;
     private int passportCardNumber;
@@ -28,7 +28,7 @@ public abstract class User {
      * @param agency              the agency
      */
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
+    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -51,7 +51,7 @@ public abstract class User {
      * @param roles               the roles
      */
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
+    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -73,7 +73,7 @@ public abstract class User {
      * @param roles               the roles
      */
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
+    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -93,7 +93,7 @@ public abstract class User {
      * @param roles               the roles
      */
 
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
+    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -108,7 +108,7 @@ public abstract class User {
      * @param email               the email
      */
 
-    public User(String email) {
+    public EndUser(String email) {
         this.email = email;
     }
     /**
@@ -117,7 +117,7 @@ public abstract class User {
      * @param email               the email
      * @param agency              the agency
      */
-    public User(String email, Agency agency) {
+    public EndUser(String email, Agency agency) {
         this.email = email;
         this.agency = agency;
     }
@@ -130,7 +130,7 @@ public abstract class User {
      * @param taxNumber           the tax number
      * @param telephoneNumber     the telephone number
      */
-    public User(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
+    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;

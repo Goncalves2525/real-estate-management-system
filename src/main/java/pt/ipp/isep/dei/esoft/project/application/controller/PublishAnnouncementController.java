@@ -26,7 +26,7 @@ public class PublishAnnouncementController {
      * Instantiates a new Publish announcement controller.
      */
     public PublishAnnouncementController() {
-        this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();;
+        this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
 

@@ -87,7 +87,7 @@ choosing the responsible agent.
 >
 > **Answer:** The maximum number of photos is 30.
 
-> **Question:**  It was previously stated that an unregistered user could do a property listing request. However, with the introduction of US007, I want to clarify and make sure that now a user needs to be registered in order to buy, sell or rent properties, or if they can still do it unregistered.
+> **Question:**  It was previously stated that an unregistered endUser could do a property listing request. However, with the introduction of US007, I want to clarify and make sure that now a endUser needs to be registered in order to buy, sell or rent properties, or if they can still do it unregistered.
 >
 > **Answer:**  In Sprint B we introduce US7 and now, in US4, the owner needs to be registered in the system to submit a request for listing. You should update all artifacts to include this change.
 

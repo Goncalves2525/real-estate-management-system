@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As an unregistered user, I want to display listed properties.
+As an unregistered endUser, I want to display listed properties.
 
 
 
@@ -30,7 +30,7 @@ As an unregistered user, I want to display listed properties.
 
 > If the system does not contain any properties, the system should show an empty list of properties.
 
-> **Question:**  When an unregistered user wants to list properties, the list given by the program is sorted by default with which criteria? For example the list is shown with the properties sorted by most recently added?
+> **Question:**  When an unregistered endUser wants to list properties, the list given by the program is sorted by default with which criteria? For example the list is shown with the properties sorted by most recently added?
 >  
 > **Answer:** Thank you for your suggestion. By default, the list should be shown with the properties sorted by most recently added.
 
@@ -38,9 +38,9 @@ As an unregistered user, I want to display listed properties.
 >  
 > **Answer:** No.
 
-> **Question:** Can a user filter the properties list for example by a type but choosing multiple value?
+> **Question:** Can a endUser filter the properties list for example by a type but choosing multiple value?
 >
-> **Answer:** The user should only select one value for each feature of the property.
+> **Answer:** The endUser should only select one value for each feature of the property.
 
 
 ### 1.3. Acceptance Criteria
@@ -50,7 +50,7 @@ As an unregistered user, I want to display listed properties.
 * **AC2:** The properties can be sorted by price, state and city.
 * **AC3:** It is possible to only filter or only sort the properties.
 * **AC4:** It is possible to filter and sort properties simultaneously.
-* **AC5:** If the user does not select any filter or sort criteria, the properties are sorted by default criteria (most recently added).
+* **AC5:** If the endUser does not select any filter or sort criteria, the properties are sorted by default criteria (most recently added).
 
 
 

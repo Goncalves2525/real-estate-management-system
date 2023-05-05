@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Employee Repository.
