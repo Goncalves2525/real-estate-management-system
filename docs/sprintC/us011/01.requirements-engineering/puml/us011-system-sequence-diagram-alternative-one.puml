@@ -27,70 +27,13 @@ activate Agent
         Agent -> System : select purchase order
     activate System
 
-        System --> Agent : displays option list (Accept, Reject)
+        System --> Agent : displays option list (Accept or Reject)
     deactivate  System
 
-        Agent -> System :select option (Accept, Reject)
+        Agent -> System :select option (Accept or Reject)
     activate System
 
-        System --> Agent :display the list of purchase orders sorted by the amount offered, the highest offer appear first.
-    deactivate System
-
-
-    alt Accept
-
-        Agent -> System : accetps purchase order
-     activate System
-    else Reject
-        System --> Agent : decline purchase order
-    deactivate System
-    end
-        Agent -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
-    activate System
-
-        System --> Agent : requests type of transaction
-    deactivate System
-
-
-        Agent -> System : types requested data (Sale or Rent)
-    activate System
-
-
-    opt Rent
-
-        System --> Agent: request contract duration
-        deactivate System
-
-        Agent -> System: types requested data
-        activate System
-    end
-
-        System --> Agent : requests type of property
-    deactivate System
-
-        Agent -> System : types requested data (Apartement, House, Land)
-    activate System
-
-            System --> Agent : requests data of property
-    deactivate System
-
-    alt  Land
-
-        Agent -> System: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
-    activate System
-    else  Apartement
-        Agent -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
-    else  House
-        Agent -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
-    end
-
-            System --> Agent : ask to confirm data
-    deactivate System
-
-            Agent -> System: confirm entered data
-    activate System
-
-        System --> Agent : displays operation success
+        System --> Agent : system send email to client.
     deactivate System
 
 

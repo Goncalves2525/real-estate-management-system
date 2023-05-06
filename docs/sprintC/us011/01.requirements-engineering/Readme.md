@@ -18,11 +18,6 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 
 **From the client clarifications:**
 
-> **Question:** We are having a little issue defining what the sun exposure might be. We are not sure what it will be as a value. If it's a number that defines how much exposure the house has or if it is just a text saying if it has or hasn't sun exposure.
->  
-> **Answer:** Sun exposure will take the following values: North, South, East, or West.
-
-
 > **Question:** When the agent declines an order, she has to be removed from the list and system?
 >  
 > **Answer:** The order should be removed from the list but not from the system.
@@ -76,36 +71,15 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 **Input Data:**
 
 * Typed data:
-	* Owner:
-		* a name,
-		* a citizen's card number,
-		* a tax number,
-		* an address,
-		* an email address,
-		* a contact telephone number.
+	*
       
 * Selected data:
-	* Property:
-		* an area (in m2),
-		* a location,
-		* a distance from the city centre,
-		* a requested price (USD),
-		* a single or multiple photographs.
-			* Apartment or House:
-				* a number of bedrooms,
-				* a number of bathrooms,
-				* a number of parking spaces,
-				* any available equipment (such as central heating and/or air conditioning).
-			* House:
-				* existence of a basement,
-				* existence of an inhabitable loft,
-				* a sun exposure value.
-
+	* Property type (filter)
+	* Price (sort)
 
 **Output Data:**
 
-* (In)Success of the operation
-* 
+* send email notification to customer with pending proposal regardless of accepted or rejected proposal
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -113,12 +87,12 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us004-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us011-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us004-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us011-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* 

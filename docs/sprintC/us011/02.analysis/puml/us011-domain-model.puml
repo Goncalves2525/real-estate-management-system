@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+
+class Employee  {
+}
+
+class Role {
+    agent
+    client
+}
+
+class PurchaseOrder{
+    id
+    creationDate
+    status
+    price
+    property
+    endUser
+}
+class Person{
+    name
+    passportCardNumber
+    taxNumber
+    email
+    telephoneNumber
+}
+
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+class Email{
+    email
+    decison
+    orderid
+}
+
+class endUser{
+    name
+    email
+    telephoneNumber
+}
+
+PurchaseOrder "1" - "1" Property: has >
+Employee "1" - "*" Role: has >
+Employee "1" -- "*" PurchaseOrder: list >
+PurchaseOrder "1" -- "*" Email: has >
+Employee "1" -- "*" Email: send >
+endUser "1" -- "*" Email: has >
+endUser "1" -- "*" Role: has >
+
+@enduml
