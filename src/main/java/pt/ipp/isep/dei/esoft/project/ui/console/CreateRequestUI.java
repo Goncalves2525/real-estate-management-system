@@ -49,7 +49,6 @@ public class CreateRequestUI implements Runnable {
 
 
         TransactionType transactionType;
-        Property property = null;
         SunExposure sunExposure = null;
 
 
@@ -200,19 +199,22 @@ public class CreateRequestUI implements Runnable {
 
         /**
          * Create Announcement
-         * @param property
+         * @param propertyID
          *
          */
 
         if (typeOfProperty.equals(TypeOfProperty.HOUSE)) {
-            property = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
-            controller.createAnnouncementHouse(agent, transactionType, contractDuration, typeOfProperty, property);
+            int propertyID;
+            propertyID = controller.createPropertyHouse(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure);
+            controller.createAnnouncementHouse(agent, transactionType, contractDuration, typeOfProperty, propertyID);
         } else if (typeOfProperty.equals(TypeOfProperty.LAND)) {
-            property = new Land(area, price, distanceFromCenter, address);
-            controller.createAnnouncementLand(agent, transactionType, contractDuration, typeOfProperty, property);
+            int propertyID;
+            propertyID = controller.createPropertyLand(area, distanceFromCenter, price, address);
+            controller.createAnnouncementLand(agent, transactionType, contractDuration, typeOfProperty, propertyID);
         } else if (typeOfProperty.equals(TypeOfProperty.APARTMENT)) {
-            property = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
-            controller.createAnnouncementApartment(agent, transactionType, contractDuration, typeOfProperty, property);
+            int propertyID;
+            propertyID = controller.createPropertyApartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
+            controller.createAnnouncementApartment(agent, transactionType, contractDuration, typeOfProperty, propertyID);
         }
 
         System.out.println("Property added successfully!");
@@ -354,7 +356,7 @@ public class CreateRequestUI implements Runnable {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         ArrayList<Employee> agents = employeeRepository.getEmployeeList();
         for (Employee agent : agents) {
-            if (agent.getAgency().getId() == id){
+            if (agent.getAgencyID() == id){
                 System.out.printf("%-8s %15s%n", agent.getEmail() + " - " + agent.getName(), "");
 
 

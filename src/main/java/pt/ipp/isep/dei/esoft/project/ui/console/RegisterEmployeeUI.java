@@ -49,7 +49,7 @@ public class RegisterEmployeeUI implements Runnable {
 
         ArrayList<Role> selectedRoles = selectRoles(scanner);
 
-        Agency agency = selectAgency(scanner);
+        int agencyID = selectAgency(scanner);
 
         String name = inputName(scanner);
 
@@ -65,9 +65,9 @@ public class RegisterEmployeeUI implements Runnable {
 
         String password = controller.generatePassword();
 
-        String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
+        String answer = displayConfirmation(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agencyID, selectedRoles);
 
-        processRegistration(password, answer, name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
+        processRegistration(password, answer, name, email, passportCardNumber, taxNumber, telephoneNumber, address, agencyID, selectedRoles);
 
 
     }
@@ -171,7 +171,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param scanner
      * @return
      */
-    private Agency selectAgency(Scanner scanner) {
+    private int selectAgency(Scanner scanner) {
         System.out.println();
         System.out.println("Available agencies:");
 
@@ -186,8 +186,8 @@ public class RegisterEmployeeUI implements Runnable {
                 agencyId = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character from previous input
 
-                if (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyListRepository().getAgencies().size()) {
-                    System.out.println("Invalid agency ID. Please select a value between 1 and " + Repositories.getInstance().getAgencyListRepository().getAgencies().size() + ":");
+                if (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyRepository().getAgencies().size()) {
+                    System.out.println("Invalid agency ID. Please select a value between 1 and " + Repositories.getInstance().getAgencyRepository().getAgencies().size() + ":");
                 }
 
             } catch (InputMismatchException e) {
@@ -195,9 +195,9 @@ public class RegisterEmployeeUI implements Runnable {
                 scanner.nextLine(); // Consume the invalid input
                 agencyId = -1; // Set agencyId to an invalid value to trigger the loop again
             }
-        } while (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyListRepository().getAgencies().size());
+        } while (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyRepository().getAgencies().size());
 
-        return getAgencyById(agencyId);
+        return agencyId;
     }
 
     /** List the agencies.
@@ -206,7 +206,7 @@ public class RegisterEmployeeUI implements Runnable {
      */
     private void listAgencies() {
 
-        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyRepository();
 
         List<Agency> agencies = agencyRepository.getAgencies();
 
@@ -225,7 +225,7 @@ public class RegisterEmployeeUI implements Runnable {
      */
     private Agency getAgencyById(int id) {
 
-        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyRepository();
 
         return agencyRepository.getAgencyById(id);
 
@@ -467,7 +467,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param telephoneNumber The 10-digit telephone number to be formatted
      * @return The formatted telephone number
      */
-    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, ArrayList<Role> selectedRoles) {
+    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please confirm the following information:");
@@ -486,7 +486,7 @@ public class RegisterEmployeeUI implements Runnable {
             System.out.println("Address: " + address.toString());
         }
 
-        System.out.println("Agency: " + agency.getName());
+        System.out.println("Agency: " + controller.getAgencyByID(agencyID));
 
         System.out.print("Roles: ");
 
@@ -536,14 +536,14 @@ public class RegisterEmployeeUI implements Runnable {
      * @param taxNumber
      * @param telephoneNumber
      * @param address
-     * @param agency
      * @param selectedRoles
+     * @param agencyID
      */
-    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> selectedRoles) {
+    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, List<Role> selectedRoles) {
 
         if (answer.equalsIgnoreCase("Y")) {
 
-            boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, selectedRoles);
+            boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agencyID, selectedRoles);
 
             if (success) {
 

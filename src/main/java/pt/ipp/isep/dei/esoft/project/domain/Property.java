@@ -10,10 +10,13 @@ package pt.ipp.isep.dei.esoft.project.domain;
  */
 
 public class Property {
+
+    private final int id;
     private double area;
     private double distanceFromCenter;
     private double price;
     private Address address;
+    private static int idCounter = 0;
 
     /**
      * Instantiates a new Property.
@@ -28,6 +31,7 @@ public class Property {
         this.distanceFromCenter = distanceFromCenter;
         this.price = price;
         this.address = address;
+        id = idCounter++;
     }
     /**
      * Gets address.
@@ -56,6 +60,11 @@ public class Property {
     public double getArea() {
         return area;
     }
+
+    public int getId() {
+        return id;
+    }
+
     /**
      * Sets area.
      *

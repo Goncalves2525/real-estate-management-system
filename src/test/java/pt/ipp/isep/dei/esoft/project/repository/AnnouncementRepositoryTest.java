@@ -31,10 +31,10 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
         Property p3 = new Land(150, 30, 50000, a3);
         Property p4 = new House(150, 30, 3000000, a4, 1, 2, true, true);
         Announcement.idCounter = 0;
-        announcementRepository.addAnnouncement(p1, typeHouse, typeSale, d1, c1, null, true);
-        announcementRepository.addAnnouncement(p2, typeApartment, typeRent, d2, c1, null, true);
-        announcementRepository.addAnnouncement(p3, typeLand, typeRent, d3, c1, null, true);
-        announcementRepository.addAnnouncement(p4, typeHouse, typeSale, d3, c1, null, true);
+        announcementRepository.addAnnouncement(p1.getId(), typeHouse, typeSale, d1, c1, null, true);
+        announcementRepository.addAnnouncement(p2.getId(), typeApartment, typeRent, d2, c1, null, true);
+        announcementRepository.addAnnouncement(p3.getId(), typeLand, typeRent, d3, c1, null, true);
+        announcementRepository.addAnnouncement(p4.getId(), typeHouse, typeSale, d3, c1, null, true);
     }
 
     @Test
@@ -56,8 +56,8 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
 
         double expectedFirst = 3000000;
         double expectedLast = 50000;
-        double resultFirst = result.get(0).getProperty().getPrice();
-        double resultLast = result.get(3).getProperty().getPrice();
+        double resultFirst = announcementRepository.getPropertyByAnnouncement(result.get(0)).getPrice();
+        double resultLast = announcementRepository.getPropertyByAnnouncement(result.get(3)).getPrice();
 
         assertEquals(expectedFirst, resultFirst);
         assertEquals(expectedLast, resultLast);
@@ -81,7 +81,7 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
         int resultInt = result.size();
         TypeOfProperty resultType = result.get(0).getTypeOfProperty();
         TransactionType resultTransaction = result.get(0).getTransactionType();
-        int resultRooms = ((House) result.get(0).getProperty()).getNumberOfBedrooms();
+        int resultRooms = ((House) announcementRepository.getPropertyByAnnouncement(result.get(0))).getNumberOfBedrooms();
 
         //asserts array size
         assertEquals(expected, resultInt);
@@ -114,11 +114,11 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
         int resultInt = result.size();
         double expectedFirst = 3000000;
         double expectedLast = 250000;
-        double resultFirst = result.get(0).getProperty().getPrice();
-        double resultLast = result.get(1).getProperty().getPrice();
+        double resultFirst = announcementRepository.getPropertyByAnnouncement(result.get(0)).getPrice();
+        double resultLast = announcementRepository.getPropertyByAnnouncement(result.get(1)).getPrice();
         TypeOfProperty resultType = result.get(0).getTypeOfProperty();
         TransactionType resultTransaction = result.get(0).getTransactionType();
-        int resultRooms = ((House) result.get(0).getProperty()).getNumberOfBedrooms();
+        int resultRooms = ((House) announcementRepository.getPropertyByAnnouncement(result.get(0))).getNumberOfBedrooms();
 
         //asserts array size
         assertEquals(expected, resultInt);
@@ -136,7 +136,7 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
     @Test
     void ensureAddAnnouncement_Works() {
         Property property = new House(150, 30, 250000, new Address("Rua 1", "Braga", "Braga", "Minho", 123333), 1, 2, true, true);
-        announcementRepository.addAnnouncement(property, TypeOfProperty.HOUSE, TransactionType.SALE, new Date(2019, 10, 10), new Commission(), null, true);
+        announcementRepository.addAnnouncement(property.getId(), TypeOfProperty.HOUSE, TransactionType.SALE, new Date(2019, 10, 10), new Commission(), null, true);
 
         int expected = 5;
         int result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria().size();

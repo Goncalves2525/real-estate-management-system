@@ -6,15 +6,14 @@ import java.util.List;
 /**
  * This class represents a User and its characteristics.
  */
-public abstract class EndUser {
+public abstract class Person {
     private String name;
-    private String email;
+    private final String email;
     private int passportCardNumber;
     private int taxNumber;
     private int telephoneNumber;
     private Address address;
     private List<Role> roles;
-    private Agency agency;
 
     /**
      * Instantiates a new User.
@@ -25,42 +24,17 @@ public abstract class EndUser {
      * @param taxNumber           the tax number
      * @param telephoneNumber     the telephone number
      * @param address             the address
-     * @param agency              the agency
      */
 
-    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
         this.taxNumber = taxNumber;
         this.telephoneNumber = telephoneNumber;
         this.address = address;
-        this.agency = agency;
     }
 
-    /**
-     * Instantiates a new User.
-     *
-     * @param name                the name
-     * @param email               the email
-     * @param passportCardNumber  the passport card number
-     * @param taxNumber           the tax number
-     * @param telephoneNumber     the telephone number
-     * @param address             the address
-     * @param agency              the agency
-     * @param roles               the roles
-     */
-
-    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
-        this.name = name;
-        this.email = email;
-        this.passportCardNumber = passportCardNumber;
-        this.taxNumber = taxNumber;
-        this.telephoneNumber = telephoneNumber;
-        this.address = address;
-        this.agency = agency;
-        this.roles = roles;
-    }
     /**
      * Instantiates a new User.
      *
@@ -73,7 +47,7 @@ public abstract class EndUser {
      * @param roles               the roles
      */
 
-    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -93,7 +67,7 @@ public abstract class EndUser {
      * @param roles               the roles
      */
 
-    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -108,19 +82,10 @@ public abstract class EndUser {
      * @param email               the email
      */
 
-    public EndUser(String email) {
+    public Person(String email) {
         this.email = email;
     }
-    /**
-     * Instantiates a new User.
-     *
-     * @param email               the email
-     * @param agency              the agency
-     */
-    public EndUser(String email, Agency agency) {
-        this.email = email;
-        this.agency = agency;
-    }
+
     /**
      * Instantiates a new User.
      *
@@ -130,7 +95,7 @@ public abstract class EndUser {
      * @param taxNumber           the tax number
      * @param telephoneNumber     the telephone number
      */
-    public EndUser(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -141,7 +106,6 @@ public abstract class EndUser {
         this.setRoles(roles);
     }
 
-    // ... outros métodos ...
 
     public String getName() {
         return name;
@@ -179,14 +143,6 @@ public abstract class EndUser {
         this.address = address;
     }
 
-
-    public Agency getAgency() {
-        return agency;
-    }
-
-    public void setAgency(Agency agency) {
-        this.agency = agency;
-    }
 
 
     @Override

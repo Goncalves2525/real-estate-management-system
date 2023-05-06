@@ -8,7 +8,7 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 'left to right directio
-abstract class EndUser{
+abstract class Person{
 }
 
 class Property{
@@ -186,7 +186,7 @@ class Commission{
 +toString() : String
 }
 
-class Client extends EndUser{
+class Client extends Person{
 }
 
 
@@ -194,7 +194,7 @@ class Order{
     -orderAmount : double
 }
 
-class Employee extends EndUser{
+class Employee extends Person{
 + addRole(role: Role): void
 + hasRole(role: Role): boolean
 }

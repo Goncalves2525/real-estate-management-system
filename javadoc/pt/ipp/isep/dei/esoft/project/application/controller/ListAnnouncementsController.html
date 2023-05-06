@@ -95,9 +95,9 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">List Announcements Controller Class.
 
- This class is the controller for the endUser story of listing announcements.
+ This class is the controller for the person story of listing announcements.
 
- This class serves as an intermediary between the endUser interface and the repository and domain classes.</div>
+ This class serves as an intermediary between the person interface and the repository and domain classes.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,13 +130,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllAnnouncementsSortedByDefualtCriteria()" class="member-name-link">getAllAnnouncementsSortedByDefualtCriteria</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This is the method used for when the endUser doesn't want to filter or sort the announcements</div>
+<div class="block">This is the method used for when the person doesn't want to filter or sort the announcements</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllAnnouncementsSortedBySortCriteria(java.lang.String,java.lang.String)" class="member-name-link">getAllAnnouncementsSortedBySortCriteria</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sortCriteria,
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;order)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This is the method used for when the endUser wants to only sort the announcements</div>
+<div class="block">This is the method used for when the person wants to only sort the announcements</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFilteredAndSortedAnnouncements(pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty,pt.ipp.isep.dei.esoft.project.domain.TransactionType,int,java.lang.String,java.lang.String)" class="member-name-link">getFilteredAndSortedAnnouncements</a><wbr>(<a href="../../domain/TypeOfProperty.html" title="enum class in pt.ipp.isep.dei.esoft.project.domain">TypeOfProperty</a>&nbsp;typeOfProperty,
@@ -145,14 +145,14 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sortCriteria,
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;order)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This is the method used for when the endUser wants to filter and sort the announcements</div>
+<div class="block">This is the method used for when the person wants to filter and sort the announcements</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFilteredAnnouncements(pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty,pt.ipp.isep.dei.esoft.project.domain.TransactionType,int)" class="member-name-link">getFilteredAnnouncements</a><wbr>(<a href="../../domain/TypeOfProperty.html" title="enum class in pt.ipp.isep.dei.esoft.project.domain">TypeOfProperty</a>&nbsp;typeOfProperty,
  <a href="../../domain/TransactionType.html" title="enum class in pt.ipp.isep.dei.esoft.project.domain">TransactionType</a>&nbsp;transactionType,
  int&nbsp;numberOfRooms)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This is the method used for when the endUser wants to only filter the announcements</div>
+<div class="block">This is the method used for when the person wants to only filter the announcements</div>
 </div>
 </div>
 </div>
@@ -192,7 +192,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getAllAnnouncementsSortedByDefualtCriteria()">
 <h3>getAllAnnouncementsSortedByDefualtCriteria</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</span>&nbsp;<span class="element-name">getAllAnnouncementsSortedByDefualtCriteria</span>()</div>
-<div class="block">This is the method used for when the endUser doesn't want to filter or sort the announcements</div>
+<div class="block">This is the method used for when the person doesn't want to filter or sort the announcements</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>announcementList</dd>
@@ -204,7 +204,7 @@ loadScripts(document, 'script');</script>
 <h3>getAllAnnouncementsSortedBySortCriteria</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</span>&nbsp;<span class="element-name">getAllAnnouncementsSortedBySortCriteria</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sortCriteria,
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;order)</span></div>
-<div class="block">This is the method used for when the endUser wants to only sort the announcements</div>
+<div class="block">This is the method used for when the person wants to only sort the announcements</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>sortCriteria</code> - - sort criteria</dd>
@@ -220,7 +220,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../../domain/Announcement.html" title="class in pt.ipp.isep.dei.esoft.project.domain">Announcement</a>&gt;</span>&nbsp;<span class="element-name">getFilteredAnnouncements</span><wbr><span class="parameters">(<a href="../../domain/TypeOfProperty.html" title="enum class in pt.ipp.isep.dei.esoft.project.domain">TypeOfProperty</a>&nbsp;typeOfProperty,
  <a href="../../domain/TransactionType.html" title="enum class in pt.ipp.isep.dei.esoft.project.domain">TransactionType</a>&nbsp;transactionType,
  int&nbsp;numberOfRooms)</span></div>
-<div class="block">This is the method used for when the endUser wants to only filter the announcements</div>
+<div class="block">This is the method used for when the person wants to only filter the announcements</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>typeOfProperty</code> - - type of property</dd>
@@ -239,7 +239,7 @@ loadScripts(document, 'script');</script>
  int&nbsp;numberOfRooms,
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sortCriteria,
  <a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;order)</span></div>
-<div class="block">This is the method used for when the endUser wants to filter and sort the announcements</div>
+<div class="block">This is the method used for when the person wants to filter and sort the announcements</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>typeOfProperty</code> - - type of property</dd>

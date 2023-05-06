@@ -24,9 +24,9 @@ class EmployeeRepositoryTest {
     void setUp() {
         employeeRepository = new EmployeeRepository();
         address1 = new Address("Street", "City", "district", "state", 1234);
-        agency1 = new Agency(1, "Agency1", "agency1@example.com", 123456789, address1, new ArrayList<>());
-        employee1 = new Employee("John Doe", "john.doe@example.com", 11111, 22222, 33333, address1, agency1, Arrays.asList(Role.AGENT));
-        employee2 = new Employee("Jane Doe", "jane.doe@example.com", 11112, 22223, 33334, address1, agency1, Arrays.asList(Role.AGENT));
+        agency1 = new Agency("Agency1", "agency1@example.com", 123456789, address1, new ArrayList<>());
+        employee1 = new Employee("John Doe", "john.doe@example.com", 11111, 22222, 33333, address1, Arrays.asList(Role.AGENT), agency1.getId()  );
+        employee2 = new Employee("Jane Doe", "jane.doe@example.com", 11112, 22223, 33334, address1, Arrays.asList(Role.AGENT), agency1.getId());
     }
 
 

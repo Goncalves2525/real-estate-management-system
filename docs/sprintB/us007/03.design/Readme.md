@@ -9,10 +9,10 @@
 |:-----------------------------------------------------|:------------------------------------------------------------------|:-------------------------|:-----------------------------------------|
 | Step 1 : User requests to register in the System  		 | 	... requesting the users credentials?                            | RegisterUserUI           | Pure Fabrication                         |
 | 		                                                   | 	... validating users input's?                                    | RegisterUserUI           | Pure Fabrication                         |
-| 	Step 2 : System creates endUser 	                      | 	... coordination between users request and endUser acount creation? | RegisterUserController   | Controller                               |
-|                                                      | 	... creating the endUser?                                           | AuthenticationRepository | Creater                                  |
-|                                                      | 	... saving the endUser in the system?                               | UserRepository           | Information Expert,<br/>Pure Fabrication |
-| Step 3 : System sends email confirmation			  		      | 	... sending a confirmation email to the endUser?                    | RegisterUserUI           | Pure Fabrication                         |
+| 	Step 2 : System creates person 	                      | 	... coordination between users request and person acount creation? | RegisterUserController   | Controller                               |
+|                                                      | 	... creating the person?                                           | AuthenticationRepository | Creater                                  |
+|                                                      | 	... saving the person in the system?                               | UserRepository           | Information Expert,<br/>Pure Fabrication |
+| Step 3 : System sends email confirmation			  		      | 	... sending a confirmation email to the person?                    | RegisterUserUI           | Pure Fabrication                         |
 
 
 
@@ -33,7 +33,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-This diagram shows the full sequence of interactions between the classes involved in the realization of this endUser story.
+This diagram shows the full sequence of interactions between the classes involved in the realization of this person story.
 
 ![Sequence Diagram - Full](svg/us001-sequence-diagram-full.svg)
 

@@ -27,11 +27,11 @@ As a system administrator, I want to register a new employee.
 >
 > **ANSWER:** An employee can have more than one role.
 
-> **QUESTION:** When registering a new employee, should their email be their personal email or the company email? If it is the company email, what should the email sufix be? For an example, the email address endUser@gmail.com has the sufix "gmail.com". Should we register an employee as endUser@company-name.com?
+> **QUESTION:** When registering a new employee, should their email be their personal email or the company email? If it is the company email, what should the email sufix be? For an example, the email address person@gmail.com has the sufix "gmail.com". Should we register an employee as person@company-name.com?
 >
 > **ANSWER:** The employee's email account is any email account provided by the employee.
 
-> **QUESTION:** When a endUser starts a registration, does the application need to validate if the data is valid (for example: blank text box, email without @, etc)?
+> **QUESTION:** When a person starts a registration, does the application need to validate if the data is valid (for example: blank text box, email without @, etc)?
 >
 > **ANSWER:** Data validation is always a good practice.
 

@@ -17,6 +17,7 @@ import java.util.List;
 public class ListAnnouncementsController {
 
     private AnnouncementRepository announcementRepository = null;
+    private PropertyRepository propertyRepository = null;
     private AuthenticationRepository authenticationRepository = null;
 
     /**
@@ -27,6 +28,7 @@ public class ListAnnouncementsController {
 
     public ListAnnouncementsController() {
         getAnnoucementRepository();
+        getPropertyRepository();
         getAuthenticationRepository();
     }
 
@@ -53,6 +55,14 @@ public class ListAnnouncementsController {
             announcementRepository = repositories.getAnnouncementRepository();
         }
         return announcementRepository;
+    }
+
+    private PropertyRepository getPropertyRepository() {
+        if (propertyRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            propertyRepository = repositories.getPropertyRepository();
+        }
+        return propertyRepository;
     }
 
     /**
@@ -100,6 +110,12 @@ public class ListAnnouncementsController {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
+
+    public Property getPropertyByAnnouncement(Announcement announcement){
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.getPropertyByAnnouncement(announcement);
+    }
+
 
     /**
      * @return true if user is logged in, false otherwise

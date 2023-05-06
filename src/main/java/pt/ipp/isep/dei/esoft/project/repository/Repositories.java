@@ -20,6 +20,8 @@ public class Repositories {
 
     OrderRepository orderRepository = new OrderRepository();
 
+    PropertyRepository propertyRepository = new PropertyRepository();
+
     private Repositories() {
     }
 
@@ -35,13 +37,14 @@ public class Repositories {
         return authenticationRepository;
     }
 
-    public AgencyRepository getAgencyListRepository() {
+    public AgencyRepository getAgencyRepository() {
         return agencyRepository;
     }
 
     public EmployeeRepository getEmployeeRepository() {
         return employeeRepository;
     }
+
 
     public RoleRepository getRoleRepository() {
         return roleRepository;
@@ -53,6 +56,10 @@ public class Repositories {
 
     public OrderRepository getOrderRepository() {
         return orderRepository;
+    }
+
+    public PropertyRepository getPropertyRepository() {
+        return propertyRepository;
     }
 
 }

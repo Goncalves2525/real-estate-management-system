@@ -105,7 +105,7 @@ public class ListAnnouncementsUI implements Runnable {
     }
 
     private boolean userIsLoggedInWithClientRole() {
-        if (controller.userIsLoggedInWithClientRole()) {
+        if (getController().userIsLoggedInWithClientRole()) {
             return true;
         }
         return false;
@@ -578,7 +578,8 @@ public class ListAnnouncementsUI implements Runnable {
 
         for (Announcement announcement : publishedPropertiesList) {
             System.out.println("-----------------------------");
-            System.out.println(announcement.toString());
+            System.out.print(announcement.toString());
+            System.out.println(controller.getPropertyByAnnouncement(announcement));
             System.out.println("-----------------------------\n");
 
         }

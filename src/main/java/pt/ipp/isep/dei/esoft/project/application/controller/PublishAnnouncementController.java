@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Commission;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -74,4 +75,8 @@ public class PublishAnnouncementController {
             return null;
         }
     }
+
+        public Property getPropertyByAnnouncement(Announcement announcement){
+            return announcementRepository.getPropertyByAnnouncement(announcement);
+        }
 }

@@ -52,7 +52,7 @@ public class EmployeeRepository {
         ArrayList<Employee> allAgents = getEmployeeList();
         ArrayList<Employee> agentsByAgency = new ArrayList<>();
         for (Employee agent : allAgents) {
-            if (agent.getAgency() != null && agent.getAgency().getId() == agencyId) {
+            if (agent.getAgencyID() == agencyId) {
                 agentsByAgency.add(agent);
             }
         }

@@ -46,6 +46,7 @@ public class PublishAnnouncementUI implements Runnable {
                 System.out.println("The following announcements are available to publish:");
                 for (Announcement a : announcements) {
                     printAnnouncement(a);
+                    System.out.println(controller.getPropertyByAnnouncement(a));
                 }
                 int id = 0;
                 try{
@@ -152,6 +153,6 @@ public class PublishAnnouncementUI implements Runnable {
      */
     private void printAnnouncement(Announcement a) {
         System.out.println("---------------------------------");
-        System.out.println(a.toString());
+        System.out.print(a.toString());
     }
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.isep.lei.esoft.auth.UserSession;
 
@@ -16,7 +17,7 @@ import java.util.*;
  */
 public class AnnouncementRepository {
 
-    private ArrayList<Announcement> announcements = new ArrayList<>();
+    private final ArrayList<Announcement> announcements = new ArrayList<>();
 
 
     /**
@@ -63,15 +64,16 @@ public class AnnouncementRepository {
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
             Announcement announcement = iterator.next();
-            if (announcement.getProperty() instanceof House) {
-                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((House) announcement.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
+            Property property = getPropertyByAnnouncement(announcement);
+            if (property instanceof House) {
+                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((House) property).getNumberOfBedrooms() != numberOfRooms) {
                     iterator.remove();
                 }
-            } else if (announcement.getProperty() instanceof Apartment) {
-                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((Apartment) announcement.getProperty()).getNumberOfBedrooms() != numberOfRooms) {
+            } else if (property instanceof Apartment) {
+                if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType || ((Apartment) property).getNumberOfBedrooms() != numberOfRooms) {
                     iterator.remove();
                 }
-            } else if (announcement.getProperty() instanceof Land) {
+            } else if (property instanceof Land) {
                 if (announcement.getTypeOfProperty() != typeOfProperty || announcement.getTransactionType() != transactionType) {
                     iterator.remove();
                 }
@@ -108,7 +110,7 @@ public class AnnouncementRepository {
     /**
      * Adds an announcement to the repository
      *
-     * @param property        - property
+     * @param propertyID       - property id
      * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
      * @param date            - date
@@ -116,15 +118,15 @@ public class AnnouncementRepository {
      * @param photos          - photos
      * @param isPublished     - is published
      */
-    public void addAnnouncement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
-        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, date, commission, photos, isPublished);
+    public void addAnnouncement(int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(propertyID, typeOfProperty, transactionType, date, commission, photos, isPublished);
             announcements.add(announcement);
     }
 
     /**
      * Adds an announcement to the repository, with an agent associated
      * @param agent - agent
-     * @param property - property
+     * @param propertyID - property id
      * @param typeOfProperty - type of property
      * @param transactionType - transaction type
      * @param date - date
@@ -132,8 +134,8 @@ public class AnnouncementRepository {
      * @param photos - photos
      * @param isPublished - is published
      */
-    public void addAnnouncementWithAgent(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
-        Announcement announcement = new Announcement(agent,property, typeOfProperty, transactionType, date, commission, photos, isPublished);
+    public void addAnnouncementWithAgent(Employee agent, int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+        Announcement announcement = new Announcement(agent,propertyID, typeOfProperty, transactionType, date, commission, photos, isPublished);
         announcements.add(announcement);
     }
 
@@ -163,10 +165,13 @@ public class AnnouncementRepository {
     private void sortAnnouncements(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
         switch (sortCriteria){
             case "price":
+
                 resultAnnouncements.sort(new Comparator<Announcement>() {
                     @Override
                     public int compare(Announcement a1, Announcement a2) {
-                        return (int) (a1.getProperty().getPrice() - a2.getProperty().getPrice());
+                        Property property1 = getPropertyByAnnouncement(a1);
+                        Property property2 = getPropertyByAnnouncement(a2);
+                        return (int) (property1.getPrice() - property2.getPrice());
                     }
                 });
                 break;
@@ -174,7 +179,9 @@ public class AnnouncementRepository {
                 resultAnnouncements.sort(new Comparator<Announcement>() {
                     @Override
                     public int compare(Announcement a1, Announcement a2) {
-                        return a1.getProperty().getAddress().getCity().compareTo(a2.getProperty().getAddress().getCity());
+                        Property property1 = getPropertyByAnnouncement(a1);
+                        Property property2 = getPropertyByAnnouncement(a2);
+                        return property1.getAddress().getCity().compareTo(property2.getAddress().getCity());
                     }
                 });
                 break;
@@ -183,7 +190,9 @@ public class AnnouncementRepository {
                 resultAnnouncements.sort(new Comparator<Announcement>() {
                     @Override
                     public int compare(Announcement a1, Announcement a2) {
-                        return a1.getProperty().getAddress().getState().compareTo(a2.getProperty().getAddress().getState());
+                        Property property1 = getPropertyByAnnouncement(a1);
+                        Property property2 = getPropertyByAnnouncement(a2);
+                        return property1.getAddress().getState().compareTo(property2.getAddress().getState());
                     }
                 });
                 break;
@@ -280,6 +289,11 @@ public class AnnouncementRepository {
      */
     private void removeAllAnnouncements(ArrayList<Announcement> announcements){
         announcements.removeAll(announcements);
+    }
+
+    public Property getPropertyByAnnouncement(Announcement announcement){
+        int propertyID = announcement.getPropertyID();
+        return Repositories.getInstance().getPropertyRepository().getPropertyByID(propertyID);
     }
 
 

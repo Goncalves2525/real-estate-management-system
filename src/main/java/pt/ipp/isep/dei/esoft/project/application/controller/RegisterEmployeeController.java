@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.RoleRepository;
-import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class RegisterEmployeeController {
      * Instance variables.
      */
     private EmployeeRepository employeeRepository;
+    private AgencyRepository agencyRepository;
     private RoleRepository roleRepository;
     private PasswordGenerator passwordGenerator;
     private AuthenticationRepository authenticationRepository;
@@ -30,6 +28,7 @@ public class RegisterEmployeeController {
      */
     public RegisterEmployeeController() {
         employeeRepository = Repositories.getInstance().getEmployeeRepository();
+        agencyRepository = Repositories.getInstance().getAgencyRepository();
         passwordGenerator = new PasswordGenerator();
         authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
@@ -62,15 +61,18 @@ public class RegisterEmployeeController {
      * @param taxNumber
      * @param telephoneNumber
      * @param address
-     * @param agency
+     * @param agencyID
      * @param roles
      * @return
      */
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
-        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, List<Role> roles) {
+        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles, agencyID);
         return employeeRepository.addEmployee(employee);
     }
 
+    public Agency getAgencyByID(int agencyID) {
+        return agencyRepository.getAgencyById(agencyID);
+    }
 
     /**
      * Generates a password.

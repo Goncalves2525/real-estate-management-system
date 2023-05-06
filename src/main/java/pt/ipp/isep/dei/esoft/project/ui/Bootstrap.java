@@ -12,94 +12,89 @@ public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
     public void run() {
-        //addTaskCategories();
-        //addOrganization();
         addUsers();
         addAgencies();
         addAgents();
         addAnnouncements();
     }
 
-    private void addAgencies(){
+    private void addAgencies() {
         //get Agency repository
-        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyListRepository();
+        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyRepository();
         ArrayList<Employee> agents = new ArrayList<>();
         ArrayList<Employee> agents2 = new ArrayList<>();
-        Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
-        Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
+        Agency agency = new Agency("Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
+        Agency agency2 = new Agency("Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
         agencyRepository.add(agency);
         agencyRepository.add(agency2);
     }
 
-    private void addAgents(){
+    private void addAgents() {
         //get Agency repository
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         ArrayList<Employee> agents = new ArrayList<>();
         ArrayList<Employee> agents2 = new ArrayList<>();
-        Agency agency = new Agency(1, "Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
-        Agency agency2 = new Agency(2, "Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
+        Agency agency = new Agency("Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
+        Agency agency2 = new Agency("Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
 
-        employeeRepository.add(new Employee("employee@this.app",agency));
-        employeeRepository.add(new Employee("Agent11",agency));
-        employeeRepository.add(new Employee("Agent111",agency));
-        employeeRepository.add(new Employee("Agent2",agency2));
-        employeeRepository.add(new Employee("Agent22",agency2));
-        employeeRepository.add(new Employee("Agent222",agency2));
+        employeeRepository.add(new Employee("employee@this.app", 1));
+        employeeRepository.add(new Employee("Agent11", 1));
+        employeeRepository.add(new Employee("Agent111", 1));
+        employeeRepository.add(new Employee("Agent2", 2));
+        employeeRepository.add(new Employee("Agent22", 2));
+        employeeRepository.add(new Employee("Agent222", 2));
     }
 
-    private void addAnnouncements(){
-       AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
-       Commission c1 = new Commission();
-       ArrayList<Employee> agents = new ArrayList<>();
-       Date d1 = new Date(2022, Calendar.APRIL, 10);
-       Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
-       ArrayList<Role> roles = new ArrayList<>();
-       Employee agent1 = new Employee("Employee","employee@this.app",123456789,123,123,new Address("street","city","district","state",1234),new Agency(1,"agency","",123,a1, agents),roles);
-       Employee agent2 = new Employee("Employee","employee2@this.app",123456789,123,123,new Address("street","city","district","state",1234),new Agency(1,"agency","",123,a1, agents),roles);
-       Address a2 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
-       Address a3 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
-       Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
-       Property p2 = new House(150, 30, 100000, a1, 2, 2, true, true);
-       Property p3 = new House(150, 30, 500000, a1, 3, 2, true, true);
-       Property p4 = new House(150, 30, 300000, a2, 4, 2, true, true);
-       Property p5 = new House(150, 30, 400000, a2, 5, 2, true, true);
-       Property p6 = new Apartment(150, 30, 250000, a1, 1, 2);
-       Property p7 = new Apartment(150, 30, 100000, a1, 2, 2);
-       Property p8 = new Apartment(150, 30, 500000, a1, 3, 2);
-       Property p9 = new Apartment(150, 30, 300000, a2, 4, 2);
-       Property p10 = new Apartment(150, 30, 400000, a2, 5, 2);
-       Property p11 = new Land(150, 30, 250000, a1);
-       Property p12 = new Land(150, 30, 100000, a1);
-       Property p13 = new Land(150, 30, 500000, a1);
-       Property p14 = new Land(150, 30, 300000, a2);
-       Property p15 = new Land(150, 30, 400000, a2);
-       announcementRepository.addAnnouncement(p1, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p1, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p2, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p2, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p3, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p4, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p5, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p5, TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p6, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p7, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p7, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p8, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p9, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p10, TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p10, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p11, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p12, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p12, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p13, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p14, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-       announcementRepository.addAnnouncement(p15, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-       announcementRepository.addAnnouncementWithAgent(agent1, p11, TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, false);
-       announcementRepository.addAnnouncementWithAgent(agent1, p13, TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, false);
-       announcementRepository.addAnnouncementWithAgent(agent1, p14, TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, false);
-       announcementRepository.addAnnouncementWithAgent(agent2, p12, TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, false);
+    private void addAnnouncements() {
+        AnnouncementRepository announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+        PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
+        Commission c1 = new Commission();
+        ArrayList<Employee> agents = new ArrayList<>();
+        Date d1 = new Date(2022, Calendar.APRIL, 10);
+        Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+        ArrayList<Role> roles = new ArrayList<>();
+        Employee agent1 = new Employee("Agent1", "employee@this.app", 123456789, 123, 123, new Address("street", "city", "district", "state", 1234), roles, 1);
+        Employee agent2 = new Employee("Agent2", "employee2@this.app", 123456789, 123, 123, new Address("street", "city", "district", "state", 1234), roles, 1);
+        Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
+        propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, true, true, SunExposure.NORTH);
+        propertyRepository.addHouse(150, 30, 100000, a1, 2, 2, 1, true, true, true, true, SunExposure.NORTH);
+        propertyRepository.addHouse(150, 30, 500000, a1, 3, 2, 1, true, true, true, true, SunExposure.NORTH);
+        propertyRepository.addHouse(150, 30, 300000, a2, 4, 2, 1, true, true, true, true, SunExposure.NORTH);
+        propertyRepository.addHouse(150, 30, 400000, a2, 5, 2, 1, true, true, true, true, SunExposure.NORTH);
+        propertyRepository.addApartment(150, 30, 250000, a1, 1, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 100000, a1, 2, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 500000, a1, 3, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 300000, a2, 4, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 400000, a2, 5, 2, 1, true, true);
+        propertyRepository.addLand(150, 30, 250000, a1);
+        propertyRepository.addLand(150, 30, 100000, a1);
+        propertyRepository.addLand(150, 30, 500000, a1);
+        propertyRepository.addLand(150, 30, 300000, a2);
+        propertyRepository.addLand(150, 30, 400000, a2);
+
+        ArrayList<Property> properties = propertyRepository.getAllProperties();
+
+        announcementRepository.addAnnouncement(properties.get(0).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(2).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(3).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(4).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(6).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(7).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(8).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(9).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(11).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(12).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(13).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(14).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+
+        announcementRepository.addAnnouncementWithAgent(agent1, properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent1, properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent1, properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, false);
+        announcementRepository.addAnnouncementWithAgent(agent2, properties.get(13).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, false);
+
     }
 
     private void addUsers() {
@@ -111,7 +106,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_CLIENT, AuthenticationController.ROLE_CLIENT);
 
         authenticationRepository.addUserWithRole("MainAdministrator", "admin@this.app", "admin",
-            AuthenticationController.ROLE_ADMIN);
+                AuthenticationController.ROLE_ADMIN);
 
         authenticationRepository.addUserWithRole("Employee", "employee@this.app", "pwd",
                 AuthenticationController.ROLE_EMPLOYEE);

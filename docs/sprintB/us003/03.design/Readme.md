@@ -4,14 +4,14 @@
 
 ### 3.1. Rationale
 
-The following table lists the design decisions made for this endUser story.
+The following table lists the design decisions made for this person story.
 
 | Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                 |
 |:---------------|:--------------------- |:---------------------|:--------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?             | RegisterEmployeeUI      | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                | ... coordinating the US?                    | RegisterEmployeeController | Controller                                                                                                    |
 |                | ... instantiating a new Employee?           | EmployeeRepository      | Creator (Rule 1): in the DM EmployeeRepository has an Employee.                                               |
-|                | ... knowing the endUser using the system?      | UserSession | IE: cf. A&A component documentation.                                                                          |
+|                | ... knowing the person using the system?      | UserSession | IE: cf. A&A component documentation.                                                                          |
 |                |                                             | EmployeeRepository      | IE: knows/has its own Employees                                                                               |
 |                |                                             | Employee                | IE: knows its own data (e.g. email)                                                                           |
 | Step 2         | ...saving the inputted data?               | EmployeeRepository      | IE: repository for Employee objects.                                                                          |
@@ -20,7 +20,7 @@ The following table lists the design decisions made for this endUser story.
 | Step 5         | ... validating all data (local validation)?| Employee                | IE: owns its data.                                                                                            |
 |                | ... validating all data (global validation)?| EmployeeRepository      | IE: knows all its employees.                                                                                  |
 |                | ... saving the created employee?           | EmployeeRepository      | IE: owns all its employees.                                                                                   |
-| Step 8         | ... informing operation success?           | RegisterEmployeeUI      | IE: is responsible for endUser interactions.                                                                     |
+| Step 8         | ... informing operation success?           | RegisterEmployeeUI      | IE: is responsible for person interactions.                                                                     |
 
 ### Systematization ##
 
@@ -41,7 +41,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ### Full Diagram
 
-This diagram shows the full sequence of interactions between the classes involved in the realization of this endUser story.
+This diagram shows the full sequence of interactions between the classes involved in the realization of this person story.
 
 ![Sequence Diagram - Full](svg/us003-sequence-diagram.svg)
 

@@ -10,7 +10,9 @@ import java.util.List;
  * This class represents an employee.
  * </p>
  */
-public class Employee extends EndUser {
+public class Employee extends Person {
+
+    private int agencyID;
 
     /**
      * @param name Name of the employee
@@ -19,23 +21,12 @@ public class Employee extends EndUser {
      * @param taxNumber Tax number of the employee
      * @param telephoneNumber Telephone number of the employee
      * @param address Address of the employee
-     * @param agency Agency of the employee
      * @param roles Roles of the employee
+     * @param agencyID Agency ID of the employee
      */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, Agency agency, List<Role> roles) {
-        super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
-    }
-    /**
-     * @param name Name of the employee
-     * @param email Email of the employee
-     * @param passportCardNumber Passport card number of the employee
-     * @param taxNumber Tax number of the employee
-     * @param telephoneNumber Telephone number of the employee
-     * @param address Address of the employee
-     * @param roles Roles of the employee
-     */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles, int agencyID) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
+        this.agencyID = agencyID;
     }
 
     /**
@@ -44,9 +35,11 @@ public class Employee extends EndUser {
      * @param passportCardNumber Passport card number of the employee
      * @param taxNumber Tax number of the employee
      * @param telephoneNumber Telephone number of the employee
+     * @param agencyID Agency ID of the employee
      */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles, int agencyID) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
+        this.agencyID = agencyID;
     }
     /**
      * @param email Email of the employee
@@ -57,10 +50,11 @@ public class Employee extends EndUser {
 
     /**
      * @param email Email of the employee
-     * @param agency Agency of the employee
+     * @param agencyID Agency ID of the employee
      */
-    public Employee(String email, Agency agency){
-        super(email,agency);
+    public Employee(String email, int agencyID){
+        super(email);
+        this.agencyID = agencyID;
     }
 
 
@@ -139,8 +133,13 @@ public class Employee extends EndUser {
      * @return clone of employee
      */
     public Employee clone() {
-        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getAgency(), getRoles());
+        return new Employee(getName(), getEmail(), getPassportCardNumber(), getTaxNumber(), getTelephoneNumber(), getAddress(), getRoles(), getAgencyID());
     }
+
+    public int getAgencyID() {
+        return agencyID;
+    }
+
 
     /**
      * @return number of roles

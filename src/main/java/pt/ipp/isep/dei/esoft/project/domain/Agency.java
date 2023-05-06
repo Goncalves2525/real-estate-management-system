@@ -8,31 +8,32 @@ import java.util.List;
  */
 public class Agency {
 
-    private int id;
+    private final int id;
     private String name;
     private String emailAddress;
     private int phoneNumber;
 
     private Address address;
 
+    private static int idCounter = 0;
+
     ArrayList<Employee> agents = new ArrayList<>();
 
     /**
      * Agency Constructor
-     * @param id id
      * @param name name
      * @param emailAddress email address
      * @param phoneNumber phone number
      * @param address address
      * @param agents agents
      */
-    public Agency(int id, String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents) {
-        this.id = id;
+    public Agency(String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents) {
         this.name = name;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.agents = agents;
+        id = idCounter++;
     }
 
     // Getters and Setters
@@ -92,8 +93,7 @@ public class Agency {
      * @return the agency
      */
     public Agency clone() {
-        Agency clone = new Agency(this.id, this.name, this.emailAddress, this.phoneNumber, this.address, this.agents);
-        clone.id = (this.id);
+        Agency clone = new Agency(this.name, this.emailAddress, this.phoneNumber, this.address, this.agents);
         clone.name = (this.name);
         clone.emailAddress = (this.emailAddress);
         clone.phoneNumber = (this.phoneNumber);

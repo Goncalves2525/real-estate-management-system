@@ -39,14 +39,15 @@ class RegisterEmployeeControllerTest {
         int passportCardNumber = 123456;
         int taxNumber = 654321;
         int telephoneNumber = 987654;
+        int agencyID = 3;
         Address address = new Address("happy","new","dist","big",4525);
         ArrayList<Employee> agenteTest = new ArrayList<>();
-        Agency agency = new Agency(3, "agency1", "email@mail.com", 1234567890,address, agenteTest);
+        Agency agency = new Agency("agency1", "email@mail.com", 1234567890,address, agenteTest);
         List<Role> roles = Arrays.asList(Role.ADMIN, Role.AGENT);
 
-        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
+        Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address,roles, agencyID);
 
-        boolean result = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agency, roles);
+        boolean result = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agencyID, roles);
 
         assertTrue(result);
     }

@@ -8,37 +8,31 @@ import java.util.Date;
  */
 
 public class Announcement {
-    private Property property;
+    private int propertyID;
     private TypeOfProperty typeOfProperty;
     private TransactionType transactionType;
     private Date publishDate;
     private Commission commission;
     private ArrayList<Photo> photos = new ArrayList<>();
-
-    private House house;
-
-    private Land land;
-
-    private Apartment apartment;
-
     private Employee agent;
     private final int id;
     private boolean isPublished;
+
     public static int idCounter = 0;
 
     /**
      * This method is the constructor of Announcement.
+     * @param propertyID int
      * @param agent Employee
-     * @param property Property
      * @param typeOfProperty TypeOfProperty
      * @param transactionType TransactionType
      * @param publishDate Date
      * @param commission Commission
      * @param photos ArrayList<Photo>
      */
-    public Announcement(Employee agent, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos) {
+    public Announcement(Employee agent, int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos) {
         this.agent = agent;
-        this.property = property;
+        this.propertyID = propertyID;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
         this.publishDate = publishDate;
@@ -49,15 +43,15 @@ public class Announcement {
 
     /**
      * This method is the constructor of Announcement.
-     * @param property Property
+     * @param propertyID int
      * @param typeOfProperty TypeOfProperty
      * @param transactionType TransactionType
      * @param publishDate Date
      * @param commission Commission
      * @param photos ArrayList<Photo>
      */
-    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
-        this.property = property;
+    public Announcement(int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+        this.propertyID = propertyID;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
         this.publishDate = publishDate;
@@ -70,16 +64,16 @@ public class Announcement {
     /**
      * This method is the constructor of Announcement.
      * @param employee Employee
-     * @param property Property
+     * @param propertyID int
      * @param typeOfProperty TypeOfProperty
      * @param transactionType TransactionType
      * @param publishDate Date
      * @param commission Commission
      * @param photos ArrayList<Photo>
      */
-    public Announcement(Employee employee, Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
+    public Announcement(Employee employee, int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
         this.agent = employee;
-        this.property = property;
+        this.propertyID = propertyID;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
         this.publishDate = publishDate;
@@ -91,14 +85,14 @@ public class Announcement {
 
     /**
      * This method is the constructor of Announcement.
-     * @param property Property
+     * @param propertyID int
      * @param typeOfProperty TypeOfProperty
      * @param transactionType TransactionType
      * @param publishDate Date
      * @param photos ArrayList<Photo>
      */
-    public Announcement(Property property, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate,  ArrayList<Photo> photos) {
-        this.property = property;
+    public Announcement(int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date publishDate,  ArrayList<Photo> photos) {
+        this.propertyID = propertyID;
         this.typeOfProperty = typeOfProperty;
         this.transactionType = transactionType;
         this.publishDate = publishDate;
@@ -126,8 +120,8 @@ public class Announcement {
      *
      * @return property
      */
-    public Property getProperty() {
-        return property;
+    public int getPropertyID() {
+        return propertyID;
     }
 
     /**
@@ -153,8 +147,8 @@ public class Announcement {
      *
      * @return property
      */
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setPropertyID(int propertyID) {
+        this.propertyID = propertyID;
     }
 
     /**
@@ -236,8 +230,8 @@ public class Announcement {
      *
      * @return property.equals(property)
      */
-    public boolean hasProperty(Property property) {
-        return this.property.equals(property);
+    public boolean hasProperty(int propertyID) {
+        return this.propertyID == propertyID;
     }
 
     /**
@@ -288,9 +282,8 @@ public class Announcement {
      */
     @Override
     public String toString() {
-        return String.format("-ID: %d \n-Property Information: %s \n-Type of Property: %s \n-Transaction Type: %s \n-Publish Date: %s \n-Comission: %s \n-Photos: %s \n-IsPublished: %b",id, property, typeOfProperty.toString(), transactionType.toString(), publishDate, commission, photos, isPublished);
+        return String.format("-ID: %d \n-Type of Property: %s \n-Transaction Type: %s \n-Publish Date: %s \n-Comission: %s \n-Photos: %s \n-IsPublished: %b",id, typeOfProperty.toString(), transactionType.toString(), publishDate, commission, photos, isPublished);
     }
-
 
     /**
      * This method sets the Announcement's isPublished to true and the publishDate to the current date.

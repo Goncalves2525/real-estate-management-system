@@ -21,24 +21,24 @@ This component makes its functionalities available to other systems through a si
 Therefore, the relevant documentation regarding the component (re)usage consists of the description of the classes _"AuthFacade"_ and _"UserSession"_ (cf. class diagram). The first provides the following methods:
 
 * **_“boolean addUserRole(String id, String description)”_**: creates a new role that is of interest for the application reusing the component;
-* **_“boolean addUser(String name, String email, String pwd)”_**: creates a new endUser that can use the application;
-* **_“boolean addUserWithRole(String name, String email, String pwd, String roleId)”_**: similiar to the previous method, with the advantage of immediately setting a role (based on its _id_) played by such endUser; 
-* **_“boolean addUserWithRoles(String name, String email, String pwd, String[] rolesId)”_**: similiar to the previous method, but with the ability to set several roles played by such endUser;
-* **_“boolean existsUser(String email)”_**: used to know if there is a endUser that is identifiable by the specified identifier/email;
-* **_“UserSession doLogin(String email, String password)”_**: allows to authenticate a endUser to properly use the application. The result is a endUser session (i.e. class **_UserSession_**) instance;
-* **_“UserSession getCurrentUserSession()”_**: returns current active endUser session;
-* **_“void doLogout()”_**: ends the currently active endUser session, i.e. the current endUser is no longer authenticated.
+* **_“boolean addUser(String name, String email, String pwd)”_**: creates a new person that can use the application;
+* **_“boolean addUserWithRole(String name, String email, String pwd, String roleId)”_**: similiar to the previous method, with the advantage of immediately setting a role (based on its _id_) played by such person; 
+* **_“boolean addUserWithRoles(String name, String email, String pwd, String[] rolesId)”_**: similiar to the previous method, but with the ability to set several roles played by such person;
+* **_“boolean existsUser(String email)”_**: used to know if there is a person that is identifiable by the specified identifier/email;
+* **_“UserSession doLogin(String email, String password)”_**: allows to authenticate a person to properly use the application. The result is a person session (i.e. class **_UserSession_**) instance;
+* **_“UserSession getCurrentUserSession()”_**: returns current active person session;
+* **_“void doLogout()”_**: ends the currently active person session, i.e. the current person is no longer authenticated.
 
 ![AuthClassDiagram](AuthClassDiagram.svg) 
 
-A endUser session (_UserSession_) provides the following methods:
+A person session (_UserSession_) provides the following methods:
 
-* **_“boolean isLoggedIn()”_**: indicates whether the session actually has a successful authenticated endUser or not;
-* **_“boolean isLoggedInWithRole(String roleId)”_**: indicates whether the authenticated endUser plays (or not) the role identified by the parameter _"roleId"_;
-* **_“String getUserName()”_**: returns the name of the authenticated endUser;
-* **_“Email getUserId()”_**: returns the identifier/email of the authenticated endUser;
+* **_“boolean isLoggedIn()”_**: indicates whether the session actually has a successful authenticated person or not;
+* **_“boolean isLoggedInWithRole(String roleId)”_**: indicates whether the authenticated person plays (or not) the role identified by the parameter _"roleId"_;
+* **_“String getUserName()”_**: returns the name of the authenticated person;
+* **_“Email getUserId()”_**: returns the identifier/email of the authenticated person;
 
-Finally, it should be noted that **the endUser identifier is the most appropriate way for applications that use this component to relate system users with specific classes/objects of the application domain.**
+Finally, it should be noted that **the person identifier is the most appropriate way for applications that use this component to relate system users with specific classes/objects of the application domain.**
 
 
 

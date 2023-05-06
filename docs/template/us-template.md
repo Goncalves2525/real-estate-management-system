@@ -1,6 +1,6 @@
 # USXXX - YYY
 
-XXX stands for endUser Story number and YYY for the endUser story description.
+XXX stands for person Story number and YYY for the person story description.
 e.g., US006 - Create a Task
 
 ## 1. Requirements Engineering
