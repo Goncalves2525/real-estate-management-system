@@ -60,6 +60,8 @@ public class ListAnnouncementsUI implements Runnable {
         Object[] filters;
         String[] sort;
 
+
+
         filters = requestFilters();
         sort = requestSortCriteria(sortCriteria, order);
 

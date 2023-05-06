@@ -15,7 +15,7 @@ public class Agency {
 
     private Address address;
 
-    private static int idCounter = 0;
+    private static int idCounter = 1;
 
     ArrayList<Employee> agents = new ArrayList<>();
 

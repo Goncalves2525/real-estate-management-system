@@ -34,8 +34,7 @@ public class Bootstrap implements Runnable {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         ArrayList<Employee> agents = new ArrayList<>();
         ArrayList<Employee> agents2 = new ArrayList<>();
-        Agency agency = new Agency("Agency1", "agency1@this.app", 934875844, new Address("street1", "City1", "District1", "State1", 1234), agents);
-        Agency agency2 = new Agency("Agency2", "agency2@this.app", 934875845, new Address("street2", "City2", "District2", "State2", 4321), agents2);
+
 
         employeeRepository.add(new Employee("employee@this.app", 1));
         employeeRepository.add(new Employee("Agent11", 1));

@@ -24,7 +24,7 @@ public class AgencyRepository {
         Optional<Agency> newAgency = Optional.empty();
         boolean operationSuccess = false;
 
-        newAgency = Optional.of(agency.clone());
+        newAgency = Optional.of(agency);
             operationSuccess = agencies.add(newAgency.get());
 
         if (!operationSuccess) {

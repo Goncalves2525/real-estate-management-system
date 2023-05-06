@@ -486,7 +486,7 @@ public class RegisterEmployeeUI implements Runnable {
             System.out.println("Address: " + address.toString());
         }
 
-        System.out.println("Agency: " + controller.getAgencyByID(agencyID));
+        System.out.println("Agency: " + controller.getAgencyByID(agencyID).getName());
 
         System.out.print("Roles: ");
 
