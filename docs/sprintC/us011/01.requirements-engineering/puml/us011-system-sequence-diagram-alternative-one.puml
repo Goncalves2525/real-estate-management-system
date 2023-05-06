@@ -1,0 +1,84 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+        Agent -> System : ask to create list purchase order
+    activate System
+
+        System --> Agent : displays list of purchases orders
+    deactivate  System
+
+        Agent -> System :select purchase order
+    activate System
+
+        System --> Agent :displays option to acept or reject purchase order
+     deactivate System
+
+    alt Accept
+
+        Agent -> System : submits selected Agent
+     activate System
+    else Reject
+        System --> Agent : requests Agent data
+    deactivate System
+    end
+        Agent -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).
+    activate System
+
+        System --> Agent : requests type of transaction
+    deactivate System
+
+
+        Agent -> System : types requested data (Sale or Rent)
+    activate System
+
+
+    opt Rent
+
+        System --> Agent: request contract duration
+        deactivate System
+
+        Agent -> System: types requested data
+        activate System
+    end
+
+        System --> Agent : requests type of property
+    deactivate System
+
+        Agent -> System : types requested data (Apartement, House, Land)
+    activate System
+
+            System --> Agent : requests data of property
+    deactivate System
+
+    alt  Land
+
+        Agent -> System: Select requested data (area (in m2), location, \ndistance from the city centre, requested price (USD), \nphotographs)
+    activate System
+    else  Apartement
+        Agent -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning).
+    else  House
+        Agent -> System: Select requested data (area (in m2), location, distance from the city centre, \nrequested price (USD), photographs, number of bedrooms,\nnumber of bathrooms, number of parking spaces,\nany available equipment (such as central heating and/or air conditioning, \nexistence of a basement, existence of an inhabitable loft, sun exposure value.
+    end
+
+            System --> Agent : ask to confirm data
+    deactivate System
+
+            Agent -> System: confirm entered data
+    activate System
+
+        System --> Agent : displays operation success
+    deactivate System
+
+
+@enduml
