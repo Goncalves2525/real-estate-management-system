@@ -12,24 +12,37 @@ participant ":System" as System
 
 activate Agent
 
-        Agent -> System : ask to create list purchase order
+        Agent -> System : ask to list purchase order
     activate System
 
-        System --> Agent : displays list of purchases orders
+        System --> Agent : displays list of purchases orders grouped by property from the oldest to the most recent one
     deactivate  System
 
         Agent -> System :select purchase order
     activate System
 
-        System --> Agent :displays option to acept or reject purchase order
-     deactivate System
+        System --> Agent :display the list of purchase orders sorted by the amount offered, the highest offer appear first.
+    deactivate System
+
+        Agent -> System : select purchase order
+    activate System
+
+        System --> Agent : displays option list (Accept, Reject)
+    deactivate  System
+
+        Agent -> System :select option (Accept, Reject)
+    activate System
+
+        System --> Agent :display the list of purchase orders sorted by the amount offered, the highest offer appear first.
+    deactivate System
+
 
     alt Accept
 
-        Agent -> System : submits selected Agent
+        Agent -> System : accetps purchase order
      activate System
     else Reject
-        System --> Agent : requests Agent data
+        System --> Agent : decline purchase order
     deactivate System
     end
         Agent -> System : types requested data (name, citizen's card number, \ntax number, address, email address, \ncontact telephone number).

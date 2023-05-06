@@ -67,9 +67,14 @@ name=Legacy Agent; passport card number=000000000; tax number=000000000, email a
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** All required fiels must be filled in.
-* **AC2:** 
-* **AC3:** 
+* **AC1:** The system administrator must be able to choose a file to import.
+* **AC2:** The system should only accept CSV files.
+* **AC3:** The file content must be validated, showing a message to the system administrator if the file is empty or its content is not in the requested format.
+* **AC4:** The import operation, when successful, should trigger a success message to the system administrator.
+* **AC5:**
+* **AC6:**
+
+
 
 
 ### 1.4. Found out Dependencies

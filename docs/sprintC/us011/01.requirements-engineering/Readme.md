@@ -58,10 +58,10 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 
 
 * **AC1:** All required fiels must be filled in.
-* **AC2:** 
-* **AC3:** 
-* **AC4:**
-* **AC5:**
+* **AC2:** The list of purchase orders should be grouped by property. The properties should be sorted from the oldest to the most recent one. For each property, the list of purchase orders should be sorted by the amount offered, the highest offer must appear first.
+* **AC3:** For each offer, the agent must be able to accept or decline it. The action of accepting or declining an offer should trigger an email notification to the client. 
+* **AC4:** When a purchase order is accepted, all the other orders should be declined, and a message sent to the client.
+* **AC5:** If a property does not contain any offers, the system should show an empty list of offers.
 * **AC6:**
 
 ### 1.4. Found out Dependencies

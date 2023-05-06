@@ -1,4 +1,4 @@
-# US 004 - Owner submit sale or rent
+# US 011 - As an agent, I want to list real estate purchase orders to accept or decline
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
