@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Client" as Client
+participant ":System" as System
+
+activate Client
+
+    Client -> System : Asks to list of available properties
+        activate System
+
+        System --> Client : Selects the properties
+    deactivate System
+
+    Client -> System : Asks to leave a message to the agent to schedule a visit
+        activate System
+
+        System --> Client : Requests data
+    deactivate System
+
+    Client -> System : Types requested data (date of visit, time of visit start and time of visit end)
+        activate System
+
+        System --> Client : Confirm there is not a visit request from the same client at the same time
+    deactivate System
+
+    Client -> System : Request to show the information that will be sent
+        activate System
+
+    System --> Client : Show the message to sent to the agent that includes the data typed by the client and client's name and phone number
+    deactivate System
+
+    Client -> System : Confirm if the message is correct
+        activate System
+
+        System --> Client : Send the message to the agent and show a confirmation message to the client
+    deactivate System
+
+
+@enduml
