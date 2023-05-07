@@ -320,4 +320,8 @@ public class AnnouncementRepository {
         }
         return null;
     }
+
+    public void removeAllAnnouncements() {
+        announcements.removeAll(announcements);
+    }
 }

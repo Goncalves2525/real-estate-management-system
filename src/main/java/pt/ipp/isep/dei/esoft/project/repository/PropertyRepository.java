@@ -51,6 +51,10 @@ public class PropertyRepository {
         properties.remove(property);
     }
 
+    public void removeAllProperties() {
+        properties.clear();
+    }
+
     public ArrayList<Property> getAllProperties() {
         return properties;
     }

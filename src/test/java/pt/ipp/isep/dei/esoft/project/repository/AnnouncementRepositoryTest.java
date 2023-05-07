@@ -2,17 +2,21 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
+
 import java.util.ArrayList;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnnouncementRepositoryTest {
-
-AnnouncementRepository announcementRepository = new AnnouncementRepository();
+Repositories repositories = Repositories.getInstance();
+AnnouncementRepository announcementRepository = repositories.getAnnouncementRepository();
+PropertyRepository propertyRepository = repositories.getPropertyRepository();
 
     @BeforeEach
     void setUp() {
-
+        announcementRepository.removeAllAnnouncements();
+        propertyRepository.removeAllProperties();
         Commission c1 = new Commission();
         Date d1 = new Date(2019, 10, 10);
         Date d2 = new Date(2019, 10, 11);
@@ -26,19 +30,21 @@ AnnouncementRepository announcementRepository = new AnnouncementRepository();
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Porto", 54321);
         Address a3 = new Address("Rua 3", "Lisboa", "Lisboa", "Lisboa", 123111);
         Address a4 = new Address("Rua 4", "Faro", "Faro", "Algarve", 123222);
-        Property p1 = new House(150, 30, 250000, a1, 1, 2, true, true);
-        Property p2 = new Apartment(150, 30, 100000, a2, 4, 2);
-        Property p3 = new Land(150, 30, 50000, a3);
-        Property p4 = new House(150, 30, 3000000, a4, 1, 2, true, true);
+        Property.idCounter = 0;
+        propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, false, false, SunExposure.EAST);
+        propertyRepository.addApartment(150, 30, 100000, a2, 4, 2, 1, true, true);
+        propertyRepository.addLand(150, 30, 50000, a3);
+        propertyRepository.addHouse(150, 30, 3000000, a4, 1, 2, 1, true, true, false, false, SunExposure.EAST);
         Announcement.idCounter = 0;
-        announcementRepository.addAnnouncement(p1.getId(), typeHouse, typeSale, d1, c1, null, true);
-        announcementRepository.addAnnouncement(p2.getId(), typeApartment, typeRent, d2, c1, null, true);
-        announcementRepository.addAnnouncement(p3.getId(), typeLand, typeRent, d3, c1, null, true);
-        announcementRepository.addAnnouncement(p4.getId(), typeHouse, typeSale, d3, c1, null, true);
+        announcementRepository.addAnnouncement(0, typeHouse, typeSale, d1, c1, null, true);
+        announcementRepository.addAnnouncement(1, typeApartment, typeRent, d2, c1, null, true);
+        announcementRepository.addAnnouncement(2, typeLand, typeRent, d3, c1, null, true);
+        announcementRepository.addAnnouncement(3, typeHouse, typeSale, d3, c1, null, true);
     }
 
     @Test
     void ensureGetAllAnnouncementsSortedByDefualtCriteria_ReturnsCorrectList() {
+
         ArrayList<Announcement> result = announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
 
         int expectedFirst = 3;

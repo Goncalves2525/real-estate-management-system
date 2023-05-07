@@ -16,7 +16,8 @@ public class Property {
     private double distanceFromCenter;
     private double price;
     private Address address;
-    private static int idCounter = 0;
+
+    public static int idCounter = 0;
 
     /**
      * Instantiates a new Property.

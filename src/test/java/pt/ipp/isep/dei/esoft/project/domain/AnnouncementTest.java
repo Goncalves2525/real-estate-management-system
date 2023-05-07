@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnnouncementTest {
     private Employee employee;
-    private Property property;
+    private int propertyID;
     private TypeOfProperty typeOfProperty;
     private TransactionType transactionType;
     private Date publishDate;
@@ -23,8 +23,9 @@ class AnnouncementTest {
         Address address = new Address("123 Main St", "Anytown", "Washington",123);
         List<Role> roles = new ArrayList<>();
         roles.add(Role.AGENT);
-        employee = new Employee("John Doe", "jonh.doe@this.app",123456789,123,1234567890,address ,roles);
-        property = new House(123,123,123,address,1,1,1,true,true,true,true,SunExposure.SOUTH);
+        employee = new Employee("John Doe", "jonh.doe@this.app",123456789,123,1234567890,address ,roles, 1);
+        Property property = new House(123,123,123,address,1,1,1,true,true,true,true,SunExposure.SOUTH);
+        propertyID = property.getId();
         typeOfProperty = TypeOfProperty.HOUSE;
         transactionType = TransactionType.SALE;
         publishDate = new Date();
@@ -34,9 +35,9 @@ class AnnouncementTest {
 
     @Test
     void testConstructorWithAgent() {
-        Announcement announcement = new Announcement(employee, property, typeOfProperty, transactionType, publishDate, commission, photos);
+        Announcement announcement = new Announcement(employee, propertyID, typeOfProperty, transactionType, publishDate, commission, photos);
         assertEquals(employee.getEmail(), announcement.getAgentEmail());
-        assertEquals(property, announcement.getProperty());
+        assertEquals(propertyID, announcement.getPropertyID());
         assertEquals(typeOfProperty, announcement.getTypeOfProperty());
         assertEquals(transactionType, announcement.getTransactionType());
         assertEquals(publishDate, announcement.getPublishDate());
@@ -46,9 +47,9 @@ class AnnouncementTest {
 
     @Test
     void testConstructorWithoutAgent() {
-        Announcement announcement = new Announcement(property, typeOfProperty, transactionType, publishDate, commission, photos, true);
+        Announcement announcement = new Announcement(propertyID, typeOfProperty, transactionType, publishDate, commission, photos, true);
         assertEquals(announcement.getAgentEmail(),"");
-        assertEquals(property, announcement.getProperty());
+        assertEquals(propertyID, announcement.getPropertyID());
         assertEquals(typeOfProperty, announcement.getTypeOfProperty());
         assertEquals(transactionType, announcement.getTransactionType());
         assertEquals(publishDate, announcement.getPublishDate());
@@ -58,15 +59,16 @@ class AnnouncementTest {
 
     @Test
     void testGettersAndSetters() {
-        Announcement announcement = new Announcement(employee, property, typeOfProperty, transactionType, publishDate, commission, photos);
+        Announcement announcement = new Announcement(employee, propertyID, typeOfProperty, transactionType, publishDate, commission, photos);
         assertEquals(transactionType, announcement.getTransactionType());
         announcement.setTransactionType(TransactionType.RENT);
         assertEquals(TransactionType.RENT, announcement.getTransactionType());
 
-        assertEquals(property, announcement.getProperty());
+        assertEquals(propertyID, announcement.getPropertyID());
         Property newProperty = new Apartment(123,123,123,new Address("123 Main St", "Anytown", "Washington",123),1,1);
-        announcement.setProperty(newProperty);
-        assertEquals(newProperty, announcement.getProperty());
+        int newPropertyID = newProperty.getId();
+        announcement.setPropertyID(newPropertyID);
+        assertEquals(newProperty, announcement.getPropertyID());
 
         assertEquals(typeOfProperty, announcement.getTypeOfProperty());
         TypeOfProperty newTypeOfProperty = TypeOfProperty.APARTMENT;

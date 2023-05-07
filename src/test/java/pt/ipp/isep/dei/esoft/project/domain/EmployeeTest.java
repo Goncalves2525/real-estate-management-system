@@ -15,7 +15,7 @@ class EmployeeTest {
     void setUp() {
         Address address = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
         List<Role> roles = Arrays.asList(Role.AGENT);
-        employee = new Employee("John Doe", "john.doe@example.com", 12345, 67890, 123456789, address, roles);
+        employee = new Employee("John Doe", "john.doe@example.com", 12345, 67890, 123456789, address, roles, 1);
     }
     /**
      * Test of getName method, of class Employee.
