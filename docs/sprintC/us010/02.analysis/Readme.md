@@ -1,4 +1,4 @@
-# US 010 - To create a Task 
+# US 010 - Place an order to purchase the property
 
 ## 2. Analysis
 

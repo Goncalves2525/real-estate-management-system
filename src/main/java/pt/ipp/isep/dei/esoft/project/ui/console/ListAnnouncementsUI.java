@@ -193,7 +193,7 @@ public class ListAnnouncementsUI implements Runnable {
         do {
             int[] filterValidater = {0, 0, 0};
             System.out.println("PLEASE CHOSE FILTERS FOR THE LIST OF PROPERTIES\n" +
-                    "(You must choose all 3 filters or none)");
+                    "(You must choose all 3 filters)");
             showTypeOfPropertyOptions();
             try {
                 propertyOption = sc.nextInt();

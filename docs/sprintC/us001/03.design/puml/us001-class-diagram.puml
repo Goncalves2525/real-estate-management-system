@@ -8,81 +8,53 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 'left to right directio
-class Property{
-      - area : double
-      - distanceFromCenter : double
-      - price : double
-      - address : Address
-      + getAddress() : Address
-      + getArea() : double
-      + getDistanceFromCenter() : int
-      + getPrice() : double
-      + toString() : String
+class UserSession{
 }
 
-class Announcement {
-   - typeOfProperty : TypeOfProperty
-   - transactionType : TransactionType
-   - publishDate : Date
-   - comission : Commission
-   - photos ArrayList<Photo>
-   - isPublished : boolean
-   - id : int
-   - idCounter : int
-   + getProperty() : Property
-   + toString() : String
+class AuthenticationFacade {
 }
 
-class AnnouncementRepository {
-    +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
-    +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
-    +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
-    +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+class AuthenticationRepository {
 }
 
 class Repositories {
-    +Repositories()
-    +getInstance() : Repositories
-    +getAnnouncementRepository() : AnnouncementRepository
 }
 
-class ListAnnouncementsController {
-     +getAnnoucementRepository() : Repository
-     +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
-     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
-     +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
-     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+class CreateOrderController {
 }
 
-class ListAnouncementsUI {
-    +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria) : AnnouncementListOptionType
-    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
-    +getController() : ListAnnouncementsController
+class CreateOrderUI {
 }
 
-class Address{
-    - street : String
-    - city : String
-    - district : String
-    - state : String
-    - zipCode : int
+class User{
+}
+
+class OrderRepository{
+}
+
+class Order{
 }
 
 Repositories -> Repositories : instances
 
-ListAnouncementsUI .> ListAnnouncementsController
+CreateOrderUI .> CreateOrderController
 
-ListAnnouncementsController ..> Repositories
+CreateOrderController ..> Repositories
 
-Repositories "1" --> "1" AnnouncementRepository : has
+Repositories "1" --> "1" AuthenticationRepository : has
 
-ListAnnouncementsController ..> AnnouncementRepository
+CreateOrderController ..> AuthenticationRepository
 
-AnnouncementRepository "1" --> "*" Announcement : has
+CreateOrderController ..> OrderRepository
 
-Announcement "1" --> "1" Property : has
+AuthenticationRepository "1" --> "1" AuthenticationFacade : has
 
-Property "1" --> "1" Address : has
+AuthenticationFacade "1" --> "1" UserSession : has
 
+UserSession "1" --> "1" User : has
+
+Repositories "1" --> "1" OrderRepository : has
+
+OrderRepository "1" --> "*" Order : has
 
 @enduml

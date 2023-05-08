@@ -13,18 +13,23 @@ hide methods
 
 title Domain Model
 
-class Employee extends User{
+class UserAcount{
+    email
+    password
+    roleDescription
 }
-class User{
+
+class Employee extends Person{
+}
+class Person{
     name
-    passportCard
+    passportCardNumber
     taxNumber
     telephoneNumber
     email
-    password
 }
 
-class Client extends User{
+class Client extends Person{
 }
 
 class Order{
@@ -40,6 +45,6 @@ class Agent extends Employee{
 
 Client "1" -- "*" Order : makes >
 Order "*" -- "1" Agent : requested to >
-
+Person "1" -- "1" UserAcount : has >
 
 @enduml
