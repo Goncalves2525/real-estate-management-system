@@ -6,10 +6,6 @@ public class CreateOrderUI implements Runnable {
 
     private final CreateOrderController controller = new CreateOrderController();
 
-    private CreateOrderController getController() {
-        return controller;
-    }
-
     public CreateOrderUI() {
     }
 

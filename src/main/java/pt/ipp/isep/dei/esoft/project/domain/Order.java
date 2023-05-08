@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Date;
+
 /**
  * This class represents an Order made by a Client
  */
@@ -14,13 +16,17 @@ public class Order {
 
     private String clientEmail;
 
+    private Date date;
+
+    private OrderState state;
+
 
     /**
      * @param orderAmount amount of the order
      * @param announcementId id of the announcement
      * @param clientEmail email of the client
      */
-    public Order(double orderAmount, int announcementId, String clientEmail) {
+    public Order(double orderAmount, int announcementId, String clientEmail, Date date, OrderState state) {
         this.orderAmount = orderAmount;
         this.announcementId = announcementId;
         this.clientEmail = clientEmail;

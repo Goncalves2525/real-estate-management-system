@@ -15,10 +15,10 @@ activate Client
     Client -> System : requests to make an order to purchase a property
     activate System
 
-    System --> Client : requests property id
+    System --> Client : requests announcement id
     deactivate System
 
-    Client -> System : inserts property id
+    Client -> System : inserts announcement id
     activate System
 
     System --> Client : requests order amount

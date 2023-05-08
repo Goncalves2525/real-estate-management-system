@@ -26,10 +26,10 @@ activate client
     client -> ui : requests to make an order to purchase a property
     activate ui
 
-    ui -> client : requests property id
+    ui -> client : requests announcement id
     deactivate ui
 
-    client -> ui : inserts property id
+    client -> ui : inserts announcement id
     activate ui
 
     ui --> client : requests order amount
@@ -38,7 +38,7 @@ activate client
     client -> ui : inserts order amount (equal or lower than the price set by the owner)
     activate ui
 
-    ui -> ctrl : createOrder(propertyId, amount)
+    ui -> ctrl : createOrder(announcemementId, amount)
     activate ctrl
 
     ctrl -> REPOS : getInstance()
@@ -79,12 +79,12 @@ activate client
     AuthenticationRepository --> ctrl : email
     deactivate AuthenticationRepository
 
-    ctrl -> OrderRepository : createOrder(propertyId, amount, email)
+    ctrl -> OrderRepository : createOrder(announcementId, amount, clientEmail)
     activate OrderRepository
 
     OrderRepository -> Order** : create
 
-    OrderRepository -> OrderRepository : addOrder(propertyID, amount, email)
+    OrderRepository -> OrderRepository : addOrder(propertyID, amount, clientEmail)
 
     OrderRepository --> ctrl : order
     deactivate OrderRepository
