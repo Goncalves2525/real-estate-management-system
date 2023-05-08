@@ -3,13 +3,13 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam classAttributeIconSize 0
-'skinparam linetype ortho
 hide circle
 hide methods
 
 title US009 Domain Model
 
 class UserAccount {
+    email
     password
     roleDescription
 }
@@ -25,7 +25,7 @@ class Person{
 class Client extends Person{
 }
 
-class Address{
+/'class Address{
     doorNumber
     zipCode
 }
@@ -40,7 +40,7 @@ class State{
 }
 
 class Street{
-}
+}'/
 
 class Employee extends Person{
 }
@@ -57,14 +57,19 @@ class VisitSchedule{
 }
 
 Person "1" -- "1" UserAccount: has >
-Person "1" -- "*" Address: has >
-Street "*" -- "1" City : part of >
-District "*" -- "1" State : part of >
-City "*" -- "1" District : part of >
-Address "1" -- "1" State : has >
 Client "1" -- "*" VisitSchedule : makes >
 VisitSchedule "*" -- "*" Agent : has the availability checked by >
 
+
+
+
+
+
+/'Person "1" -- "*" Address: has >
+Street "*" -- "1" City : part of >
+District "*" -- "1" State : part of >
+City "*" -- "1" District : part of >
+Address "1" -- "1" State : has >'/
 
 
 

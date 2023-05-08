@@ -58,9 +58,10 @@ public class ListAnnouncementsUI implements Runnable {
         showAnnouncements(announcementsList);
 
         if (userIsLoggedInWithClientRole()) {
-            createOrder();
+            menuChoiceClient();
+        }else {
+            menuChoice();
         }
-        menuChoice();
     }
 
     private ArrayList<Announcement> chooseOption() {
@@ -74,7 +75,7 @@ public class ListAnnouncementsUI implements Runnable {
         String[] sort;
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose an option: ");
-        System.out.println("1 - No filter and no sort");
+        System.out.println("1 - Show all properties by most recent");
         System.out.println("2 - Only Filter");
         System.out.println("3 - Only Sort");
         System.out.println("4 - Filter and Sort");
@@ -153,6 +154,37 @@ public class ListAnnouncementsUI implements Runnable {
         }
     }
 
+    private void menuChoiceClient() {
+        Scanner sc = new Scanner(System.in);
+        int choice = -1;
+        System.out.println("1 - Create Order");
+        System.out.println("2 - Schedule a visit");
+        System.out.println("3 - List Again");
+        System.out.println("0 - Return to Main Menu");
+        try {
+            choice = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Insert number please.");
+            menuChoice();
+        }
+        switch (choice) {
+            case 1:
+                createOrder();
+                break;
+            case 2:
+                visitSchedule();
+                break;
+            case 3:
+                run();
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Invalid option");
+                menuChoice();
+        }
+    }
+
     private boolean userIsLoggedInWithClientRole() {
         if (getController().userIsLoggedInWithClientRole()) {
             return true;
@@ -161,18 +193,13 @@ public class ListAnnouncementsUI implements Runnable {
     }
 
     private void createOrder() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Do you want to create an order? (Y/N)");
-        try {
-            String answer = sc.nextLine();
-            if (answer.equalsIgnoreCase("Y")) {
-                CreateOrderUI ui = new CreateOrderUI();
-                ui.run();
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Insert Y or N please.");
-            createOrder();
-        }
+        CreateOrderUI ui = new CreateOrderUI();
+        ui.run();
+    }
+
+    private void visitSchedule() {
+        VisitScheduleUI visitUI = new VisitScheduleUI();
+        visitUI.run();
     }
 
     /**

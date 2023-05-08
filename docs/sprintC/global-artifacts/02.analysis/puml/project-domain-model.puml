@@ -42,7 +42,7 @@ class Person{
 class Agency{
     ID
     name
-    emailAddress
+    email
     phoneNumber
 }
 
@@ -125,6 +125,14 @@ class StoreNetworkManager extends Employee{
 class UnregisteredUser{
 }
 
+class VisitSchedule{
+    name
+    telephoneNumber
+    date
+    startTime
+    endTime
+}
+
 'class Request{
 '}
 
@@ -154,5 +162,7 @@ Client "1" -- "*" Order : makes >
 Order "*" -- "1" Agent : requested to >
 Street "*" --- "1" City : part of >
 Person "1" -- "1" UserAccount: has >
+Client "1" -- "*" VisitSchedule : makes >
+VisitSchedule "*" -- "*" Agent : has the availability checked by >
 
 @enduml

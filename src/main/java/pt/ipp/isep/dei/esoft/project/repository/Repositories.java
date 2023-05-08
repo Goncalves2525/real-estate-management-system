@@ -15,12 +15,10 @@ public class Repositories {
     AgencyRepository agencyRepository = new AgencyRepository();
     EmployeeRepository employeeRepository = new EmployeeRepository();
     RoleRepository roleRepository = new RoleRepository();
-
     ClientRepository clientRepository = new ClientRepository();
-
     OrderRepository orderRepository = new OrderRepository();
-
     PropertyRepository propertyRepository = new PropertyRepository();
+    VisitScheduleRepository visitScheduleRepository = new VisitScheduleRepository();
 
     private Repositories() {
     }
@@ -60,6 +58,10 @@ public class Repositories {
 
     public PropertyRepository getPropertyRepository() {
         return propertyRepository;
+    }
+
+    public VisitScheduleRepository getVisitScheduleRepository() {
+        return visitScheduleRepository;
     }
 
 }
