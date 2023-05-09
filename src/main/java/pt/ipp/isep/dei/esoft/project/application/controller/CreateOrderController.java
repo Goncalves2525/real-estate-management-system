@@ -1,8 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.OrderState;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+
+import java.util.Date;
 
 /**
  * Create Order Controller.
@@ -11,12 +15,15 @@ public class CreateOrderController {
     private OrderRepository orderRepository = null;
     private AuthenticationRepository authenticationRepository = null;
 
+    private AnnouncementRepository announcementRepository = null;
+
     /**
      * Instantiates a new Create Order Controller.
      */
     public CreateOrderController() {
         getOrderRepository();
         getAuthenticationRepository();
+        getAnnouncementRepository();
     }
 
     /**
@@ -41,13 +48,20 @@ public class CreateOrderController {
         return authenticationRepository;
     }
 
+    private AnnouncementRepository getAnnouncementRepository() {
+        if (announcementRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            announcementRepository = repositories.getAnnouncementRepository();
+        }
+        return announcementRepository;
+    }
+
     /**
      * @param announcementId announcement id
      * @return true if current user already made order for this announcement, false otherwise
      */
-    public boolean clientAlreadyMadeOrderForThisAnnouncement(int announcementId) {
+    public boolean clientAlreadyMadeOrderForThisAnnouncement(int announcementId, String userEmail) {
         OrderRepository orderRepository = getOrderRepository();
-        String userEmail = getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
         return orderRepository.clientAlreadyMadeOrderForThisAnnouncement(userEmail, announcementId);
     }
 
@@ -61,5 +75,17 @@ public class CreateOrderController {
         return orderRepository.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(orderAmount, announcementId);
     }
 
+    public double getPropertyPriceByAnnouncementId(int id){
+        return getAnnouncementRepository().getPropertyPriceByAnnouncmentId(id);
+    }
+
+    public String getClientEmail(){
+        return getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+    }
+
+    public void createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState){
+        OrderRepository orderRepository = getOrderRepository();
+        orderRepository.addOrder(orderAmount, announcementId, clientEmail, date, orderState);
+    }
 
 }

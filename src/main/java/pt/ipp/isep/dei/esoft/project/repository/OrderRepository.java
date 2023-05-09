@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Order;
+import pt.ipp.isep.dei.esoft.project.domain.OrderState;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class represents an Order Repository.
@@ -40,7 +42,8 @@ public class OrderRepository {
         return false;
     }
 
-    public void addOrder(Order order) {
+    public void addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) {
+        Order order = new Order(orderAmount, announcementId, clientEmail, date, orderState);
         orders.add(order);
     }
 

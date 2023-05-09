@@ -11,6 +11,7 @@ participant "CreateOrderUI" as ui
 participant "CreateOrderController" as ctrl
 participant "Repositories" as REPOS
 participant "repositories\nRepositories" as repos
+participant "announcementRepository\nAnnouncementRepository" as AnnouncementRepository
 participant "authenticationRepository\nAuthenticationRepository" as AuthenticationRepository
 participant "authenticationFacade\nAuthenticationFacade" as AuthenticationFacade
 participant "userSession\nUserSession" as UserSession
@@ -32,6 +33,38 @@ activate client
     client -> ui : inserts announcement id
     activate ui
 
+    ui -> ctrl : getPropertyPriceByAnnouncementId(id)
+    activate ctrl
+
+    note right
+        Always creates instance of repositories
+    end note
+    ctrl -> REPOS : getInstance()
+    activate REPOS
+
+    REPOS --> ctrl : repositories
+    deactivate REPOS
+
+
+
+    ctrl -> repos : getAnnouncementRepository()
+    activate repos
+
+    repos --> ctrl : announcementRepository
+    deactivate repos
+
+    ctrl -> AnnouncementRepository : getPropertyPriceByAnnouncementId(id)
+    activate AnnouncementRepository
+
+    AnnouncementRepository -> AnnouncementRepository : getPropertyPriceByAnnouncementId(id)
+
+    AnnouncementRepository --> ctrl : price
+    deactivate AnnouncementRepository
+
+    ctrl --> ui : price
+    deactivate ctrl
+
+
     ui --> client : requests order amount
     deactivate ui
 
@@ -41,11 +74,6 @@ activate client
     ui -> ctrl : createOrder(announcemementId, amount)
     activate ctrl
 
-    ctrl -> REPOS : getInstance()
-    activate REPOS
-
-    REPOS --> ctrl : repositories
-    deactivate REPOS
 
     ctrl -> repos : getAuthenticationRepository()
     activate repos

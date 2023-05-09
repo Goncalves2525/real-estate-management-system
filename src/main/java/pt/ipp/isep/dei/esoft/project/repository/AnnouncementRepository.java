@@ -107,6 +107,13 @@ public class AnnouncementRepository {
         }
     }
 
+    public double getPropertyPriceByAnnouncmentId(int id){
+        Announcement announcement = getAnnouncementById(id);
+        Property property = getPropertyByAnnouncement(announcement);
+
+        return property.getPrice();
+    }
+
     /**
      * Adds an announcement to the repository
      *
