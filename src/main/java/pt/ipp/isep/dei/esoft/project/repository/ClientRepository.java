@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Address;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
 
 import java.util.ArrayList;
@@ -25,13 +26,13 @@ public class ClientRepository {
     }
 
 
-    /**
-     * @param client client to be added to the list
-     */
-    public void addClient(Client client) {
+    public boolean addClient(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+        Client client = new Client(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
         if (!clientExists(client.getEmail())) {
             clientList.add(client);
+            return true;
         }
+        return false;
     }
 
 

@@ -107,7 +107,7 @@ activate client
     AuthenticationRepository --> ctrl : email
     deactivate AuthenticationRepository
 
-    ctrl -> OrderRepository : createOrder(announcementId, amount, clientEmail)
+    ctrl -> OrderRepository : createOrder(announcementId, amount, clientEmail, date, orderState)
     activate OrderRepository
 
     OrderRepository -> Order** : create

@@ -19,4 +19,8 @@ public class Client extends Person {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
     }
 
+    public Client(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber){
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber);
+    }
+
 }

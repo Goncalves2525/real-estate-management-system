@@ -83,7 +83,6 @@ public class RegisterEmployeeController {
         return passwordGenerator.generatePassword();
     }
 
-
     /** Creates a user for the authentication repository.
      *
      * @param name    name

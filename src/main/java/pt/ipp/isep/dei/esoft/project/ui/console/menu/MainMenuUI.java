@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateRequestUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ListAnnouncementsUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.RegisterUserUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -37,7 +38,7 @@ public class MainMenuUI implements Runnable {
 //        }
 //        else{
             options.add(new MenuItem("Login", new AuthenticationUI()));
-            //options.add(new MenuItem("Register", new AuthenticationUI()));
+            options.add(new MenuItem("Register", new RegisterUserUI()));
             options.add(new MenuItem("View Properties", new ListAnnouncementsUI()));
             options.add(new MenuItem("Dev Team", new DevTeamUI()));
 
