@@ -1,20 +1,25 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class VisitSchedule {
     private int propertyID;
     private String name;
     private int telephoneNumber;
-    private String date;
+    private LocalDate date;
     private String startTime;
     private String endTime;
+    private boolean aprovatedByAgent;
 
-    public VisitSchedule(int propertyID, String name, int telephoneNumber, String date, String startTime, String endTime) {
+    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, String startTime, String endTime, boolean aprovatedByAgent){
         this.propertyID = propertyID;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.aprovatedByAgent = aprovatedByAgent;
     }
 
     public int getPropertyID() {
@@ -41,13 +46,10 @@ public class VisitSchedule {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getStartTime() {
         return startTime;
@@ -64,6 +66,26 @@ public class VisitSchedule {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public boolean isOverlapping(LocalTime startTime, LocalTime endTime) {
+        // Check if the start time is within the VisitSchedule's time range
+        if (startTime.isAfter(LocalTime.parse(this.startTime)) && startTime.isBefore(LocalTime.parse(this.endTime))) {
+            return true;
+        }
+
+        // Check if the end time is within the VisitSchedule's time range
+        if (endTime.isAfter(LocalTime.parse(this.startTime)) && endTime.isBefore(LocalTime.parse(this.endTime))) {
+            return true;
+        }
+
+        // Check if the provided time range completely covers the VisitSchedule's time range
+        if (startTime.isBefore(LocalTime.parse(this.startTime)) && endTime.isAfter(LocalTime.parse(this.endTime))) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 

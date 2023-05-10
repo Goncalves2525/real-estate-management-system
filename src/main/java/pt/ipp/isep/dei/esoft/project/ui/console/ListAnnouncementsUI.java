@@ -136,6 +136,8 @@ public class ListAnnouncementsUI implements Runnable {
         int choice = -1;
         System.out.println("1 - List Again");
         System.out.println("0 - Return to Main Menu");
+        System.out.print("Choose an option: ");
+        System.out.println();
         try {
             choice = sc.nextInt();
         } catch (InputMismatchException e) {
@@ -161,6 +163,8 @@ public class ListAnnouncementsUI implements Runnable {
         System.out.println("2 - Schedule a visit");
         System.out.println("3 - List Again");
         System.out.println("0 - Return to Main Menu");
+        System.out.print("Choose an option: ");
+        System.out.println();
         try {
             choice = sc.nextInt();
         } catch (InputMismatchException e) {

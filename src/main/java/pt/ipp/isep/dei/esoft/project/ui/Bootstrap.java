@@ -16,7 +16,10 @@ public class Bootstrap implements Runnable {
         addAgencies();
         addAgents();
         addAnnouncements();
+        addClients();
     }
+
+
 
     private void addAgencies() {
         //get Agency repository
@@ -96,6 +99,18 @@ public class Bootstrap implements Runnable {
 
     }
 
+
+    private void addClients() {
+        // Create a new client
+        Address clientAddress = new Address("client street", "client city", "client district", "client state", 1234);
+
+        // Add the new client to the client repository
+        ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
+        clientRepository.addClient("TestClientName", "testclient@this.app", 11111111, 222222222, 912312332, clientAddress);
+
+    }
+
+
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
@@ -114,6 +129,9 @@ public class Bootstrap implements Runnable {
                 AuthenticationController.ROLE_CLIENT);
 
         authenticationRepository.addUserWithRole("Client2", "client2@this.app", "pwd",
+                AuthenticationController.ROLE_CLIENT);
+
+        authenticationRepository.addUserWithRole("TestClientName", "testclient@this.app", "pwd",
                 AuthenticationController.ROLE_CLIENT);
 
 
