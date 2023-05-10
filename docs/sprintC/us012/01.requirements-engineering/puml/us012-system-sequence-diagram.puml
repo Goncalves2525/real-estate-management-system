@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "System Administrator" as Admin
+participant ":System" as System
+
+activate Admin
+
+    Admin -> System : requests to import a csv file
+    activate System
+
+    System --> Admin : requests to insert csv file location
+    deactivate System
+
+    Admin -> System : inserts csv file location
+    activate System
+
+    System --> Admin : displays success message
+    deactivate System
+
+
+@enduml

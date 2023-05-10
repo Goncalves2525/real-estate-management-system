@@ -15,12 +15,10 @@ title Domain Model
 class UnregisteredUser{
 }
 
-class User{
+class UserAcount{
     name
-    passportCardNumber
-    taxNumber
     email
-    telephoneNumber
+    roleDescription
 }
 
 'class SystemAdministrator {
@@ -28,7 +26,7 @@ class User{
 '   password
 '}
 
-UnregisteredUser "1" --- "1" User : registers to become >
+UnregisteredUser "1" --- "1" UserAcount : registers to create >
 
 
 @enduml

@@ -22,7 +22,12 @@ class Agent extends Employee{
 }
 
 class Order{
+    id
+    announcementId
     orderAmount
+    clientEmail
+    date
+    orderState
 }
 
 class UserAccount {
@@ -133,10 +138,13 @@ class VisitSchedule{
     endTime
 }
 
+class LegacySystem{
+}
+
 'class Request{
 '}
 
-UnregisteredUser "1" -- "1" UserAccount : registers to become >
+UnregisteredUser "1" -- "1" UserAccount : registers to create >
 Agent "1" -- "1" Announcement: publishes >
 StoreNetworkManager "1" -- "*" StoreManager: manages >
 Agency "1" -- "*" Agent: has >
@@ -164,5 +172,6 @@ Street "*" --- "1" City : part of >
 Person "1" -- "1" UserAccount: has >
 Client "1" -- "*" VisitSchedule : makes >
 VisitSchedule "*" -- "*" Agent : has the availability checked by >
+SystemAdministrator "1" -- "1" LegacySystem : imports information from >
 
 @enduml

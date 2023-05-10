@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+class LegacySystem{
+}
+
+class SystemAdministrator extends Employee{
+}
+
+class Employee extends Person{
+}
+
+class Person{
+        name
+        email
+        passportCardNumber
+        taxNumber
+        telephoneNumber
+}
+
+SystemAdministrator "1" -- "1" LegacySystem : imports information from >
+
+@enduml

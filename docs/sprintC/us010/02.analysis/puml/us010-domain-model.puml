@@ -34,9 +34,11 @@ class Client extends Person{
 
 class Order{
     id
+    announcementId
     orderAmount
-    announcementID
     clientEmail
+    date
+    orderState
 }
 
 class Agent extends Employee{
