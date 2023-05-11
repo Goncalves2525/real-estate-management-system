@@ -4,10 +4,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateRequestUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.PublishAnnouncementUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.ClientUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
@@ -59,7 +56,7 @@ public class AuthenticationUI implements Runnable {
             if(role.getDescription().equals(AuthenticationController.ROLE_ADMIN)){
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_ADMIN, new AdminUI()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_EMPLOYEE)) {
-                rolesUI.add(new MenuItem(AuthenticationController.ROLE_EMPLOYEE, new PublishAnnouncementUI()));
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_EMPLOYEE, new EmployeeUI()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_CLIENT)) {
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENT, new ClientUI()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_NETWORK_MANAGER)) {

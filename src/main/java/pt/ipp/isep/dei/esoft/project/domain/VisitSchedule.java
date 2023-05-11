@@ -86,7 +86,13 @@ public class VisitSchedule {
         return false;
     }
 
+    public boolean isAprovatedByAgent() {
+        return this.aprovatedByAgent;
+    }
 
+    public void setAprovatedByAgent(boolean aprovatedByAgent) {
+        this.aprovatedByAgent = aprovatedByAgent;
+    }
 
 
 

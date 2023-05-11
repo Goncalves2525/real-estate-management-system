@@ -108,5 +108,36 @@ public class VisitScheduleController {
         this.visitScheduleRepository.addVisitSchedule(visitSchedule);
     }
 
+    public ArrayList<VisitSchedule> getPendingVisits() {
+        ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
+            if (!visit.isAprovatedByAgent()) {
+                pendingVisits.add(visit);
+            }
+        }
+        return pendingVisits;
+    }
+
+    public void approveVisit(VisitSchedule visitSchedule) {
+        visitSchedule.setAprovatedByAgent(true);
+    }
+
+    public ArrayList<VisitSchedule> getUnapprovedVisits() {
+        ArrayList<VisitSchedule> unapprovedVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
+            if (!visit.isAprovatedByAgent()) {
+                unapprovedVisits.add(visit);
+            }
+        }
+        return unapprovedVisits;
+    }
+
+
+    public void removeVisit(VisitSchedule visit) {
+        visitScheduleRepository.removeVisitSchedule(visit);
+    }
+
+
+
 
 }

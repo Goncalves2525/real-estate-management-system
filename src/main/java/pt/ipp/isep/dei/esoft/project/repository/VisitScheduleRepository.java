@@ -24,6 +24,9 @@ public class VisitScheduleRepository {
         return userSchedules;
     }
 
+    public void removeVisitSchedule(VisitSchedule visitSchedule) {
+        visitSchedules.remove(visitSchedule);
+    }
 
 
 }
