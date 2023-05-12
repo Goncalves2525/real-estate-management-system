@@ -19,14 +19,10 @@ public class VisitScheduleEvaluationUI implements Runnable {
 
     @Override
     public void run() {
-        ArrayList<VisitSchedule> unapprovedVisits = controller.getUnapprovedVisits();
-        if (unapprovedVisits.isEmpty()) {
-            System.out.println("No unapproved visits to show.");
+        List<VisitSchedule> pendingVisits = listPendingVisits();
+        if (pendingVisits.isEmpty()) {
+            System.out.println("No pending visits to show.");
             return;
-        }
-
-        for (int i = 0; i < unapprovedVisits.size(); i++) {
-            System.out.println((i + 1) + ". " + unapprovedVisits.get(i).toString());
         }
 
         System.out.println("Select a visit to approve or remove (or enter a negative number to exit):");
@@ -37,7 +33,7 @@ public class VisitScheduleEvaluationUI implements Runnable {
             return;
         }
 
-        String response;
+        String response="";
         do {
             System.out.println("Do you want to approve or remove the visit? (A/R)");
             response = sc.nextLine();
@@ -47,18 +43,20 @@ public class VisitScheduleEvaluationUI implements Runnable {
         } while (!response.equalsIgnoreCase("A") && !response.equalsIgnoreCase("R"));
 
         if (response.equalsIgnoreCase("A")) {
-            controller.approveVisit(unapprovedVisits.get(visitIndex));
+            controller.approveVisit(pendingVisits.get(visitIndex));
             System.out.println("Visit approved.");
         } else {
-            controller.removeVisit(unapprovedVisits.get(visitIndex));
+            controller.removeVisit(pendingVisits.get(visitIndex));
             System.out.println("Visit removed.");
         }
     }
 
 
 
+
     private List<VisitSchedule> listPendingVisits() {
-        List<VisitSchedule> pendingVisits = controller.getPendingVisits();
+        String agentEmail = controller.getCurrentUserEmail();
+        List<VisitSchedule> pendingVisits = controller.getPendingVisitsByAgentEmail(agentEmail);
         if (pendingVisits.isEmpty()) {
             return pendingVisits;
         }
@@ -71,21 +69,5 @@ public class VisitScheduleEvaluationUI implements Runnable {
         return pendingVisits;
     }
 
-    private int selectVisit(List<VisitSchedule> pendingVisits) {
-        System.out.println("Enter the index number of the visit you want to approve (or 0 to exit):");
-        int index = sc.nextInt() - 1;
 
-        if (index >= 0 && index < pendingVisits.size()) {
-            return index;
-        } else if (index == -1) {
-            return -1;
-        } else {
-            System.out.println("Invalid index. Please try again.");
-            return selectVisit(pendingVisits);
-        }
-    }
-
-    private void approveVisit(VisitSchedule visitSchedule) {
-        controller.approveVisit(visitSchedule);
-    }
 }

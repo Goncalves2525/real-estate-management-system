@@ -67,10 +67,10 @@ public class VisitScheduleController {
     }
 
 
-    public boolean isOverlappingWithExistingSchedules(int userPhone, LocalDate visitDate, String startTime, String endTime) {
+    public boolean isOverlappingWithExistingSchedules(int userPhone, LocalDate visitDate, LocalTime startTime, LocalTime endTime) {
         // Convert string times to LocalTime objects
-        LocalTime start = LocalTime.parse(startTime);
-        LocalTime end = LocalTime.parse(endTime);
+        LocalTime start = startTime;
+        LocalTime end = endTime;
 
         // Get the list of VisitSchedule objects
         ArrayList<VisitSchedule> visitSchedules = this.visitScheduleRepository.getVisitSchedulesByUserPhoneAndDate(userPhone, visitDate);
@@ -93,49 +93,40 @@ public class VisitScheduleController {
 
 
 
-
-    private boolean isOverlapping(String existingStart, String existingEnd, String newStart, String newEnd) {
-        LocalTime existingStartTime = LocalTime.parse(existingStart);
-        LocalTime existingEndTime = LocalTime.parse(existingEnd);
-        LocalTime newStartTime = LocalTime.parse(newStart);
-        LocalTime newEndTime = LocalTime.parse(newEnd);
-
-        return newStartTime.isBefore(existingEndTime) && newEndTime.isAfter(existingStartTime);
-    }
-
-    public void saveVisitSchedule(int announcementID , String name, int telephoneNumber, LocalDate date, String startTime, String endTime, boolean approvedbyAgent) {
-        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent);
-        this.visitScheduleRepository.addVisitSchedule(visitSchedule);
-    }
-
-    public ArrayList<VisitSchedule> getPendingVisits() {
-        ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
-        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (!visit.isAprovatedByAgent()) {
-                pendingVisits.add(visit);
-            }
+    public String getAgentEmailByAnnouncementID(int id) {
+        Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
+        if (announcement != null) {
+            return announcement.getAgentEmail();
         }
-        return pendingVisits;
+        return null;
+    }
+
+
+    public void saveVisitSchedule(int announcementID , String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent){
+        String agentEmail = getAgentEmailByAnnouncementID(announcementID);
+        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail);
+        this.visitScheduleRepository.addVisitSchedule(visitSchedule);
     }
 
     public void approveVisit(VisitSchedule visitSchedule) {
         visitSchedule.setAprovatedByAgent(true);
     }
 
-    public ArrayList<VisitSchedule> getUnapprovedVisits() {
-        ArrayList<VisitSchedule> unapprovedVisits = new ArrayList<>();
-        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (!visit.isAprovatedByAgent()) {
-                unapprovedVisits.add(visit);
-            }
-        }
-        return unapprovedVisits;
-    }
-
 
     public void removeVisit(VisitSchedule visit) {
         visitScheduleRepository.removeVisitSchedule(visit);
     }
+
+    public ArrayList<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
+        ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
+            if (!visit.isAprovatedByAgent() && visit.getAgentEmail().equals(agentEmail)) {
+                pendingVisits.add(visit);
+            }
+        }
+        return pendingVisits;
+    }
+
 
 
 

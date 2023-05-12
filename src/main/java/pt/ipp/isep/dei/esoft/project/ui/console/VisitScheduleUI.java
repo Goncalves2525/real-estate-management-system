@@ -84,8 +84,8 @@ public class VisitScheduleUI implements Runnable {
             }
         } while (!startTime.isBefore(endTime));
 
-        if (!controller.isOverlappingWithExistingSchedules(phoneNumber, visitDate, startTime.toString(), endTime.toString())) {
-            controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime.toString(), endTime.toString(),false);
+        if (!controller.isOverlappingWithExistingSchedules(phoneNumber, visitDate, startTime, endTime)) {
+            controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false);
             System.out.println("Your visit has been scheduled.");
         } else {
             System.out.println("This visit overlaps with an existing visit. Please choose a different time.");

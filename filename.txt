@@ -1,19 +1,7 @@
--ID: 27 
--Property Information: 
--Area: 1212,00
--Distance from center: 121,00
--Price: 1221,00
--Address: 12, 12, 12, 12, 1221
--Number of bedrooms: 1
--Number of bathrooms: 2
--Number of parking spaces: 1
--Has central heating: false
--Has air conditioning: true
--Has basement: true
--Has inhabitable loft: true 
--Type of Property: House 
+-ID: 20 
+-Type of Property: Apartment 
 -Transaction Type: Sale 
--Publish Date: Sat May 06 09:14:59 WEST 2023 
+-Publish Date: Fri May 12 22:39:12 WEST 2023 
 -Comission: Value: 0,00 Percentage: 0,00 
 -Photos: [] 
 -IsPublished: false

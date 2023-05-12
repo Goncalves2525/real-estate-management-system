@@ -8,11 +8,12 @@ public class VisitSchedule {
     private String name;
     private int telephoneNumber;
     private LocalDate date;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private boolean aprovatedByAgent;
+    private String agentEmail;
 
-    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, String startTime, String endTime, boolean aprovatedByAgent){
+    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean aprovatedByAgent, String agentEmail){
         this.propertyID = propertyID;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
@@ -20,6 +21,7 @@ public class VisitSchedule {
         this.startTime = startTime;
         this.endTime = endTime;
         this.aprovatedByAgent = aprovatedByAgent;
+        this.agentEmail = agentEmail;
     }
 
     public int getPropertyID() {
@@ -51,35 +53,35 @@ public class VisitSchedule {
     }
 
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
     public boolean isOverlapping(LocalTime startTime, LocalTime endTime) {
         // Check if the start time is within the VisitSchedule's time range
-        if (startTime.isAfter(LocalTime.parse(this.startTime)) && startTime.isBefore(LocalTime.parse(this.endTime))) {
+        if (startTime.isAfter(this.startTime) && startTime.isBefore(this.endTime)) {
             return true;
         }
 
         // Check if the end time is within the VisitSchedule's time range
-        if (endTime.isAfter(LocalTime.parse(this.startTime)) && endTime.isBefore(LocalTime.parse(this.endTime))) {
+        if (endTime.isAfter(this.startTime) && endTime.isBefore(this.endTime)) {
             return true;
         }
 
         // Check if the provided time range completely covers the VisitSchedule's time range
-        if (startTime.isBefore(LocalTime.parse(this.startTime)) && endTime.isAfter(LocalTime.parse(this.endTime))) {
+        if (startTime.isBefore(this.startTime) && endTime.isAfter(this.endTime)) {
             return true;
         }
 
@@ -94,7 +96,17 @@ public class VisitSchedule {
         this.aprovatedByAgent = aprovatedByAgent;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
+    public String getAgentEmail() {
+        return agentEmail;
+    }
+
+    public void setAgentEmail(String agentEmail) {
+        this.agentEmail = agentEmail;
+    }
 
     @Override
     public String toString() {

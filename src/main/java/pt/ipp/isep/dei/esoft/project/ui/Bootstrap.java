@@ -35,8 +35,7 @@ public class Bootstrap implements Runnable {
     private void addAgents() {
         //get Agency repository
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-        ArrayList<Employee> agents = new ArrayList<>();
-        ArrayList<Employee> agents2 = new ArrayList<>();
+
 
 
         employeeRepository.add(new Employee("employee@this.app", 1));
@@ -55,8 +54,8 @@ public class Bootstrap implements Runnable {
         Date d1 = new Date(2022, Calendar.APRIL, 10);
         Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
         ArrayList<Role> roles = new ArrayList<>();
-        Employee agent1 = new Employee("Agent1", "employee@this.app", 123456789, 123, 123, new Address("street", "city", "district", "state", 1234), roles, 1);
-        Employee agent2 = new Employee("Agent2", "employee2@this.app", 123456789, 123, 123, new Address("street", "city", "district", "state", 1234), roles, 1);
+        Employee agent1 = new Employee("Agent1", "employee@this.app", 123456789, 123, 912345421, new Address("street", "city", "district", "state", 1234), roles, 1);
+        Employee agent2 = new Employee("Agent2", "employee2@this.app", 123123123, 456, 912341234, new Address("street", "city", "district", "state", 1234), roles, 1);
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
         propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 100000, a1, 2, 2, 1, true, true, true, true, SunExposure.NORTH);
