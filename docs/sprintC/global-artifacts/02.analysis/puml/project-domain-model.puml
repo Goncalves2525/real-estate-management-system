@@ -136,6 +136,7 @@ class VisitSchedule{
     date
     startTime
     endTime
+    aprovatedByAgent
 }
 
 class LegacySystem{
@@ -171,7 +172,8 @@ Order "*" -- "1" Agent : requested to >
 Street "*" --- "1" City : part of >
 Person "1" -- "1" UserAccount: has >
 Client "1" -- "*" VisitSchedule : makes >
-VisitSchedule "*" -- "*" Agent : has the availability checked by >
+VisitSchedule "*" -- "*" Agent : availability checked >
+Agent "*" -- "*" VisitSchedule : confirms availability >
 SystemAdministrator "1" -- "1" LegacySystem : imports information from >
 
 @enduml

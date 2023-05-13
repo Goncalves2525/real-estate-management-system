@@ -54,12 +54,13 @@ class VisitSchedule{
     date
     startTime
     endTime
+    aprovatedByAgent
 }
 
 Person "1" -- "1" UserAccount: has >
 Client "1" -- "*" VisitSchedule : makes >
-VisitSchedule "*" -- "*" Agent : has the availability checked by >
-
+VisitSchedule "*" -- "*" Agent : availability checked >
+Agent "*" -- "*" VisitSchedule : confirms availability >
 
 
 

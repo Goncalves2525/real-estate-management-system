@@ -85,14 +85,35 @@ public class VisitScheduleUI implements Runnable {
         } while (!startTime.isBefore(endTime));
 
         if (!controller.isOverlappingWithExistingSchedules(phoneNumber, visitDate, startTime, endTime)) {
+            System.out.println("You are trying to schedule a visit to date " + visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " from " + startTime + " to " + endTime + ".");
+            if (isTheInformationCorrect()){
             controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false);
             System.out.println("Your visit has been scheduled.");
+            } else {
+                System.out.println("Your visit has not been scheduled.");
+            }
+
         } else {
             System.out.println("This visit overlaps with an existing visit. Please choose a different time.");
         }
 
     }
 
+    private boolean isTheInformationCorrect() {
+        System.out.println("Is the information correct? (Y/N)");
+        String response;
+        do {
+            response = sc.nextLine();
+            if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("N")) {
+                System.out.println("Invalid input. Please enter Y or N:");
+            }
+        } while (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("N"));
+        if (response.equalsIgnoreCase("Y")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private LocalDate inputDate() {
         while (true) {

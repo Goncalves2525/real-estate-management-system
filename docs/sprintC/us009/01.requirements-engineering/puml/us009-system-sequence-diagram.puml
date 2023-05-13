@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD)
+title System Sequence Diagram (SSD) of US009 - Schedule a visit
 
 autonumber
 
@@ -12,35 +12,37 @@ participant ":System" as System
 
 activate Client
 
-    Client -> System : Asks to list of available properties
+    Client -> System : Asks to list of available properties (devo começar por aqui ou logo no pedido de agendamento?)
         activate System
 
-        System --> Client : Selects the properties
+        System --> Client : Displays the list of announcements and a menu where you can Schedule a visit
     deactivate System
 
-    Client -> System : Asks to leave a message to the agent to schedule a visit
+    Client -> System : Selects the option to schedule a visit
         activate System
 
-        System --> Client : Requests data
+    loop    [Schedule_visit]
+        System --> Client : Ask to select the announcement ID to schedule a visit
+    deactivate System
+
+    Client -> System : Types the announcement ID
+        activate System
+
+        System --> Client : Requests data (date of visit, time of visit start and time of visit end))
     deactivate System
 
     Client -> System : Types requested data (date of visit, time of visit start and time of visit end)
         activate System
 
-        System --> Client : Confirm there is not a visit request from the same client at the same time
+        System --> Client : Confirm there is not a visit request from the same client at the same time and display the data \ntyped by the client for confirmation
     deactivate System
 
-    Client -> System : Request to show the information that will be sent
-        activate System
-
-    System --> Client : Show the message to sent to the agent that includes the data typed by the client and client's name and phone number
-    deactivate System
-
-    Client -> System : Confirm if the message is correct
+    Client -> System : Confirms the information is correct and asks to send the message to the agent
         activate System
 
         System --> Client : Send the message to the agent and show a confirmation message to the client
     deactivate System
+    end
 
 
 @enduml
