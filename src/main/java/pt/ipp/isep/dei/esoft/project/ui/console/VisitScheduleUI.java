@@ -88,7 +88,7 @@ public class VisitScheduleUI implements Runnable {
             System.out.println("You are trying to schedule a visit to date " + visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " from " + startTime + " to " + endTime + ".");
             if (isTheInformationCorrect()){
             controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false);
-            System.out.println("Your visit has been scheduled.");
+            System.out.println("Your visit has sent to the Agent for confirmation.");
             } else {
                 System.out.println("Your visit has not been scheduled.");
             }

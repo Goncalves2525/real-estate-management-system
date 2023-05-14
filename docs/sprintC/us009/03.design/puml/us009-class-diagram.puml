@@ -1,0 +1,100 @@
+@startuml
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+
+skinparam classAttributeIconSize 0
+
+class UserSession {
+    +getUserEmail()
+}
+
+class Employee {
+    - name
+    - email
+}
+
+class Client {
+    - name
+    - email
+}
+
+class Announcement {
+    - announcementID
+    - agentEmail
+}
+
+class VisitSchedule {
+    - visitDate
+    - startTime
+    - endTime
+    - isOverlapping(startTime, endTime)
+}
+
+class AuthenticationRepository {
+    +doLogin(email, pwd)
+    +doLogout()
+    +getCurrentUserSession()
+    +addUserRole(id, description)
+    +addUserWithRole(name, email, pwd, roleId)
+}
+
+class AuthenticationController {
+    +getUserEmail()
+}
+
+class VisitScheduleUI {
+    +askToScheduleVisit()
+    +requestData(visitDate, startTime, endTime)
+    +showConfirmationMessage()
+}
+
+class VisitScheduleController {
+    +getCurrentUserName()
+    +selectAnnouncement(announcementID)
+    +isOverlappingWithExistingSchedules(clientEmail, visitDate, startTime, endTime)
+    +saveVisitSchedule(announcementID, clientEmail, visitDate, startTime, endTime, false)
+}
+
+class Repositories {
+    +getClientRepository()
+    +getAnnouncementRepository()
+    +getEmployeeRepository()
+    +getVisitScheduleRepository()
+}
+
+class AnnouncementRepository {
+    +getAnnouncement(announcementID)
+    +getAgentEmailFromAnnouncement(announcement)
+}
+
+class ClientRepository {
+    +getClientByEmail(clientEmail)
+}
+
+class EmployeeRepository {
+    +getEmployeeByEmail(agentEmail)
+}
+
+class VisitScheduleRepository {
+    +getVisitSchedulesByUserEmailAndDate(clientEmail, visitDate)
+    +addVisitSchedule(visitSchedule)
+}
+
+UserSession <-- AuthenticationRepository
+AuthenticationController ..> AuthenticationRepository
+VisitScheduleUI ..> AuthenticationController
+VisitScheduleUI ..> VisitScheduleController
+Repositories <-- VisitScheduleController
+ClientRepository <-- Repositories
+AnnouncementRepository <-- Repositories
+EmployeeRepository <-- Repositories
+VisitScheduleRepository <-- Repositories
+Client <-- ClientRepository
+Announcement <-- AnnouncementRepository
+Employee <-- EmployeeRepository
+VisitSchedule <-- VisitScheduleRepository
+
+@enduml

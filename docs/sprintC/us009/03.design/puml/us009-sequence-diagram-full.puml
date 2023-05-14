@@ -1,0 +1,103 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Client" as Client
+participant "VisitScheduleUI" as UI
+participant "AuthenticationController" as Authentication
+participant "AuthenticationRepository" as AuthenticationRepository
+participant "VisitScheduleController" as Controller
+participant "Repositories:Repositories" as Repositories
+participant "AnnouncementRepository" as AnnouncementRepository
+participant "ClientRepository" as ClientRepository
+participant "EmployeeRepository" as EmployeeRepository
+participant "VisitScheduleRepository" as VisitScheduleRepository
+participant "VisitSchedule" as Schedule
+
+activate Client
+
+Client -> UI : askToScheduleVisit()
+    activate UI
+    UI -> Authentication : getUserEmail()
+        activate Authentication
+        Authentication -> AuthenticationRepository : getCurrentUserSession()
+            activate AuthenticationRepository
+            AuthenticationRepository --> Authentication : userSession
+        deactivate AuthenticationRepository
+        Authentication --> UI : clientEmail
+    deactivate Authentication
+    UI -> Controller : getCurrentUserName()
+        activate Controller
+        Controller -> Repositories : getClientRepository()
+            activate Repositories
+            Repositories --> Controller : ClientRepository
+        deactivate Repositories
+        Controller -> ClientRepository : getClientByEmail(clientEmail)
+            activate ClientRepository
+            Controller <-- ClientRepository : client
+            deactivate ClientRepository
+    UI <-- Controller : clientName
+    deactivate Controller
+    UI -> Controller : selectAnnouncement(announcementID)
+        activate Controller
+        Controller -> Repositories : getAnnouncementRepository()
+            activate Repositories
+            Repositories --> Controller : AnnouncementRepository
+        deactivate Repositories
+        Controller -> AnnouncementRepository : getAnnouncement(announcementID)
+            activate AnnouncementRepository
+            Controller <-- AnnouncementRepository : announcement
+            Controller -> AnnouncementRepository : getAgentEmailFromAnnouncement(announcement)
+            Controller <-- AnnouncementRepository : agentEmail
+            deactivate AnnouncementRepository
+            Controller -> Repositories : getEmployeeRepository()
+                activate Repositories
+                Repositories --> Controller : EmployeeRepository
+            deactivate Repositories
+            Controller -> EmployeeRepository : getEmployeeByEmail(agentEmail)
+                activate EmployeeRepository
+            Controller <-- EmployeeRepository : agent
+            deactivate EmployeeRepository
+            UI <-- Controller : announcement selected
+    deactivate Controller
+    UI --> Client : requestData(visitDate, startTime, endTime)
+deactivate UI
+
+Client -> UI : provideData(visitDate, startTime, endTime)
+    activate UI
+    UI -> Controller : isOverlappingWithExistingSchedules(clientEmail, visitDate, startTime, endTime)
+        activate Controller
+        Controller -> Repositories : getVisitScheduleRepository()
+            activate Repositories
+            Repositories --> Controller : VisitScheduleRepository
+        deactivate Repositories
+        Controller -> VisitScheduleRepository : getVisitSchedulesByUserEmailAndDate(clientEmail, visitDate)
+            activate VisitScheduleRepository
+            Controller <-- VisitScheduleRepository : visitSchedules
+            deactivate VisitScheduleRepository
+            Controller -> Schedule : isOverlapping(startTime, endTime)
+            activate Schedule
+            Controller <-- Schedule : isOverlapping result
+            deactivate Schedule
+            UI <-- Controller : overlapResult
+    deactivate Controller
+    UI --> Client : displayConfirmation(overlapResult, visitDate, startTime, endTime)
+deactivate UI
+
+Client -> UI : confirmAndSendMessage()
+    activate UI
+    UI -> Controller : saveVisitSchedule(announcementID, clientEmail, visitDate, startTime, endTime, false)
+        activate Controller
+        Controller -> VisitScheduleRepository : addVisitSchedule(visitSchedule)
+        activate VisitScheduleRepository
+        Controller <-- VisitScheduleRepository : Confirmation of adding
+        deactivate VisitScheduleRepository
+        Controller -> UI : confirmMessageToAgent()
+    deactivate Controller
+    UI --> Client : showConfirmationMessage()
+deactivate UI
+
+@enduml

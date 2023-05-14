@@ -12,17 +12,11 @@ participant ":System" as System
 
 activate Client
 
-    Client -> System : Asks to list of available properties (devo começar por aqui ou logo no pedido de agendamento?)
+
+    Client -> System : Ask to schedule a visit
         activate System
 
-        System --> Client : Displays the list of announcements and a menu where you can Schedule a visit
-    deactivate System
-
-    Client -> System : Selects the option to schedule a visit
-        activate System
-
-    loop    [Schedule_visit]
-        System --> Client : Ask to select the announcement ID to schedule a visit
+        System --> Client : Requests to select the announcement ID to schedule a visit
     deactivate System
 
     Client -> System : Types the announcement ID
@@ -37,12 +31,11 @@ activate Client
         System --> Client : Confirm there is not a visit request from the same client at the same time and display the data \ntyped by the client for confirmation
     deactivate System
 
-    Client -> System : Confirms the information is correct and asks to send the message to the agent
+    Client -> System : Confirms that the information is correct and asks to send the message to the agent
         activate System
 
-        System --> Client : Send the message to the agent and show a confirmation message to the client
+        System --> Client : Send a message to the agent and show a confirmation message to the client
     deactivate System
-    end
 
 
 @enduml
