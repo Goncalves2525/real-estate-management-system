@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Order;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
 
@@ -43,9 +44,31 @@ public class OrderRepository {
     }
 
     public void addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) {
-        Order order = new Order(orderAmount, announcementId, clientEmail, date, orderState);
-        orders.add(order);
+        ArrayList<Announcement> announcements = Repositories.getInstance().announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
+        boolean announcementExists = false;
+        for (Announcement announcement : announcements) {
+            if (announcement.getId() == announcementId) {
+                announcementExists = true;
+            }
+        }
+        if (announcementExists) {
+            Order order = new Order(orderAmount, announcementId, clientEmail, date, orderState);
+            orders.add(order);
+        }
+        else {
+            System.out.println("Announcement with id " + announcementId + " does not exist.");
+        }
     }
+
+
+    public void removeAllOrders(){
+        orders.clear();
+    }
+
+    public int getSize(){
+        return orders.size();
+    }
+
 
 
 }

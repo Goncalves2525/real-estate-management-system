@@ -57,6 +57,22 @@ public class Order {
         this.clientEmail = clientEmail;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public OrderState getState() {
+        return state;
+    }
+
+    public void setState(OrderState state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

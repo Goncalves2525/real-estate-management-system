@@ -1,8 +1,55 @@
-# US 001 - Display Listed Properties 
+package pt.ipp.isep.dei.esoft.project.application.controller;
 
-# 4. Tests 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
+import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
+import pt.ipp.isep.dei.esoft.project.repository.PropertyRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
-**Test 1:** Checks if the method of validating if a client already made an order for a property is working correctly - AC3.
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CreateOrderControllerTest {
+    CreateOrderController ctrl = new CreateOrderController();
+    Repositories repos = Repositories.getInstance();
+    OrderRepository orderRepo = repos.getOrderRepository();
+    AnnouncementRepository announcementRepository = repos.getAnnouncementRepository();
+    PropertyRepository propertyRepository = repos.getPropertyRepository();
+    String email = "ricardo@this.app";
+
+    @BeforeEach
+    void setUp() {
+        orderRepo.removeAllOrders();
+        announcementRepository.removeAllAnnouncements();
+        Commission c1 = new Commission();
+        Date d1 = new Date(2019, 10, 10);
+        Date d2 = new Date(2019, 10, 11);
+        Date d3 = new Date(2019, 10, 12);
+        TypeOfProperty typeHouse = TypeOfProperty.HOUSE;
+        TypeOfProperty typeApartment = TypeOfProperty.APARTMENT;
+        TypeOfProperty typeLand = TypeOfProperty.LAND;
+        TransactionType typeRent = TransactionType.RENT;
+        TransactionType typeSale = TransactionType.SALE;
+        Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+        Address a2 = new Address("Rua 2", "Porto", "Porto", "Porto", 54321);
+        Address a3 = new Address("Rua 3", "Lisboa", "Lisboa", "Lisboa", 123111);
+        Address a4 = new Address("Rua 4", "Faro", "Faro", "Algarve", 123222);
+        Property.idCounter = 0;
+        propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, false, false, SunExposure.EAST);
+        propertyRepository.addApartment(150, 30, 100000, a2, 4, 2, 1, true, true);
+        propertyRepository.addLand(150, 30, 50000, a3);
+        propertyRepository.addHouse(150, 30, 3000000, a4, 1, 2, 1, true, true, false, false, SunExposure.EAST);
+        Announcement.idCounter = 0;
+        announcementRepository.addAnnouncement(0, typeHouse, typeSale, d1, c1, null, true);
+        announcementRepository.addAnnouncement(1, typeApartment, typeRent, d2, c1, null, true);
+        announcementRepository.addAnnouncement(2, typeLand, typeRent, d3, c1, null, true);
+        announcementRepository.addAnnouncement(3, typeHouse, typeSale, d3, c1, null, true);
+
+
+    }
 
     @Test
     void ensure_ClientAlreadyMadeOrderForThisAnnouncement_returnsTrue() {
@@ -18,11 +65,7 @@
         assertEquals(expected, result);
     }
 
-
-
-**Test 2:** Checks if the method of validating if a client already made an order for a property is working correctly - AC3.
-
-	@Test
+    @Test
     void ensure_ClientAlreadyMadeOrderForThisAnnouncement_returnsFalse() {
         // Act
         boolean result = ctrl.clientAlreadyMadeOrderForThisAnnouncement(0, email);
@@ -32,8 +75,6 @@
         assertEquals(expected, result);
     }
 
-**Test 3:**  Checks if the method of validating if someone already made an order for a property with the same amount is working correctly - AC2. 
-    
     @Test
     void ensure_SomeoneAlreadyMadeOrderWithSameAmountForThisAnnouncement_returnsTrue() {
         // Arrange
@@ -47,8 +88,6 @@
         // Assert
         assertEquals(expected, result);
     }
-
-**Test 4:** Checks if the method of validating if someone already made an order for a property with the same amount is working correctly - AC2.
 
     @Test
     void ensure_SomeoneAlreadyMadeOrderWithSameAmountForThisAnnouncement_returnsFalse() {
@@ -64,8 +103,6 @@
         assertEquals(expected, result);
     }
 
-**Test 5:** Checks if when getting Property Price by Announcement Id, the correct price is returned.
-
     @Test
     void ensure_GetPropertyPriceByAnnouncementId_returnsCorrectPrice() {
         //Act
@@ -77,8 +114,6 @@
 
     }
 
-**Test 6:** Checks if the Announcement exists when getting Property Price by Announcement Id.
-
     @Test
     void ensure_GetPropertyPriceByAnnouncementId_validatesIfAnnouncementExists(){
         //Act
@@ -89,7 +124,6 @@
         assertEquals(expected, result);
     }
 
-**Test 7:** Checks if the created order was added to the repository.
 
     @Test
     void ensure_createOrder_addsOrderToRepository() {
@@ -106,8 +140,6 @@
 
     }
 
-**Test 8:** When creating an order, checks if the announcement exists.
-
     @Test
     void ensure_createOrder_validatesIfAnnouncementExists() {
         //Arrange
@@ -121,51 +153,4 @@
         //Assert
         assertEquals(expected, result);
     }
-
-
-# 5. Construction (Implementation)
-
-
-## Class CreateOrderController 
-
-```java
-public boolean clientAlreadyMadeOrderForThisAnnouncement(int announcementId, String userEmail) {
-        OrderRepository orderRepository = getOrderRepository();
-        return orderRepository.clientAlreadyMadeOrderForThisAnnouncement(userEmail, announcementId);
-        }
-```       
-```java        
-public boolean someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) {
-        OrderRepository orderRepository = getOrderRepository();
-        return orderRepository.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(orderAmount, announcementId);
-        }        
-```
-```java
-public double getPropertyPriceByAnnouncementId(int id){
-        return getAnnouncementRepository().getPropertyPriceByAnnouncmentId(id);
-        }
-```
-```java
-public void createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState){
-        OrderRepository orderRepository = getOrderRepository();
-        orderRepository.addOrder(orderAmount, announcementId, clientEmail, date, orderState);
-        }
-```
-```java
-public String getClientEmail(){
-        return getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
-        }
-```
-
-# 6. Integration and Demo
-
-
-
-# 7. Observations
-
-
-
-
-
-
-
+}

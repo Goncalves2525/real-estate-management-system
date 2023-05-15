@@ -108,10 +108,13 @@ public class AnnouncementRepository {
     }
 
     public double getPropertyPriceByAnnouncmentId(int id){
-        Announcement announcement = getAnnouncementById(id);
-        Property property = getPropertyByAnnouncement(announcement);
-
-        return property.getPrice();
+        if (getAnnouncementById(id) != null){
+            Announcement announcement = getAnnouncementById(id);
+            Property property = getPropertyByAnnouncement(announcement);
+            return property.getPrice();
+        }
+        System.out.println("Announcement not found");
+        return -1;
     }
 
     /**
