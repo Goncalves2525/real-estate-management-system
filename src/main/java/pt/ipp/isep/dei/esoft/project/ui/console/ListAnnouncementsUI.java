@@ -57,11 +57,8 @@ public class ListAnnouncementsUI implements Runnable {
 
         showAnnouncements(announcementsList);
 
-        if (userIsLoggedInWithClientRole()) {
-            menuChoiceClient();
-        }else {
-            menuChoice();
-        }
+        menuChoice();
+
     }
 
     private ArrayList<Announcement> chooseOption() {
@@ -142,13 +139,16 @@ public class ListAnnouncementsUI implements Runnable {
             choice = sc.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Insert number please.");
+            sc.nextLine();
             menuChoice();
+            return;
         }
         switch (choice) {
             case 1:
                 run();
                 break;
             case 0:
+                MainMenuUI menu = new MainMenuUI();
                 break;
             default:
                 System.out.println("Invalid option");
@@ -156,34 +156,6 @@ public class ListAnnouncementsUI implements Runnable {
         }
     }
 
-    private void menuChoiceClient() {
-        Scanner sc = new Scanner(System.in);
-        int choice = -1;
-        System.out.println("1 - Create Order");
-        System.out.println("2 - List Again");
-        System.out.println("0 - Return to Main Menu");
-        System.out.print("Choose an option: ");
-        System.out.println();
-        try {
-            choice = sc.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Insert number please.");
-            menuChoice();
-        }
-        switch (choice) {
-            case 1:
-                createOrder();
-                break;
-            case 2:
-                run();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Invalid option");
-                menuChoice();
-        }
-    }
 
     private boolean userIsLoggedInWithClientRole() {
         if (getController().userIsLoggedInWithClientRole()) {

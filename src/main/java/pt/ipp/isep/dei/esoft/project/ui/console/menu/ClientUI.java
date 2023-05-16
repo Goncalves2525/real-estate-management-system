@@ -25,6 +25,7 @@ public class ClientUI implements Runnable {
         options.add(new MenuItem("View properties", new ListAnnouncementsUI()));
         options.add(new MenuItem("Schedule a visit", new CreateOrderUI()));
         options.add(new MenuItem("Submit request for Listing", new CreateRequestUI()));
+        options.add(new MenuItem("Place order to purchase Property", new CreateOrderUI()));
 
         int option = 0;
         do {

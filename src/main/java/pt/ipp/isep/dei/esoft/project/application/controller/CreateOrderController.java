@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -86,6 +89,14 @@ public class CreateOrderController {
     public void createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState){
         OrderRepository orderRepository = getOrderRepository();
         orderRepository.addOrder(orderAmount, announcementId, clientEmail, date, orderState);
+    }
+
+    public ArrayList<Announcement> getAllAnnouncements(){
+        return getAnnouncementRepository().getAllAnnouncementsSortedByDefualtCriteria();
+    }
+
+    public Property getPropertyByAnnouncement(Announcement announcement){
+        return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }
 
 }

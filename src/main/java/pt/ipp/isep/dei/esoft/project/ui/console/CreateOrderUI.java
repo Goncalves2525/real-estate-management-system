@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -24,6 +26,9 @@ public class CreateOrderUI implements Runnable {
         boolean sameAmount = false;
         String clientEmail;
         OrderState orderState = OrderState.PENDING;
+        ArrayList<Announcement> announcements = controller.getAllAnnouncements();
+
+        showAnnouncements(announcements);
 
         System.out.println("Insert the id of the property you want to buy:");
         do {
@@ -63,6 +68,19 @@ public class CreateOrderUI implements Runnable {
             Date date = new Date();
             controller.createOrder(amount, id, clientEmail, date, orderState);
             System.out.println("Order created successfully!");
+        }
+    }
+
+    private void showAnnouncements(ArrayList<Announcement> publishedPropertiesList) {
+        System.out.println("-------------------------\n" +
+                "|  Published Properties  |\n" +
+                "-------------------------\n\n");
+
+        for (Announcement announcement : publishedPropertiesList) {
+            System.out.println("-----------------------------");
+            System.out.print(announcement.toString());
+            System.out.println(controller.getPropertyByAnnouncement(announcement));
+            System.out.println("-----------------------------\n");
         }
     }
 
