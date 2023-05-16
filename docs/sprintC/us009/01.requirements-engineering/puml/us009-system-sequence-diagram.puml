@@ -16,7 +16,7 @@ activate Client
     Client -> System : Ask to schedule a visit
         activate System
 
-        System --> Client : Requests to select the announcement ID to schedule a visit
+        System --> Client : Show all announcements sorted by newest to oldest and \nrequests to select the announcement ID to schedule a visit
     deactivate System
 
     Client -> System : Types the announcement ID
@@ -28,7 +28,7 @@ activate Client
     Client -> System : Types requested data (date of visit, time of visit start and time of visit end)
         activate System
 
-        System --> Client : Confirm there is not a visit request from the same client at the same time and display the data \ntyped by the client for confirmation
+        System --> Client : Confirm there is not a visit request from the same client at the same time and\n display the data typed by the client for confirmation
     deactivate System
 
     Client -> System : Confirms that the information is correct and asks to send the message to the agent

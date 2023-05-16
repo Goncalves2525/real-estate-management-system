@@ -21,6 +21,25 @@ activate Client
 
 Client -> UI : askToScheduleVisit()
     activate UI
+    UI -> Controller : getAllAnnouncementsSortedByDefaultCriteria()
+        activate Controller
+        Controller -> Repositories : getAnnouncementRepository()
+            activate Repositories
+            Repositories --> Controller : AnnouncementRepository
+        deactivate Repositories
+        Controller -> AnnouncementRepository : getAllAnnouncementsSortedByDefaultCriteria()
+            activate AnnouncementRepository
+            AnnouncementRepository --> Controller : announcements
+        deactivate AnnouncementRepository
+    UI <-- Controller : announcements
+        deactivate Controller
+    UI --> Client : showAnnouncements(announcements)
+deactivate UI
+
+
+
+Client -> UI : selectAnnouncement()
+    activate UI
     UI -> Authentication : getUserEmail()
         activate Authentication
         Authentication -> AuthenticationRepository : getCurrentUserSession()
@@ -93,7 +112,7 @@ Client -> UI : confirmAndSendMessage()
         activate Controller
         Controller -> VisitScheduleRepository : addVisitSchedule(visitSchedule)
         activate VisitScheduleRepository
-        Controller <-- VisitScheduleRepository : Confirmation of adding
+        Controller <-- VisitScheduleRepository : Confirmation of the operation
         deactivate VisitScheduleRepository
         Controller -> UI : confirmMessageToAgent()
     deactivate Controller
