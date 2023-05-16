@@ -15,6 +15,7 @@ public class VisitScheduleUI implements Runnable {
 
     @Override
     public void run() {
+        controller.getAllAnnouncementsSortedByDefualtCriteria();
         boolean keepRunning = true;
         while (keepRunning) {
             int announcementID = selectAnnouncement();

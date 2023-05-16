@@ -19,6 +19,17 @@ public class VisitScheduleController {
     private ClientRepository clientRepository = null;
     private AuthenticationController authController = new AuthenticationController();
 
+    public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
+    }
+    private AnnouncementRepository getAnnoucementRepository() {
+        if (announcementRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            announcementRepository = repositories.getAnnouncementRepository();
+        }
+        return announcementRepository;
+    }
     public VisitScheduleController() {
         Repositories repositories = Repositories.getInstance();
         this.clientRepository = repositories.getClientRepository();
@@ -109,7 +120,7 @@ public class VisitScheduleController {
     }
 
     public void approveVisit(VisitSchedule visitSchedule) {
-        visitSchedule.setAprovatedByAgent(true);
+        visitSchedule.setApprovedByAgent(true);
     }
 
 
@@ -120,7 +131,7 @@ public class VisitScheduleController {
     public ArrayList<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
         ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
         for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (!visit.isAprovatedByAgent() && visit.getAgentEmail().equals(agentEmail)) {
+            if (!visit.isApprovedByAgent() && visit.getAgentEmail().equals(agentEmail)) {
                 pendingVisits.add(visit);
             }
         }

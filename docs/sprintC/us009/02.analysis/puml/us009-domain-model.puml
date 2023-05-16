@@ -54,7 +54,7 @@ class VisitSchedule{
     date
     startTime
     endTime
-    aprovatedByAgent
+    approvedByAgent
 }
 
 Person "1" -- "1" UserAccount: has >

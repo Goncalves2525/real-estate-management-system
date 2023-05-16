@@ -10,17 +10,17 @@ public class VisitSchedule {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private boolean aprovatedByAgent;
+    private boolean approvedByAgent;
     private String agentEmail;
 
-    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean aprovatedByAgent, String agentEmail){
+    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail){
         this.propertyID = propertyID;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.aprovatedByAgent = aprovatedByAgent;
+        this.approvedByAgent = approvedByAgent;
         this.agentEmail = agentEmail;
     }
 
@@ -88,12 +88,12 @@ public class VisitSchedule {
         return false;
     }
 
-    public boolean isAprovatedByAgent() {
-        return this.aprovatedByAgent;
+    public boolean isApprovedByAgent() {
+        return this.approvedByAgent;
     }
 
-    public void setAprovatedByAgent(boolean aprovatedByAgent) {
-        this.aprovatedByAgent = aprovatedByAgent;
+    public void setApprovedByAgent(boolean approvedByAgent) {
+        this.approvedByAgent = approvedByAgent;
     }
 
     public void setDate(LocalDate date) {

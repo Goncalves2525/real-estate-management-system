@@ -160,8 +160,7 @@ public class ListAnnouncementsUI implements Runnable {
         Scanner sc = new Scanner(System.in);
         int choice = -1;
         System.out.println("1 - Create Order");
-        System.out.println("2 - Schedule a visit");
-        System.out.println("3 - List Again");
+        System.out.println("2 - List Again");
         System.out.println("0 - Return to Main Menu");
         System.out.print("Choose an option: ");
         System.out.println();
@@ -176,9 +175,6 @@ public class ListAnnouncementsUI implements Runnable {
                 createOrder();
                 break;
             case 2:
-                visitSchedule();
-                break;
-            case 3:
                 run();
                 break;
             case 0:
@@ -201,10 +197,10 @@ public class ListAnnouncementsUI implements Runnable {
         ui.run();
     }
 
-    private void visitSchedule() {
+    /*private void visitSchedule() {
         VisitScheduleUI visitUI = new VisitScheduleUI();
         visitUI.run();
-    }
+    }*/
 
     /**
      * Requests filter options from the user.

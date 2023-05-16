@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
 //import pt.ipp.isep.dei.esoft.project.ui.console.CreateTaskUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.CreateOrderUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateRequestUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ListAnnouncementsUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.PublishAnnouncementUI;
@@ -22,6 +23,7 @@ public class ClientUI implements Runnable {
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("View properties", new ListAnnouncementsUI()));
+        options.add(new MenuItem("Schedule a visit", new CreateOrderUI()));
         options.add(new MenuItem("Submit request for Listing", new CreateRequestUI()));
 
         int option = 0;
