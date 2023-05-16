@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.VisitScheduleController;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,7 +17,8 @@ public class VisitScheduleUI implements Runnable {
 
     @Override
     public void run() {
-        controller.getAllAnnouncementsSortedByDefualtCriteria();
+        ArrayList<Announcement> announcements = controller.getAllAnnouncementsSortedByDefualtCriteria();
+        showAnnouncements(announcements);
         boolean keepRunning = true;
         while (keepRunning) {
             int announcementID = selectAnnouncement();
@@ -24,6 +27,19 @@ public class VisitScheduleUI implements Runnable {
             }
             scheduleVisit(announcementID);
             keepRunning = askForAnotherVisit();
+        }
+    }
+
+    private void showAnnouncements(ArrayList<Announcement> publishedPropertiesList) {
+        System.out.println("-------------------------\n" +
+                "|  Published Properties  |\n" +
+                "-------------------------\n\n");
+
+        for (Announcement announcement : publishedPropertiesList) {
+            System.out.println("-----------------------------");
+            System.out.print(announcement.toString());
+            System.out.println(controller.getPropertyByAnnouncement(announcement));
+            System.out.println("-----------------------------\n");
         }
     }
 
@@ -59,14 +75,13 @@ public class VisitScheduleUI implements Runnable {
             }
             continueLoop = !controller.verifyAnnouncementID(announcementID);
             if (!continueLoop) {
-                System.out.println("The announcement you selected is: " + announcementID);
+                //System.out.println("The announcement you selected is: " + announcementID);
             } else {
                 System.out.println("Invalid announcement ID. Please try again.");
             }
         } while (continueLoop);
         return announcementID;
     }
-
 
     private void scheduleVisit(int announcementID) {
         LocalDate visitDate = inputDate();
@@ -86,7 +101,7 @@ public class VisitScheduleUI implements Runnable {
         } while (!startTime.isBefore(endTime));
 
         if (!controller.isOverlappingWithExistingSchedules(phoneNumber, visitDate, startTime, endTime)) {
-            System.out.println("You are trying to schedule a visit to date " + visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " from " + startTime + " to " + endTime + ".");
+            System.out.println("Are you trying to schedule a visit to the property with the ID "+ announcementID+  " to date " + visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " from " + startTime + " to " + endTime + ".");
             if (isTheInformationCorrect()){
             controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false);
             System.out.println("Your visit has sent to the Agent for confirmation.");

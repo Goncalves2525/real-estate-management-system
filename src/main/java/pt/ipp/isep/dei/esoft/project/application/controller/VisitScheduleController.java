@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
@@ -30,6 +31,12 @@ public class VisitScheduleController {
         }
         return announcementRepository;
     }
+
+    public Property getPropertyByAnnouncement(Announcement announcement){
+        return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
+    }
+
+
     public VisitScheduleController() {
         Repositories repositories = Repositories.getInstance();
         this.clientRepository = repositories.getClientRepository();
