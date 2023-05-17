@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateOrderController;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
-import pt.ipp.isep.dei.esoft.project.application.session.UserSession;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.TransactionType;
 import pt.ipp.isep.dei.esoft.project.domain.TypeOfProperty;
@@ -58,7 +56,6 @@ public class ListAnnouncementsUI implements Runnable {
         showAnnouncements(announcementsList);
 
         menuChoice();
-
     }
 
     private ArrayList<Announcement> chooseOption() {
@@ -156,23 +153,6 @@ public class ListAnnouncementsUI implements Runnable {
         }
     }
 
-
-    private boolean userIsLoggedInWithClientRole() {
-        if (getController().userIsLoggedInWithClientRole()) {
-            return true;
-        }
-        return false;
-    }
-
-    private void createOrder() {
-        CreateOrderUI ui = new CreateOrderUI();
-        ui.run();
-    }
-
-    /*private void visitSchedule() {
-        VisitScheduleUI visitUI = new VisitScheduleUI();
-        visitUI.run();
-    }*/
 
     /**
      * Requests filter options from the user.
