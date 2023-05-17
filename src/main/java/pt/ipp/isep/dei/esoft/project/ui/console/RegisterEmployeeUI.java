@@ -3,25 +3,13 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterEmployeeController;
-
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Address;
-
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
-
 import pt.ipp.isep.dei.esoft.project.domain.Role;
-
-import pt.ipp.isep.dei.esoft.project.repository.AgencyRepository;
-
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-
-
 import java.io.BufferedWriter;
-
 import java.io.FileWriter;
-
 import java.io.IOException;
-
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -180,14 +168,15 @@ public class RegisterEmployeeUI implements Runnable {
         System.out.print("Select an agency by ID: ");
 
         int agencyId;
+        int totalAgencies = controller.getTotalAgencies();
 
         do {
             try {
                 agencyId = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character from previous input
 
-                if (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyRepository().getAgencies().size()) {
-                    System.out.println("Invalid agency ID. Please select a value between 1 and " + Repositories.getInstance().getAgencyRepository().getAgencies().size() + ":");
+                if (agencyId < 1 || agencyId > totalAgencies) {
+                    System.out.println("Invalid agency ID. Please select a value between 1 and " + totalAgencies + ":");
                 }
 
             } catch (InputMismatchException e) {
@@ -195,46 +184,26 @@ public class RegisterEmployeeUI implements Runnable {
                 scanner.nextLine(); // Consume the invalid input
                 agencyId = -1; // Set agencyId to an invalid value to trigger the loop again
             }
-        } while (agencyId < 1 || agencyId > Repositories.getInstance().getAgencyRepository().getAgencies().size());
+        } while (agencyId < 1 || agencyId > totalAgencies);
 
         return agencyId;
     }
+
 
     /** List the agencies.
      *
      * @return
      */
     private void listAgencies() {
-
-        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyRepository();
-
-        List<Agency> agencies = agencyRepository.getAgencies();
-
+        List<Agency> agencies = controller.listAgencies();
         for (Agency agency : agencies) {
-
             System.out.println(agency.getId() + " - " + agency.getName());
-
         }
 
     }
 
-    /** Get an agency by ID.
-     *
-     * @param id of the agency
-     * @return the agency
-     */
-    private Agency getAgencyById(int id) {
 
-        AgencyRepository agencyRepository = Repositories.getInstance().getAgencyRepository();
-
-        return agencyRepository.getAgencyById(id);
-
-    }
-
-
-
-
-    /** Verifu the name
+    /** Verify the name
      * @param scanner
      * @return name
      */

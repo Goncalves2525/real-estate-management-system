@@ -54,6 +54,21 @@ public class RegisterEmployeeController {
     }
 
 
+
+    public List<Agency> listAgencies() {
+        return agencyRepository.getAgencies();
+    }
+
+    public int getTotalAgencies() {
+        return agencyRepository.getAgencies().size();
+    }
+
+
+
+
+
+
+
     /**
      * @param name
      * @param email
