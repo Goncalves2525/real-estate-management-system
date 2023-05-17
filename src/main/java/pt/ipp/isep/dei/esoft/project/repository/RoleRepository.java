@@ -6,23 +6,22 @@ import pt.ipp.isep.dei.esoft.project.domain.Role;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
     /**
      * This class represents the repository for roles.
      */
 
 public class RoleRepository {
 
-    private final List<Role> roles = new ArrayList<>();
+    private final ArrayList<Role> roles = new ArrayList<>();
 
         /**
          * List of roles.
          * @return
          */
-    public List<Role> getRolesToCreate() {
+    public ArrayList<Role> getRolesToCreate() {
         //return only a few roles
-        List<Role> rolesToReturn = new ArrayList<>();
-        List<Role> roles = Arrays.asList(Role.values());
+        ArrayList<Role> rolesToReturn = new ArrayList<>();
+        ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
         for (Role role : roles) {
             if(!role.toString().equals("ADMIN") && !role.toString().equals("CLIENT")){
                 rolesToReturn.add(role);
@@ -36,12 +35,13 @@ public class RoleRepository {
      * @return list of roles
      */
     public Role getRoleByValue(int value) {
-        List<Role> roles = Arrays.asList(Role.values());
+        ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
         for (Role role : roles) {
-            if (role.getValue()==value) {
+            if (role.getValue() == value) {
                 return role;
             }
         }
         return null;
     }
-}
+
+    }

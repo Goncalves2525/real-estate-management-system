@@ -508,7 +508,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param selectedRoles
      * @param agencyID
      */
-    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, List<Role> selectedRoles) {
+    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
 
         if (answer.equalsIgnoreCase("Y")) {
 

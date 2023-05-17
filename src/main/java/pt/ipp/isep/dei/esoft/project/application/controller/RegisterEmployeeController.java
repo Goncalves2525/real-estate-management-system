@@ -3,7 +3,8 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 
 /**
@@ -38,7 +39,7 @@ public class RegisterEmployeeController {
      *
      * @return list of Roles to create
      */
-    public List<Role> getRolesToCreate() {
+    public ArrayList<Role> getRolesToCreate() {
         this.roleRepository = Repositories.getInstance().getRoleRepository();
         return this.roleRepository.getRolesToCreate();
     }
@@ -55,7 +56,7 @@ public class RegisterEmployeeController {
 
 
 
-    public List<Agency> listAgencies() {
+    public ArrayList<Agency> listAgencies() {
         return agencyRepository.getAgencies();
     }
 
@@ -80,7 +81,7 @@ public class RegisterEmployeeController {
      * @param roles
      * @return
      */
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, List<Role> roles) {
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> roles) {
         Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles, agencyID);
         return employeeRepository.addEmployee(employee);
     }
