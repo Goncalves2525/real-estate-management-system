@@ -24,8 +24,10 @@ public class PropertyOrderManagementUI implements Runnable {
         Scanner sc = new Scanner(System.in);
         int idAnnouncement;
         int idOrder;
+        int option;
 
         ArrayList<Announcement> announcements = controller.getAllAnnouncements();
+
         showAnnouncements(announcements);
 
         System.out.println("Insert the id of the property you want to view orders:");
@@ -35,12 +37,20 @@ public class PropertyOrderManagementUI implements Runnable {
         idOrder = sc.nextInt();
         showOrderByID(idOrder);
         showOptions();
-        int option = sc.nextInt();
-        System.out.println("mail enviado");
-
-
+        option = sc.nextInt();
+        if (option == 1) {
+            //controller.acceptOrder(idOrder);
+            System.out.println("Order accepted");
+        } else if (option == 2) {
+            //controller.rejectOrder(idOrder);
+            System.out.println("Order rejected");
+        }
     }
-
+    /**
+     * Shows the announcements.
+     *
+     * @param publishedPropertiesList published properties list
+     */
     private void showAnnouncements(ArrayList<Announcement> publishedPropertiesList) {
         System.out.println("-------------------------\n" +
                 "|  Published Properties  |\n" +
@@ -54,6 +64,11 @@ public class PropertyOrderManagementUI implements Runnable {
         }
     }
 
+    /**
+     * Shows the orders.
+     *
+     * @param id id
+     */
     private void showOrders(int id) {
         System.out.println("-------------------------\n" +
                 "|  Existing Orderes      |\n" +
