@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
+import pt.ipp.isep.dei.esoft.project.ui.console.PropertyOrderManagementUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.PublishAnnouncementUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.VisitScheduleEvaluationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -21,6 +22,7 @@ public class EmployeeUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Publish sale Announcement", new PublishAnnouncementUI()));
         options.add(new MenuItem("Approve or reject a visit schedule", new VisitScheduleEvaluationUI()));
+        options.add(new MenuItem("Manage property orders", new PropertyOrderManagementUI()));
         int option = 0;
         do {
             option = Utils.showAndSelectIndex(options, "\n\nEmployee Menu:");

@@ -1,11 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * This class represents an Order made by a Client
  */
-public class Order {
+public class Order extends ArrayList<Order> {
     private final int id;
 
     private static int idCounter = 1;
@@ -71,6 +72,9 @@ public class Order {
 
     public void setState(OrderState state) {
         this.state = state;
+    }
+
+    public int getId() {return id;
     }
 
     @Override

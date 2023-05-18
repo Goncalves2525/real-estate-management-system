@@ -13,6 +13,9 @@ import java.util.Date;
 public class OrderRepository {
     private ArrayList<Order> orders = new ArrayList<>();
 
+
+
+
     /**
      * This method checks if this client already made an order for a specific announcement.
      * @param clientEmail  current user email
@@ -70,5 +73,27 @@ public class OrderRepository {
     }
 
 
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 
+    public ArrayList<Order> getOrderByID(int id) {
+        ArrayList<Order> ordersByID = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getId() == id) {
+                ordersByID.add(order);
+            }
+        }
+        return ordersByID;
+    }
+
+    public ArrayList<Order> getOrdersByAnnouncementId(int id) {
+        ArrayList<Order> ordersByAnnouncementId = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getAnnouncementId() == id) {
+                ordersByAnnouncementId.add(order);
+            }
+        }
+        return ordersByAnnouncementId;
+    }
 }

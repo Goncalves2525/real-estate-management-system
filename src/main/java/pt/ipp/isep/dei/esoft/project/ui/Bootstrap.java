@@ -17,6 +17,7 @@ public class Bootstrap implements Runnable {
         addAgents();
         addAnnouncements();
         addClients();
+        addOrders();
     }
 
 
@@ -132,6 +133,24 @@ public class Bootstrap implements Runnable {
 
         authenticationRepository.addUserWithRole("TestClientName", "testclient@this.app", "pwd",
                 AuthenticationController.ROLE_CLIENT);
+
+
+    }
+    private void addOrders() {
+        OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
+        Order order1 = new Order(505521, 1, "aaaa@",new Date(),OrderState.PENDING);
+        Order order2 = new Order(401511, 2, "bbaa@",new Date(),OrderState.PENDING);
+        Order order3 = new Order(3012211, 3, "ccaa@",new Date(),OrderState.PENDING);
+        Order order4 = new Order(23262, 4, "ddaaa@",new Date(),OrderState.PENDING);
+        Order order5 = new Order(1022131, 5, "eeaaa@",new Date(),OrderState.PENDING);
+        Order order6 = new Order(1022131, 1, "zzzza@",new Date(),OrderState.PENDING);
+        orderRepository.addOrder(order1);
+        orderRepository.addOrder(order2);
+        orderRepository.addOrder(order3);
+        orderRepository.addOrder(order4);
+        orderRepository.addOrder(order5);
+        orderRepository.addOrder(order6);
+
 
 
     }
