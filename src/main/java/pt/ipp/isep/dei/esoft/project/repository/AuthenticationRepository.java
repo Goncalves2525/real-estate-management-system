@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 import pt.isep.lei.esoft.auth.mappers.dto.UserDTO;

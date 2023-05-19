@@ -43,7 +43,9 @@ class RegisterEmployeeControllerTest {
         Address address = new Address("happy","new","dist","big",4525);
         ArrayList<Employee> agenteTest = new ArrayList<>();
         Agency agency = new Agency("agency1", "email@mail.com", 1234567890,address, agenteTest);
-        List<Role> roles = Arrays.asList(Role.ADMIN, Role.AGENT);
+        ArrayList<Role> roles = new ArrayList<>();
+        roles.add(Role.ADMIN);
+        roles.add(Role.AGENT);
 
         Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address,roles, agencyID);
 

@@ -39,6 +39,9 @@
         <mockito-all>1.10.19</mockito-all>
         <mockito-core>5.1.1</mockito-core>
 
+        <javafx.version>19</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+
     </properties>
 
     <dependencies>
@@ -82,6 +85,18 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -96,7 +111,7 @@
                     <target>${java.version}</target>
                     <showWarnings>true</showWarnings>   <!-- Needs this -->
                     <compilerArgs>
-                        <arg>-Xlint:all</arg>   <!-- recommended -->
+                        <arg>-Xlint:all</arg><!-- recommended -->
                     </compilerArgs>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -184,6 +199,15 @@
                     <!--<verbose>true</verbose>-->
                 </configuration>
 
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.MainGUI</mainClass>
+                </configuration>
             </plugin>
 
         </plugins>
