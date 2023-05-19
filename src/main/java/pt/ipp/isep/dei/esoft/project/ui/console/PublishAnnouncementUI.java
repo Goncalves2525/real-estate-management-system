@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 
 //import pt.ipp.isep.dei.esoft.project.ui.console.CreateTaskUI;
-import jdk.jshell.execution.Util;
+
 import pt.ipp.isep.dei.esoft.project.application.controller.PublishAnnouncementController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Commission;
@@ -44,16 +44,21 @@ public class PublishAnnouncementUI implements Runnable {
         else{
             do{
                 System.out.println("The following announcements are available to publish:");
+                System.out.println("0 - Exit");
                 for (Announcement a : announcements) {
                     printAnnouncement(a);
                     System.out.println(controller.getPropertyByAnnouncement(a));
                 }
-                int id = 0;
+                int id = -1;
                 try{
-                    System.out.println("Please select the ID of the announcement you want to publish:\n");
+                    System.out.println("Please select the ID of the announcement you want to publish or 0 to exit:\n");
+
                     //id = Utils.readIntegerFromConsole("Please select the ID of the announcement you want to publish: ");
                     Scanner sc = new Scanner(System.in);
                     id = sc.nextInt();
+                    if(id == 0){
+                        break;
+                    }
                     if(controller.getAnnouncementById(id) != null){
                         chooseCommissionFixedAmountOrPercentage(id);
                         System.out.println("You've set the commission for the announcement with ID " + id + ".\n");
@@ -77,14 +82,14 @@ public class PublishAnnouncementUI implements Runnable {
             while (!announcements.isEmpty());
         }
 
-        int option = 0;
-        do {
-            option = Utils.showAndSelectIndex(options, "\n\nPublish Property Announcement Menu:");
-
-            if ((option >= 0) && (option < options.size())) {
-                options.get(option).run();
-            }
-        } while (option != -1);
+//        int option = 0;
+//        do {
+//            option = Utils.showAndSelectIndex(options, "\n\nPublish Property Announcement Menu:");
+//
+//            if ((option >= 0) && (option < options.size())) {
+//                options.get(option).run();
+//            }
+//        } while (option != -1);
     }
 
     /**
