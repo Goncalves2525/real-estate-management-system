@@ -58,6 +58,7 @@ public class Bootstrap implements Runnable {
         Employee agent1 = new Employee("Agent1", "employee@this.app", 123456789, 123, 912345421, new Address("street", "city", "district", "state", 1234), roles, 1);
         Employee agent2 = new Employee("Agent2", "employee2@this.app", 123123123, 456, 912341234, new Address("street", "city", "district", "state", 1234), roles, 1);
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
+        Address a3 = new Address("Rua 3", "Póvoa de Varzim", "Porto", "Porto Norte", 44905);
         propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 100000, a1, 2, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 500000, a1, 3, 2, 1, true, true, true, true, SunExposure.NORTH);
@@ -73,6 +74,7 @@ public class Bootstrap implements Runnable {
         propertyRepository.addLand(150, 30, 500000, a1);
         propertyRepository.addLand(150, 30, 300000, a2);
         propertyRepository.addLand(150, 30, 400000, a2);
+        propertyRepository.addLand(230, 5, 300000, a3);
 
         ArrayList<Property> properties = propertyRepository.getAllProperties();
 
