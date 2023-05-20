@@ -206,7 +206,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.MainGUI</mainClass>
+                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.gui.MainGUI</mainClass>
                 </configuration>
             </plugin>
 
