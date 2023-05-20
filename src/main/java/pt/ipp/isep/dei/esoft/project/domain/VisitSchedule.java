@@ -24,6 +24,7 @@ public class VisitSchedule {
         this.agentEmail = agentEmail;
     }
 
+
     public int getPropertyID() {
         return propertyID;
     }

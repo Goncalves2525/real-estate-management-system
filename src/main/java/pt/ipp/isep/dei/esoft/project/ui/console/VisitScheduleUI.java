@@ -74,9 +74,7 @@ public class VisitScheduleUI implements Runnable {
                 return -1;
             }
             continueLoop = !controller.verifyAnnouncementID(announcementID);
-            if (!continueLoop) {
-                //System.out.println("The announcement you selected is: " + announcementID);
-            } else {
+            if (continueLoop) {
                 System.out.println("Invalid announcement ID. Please try again.");
             }
         } while (continueLoop);

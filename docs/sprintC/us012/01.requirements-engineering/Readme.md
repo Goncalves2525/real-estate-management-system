@@ -72,10 +72,6 @@ administrator if the file is empty or its content is not in the requested format
 * **AC2:** The system should only accept CSV files.
 * **AC3:** The file content must be validated, showing a message to the system administrator if the file is empty or its content is not in the requested format.
 * **AC4:** The import operation, when successful, should trigger a success message to the system administrator.
-* **AC5:**
-* **AC6:**
-
-
 
 
 ### 1.4. Found out Dependencies

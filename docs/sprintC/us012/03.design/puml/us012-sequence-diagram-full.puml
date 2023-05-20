@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "System Administrator" as Admin
+participant ":UserInterface" as UI
+participant ":ImportController" as CTRL
+participant "legacySystem:\nLegacySystem" as LS
+
+activate Admin
+
+Admin -> UI : asks to import a csv file
+
+activate UI
+
+    UI -> CTRL : initiateImport()
+    activate CTRL
+
+        CTRL -> UI : requestFileLocation()
+    deactivate CTRL
+
+    UI --> Admin : asks for csv file location
+deactivate UI
+
+Admin -> UI : provides file location
+activate UI
+
+    UI -> CTRL : importFile(location)
+    activate CTRL
+
+        CTRL -> LS : loadData(location)
+        activate LS
+
+            LS --> CTRL : importResult
+        deactivate LS
+
+        CTRL -> UI : displayImportResult(importResult)
+    deactivate CTRL
+
+    UI --> Admin : displays success message or error
+deactivate UI
+
+deactivate Admin
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class LegacySystem {
+    + loadData(location) : importResult
+}
+
+class SystemAdministrator {
+    - name
+    - email
+}
+
+class ImportInformationController {
+    + initiateImport()
+    + requestFileLocation() : location
+    + importFile(location)
+    + displayImportResult(importResult)
+}
+
+class ImportInformationUI {
+    + askToImportFile()
+    + askForFileLocation() : location
+    + displayImportResult(importResult)
+}
+
+
+ImportInformationUI ..> ImportInformationController : calls
+
+ImportInformationController --> LegacySystem : uses
+
+SystemAdministrator -- ImportInformationUI : interacts
+
+@enduml

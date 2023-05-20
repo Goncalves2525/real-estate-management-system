@@ -36,10 +36,10 @@
         <maven-surefire-plugin>3.0.0-M9</maven-surefire-plugin>
 
         <!-- Mockito Version Configuration -->
-        <mockito-all>1.10.19</mockito-all>
-        <mockito-core>5.1.1</mockito-core>
+        <mockito-all>2.0.2-beta</mockito-all>
+        <mockito-core>5.2.0</mockito-core>
 
-        <javafx.version>19</javafx.version>
+        <javafx.version>21-ea+5</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 
     </properties>

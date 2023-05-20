@@ -38,9 +38,15 @@ class EmployeeRepositoryTest {
         employeeRepository.addEmployee(employee1);
         employeeRepository.addEmployee(employee2);
         assertEquals(employee1, employeeRepository.getEmployeeByEmail("john.doe@example.com"));
-        assertNull(employeeRepository.getEmployeeByEmail("nonexistent@example.com"));
     }
 
+
+    @Test
+    void getEmployeeByEmailNull() {
+
+
+        assertNull(employeeRepository.getEmployeeByEmail("nonexistent@example.com"));
+    }
     /**
      * Test of getAgentsByAgencyId method, of class EmployeeRepository.
      */

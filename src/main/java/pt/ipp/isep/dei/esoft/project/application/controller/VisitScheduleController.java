@@ -20,6 +20,15 @@ public class VisitScheduleController {
     private ClientRepository clientRepository = null;
     private AuthenticationController authController = new AuthenticationController();
 
+
+    public VisitScheduleController() {
+        Repositories repositories = Repositories.getInstance();
+        this.clientRepository = repositories.getClientRepository();
+        this.visitScheduleRepository = repositories.getVisitScheduleRepository(); //inicializando visitScheduleRepository
+        getAnnouncementRepository();
+    }
+
+
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
@@ -36,15 +45,6 @@ public class VisitScheduleController {
         return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }
 
-
-    public VisitScheduleController() {
-        Repositories repositories = Repositories.getInstance();
-        this.clientRepository = repositories.getClientRepository();
-        this.visitScheduleRepository = repositories.getVisitScheduleRepository(); //inicializando visitScheduleRepository
-        getAnnouncementRepository();
-    }
-
-
     private AnnouncementRepository getAnnouncementRepository(){
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -57,6 +57,8 @@ public class VisitScheduleController {
         Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
         return announcement != null;
     }
+
+
 
     public String getCurrentUserEmail() {
         return authController.getUserEmail();
@@ -144,7 +146,6 @@ public class VisitScheduleController {
         }
         return pendingVisits;
     }
-
 
 
 
