@@ -5,6 +5,9 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.EmployeeUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -85,11 +88,13 @@ public class PropertyOrderManagementUI implements Runnable {
                         rejectAllOrdersFromAnnouncement(idAnnouncement);
                         unpublishAnnouncement(idAnnouncement);
                         System.out.println("Order accepted and all other orders rejected");
+                        sendEmailToCliente(idOrder, idAnnouncement, "accepted");
                         menuChoice();
                         return;
                     } else if (option == 2) {
                         rejectOrder(idOrder, idAnnouncement);
                         System.out.println("Order rejected\n");
+                        sendEmailToCliente(idOrder, idAnnouncement, "rejected");
                         if (!controller.getOrdersByAnnouncementId(idAnnouncement).isEmpty()) {
                             showOrders(idAnnouncement);
                             System.out.println("Please insert the order number you want to analyze:");
@@ -114,7 +119,7 @@ public class PropertyOrderManagementUI implements Runnable {
                     }
                 } while (!controller.getOrdersByAnnouncementId(idAnnouncement).isEmpty());
 
-                if(controller.getOrdersByAnnouncementId(idAnnouncement).isEmpty()){
+                if (controller.getOrdersByAnnouncementId(idAnnouncement).isEmpty()) {
                     System.out.println("There are no more orders for this Announcement\n");
 
                     menuChoice();
@@ -280,5 +285,29 @@ public class PropertyOrderManagementUI implements Runnable {
                 System.out.println("Invalid option");
                 menuChoice();
         }
+    }
+
+    private void sendEmailToCliente(int idOrder, int idAnnouncement, String decison) {
+        try {
+            Order order = controller.getOrderById(idOrder, idAnnouncement).get(0);
+            Announcement announcement = controller.getAnnouncementById(idAnnouncement);
+            Property property = controller.getPropertyByAnnouncement(announcement);
+            String email = order.getClientEmail();
+            String text = "Dear customer,\n\n" +
+                    "Your order for the property " + property.getAddress() + " was " + decison + ".\n" +
+                    "Best regards,\n" +
+                    "The Real Estate team";
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Decisons", true))) {
+                writer.write(email);
+                writer.write(text);
+                writer.newLine();
+            } catch (IOException e) {
+                System.err.println("An error occurred while sending the email: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
