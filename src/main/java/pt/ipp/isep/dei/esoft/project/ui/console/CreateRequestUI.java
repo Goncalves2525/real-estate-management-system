@@ -106,9 +106,17 @@ public class CreateRequestUI implements Runnable {
          * @param contractDuration
          * @param price
          */
+        try {
+            TransactionTypeOptions();
+            transactionType = checkTransactionType(sc.nextInt());
 
-        TransactionTypeOptions();
-        transactionType = checkTransactionType(sc.nextInt());
+        }catch (InputMismatchException e){
+            System.out.println("Please insert a valid number: ");
+            TransactionTypeOptions();
+            transactionType = checkTransactionType(sc.nextInt());
+        }
+
+
 
         if (transactionType.equals(TransactionType.RENT)) {
             contractDuration = validatePositiveIntegerInput("Please insert contract duration in months: ");

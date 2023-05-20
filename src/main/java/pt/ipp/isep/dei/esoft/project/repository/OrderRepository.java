@@ -3,8 +3,11 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Order;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -77,23 +80,81 @@ public class OrderRepository {
         orders.add(order);
     }
 
-    public ArrayList<Order> getOrderByID(int id) {
+    public ArrayList<Order> getOrderByID(int id,int idAnnouncement) {
         ArrayList<Order> ordersByID = new ArrayList<>();
         for (Order order : orders) {
-            if (order.getId() == id) {
+            if (order.getId() == id && order.getAnnouncementId()==idAnnouncement) {
                 ordersByID.add(order);
             }
         }
         return ordersByID;
     }
-
+    /**
+     * This method gets all orders by AnnouncementId and sorts them by amount.
+     * @param id announcement id
+     * @return all orders by AnnouncementId and sorts them by amount
+     */
     public ArrayList<Order> getOrdersByAnnouncementId(int id) {
         ArrayList<Order> ordersByAnnouncementId = new ArrayList<>();
+
         for (Order order : orders) {
-            if (order.getAnnouncementId() == id) {
-                ordersByAnnouncementId.add(order);
+            try {
+
+                if (order.getAnnouncementId() == id && order.getState().equals(OrderState.PENDING)) {
+                    ordersByAnnouncementId.add(order);
+                }
+            } catch (NullPointerException e) {
             }
+            Collections.sort(ordersByAnnouncementId, new Comparator<Order>() {
+                @Override
+                public int compare(Order o1, Order o2) {
+                    return Double.compare(o2.getOrderAmount(), o1.getOrderAmount());
+                }
+            });
+
         }
         return ordersByAnnouncementId;
+    }
+
+
+
+    public void acceptOrder(int idOrder, int idAnnouncement) {
+        for (Order order : orders) {
+            if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
+                order.setState(OrderState.ACCEPTED);
+            }
+        }
+    }
+
+    public void rejectOrder(int idOrder, int idAnnouncement) {
+        for (Order order : orders) {
+            if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
+                order.setState(OrderState.REJECTED);
+            }
+        }
+    }
+
+    public void rejectAllOrdersFromAnnouncement(int idAnnouncement) {
+       // ArrayList<Order> ordersByAnnouncementId = new ArrayList<>();
+        for (Order order : orders) {
+            try {
+                    if (order.getAnnouncementId()==idAnnouncement) {
+                        order.setState(OrderState.REJECTED);
+                    }
+
+            } catch (NullPointerException e) {
+            }
+
+        }
+
+    }
+
+    public OrderState getOrderStateById(int idOrder, int idAnnouncement) {
+        for (Order order : orders) {
+            if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
+                return order.getState();
+            }
+        }
+        return null;
     }
 }

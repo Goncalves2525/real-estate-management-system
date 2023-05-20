@@ -60,18 +60,19 @@ public class Bootstrap implements Runnable {
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Douro", 12345);
         Address a3 = new Address("Rua 3", "Póvoa de Varzim", "Porto", "Porto Norte", 44905);
         propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, true, true, SunExposure.NORTH);
+
+        propertyRepository.addApartment(150, 30, 250000, a1, 1, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 100000, a1, 2, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 400000, a2, 5, 2, 1, true, true);
+        propertyRepository.addLand(150, 30, 250000, a1);
         propertyRepository.addHouse(150, 30, 100000, a1, 2, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 500000, a1, 3, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 300000, a2, 4, 2, 1, true, true, true, true, SunExposure.NORTH);
         propertyRepository.addHouse(150, 30, 400000, a2, 5, 2, 1, true, true, true, true, SunExposure.NORTH);
-        propertyRepository.addApartment(150, 30, 250000, a1, 1, 2, 1, true, true);
-        propertyRepository.addApartment(150, 30, 100000, a1, 2, 2, 1, true, true);
-        propertyRepository.addApartment(150, 30, 500000, a1, 3, 2, 1, true, true);
-        propertyRepository.addApartment(150, 30, 300000, a2, 4, 2, 1, true, true);
-        propertyRepository.addApartment(150, 30, 400000, a2, 5, 2, 1, true, true);
-        propertyRepository.addLand(150, 30, 250000, a1);
         propertyRepository.addLand(150, 30, 100000, a1);
         propertyRepository.addLand(150, 30, 500000, a1);
+        propertyRepository.addApartment(150, 30, 500000, a1, 3, 2, 1, true, true);
+        propertyRepository.addApartment(150, 30, 300000, a2, 4, 2, 1, true, true);
         propertyRepository.addLand(150, 30, 300000, a2);
         propertyRepository.addLand(150, 30, 400000, a2);
         propertyRepository.addLand(230, 5, 300000, a3);
@@ -79,19 +80,19 @@ public class Bootstrap implements Runnable {
         ArrayList<Property> properties = propertyRepository.getAllProperties();
 
         announcementRepository.addAnnouncement(properties.get(0).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(2).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(3).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(13).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(12).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(4).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(6).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(7).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(8).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(9).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(11).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(12).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(13).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(9).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncement(properties.get(2).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
         announcementRepository.addAnnouncement(properties.get(14).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
 
         announcementRepository.addAnnouncementWithAgent(agent1, properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, false);
@@ -140,18 +141,36 @@ public class Bootstrap implements Runnable {
     }
     private void addOrders() {
         OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
-        Order order1 = new Order(505521, 1, "aaaa@",new Date(),OrderState.PENDING);
-        Order order2 = new Order(401511, 2, "bbaa@",new Date(),OrderState.PENDING);
-        Order order3 = new Order(3012211, 3, "ccaa@",new Date(),OrderState.PENDING);
-        Order order4 = new Order(23262, 4, "ddaaa@",new Date(),OrderState.PENDING);
-        Order order5 = new Order(1022131, 5, "eeaaa@",new Date(),OrderState.PENDING);
-        Order order6 = new Order(1022131, 1, "zzzza@",new Date(),OrderState.PENDING);
+        Order order1 = new Order(505521, 1, "aaaa@",new Date(2022, Calendar.AUGUST, 10),OrderState.PENDING);
+        Order order2 = new Order(401511, 2, "bbaa@",new Date(2022, Calendar.NOVEMBER, 10),OrderState.PENDING);
+        Order order3 = new Order(3012211, 2, "ccaa@",new Date(2022, Calendar.DECEMBER, 10),OrderState.PENDING);
+        Order order4 = new Order(23262, 0, "ddaaa@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order5 = new Order(565656, 0, "eeaaa@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order6 = new Order(98888, 3, "fffff@",new Date(2022, Calendar.APRIL, 15),OrderState.PENDING);
+        Order order7 = new Order(132, 3, "ggggg@",new Date(2022, Calendar.APRIL, 11),OrderState.PENDING);
+        Order order8 = new Order(6252, 8, "hhhhh@",new Date(2022, Calendar.APRIL, 1),OrderState.PENDING);
+        Order order9 = new Order(9658, 5, "iiiiii@",new Date(2022, Calendar.APRIL, 9),OrderState.PENDING);
+        Order order10 = new Order(23262, 5, "jjjjjj@",new Date(2022, Calendar.APRIL, 28),OrderState.PENDING);
+        Order order11= new Order(59999, 8, "kkkkk@",new Date(2022, Calendar.APRIL, 20),OrderState.PENDING);
+        Order order12= new Order(966222300, 1, "lllll@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order13= new Order(2352, 1, "mmmmm@",new Date(2022, Calendar.MARCH, 10),OrderState.PENDING);
+        Order order14= new Order(45566131, 0, "ooooo@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
         orderRepository.addOrder(order1);
         orderRepository.addOrder(order2);
         orderRepository.addOrder(order3);
         orderRepository.addOrder(order4);
         orderRepository.addOrder(order5);
         orderRepository.addOrder(order6);
+        orderRepository.addOrder(order7);
+        orderRepository.addOrder(order8);
+        orderRepository.addOrder(order9);
+        orderRepository.addOrder(order10);
+        orderRepository.addOrder(order11);
+        orderRepository.addOrder(order12);
+        orderRepository.addOrder(order13);
+        orderRepository.addOrder(order14);
+
+
 
 
 

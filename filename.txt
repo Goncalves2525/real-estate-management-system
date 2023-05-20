@@ -1,7 +1,7 @@
--ID: 20 
--Type of Property: Apartment 
+-ID: 19 
+-Type of Property: House 
 -Transaction Type: Sale 
--Publish Date: Fri May 12 22:39:12 WEST 2023 
+-Publish Date: Fri May 19 23:08:56 WEST 2023 
 -Comission: Value: 0,00 Percentage: 0,00 
 -Photos: [] 
 -IsPublished: false

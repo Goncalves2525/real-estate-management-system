@@ -31,6 +31,7 @@ public class Order extends ArrayList<Order> {
         this.orderAmount = orderAmount;
         this.announcementId = announcementId;
         this.clientEmail = clientEmail;
+        this.state = state;
         id = idCounter++;
     }
 
@@ -70,6 +71,7 @@ public class Order extends ArrayList<Order> {
         return state;
     }
 
+
     public void setState(OrderState state) {
         this.state = state;
     }
@@ -79,11 +81,7 @@ public class Order extends ArrayList<Order> {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderAmount=" + orderAmount +
-                ", announcementId=" + announcementId +
-                ", clientEmail='" + clientEmail + '\'' +
-                '}';
+        return String.format("Order ID: %d%nOrder Amount: %.2f%nClient Email: %s%nDate: %s%n", id, orderAmount, clientEmail, date);
+
     }
 }

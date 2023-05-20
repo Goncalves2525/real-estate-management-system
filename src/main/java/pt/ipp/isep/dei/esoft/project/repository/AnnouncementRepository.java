@@ -300,6 +300,10 @@ public class AnnouncementRepository {
     private void removeAllAnnouncements(ArrayList<Announcement> announcements){
         announcements.removeAll(announcements);
     }
+    public void unpublishAnnouncement (int IdAnnouncement){
+        Announcement announcement = getAnnouncementById(IdAnnouncement);
+        announcement.setPublished(false);
+    }
 
     public Property getPropertyByAnnouncement(Announcement announcement){
         int propertyID = announcement.getPropertyID();
@@ -334,6 +338,20 @@ public class AnnouncementRepository {
     public void removeAllAnnouncements() {
         announcements.removeAll(announcements);
     }
+
+    public ArrayList<Announcement> getAllAnnouncementsSortedBypropertyAndIdCriteria() {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        resultAnnouncements.sort(propertyAndIdCriteria);
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
+    }
+
+    Comparator<Announcement> propertyAndIdCriteria = new Comparator<Announcement>() {
+        @Override
+        public int compare(Announcement p1, Announcement p2) {
+            return p1.getTypeOfProperty().compareTo(p2.getTypeOfProperty());
+        }
+    };
 
 
 }
