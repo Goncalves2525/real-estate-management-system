@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
@@ -16,6 +17,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.menu.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.*;
 
@@ -176,4 +178,14 @@ public class AuthenticationWindow implements Initializable {
 
         return alert;
     }
+
+    @FXML
+    public void onPasswordEnterPressed(javafx.scene.input.KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            onBtLoginAction();
+        }
+    }
+
+
+
 }
