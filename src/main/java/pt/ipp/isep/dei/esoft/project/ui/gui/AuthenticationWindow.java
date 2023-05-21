@@ -75,7 +75,7 @@ public class AuthenticationWindow implements Initializable {
             Scene adminScene = new Scene(adminRoot);
             AdminMenuWindow = new Stage();
             AdminMenuWindow.initModality(Modality.APPLICATION_MODAL);
-            AdminMenuWindow.setTitle("Client Menu");
+            AdminMenuWindow.setTitle("Administrator Menu");
             AdminMenuWindow.setResizable(false);
             AdminMenuWindow.setScene(adminScene);
 
