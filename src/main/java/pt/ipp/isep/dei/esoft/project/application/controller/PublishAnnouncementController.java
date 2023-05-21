@@ -46,8 +46,13 @@ public class PublishAnnouncementController {
      */
     public void publishAnnouncement(int id) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
-        if (announcement.getId() >= 0) {
-            announcement.setIsPublished();
+        try{
+            if (announcement.getId() >= 0) {
+                announcement.setIsPublished();
+            }
+        }
+        catch (Exception e) {
+
         }
     }
 

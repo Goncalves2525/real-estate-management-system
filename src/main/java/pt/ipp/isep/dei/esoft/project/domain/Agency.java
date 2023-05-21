@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Agency class that contains all the information about an agency.
@@ -33,6 +32,19 @@ public class Agency {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.agents = agents;
+        id = idCounter++;
+    }
+
+    /**
+     * Agency Constructor
+     * @param name name
+     * @param emailAddress email address
+     * @param phoneNumber phone number
+     */
+    public Agency(String name, String emailAddress, int phoneNumber) {
+        this.name = name;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
         id = idCounter++;
     }
 

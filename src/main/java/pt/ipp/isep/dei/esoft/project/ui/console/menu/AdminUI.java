@@ -19,6 +19,7 @@ public class AdminUI implements Runnable {
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Register an Employee", new RegisterEmployeeUI()));
+        options.add(new MenuItem("Import Data", new ImportUI()));
         //options.add(new MenuItem("Register a Store", new ShowTextUI("⚠ Functionality not implemented ⚠")));
         //options.add(new MenuItem("Specify districts, municipalities, and parishes", new ShowTextUI("⚠ Functionality not implemented ⚠")));
 
