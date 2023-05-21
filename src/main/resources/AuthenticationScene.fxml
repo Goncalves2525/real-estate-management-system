@@ -41,7 +41,7 @@
             <GridPane.margin>
                 <Insets left="10.0" />
             </GridPane.margin></Label>
-        <PasswordField fx:id="txtBoxPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" onKeyPressed="#onPasswordEnterPressed">
+        <PasswordField fx:id="txtBoxPassword" onKeyPressed="#onPasswordEnterPressed" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
                 <Font size="20.0" />
             </font>

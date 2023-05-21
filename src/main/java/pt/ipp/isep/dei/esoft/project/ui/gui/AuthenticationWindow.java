@@ -67,7 +67,7 @@ public class AuthenticationWindow implements Initializable {
             Scene employeeScene = new Scene(employeeRoot);
             EmployeeMenuWindow = new Stage();
             EmployeeMenuWindow.initModality(Modality.APPLICATION_MODAL);
-            EmployeeMenuWindow.setTitle("Client Menu");
+            EmployeeMenuWindow.setTitle("Employee Menu");
             EmployeeMenuWindow.setResizable(false);
             EmployeeMenuWindow.setScene(employeeScene);
 
@@ -156,10 +156,16 @@ public class AuthenticationWindow implements Initializable {
             found = item.hasDescription(role.getDescription());
             if (found) {
                 if (item.toString().equals(AuthenticationController.ROLE_ADMIN)) {
+                    txtBoxEmail.clear();
+                    txtBoxPassword.clear();
                     AdminMenuWindow.show();
                 } else if (item.toString().equals(AuthenticationController.ROLE_EMPLOYEE)) {
+                    txtBoxEmail.clear();
+                    txtBoxPassword.clear();
                     EmployeeMenuWindow.show();
                 } else if (item.toString().equals(AuthenticationController.ROLE_CLIENT)) {
+                    txtBoxEmail.clear();
+                    txtBoxPassword.clear();
                     ClientMenuWindow.show();
                 }
             }
