@@ -17,9 +17,11 @@ public class MainGUI extends javafx.application.Application {
         fxmlLoader.setLocation(getClass().getResource("/MainMenuScene.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        stage.setTitle("Real Estate USA");
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void main(String[] args) {
         Bootstrap bootstrap = new Bootstrap();
