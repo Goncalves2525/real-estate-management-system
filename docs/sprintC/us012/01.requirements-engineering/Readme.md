@@ -13,12 +13,14 @@ As a system administrator, I want to import information from a legacy system tha
 ### 1.2. Customer Specifications and Clarifications 
 
 
-**From the specifications document:**
+[//]: # (**From the specifications document:**)
 
->	
+[//]: # ()
+[//]: # (>	)
 
-
->	
+[//]: # ()
+[//]: # ()
+[//]: # (>	)
 
 
 
@@ -53,18 +55,6 @@ name=Legacy Agent; passport card number=000000000; tax number=000000000, email a
 > **Answer:** The System Administrator should be able to load any file with the extension csv. The file content must be validated, showing a message to the system
 administrator if the file is empty or its content is not in the requested format.
 
-> **Question:**
->
-> **Answer:**
-
-> **Question:**
->
-> **Answer:**
-
-> **Question:**
->
-> **Answer:**
-> 
 ### 1.3. Acceptance Criteria
 
 
@@ -77,7 +67,7 @@ administrator if the file is empty or its content is not in the requested format
 ### 1.4. Found out Dependencies
 
 
-* 
+* n/a
 
 
 ### 1.5 Input and Output Data
@@ -86,7 +76,8 @@ administrator if the file is empty or its content is not in the requested format
 **Input Data:**
 
 * Typed data:
-	* csv file location
+  * type of data to import (orders, agents, agencies, etc.)
+  * csv file location
 
 
 **Output Data:**

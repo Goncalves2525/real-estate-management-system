@@ -41,11 +41,11 @@ else Percentage
     activate System
 end
 
-System --> Agent : validates Commission and sets it to the selected Announcement
-deactivate System
-
-Agent -> System : confirms the Published Announcement
-activate System
+'System --> Agent : validates Commission and sets it to the selected Announcement
+'deactivate System
+'
+'Agent -> System : confirms the Published Announcement
+'activate System
 
 System --> Agent : publishes the Announcement, sets the Published Date and shows operation success
 deactivate System

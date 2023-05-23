@@ -1,11 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ClientMenuWindow implements Runnable {
     @FXML
@@ -14,6 +11,10 @@ public class ClientMenuWindow implements Runnable {
 
     @Override
     public void run() {
+
+    }
+
+    public void OpenCreateRequestScene(ActionEvent actionEvent) {
 
     }
 }

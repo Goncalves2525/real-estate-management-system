@@ -10,16 +10,28 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-'title Domain Model
+title Domain Model
 
-'class Platform {
-'  -description
-'}
+class Agency{
+ID
+name
+email
+phoneNumber
+}
+
+class Order{
+    id
+    announcementId
+    orderAmount
+    clientEmail
+    date
+    orderState
+}
 
 class LegacySystem{
 }
 
-class SystemAdministrator extends Employee{
+class SystemAdministrator{
 }
 
 class Employee extends Person{
@@ -34,5 +46,8 @@ class Person{
 }
 
 SystemAdministrator "1" -- "1" LegacySystem : imports information from >
+SystemAdministrator "1" -- "1" Employee : creates from imported data >
+SystemAdministrator "1" -- "1" Agency : creates from imported data >
+SystemAdministrator "1" -- "1" Order : creates from imported data >
 
 @enduml
