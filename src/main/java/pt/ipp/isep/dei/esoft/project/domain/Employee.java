@@ -58,6 +58,12 @@ public class Employee extends Person {
     }
 
 
+    public Employee(String name, String email, int agencyID){
+        super(name, email);
+        this.agencyID = agencyID;
+    }
+
+
      /**
       * @param role Add Role of the employee
       */

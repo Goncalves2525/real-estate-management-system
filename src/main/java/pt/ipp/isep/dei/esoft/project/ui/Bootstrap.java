@@ -39,12 +39,12 @@ public class Bootstrap implements Runnable {
 
 
 
-        employeeRepository.add(new Employee("employee@this.app", 1));
-        employeeRepository.add(new Employee("Agent11", 1));
-        employeeRepository.add(new Employee("Agent111", 1));
-        employeeRepository.add(new Employee("Agent2", 2));
-        employeeRepository.add(new Employee("Agent22", 2));
-        employeeRepository.add(new Employee("Agent222", 2));
+        employeeRepository.add(new Employee("Luis","employee@this.app", 1));
+        employeeRepository.add(new Employee("Ricardo","Agent11", 1));
+        employeeRepository.add(new Employee("Miguel","Agent111", 1));
+        employeeRepository.add(new Employee("Diogo","Agent2", 2));
+        employeeRepository.add(new Employee("Maria","Agent22", 2));
+        employeeRepository.add(new Employee("Joaquim","Agent222", 2));
     }
 
     private void addAnnouncements() {
@@ -79,21 +79,21 @@ public class Bootstrap implements Runnable {
 
         ArrayList<Property> properties = propertyRepository.getAllProperties();
 
-        announcementRepository.addAnnouncement(properties.get(0).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(13).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(12).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(4).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(6).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(7).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(8).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(11).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(9).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(2).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
-        announcementRepository.addAnnouncement(properties.get(14).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(0).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(1).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(13).getId(), TypeOfProperty.HOUSE, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(12).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(4).getId(), TypeOfProperty.HOUSE, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent1,properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(6).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(7).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(8).getId(), TypeOfProperty.APARTMENT, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(11).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(9).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(2).getId(), TypeOfProperty.LAND, TransactionType.RENT, d1, c1, null, true);
+        announcementRepository.addAnnouncementWithAgent(agent2,properties.get(14).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, true);
 
         announcementRepository.addAnnouncementWithAgent(agent1, properties.get(10).getId(), TypeOfProperty.LAND, TransactionType.SALE, d1, c1, null, false);
         announcementRepository.addAnnouncementWithAgent(agent1, properties.get(5).getId(), TypeOfProperty.APARTMENT, TransactionType.SALE, d1, c1, null, false);
@@ -109,7 +109,7 @@ public class Bootstrap implements Runnable {
 
         // Add the new client to the client repository
         ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
-        clientRepository.addClient("TestClientName", "testclient@this.app", 11111111, 222222222, 912312332, clientAddress);
+        clientRepository.addClient("Joao Comprador", "client1@this.app", 11111111, 222222222, 912312332, clientAddress);
 
     }
 
@@ -134,7 +134,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserWithRole("Client2", "client2@this.app", "pwd",
                 AuthenticationController.ROLE_CLIENT);
 
-        authenticationRepository.addUserWithRole("TestClientName", "testclient@this.app", "pwd",
+        authenticationRepository.addUserWithRole("Joao Comprador", "client1@this.app", "pwd",
                 AuthenticationController.ROLE_CLIENT);
 
 

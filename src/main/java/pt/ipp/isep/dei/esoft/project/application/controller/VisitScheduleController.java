@@ -6,7 +6,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Client;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 import pt.ipp.isep.dei.esoft.project.repository.*;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -24,8 +26,9 @@ public class VisitScheduleController {
     public VisitScheduleController() {
         Repositories repositories = Repositories.getInstance();
         this.clientRepository = repositories.getClientRepository();
-        this.visitScheduleRepository = repositories.getVisitScheduleRepository(); //inicializando visitScheduleRepository
+        this.visitScheduleRepository = repositories.getVisitScheduleRepository();
         getAnnouncementRepository();
+
     }
 
 
@@ -126,7 +129,37 @@ public class VisitScheduleController {
         String agentEmail = getAgentEmailByAnnouncementID(announcementID);
         VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail);
         this.visitScheduleRepository.addVisitSchedule(visitSchedule);
+        sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail);
     }
+
+    private void sendEmailToAgent(int announcementID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail) {
+        String filename = "EmailToAgent_" + agentEmail + "_Announcement_" + announcementID + ".txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            if (agentEmail != null) {
+                writer.write("To: " + agentEmail + "\n\n");
+            }
+            writer.write("Subject: Visit Schedule - Announcement " + announcementID + "\n\n");
+            writer.write("Dear Agent,\n\n");
+            if (name != null) {
+                writer.write("My name is " + name + ". I am interested in the property listed under announcement number " + announcementID + ".\n\n");
+            }
+            if (date != null && startTime != null && endTime != null) {
+                writer.write("I would like to propose a visit on " + date + " starting from " + startTime + " until " + endTime + ". Please feel free to contact me at the following telephone number: " + telephoneNumber + " if there are any issues with the proposed timing.\n\n");
+            }
+            writer.write("I look forward to your confirmation of the visit.\n");
+            writer.write("Thank you for your attention.\n\n");
+            if (name != null) {
+                writer.write("Best regards,\n");
+                writer.write(name);
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + filename);
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void approveVisit(VisitSchedule visitSchedule) {
         visitSchedule.setApprovedByAgent(true);
@@ -146,7 +179,6 @@ public class VisitScheduleController {
         }
         return pendingVisits;
     }
-
 
 
 

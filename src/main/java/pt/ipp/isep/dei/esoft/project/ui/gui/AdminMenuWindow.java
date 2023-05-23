@@ -62,6 +62,7 @@ public class AdminMenuWindow implements Runnable {
             Scene scene = new Scene(authRoot);
             Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             currentStage.setScene(scene);
+            currentStage.setResizable(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
