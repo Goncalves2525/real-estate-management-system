@@ -87,14 +87,17 @@ public class PropertyOrderManagementUI implements Runnable {
                         acceptOrder(idOrder, idAnnouncement);
                         rejectAllOrdersFromAnnouncement(idAnnouncement);
                         unpublishAnnouncement(idAnnouncement);
+
                         System.out.println("Order accepted and all other orders rejected");
-                        sendEmailToCliente(idOrder, idAnnouncement, "accepted");
+                        controller.sendEmailToCliente(idOrder, idAnnouncement, "accepted");
+                        controller.sendEmailToRejectedOrders(idAnnouncement);
                         menuChoice();
                         return;
                     } else if (option == 2) {
                         rejectOrder(idOrder, idAnnouncement);
                         System.out.println("Order rejected\n");
-                        sendEmailToCliente(idOrder, idAnnouncement, "rejected");
+                        controller.sendEmailToCliente(idOrder, idAnnouncement, "rejected");
+
                         if (!controller.getOrdersByAnnouncementId(idAnnouncement).isEmpty()) {
                             showOrders(idAnnouncement);
                             System.out.println("Please insert the order number you want to analyze:");
@@ -287,27 +290,4 @@ public class PropertyOrderManagementUI implements Runnable {
         }
     }
 
-    private void sendEmailToCliente(int idOrder, int idAnnouncement, String decison) {
-        try {
-            Order order = controller.getOrderById(idOrder, idAnnouncement).get(0);
-            Announcement announcement = controller.getAnnouncementById(idAnnouncement);
-            Property property = controller.getPropertyByAnnouncement(announcement);
-            String email = order.getClientEmail();
-            String text = "Dear customer,\n\n" +
-                    "Your order for the property " + property.getAddress() + " was " + decison + ".\n" +
-                    "Best regards,\n" +
-                    "The Real Estate team";
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Decisons", true))) {
-                writer.write(email);
-                writer.write(text);
-                writer.newLine();
-            } catch (IOException e) {
-                System.err.println("An error occurred while sending the email: " + e.getMessage());
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
 }

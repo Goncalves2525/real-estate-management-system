@@ -16,7 +16,9 @@ import java.util.Date;
 public class OrderRepository {
     private ArrayList<Order> orders = new ArrayList<>();
 
-
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
 
 
     /**
