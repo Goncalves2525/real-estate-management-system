@@ -8,7 +8,6 @@ public class ClientMenuWindow implements Runnable {
     @FXML
     private Label lb;
 
-
     @Override
     public void run() {
 

@@ -64,7 +64,7 @@ public class PublishAnnouncementController {
     public void setCommission(int id, Commission commission) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
         if (announcement.getId() >= 0) {
-            announcement.setComission(commission);
+            announcement.setCommission(commission);
         }
     }
 

@@ -1,5 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.isep.lei.esoft.auth.UserSession;
@@ -7,6 +12,7 @@ import pt.isep.lei.esoft.auth.UserSession;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * The Announcement repository.
@@ -41,11 +47,11 @@ public class AnnouncementRepository {
      */
     public ArrayList<Announcement> getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")){
+        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")) {
             sortAnnouncements(resultAnnouncements, sortCriteria, order);
             removeNonPublishedAnnouncements(resultAnnouncements);
             return resultAnnouncements;
-        }else{
+        } else {
             removeAllAnnouncements(resultAnnouncements);
             return resultAnnouncements;
         }
@@ -84,6 +90,49 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    public ArrayList<Announcement> getFilteredAnnouncementsForGUI(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        Iterator<Announcement> iterator = resultAnnouncements.iterator();
+        while (iterator.hasNext()) {
+            Announcement announcement = iterator.next();
+            Property property = getPropertyByAnnouncement(announcement);
+            if (property instanceof House) {
+                if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null) {
+                    iterator.remove();
+                }
+                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                    iterator.remove();
+                }
+                else if (((House) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
+                    iterator.remove();
+                }
+            } else if (property instanceof Apartment) {
+                if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null) {
+                    iterator.remove();
+                }
+                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                    iterator.remove();
+                }
+                else if (((Apartment) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
+                    iterator.remove();
+                }
+            } else if (property instanceof Land) {
+                if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null ) {
+                    iterator.remove();
+                }
+                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                    iterator.remove();
+                }
+                else if (numberOfRooms > 0) {
+                    iterator.remove();
+                }
+            }
+        }
+        resultAnnouncements.sort(defaultCriteria);
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
+    }
+
     /**
      * This is the method used for when the user wants to filter and sort the announcements
      *
@@ -97,18 +146,18 @@ public class AnnouncementRepository {
     public ArrayList<Announcement> getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms, String sortCriteria, String order) {
         ArrayList<Announcement> resultAnnouncements;
         resultAnnouncements = getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
-        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")){
+        if (sortCriteria.equals("price") || sortCriteria.equals("city") || sortCriteria.equals("state")) {
             sortAnnouncements(resultAnnouncements, sortCriteria, order);
             removeNonPublishedAnnouncements(resultAnnouncements);
             return resultAnnouncements;
-        }else{
+        } else {
             removeAllAnnouncements(resultAnnouncements);
             return resultAnnouncements;
         }
     }
 
-    public double getPropertyPriceByAnnouncmentId(int id){
-        if (getAnnouncementById(id) != null){
+    public double getPropertyPriceByAnnouncmentId(int id) {
+        if (getAnnouncementById(id) != null) {
             Announcement announcement = getAnnouncementById(id);
             Property property = getPropertyByAnnouncement(announcement);
             return property.getPrice();
@@ -120,37 +169,39 @@ public class AnnouncementRepository {
     /**
      * Adds an announcement to the repository
      *
-     * @param propertyID       - property id
+     * @param propertyID      - property id
      * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
      * @param date            - date
-     * @param commission       - comission
+     * @param commission      - comission
      * @param photos          - photos
      * @param isPublished     - is published
      */
     public void addAnnouncement(int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
         Announcement announcement = new Announcement(propertyID, typeOfProperty, transactionType, date, commission, photos, isPublished);
-            announcements.add(announcement);
+        announcements.add(announcement);
     }
 
     /**
      * Adds an announcement to the repository, with an agent associated
-     * @param agent - agent
-     * @param propertyID - property id
-     * @param typeOfProperty - type of property
+     *
+     * @param agent           - agent
+     * @param propertyID      - property id
+     * @param typeOfProperty  - type of property
      * @param transactionType - transaction type
-     * @param date - date
-     * @param commission - commission
-     * @param photos - photos
-     * @param isPublished - is published
+     * @param date            - date
+     * @param commission      - commission
+     * @param photos          - photos
+     * @param isPublished     - is published
      */
     public void addAnnouncementWithAgent(Employee agent, int propertyID, TypeOfProperty typeOfProperty, TransactionType transactionType, Date date, Commission commission, ArrayList<Photo> photos, boolean isPublished) {
-        Announcement announcement = new Announcement(agent,propertyID, typeOfProperty, transactionType, date, commission, photos, isPublished);
+        Announcement announcement = new Announcement(agent, propertyID, typeOfProperty, transactionType, date, commission, photos, isPublished);
         announcements.add(announcement);
     }
 
     /**
      * Adds an Announcement to the repository, created by a Client
+     *
      * @param announcement
      */
     public void addAnnouncementFromOwner(Announcement announcement) {
@@ -173,7 +224,7 @@ public class AnnouncementRepository {
      * @param order               - sort order
      */
     private void sortAnnouncements(ArrayList<Announcement> resultAnnouncements, String sortCriteria, String order) {
-        switch (sortCriteria){
+        switch (sortCriteria) {
             case "price":
 
                 resultAnnouncements.sort(new Comparator<Announcement>() {
@@ -206,9 +257,10 @@ public class AnnouncementRepository {
                     }
                 });
                 break;
-        };
+        }
+        ;
 
-        if(Objects.equals(order, "descending")) Collections.reverse(resultAnnouncements);
+        if (Objects.equals(order, "descending")) Collections.reverse(resultAnnouncements);
 
     }
 
@@ -230,6 +282,7 @@ public class AnnouncementRepository {
 
     /**
      * This is the method used to return all the announcements assigned to the logged in Agent, sorted by the default criteria
+     *
      * @return resultAnnouncements
      */
     public ArrayList<Announcement> getAllAnnouncementsByAgent() {
@@ -243,6 +296,7 @@ public class AnnouncementRepository {
 
     /**
      * This is the method used to return the current user session
+     *
      * @return resultAnnouncements
      */
     public UserSession getEmployee() {
@@ -250,7 +304,9 @@ public class AnnouncementRepository {
         return authenticationRepository.getCurrentUserSession();
     }
 
-    /** This method is used to return all the announcements assigned to the loggedIn Agent's email
+    /**
+     * This method is used to return all the announcements assigned to the loggedIn Agent's email
+     *
      * @param agentEmail - the loggedIn agent's email
      * @return resultAnnouncements
      */
@@ -259,7 +315,7 @@ public class AnnouncementRepository {
         Iterator<Announcement> iterator = resultAnnouncements.iterator();
         while (iterator.hasNext()) {
             Announcement announcement = iterator.next();
-            if(!announcement.getAgentEmail().equals(agentEmail) || announcement.isPublished()) {
+            if (!announcement.getAgentEmail().equals(agentEmail) || announcement.isPublished()) {
                 iterator.remove();
             }
         }
@@ -269,6 +325,7 @@ public class AnnouncementRepository {
 
     /**
      * This method prevents the user from seeing an announcement that is published
+     *
      * @param resultAnnouncements - resultannouncements
      */
     private void removePublishedAnnouncements(ArrayList<Announcement> resultAnnouncements) {
@@ -297,15 +354,16 @@ public class AnnouncementRepository {
      * @param announcements - announcements
      * @return announcements
      */
-    private void removeAllAnnouncements(ArrayList<Announcement> announcements){
+    private void removeAllAnnouncements(ArrayList<Announcement> announcements) {
         announcements.removeAll(announcements);
     }
-    public void unpublishAnnouncement (int IdAnnouncement){
+
+    public void unpublishAnnouncement(int IdAnnouncement) {
         Announcement announcement = getAnnouncementById(IdAnnouncement);
         announcement.setPublished(false);
     }
 
-    public Property getPropertyByAnnouncement(Announcement announcement){
+    public Property getPropertyByAnnouncement(Announcement announcement) {
         int propertyID = announcement.getPropertyID();
         return Repositories.getInstance().getPropertyRepository().getPropertyByID(propertyID);
     }
@@ -328,7 +386,7 @@ public class AnnouncementRepository {
 
     public Announcement getAnnouncementById(int id) {
         for (Announcement announcement : announcements) {
-            if (announcement.getId()==id) {
+            if (announcement.getId() == id) {
                 return announcement;
             }
         }

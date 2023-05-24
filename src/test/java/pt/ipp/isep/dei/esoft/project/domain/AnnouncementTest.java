@@ -41,7 +41,7 @@ class AnnouncementTest {
         assertEquals(typeOfProperty, announcement.getTypeOfProperty());
         assertEquals(transactionType, announcement.getTransactionType());
         assertEquals(publishDate, announcement.getPublishDate());
-        assertEquals(commission, announcement.getComission());
+        assertEquals(commission, announcement.getCommission());
         assertFalse(announcement.isPublished());
     }
 
@@ -53,7 +53,7 @@ class AnnouncementTest {
         assertEquals(typeOfProperty, announcement.getTypeOfProperty());
         assertEquals(transactionType, announcement.getTransactionType());
         assertEquals(publishDate, announcement.getPublishDate());
-        assertEquals(commission, announcement.getComission());
+        assertEquals(commission, announcement.getCommission());
         assertTrue(announcement.isPublished());
     }
 
@@ -80,10 +80,10 @@ class AnnouncementTest {
         announcement.setPublishDate(newPublishDate);
         assertEquals(newPublishDate, announcement.getPublishDate());
 
-        assertEquals(commission, announcement.getComission());
+        assertEquals(commission, announcement.getCommission());
         Commission newCommission = new Commission(0.1);
-        announcement.setComission(newCommission);
-        assertEquals(newCommission, announcement.getComission());
+        announcement.setCommission(newCommission);
+        assertEquals(newCommission, announcement.getCommission());
 
         assertFalse(announcement.isPublished());
         announcement.setPublished(true);

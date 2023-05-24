@@ -165,7 +165,7 @@ public class Announcement {
      *
      * @return commission
      */
-    public Commission getComission() {
+    public Commission getCommission() {
         return commission;
     }
 
@@ -191,7 +191,7 @@ public class Announcement {
      *
      * @return commission
      */
-    public void setComission(Commission commission) {
+    public void setCommission(Commission commission) {
         this.commission = commission;
     }
 

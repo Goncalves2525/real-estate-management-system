@@ -58,8 +58,6 @@ public class MainMenuWindow implements Runnable, Initializable {
             listScene = new Scene(listRoot);
 
 
-
-
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

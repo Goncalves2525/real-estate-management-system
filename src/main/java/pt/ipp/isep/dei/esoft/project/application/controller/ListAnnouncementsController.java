@@ -111,6 +111,11 @@ public class ListAnnouncementsController {
         return announcementRepository.getFilteredAndSortedAnnouncements(typeOfProperty, transactionType, numberOfRooms, sortCriteria, order);
     }
 
+    public ArrayList<Announcement> getFilteredAnnouncementsForGUI(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms){
+        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        return announcementRepository.getFilteredAnnouncementsForGUI(typeOfProperty, transactionType, numberOfRooms);
+    }
+
     public Property getPropertyByAnnouncement(Announcement announcement){
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getPropertyByAnnouncement(announcement);
@@ -123,6 +128,8 @@ public class ListAnnouncementsController {
     public boolean userIsLoggedInWithClientRole() {
         return getAuthenticationRepository().getCurrentUserSession().isLoggedInWithRole("CLIENT");
     }
+
+
 
 
 }
