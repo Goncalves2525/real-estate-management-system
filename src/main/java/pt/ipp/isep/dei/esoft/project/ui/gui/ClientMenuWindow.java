@@ -4,14 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class ClientMenuWindow implements Runnable {
+public class ClientMenuWindow{
     @FXML
     private Label lb;
 
-    @Override
-    public void run() {
-
-    }
 
     public void OpenCreateRequestScene(ActionEvent actionEvent) {
 
