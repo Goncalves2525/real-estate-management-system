@@ -56,12 +56,13 @@
         </GridPane.margin>
     </Button>
 
-    <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnToMainMenuAction" prefHeight="26.0" prefWidth="106.0" text="RETURN" GridPane.columnIndex="2" GridPane.rowIndex="2">
+    <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnToMainMenuAction" prefHeight="26.0" prefWidth="106.0" text="RETURN" GridPane.columnIndex="3" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets />
       </GridPane.margin></Button>
+   <Button fx:id="btPlaceOrder" onAction="#onBtPlaceOrder" prefHeight="26.0" prefWidth="107.0" text="Place Order" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
-    <TableView fx:id="announcementTable" GridPane.columnSpan="3" GridPane.rowIndex="4">
+    <TableView fx:id="announcementTable" GridPane.columnSpan="5" GridPane.rowIndex="4">
         <columns>
             <TableColumn fx:id="id" text="ID" />
             <TableColumn fx:id="typeOfProperty" text="Type of property" />
@@ -89,8 +90,9 @@
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints maxWidth="351.5" minWidth="148.5" prefWidth="295.5" />
-      <ColumnConstraints maxWidth="1056.0" minWidth="760.0" prefWidth="760.0" />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="351.5" minWidth="130.5" prefWidth="255.5" />
+      <ColumnConstraints maxWidth="469.5" minWidth="130.5" prefWidth="303.5" />
+      <ColumnConstraints maxWidth="1056.0" minWidth="355.0" prefWidth="355.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />

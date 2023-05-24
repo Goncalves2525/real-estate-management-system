@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
@@ -29,7 +30,7 @@ import java.util.ResourceBundle;
 public class ListAnnouncementsWindow implements Initializable {
 
     private final ListAnnouncementsController controller = new ListAnnouncementsController();
-
+    private Stage createOrderWindow;
     @FXML
     private TableView<Announcement> announcementTable;
     @FXML
@@ -73,6 +74,8 @@ public class ListAnnouncementsWindow implements Initializable {
     private Button returnButton;
     @FXML
     private Button clearFiltersButton;
+    @FXML
+    private Button btPlaceOrder;
 
     @FXML
     private RadioButton rentRadio;
@@ -197,14 +200,35 @@ public class ListAnnouncementsWindow implements Initializable {
             }
         });
 
+        try{
+            FXMLLoader createOrderLoader = new FXMLLoader();
+            createOrderLoader.setLocation(getClass().getResource("/CreateOrderScene.fxml"));
+            Parent createOrderRoot = createOrderLoader.load();
+            Scene scene = new Scene(createOrderRoot);
+            createOrderWindow = new Stage();
+            createOrderWindow.initModality(Modality.APPLICATION_MODAL);
+            createOrderWindow.setTitle("Create Order");
+            createOrderWindow.setResizable(false);
+            createOrderWindow.setScene(scene);
+            CreateOrderWindow createOrderController = createOrderLoader.getController();
+            createOrderController.associateParentUI(this);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
 
     }
 
     @FXML
-    private void onReturnToMainMenuAction() throws IOException {
+    private void onReturnToMainMenuAction(){
         Stage mainStage = getMainStage();
         FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/MainMenuScene.fxml"));
-        Parent mainMenuRoot = mainMenuLoader.load();
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Scene mainMenuScene = new Scene(mainMenuRoot);
         mainStage.setScene(mainMenuScene);
         mainStage.setTitle("Real Estate USA");
@@ -288,5 +312,14 @@ public class ListAnnouncementsWindow implements Initializable {
         numberOfBedroomsComboBox.setPromptText("Number of Rooms");
         rentRadio.setSelected(false);
         saleRadio.setSelected(false);
+    }
+
+    public Button getBtPlaceOrder() {
+        return btPlaceOrder;
+    }
+
+    @FXML
+    private void onBtPlaceOrder(ActionEvent actionEvent) {
+        createOrderWindow.show();
     }
 }

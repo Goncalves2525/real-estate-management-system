@@ -62,10 +62,6 @@ public class MainMenuWindow implements Runnable, Initializable {
             Parent adminRoot = adminLoader.load();
             adminScene = new Scene(adminRoot);
 
-            FXMLLoader listLoader = new FXMLLoader();
-            listLoader.setLocation(getClass().getResource("/ListAnnouncementsScene.fxml"));
-            Parent listRoot = listLoader.load();
-            listScene = new Scene(listRoot);
 
 
         }catch (Exception e){
@@ -84,6 +80,12 @@ public class MainMenuWindow implements Runnable, Initializable {
 
     @FXML
     private void onBtListAnnouncementsAction() throws IOException {
+        FXMLLoader listLoader = new FXMLLoader();
+        listLoader.setLocation(getClass().getResource("/ListAnnouncementsScene.fxml"));
+        Parent listRoot = listLoader.load();
+        ListAnnouncementsWindow listAnnouncementsWindow = listLoader.getController();
+        listAnnouncementsWindow.getBtPlaceOrder().setVisible(false);
+        listScene = new Scene(listRoot);
         Stage mainStage = getMainStage();
         mainStage.setScene(listScene);
         mainStage.setTitle("List Announcements");

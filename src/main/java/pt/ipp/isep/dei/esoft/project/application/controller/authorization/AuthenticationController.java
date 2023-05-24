@@ -51,4 +51,11 @@ public class AuthenticationController {
     public void doLogout() {
         authenticationRepository.doLogout();
     }
+
+    /**
+     * @return true if user is logged in, false otherwise
+     */
+    public boolean userIsLoggedInWithClientRole() {
+        return authenticationRepository.getCurrentUserSession().isLoggedInWithRole("CLIENT");
+    }
 }
