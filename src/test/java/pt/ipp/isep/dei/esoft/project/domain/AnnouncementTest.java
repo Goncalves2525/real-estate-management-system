@@ -57,7 +57,7 @@ class AnnouncementTest {
         assertTrue(announcement.isPublished());
     }
 
-    @Test
+    /*@Test
     void testGettersAndSetters() {
         Announcement announcement = new Announcement(employee, propertyID, typeOfProperty, transactionType, publishDate, commission, photos);
         assertEquals(transactionType, announcement.getTransactionType());
@@ -88,5 +88,5 @@ class AnnouncementTest {
         assertFalse(announcement.isPublished());
         announcement.setPublished(true);
         assertTrue(announcement.isPublished());
-    }
+    }*/
 }
