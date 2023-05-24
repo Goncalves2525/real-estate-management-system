@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,9 +31,8 @@ public class CreateOrderWindow implements Initializable {
     }
 
     @FXML
-    private void onBtPlaceOrder(ActionEvent event) {
+    public void onBtPlaceOrder(ActionEvent event) {
 
     }
-
 
 }
