@@ -112,7 +112,7 @@ activate client
 
     OrderRepository -> Order** : create
 
-    OrderRepository -> OrderRepository : addOrder(propertyID, amount, clientEmail)
+    OrderRepository -> OrderRepository : addOrder(announcementId, amount, clientEmail, date, orderState)
 
     OrderRepository --> ctrl : order
     deactivate OrderRepository

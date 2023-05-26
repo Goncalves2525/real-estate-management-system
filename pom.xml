@@ -39,7 +39,7 @@
         <mockito-all>2.0.2-beta</mockito-all>
         <mockito-core>5.2.0</mockito-core>
 
-        <javafx.version>21-ea+5</javafx.version>
+        <javafx.version>20</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 
     </properties>
@@ -89,12 +89,14 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+            <classifier>mac</classifier>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+            <classifier>mac</classifier>
         </dependency>
 
     </dependencies>

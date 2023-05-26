@@ -40,49 +40,86 @@ class AnnouncementRepository {
     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
 }
 
+class OrderRepository{
+    +clientAlreadyMadeOrderForThisAnnouncement(String clientEmail, int announcementId) : boolean
+    +someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) : boolean
+    +addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
+}
+
+class AuthenticationRepository{
+    +getCurrentUserSession() : UserSession
+}
+
+class AuthenticationFacade{
+    +getCurrentUserSession() : UserSession : UserSession
+}
+
+class UserSession{
+    +getUserId() : Email
+}
+
+class User{
+    +getId() : Email
+}
+
+class Order{
+    -id : int
+    -idCounter : int
+    -orderAmount : double
+    -announcementId : int
+    -clientEmail : String
+    -date : Date
+    -state : OrderState
+
+    +toString() : String
+}
+
 class Repositories {
     +Repositories()
     +getInstance() : Repositories
-    +getAnnouncementRepository() : AnnouncementRepository
+    +getOrderRepository() : OrderRepository
 }
 
-class ListAnnouncementsController {
-     +getAnnoucementRepository() : Repository
-     +getAllAnnouncementsSortedByDefualtCriteria() : ArrayList<Announcement>
-     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
-     +getFilteredAnnouncements(ypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
-     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
+class CreateOrderController {
+    +someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) : boolean
+    +clientAlreadyMadeOrderForThisAnnouncement(int announcementId, String userEmail) : boolean
+    +getPropertyPriceByAnnouncementId(int id) : double
+    +getClientEmail() : String
+    +getAllAnnouncements() : ArrayList<Announcement>
+    +getPropertyByAnnouncement(Announcement announcement) : Property
+    +createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
 }
 
-class ListAnouncementsUI {
-    +checkInputType(typeOfProperty, transactionType, numberOfRooms, sortCriteria) : AnnouncementListOptionType
-    +getAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
-    +getController() : ListAnnouncementsController
+class CreateOrderUI {
+    +showAnnouncements(ArrayList<Announcement> publishedPropertiesList) : void
+    +createOrder(amount, id, clientEmail, date, orderState) : void
 }
 
-class Address{
-    - street : String
-    - city : String
-    - district : String
-    - state : String
-    - zipCode : int
-}
 
 Repositories -> Repositories : instances
 
-ListAnouncementsUI .> ListAnnouncementsController
+CreateOrderUI .> CreateOrderController
 
-ListAnnouncementsController ..> Repositories
+CreateOrderController ..> Repositories
 
 Repositories "1" --> "1" AnnouncementRepository : has
 
-ListAnnouncementsController ..> AnnouncementRepository
+Repositories "1" --> "1" AuthenticationRepository : has
+
+Repositories "1" --> "1" OrderRepository : has
+
+CreateOrderController ..> AnnouncementRepository
 
 AnnouncementRepository "1" --> "*" Announcement : has
 
 Announcement "1" --> "1" Property : has
 
-Property "1" --> "1" Address : has
+AuthenticationRepository "1" --> "1" AuthenticationFacade : has
 
+AuthenticationFacade "1" --> "1" UserSession : has
+
+UserSession "1" --> "1" User : has
+
+OrderRepository "1" --> "*" Order : has
 
 @enduml

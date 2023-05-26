@@ -39,9 +39,9 @@ public class CreateOrderUI implements Runnable {
                 sc.nextLine();
                 run();
             }
-        }while(id < 0);
+        } while (id < 0);
 
-        propertyPrice =controller.getPropertyPriceByAnnouncementId(id);
+        propertyPrice = controller.getPropertyPriceByAnnouncementId(id);
 
         System.out.println("Insert the amount you want to offer for the property (lower or equal to actual price):");
         do {
@@ -52,14 +52,14 @@ public class CreateOrderUI implements Runnable {
                 sc.nextLine();
                 run();
             }
-        }while(amount >propertyPrice);
+        } while (amount > propertyPrice);
 
-        sameAmount =controller.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(amount,id);
-        clientEmail =controller.getClientEmail();
-        alreadyMadeOrder =controller.clientAlreadyMadeOrderForThisAnnouncement(id,clientEmail);
+        sameAmount = controller.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(amount, id);
+        clientEmail = controller.getClientEmail();
+        alreadyMadeOrder = controller.clientAlreadyMadeOrderForThisAnnouncement(id, clientEmail);
 
 
-        if(alreadyMadeOrder) {
+        if (alreadyMadeOrder) {
             System.out.println("INFO: You already made an order for this property!");
         } else {
             if (sameAmount) {

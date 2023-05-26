@@ -35,9 +35,12 @@ As a client, I place an order to purchase the property, submitting the order amo
 > 
 > **Answer:** No.
 
-> **Question:**
+> **Question:** When showing the other order on the screen, what data should be shown (eg client name, published date, order status)?
 >
-> **Answer:**
+> **Answer:** If the order amount submitted by the client has already been posted for the property (by another request from this client or any other client), the system must state that on the screen. The system should show the message "The order amount submitted has already been posted for this property. Please contact the agent that is responsible for this property.".
+
+
+
 
 > To place an order the actor should be registered in the system.
 

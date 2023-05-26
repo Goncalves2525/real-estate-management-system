@@ -53,13 +53,31 @@ class Repositories {
     -employeeRepository : EmployeeRepository
     -agencyRepository : AgencyRepository
     -roleRepository : RoleRepository
+    -orderRepository : OrderRepository
     +getAuthenticationRepository() : AuthenticationRepository
     +getAgencyListRepository() : AgencyRepository
     +getEmployeeRepository() : EmployeeRepository
     +getRoleRepository() : RoleRepository
+    +getAnnouncementRepository() : AnnouncementRepository
+    +getOrderRepository() : OrderRepository
     +Repositories()
     +getInstance() : Repositories
     +getAnnouncementRepository() : AnnouncementRepository
+}
+
+class CreateOrderController {
+    +someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) : boolean
+    +clientAlreadyMadeOrderForThisAnnouncement(int announcementId, String userEmail) : boolean
+    +getPropertyPriceByAnnouncementId(int id) : double
+    +getClientEmail() : String
+    +getAllAnnouncements() : ArrayList<Announcement>
+    +getPropertyByAnnouncement(Announcement announcement) : Property
+    +createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
+}
+
+class CreateOrderUI {
+    +showAnnouncements(ArrayList<Announcement> publishedPropertiesList) : void
+    +createOrder(amount, id, clientEmail, date, orderState) : void
 }
 
 class ListAnnouncementsController {
@@ -130,9 +148,14 @@ class AuthenticationController{
 }
 
 class UserSession{
++getUserId() : Email
 +isLoggedIn(User user) : boolean
 +hasSession(User user) : boolean
 +isAdmin(User user) : boolean
+}
+
+class AuthenticationFacade{
+    +getCurrentUserSession() : UserSession : UserSession
 }
 
 class Agency{
@@ -190,8 +213,22 @@ class Client extends Person{
 }
 
 
+class OrderRepository{
+    +clientAlreadyMadeOrderForThisAnnouncement(String clientEmail, int announcementId) : boolean
+    +someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) : boolean
+    +addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
+}
+
 class Order{
+    -id : int
+    -idCounter : int
     -orderAmount : double
+    -announcementId : int
+    -clientEmail : String
+    -date : Date
+    -state : OrderState
+
+    +toString() : String
 }
 
 class Employee extends Person{
@@ -220,6 +257,7 @@ class Photo{
 }
 
 class User{
+    +getId() : Email
 }
 
 enum TypeOfProperty{
@@ -353,6 +391,13 @@ class RegisterEmployeeUI {
 + run()
 }
 
+enum OrderState{
+    PENDING
+    ACCEPTED
+    REJECTED
+    +toString() : String
+}
+
 
 
 Repositories -> Repositories : instances
@@ -395,14 +440,21 @@ MainMenuUI ..> DevTeamUI
 AuthenticationUI ..> ClientUI
 AuthenticationUI ..> EmployeeUI
 AuthenticationUI ..> AdminUI
-User ..> UserSession
-AuthenticationRepository "1" --> "*" User : has
 EmployeeUI ..> PublishAnnouncementUI
 ClientUI ..> CreateRequestUI
 AdminUI ..> RegisterEmployeeUI
 CreateRequestController ..> Repositories
 PublishAnnouncementController ..> Repositories
 RegisterEmployeeController ..> Repositories
+AuthenticationRepository "1" --> "1" AuthenticationFacade : has
+AuthenticationFacade "1" --> "1" UserSession : has
+UserSession "1" --> "1" User : has
+OrderRepository "1" --> "*" Order : has
+CreateOrderController ..> AnnouncementRepository
+Repositories "1" --> "1" OrderRepository : has
+CreateOrderUI .> CreateOrderController
+CreateOrderController ..> Repositories
+Order "1" --> "1" OrderState : has
 
 
 
