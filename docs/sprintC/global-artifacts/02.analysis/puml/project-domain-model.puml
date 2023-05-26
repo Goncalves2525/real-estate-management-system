@@ -175,5 +175,6 @@ Client "1" -- "*" VisitSchedule : makes >
 VisitSchedule "*" -- "*" Agent : availability checked >
 Agent "*" -- "*" VisitSchedule : confirms availability >
 SystemAdministrator "1" -- "1" LegacySystem : imports information from >
+Agent "1" -- "*" Order : accept or reject >
 
 @enduml

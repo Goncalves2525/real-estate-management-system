@@ -6,19 +6,19 @@
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID                                                          | Question: Which class is responsible for...                                  | Answer                         | Justification (with patterns)                               |
-|:------------------------------------------------------------------------|:-----------------------------------------------------------------------------|:-------------------------------|:------------------------------------------------------------|  
-| Step 1 : start a new listing purchase orders                            | ... interacting with the actor?                                              | CreateRequestUI                | Pure Fabrication                                            |
-| 	                                                                      | ... coordinating the US?                                                     | CreateRequestController        | Controller                                                  |
-| 	                                                                      | ... knowing the list of agents in the system?                                | AgencyRepository               | IE: knows all the data needed to list.                      |
-| 	                                                                      | ... knowing the list of agents in the system?                                | EmployeeRepository             | IE: knows all the data needed to list.                      |
-| Step 2: request to choose Agency                                        | ... displaying agency options?                                               | CreateRequestUI                | Pure Fabrication                                            |
-| Step 3: choose agency                                                   | ... selects agencie?                                                         | CreateRequestUI                | Pure Fabrication                                            |
-| Step 4: request to choose agent                                         | ... displaying agent options?                                                | CreateRequestUI                | Pure Fabrication                                            |
-| Step 5: choose agent                                                    | ... selects agent?                                                           | CreateRequestUI                | Pure Fabrication                                            |
-| Step 6: request type of transaction                                     | ... displaying type of transaction options?                                  | CreateRequestUI                | Pure Fabrication                                            |
-| Step 7: request property type data                                      | ... displaying property type specific data fields?                           | CreateRequestUI                | Pure Fabrication                                            |
-| Step 8: validates submission                                            | ... informing operation success?                                             | CreateRequestUI                | Pure Fabrication
+| Interaction ID                                           | Question: Which class is responsible for...          | Answer                                    | Justification (with patterns)                              |
+|:---------------------------------------------------------|:-----------------------------------------------------|:------------------------------------------|:-----------------------------------------------------------|  
+| Step 1 : start to list announcements to accept or reject | ... interacting with the actor?                      | PropertyOrderManagementUI                 | Pure Fabrication                                           |
+| 	                                                        | ... coordinating the US?                             | PropertyOrderManagementController         | Controller                                                 |
+| 	                                                        | ... knowing the list of announcements in the system? | AnnouncementRepository                    | IE: knows all the data needed to list.                     |
+| 	                                                        | ... knowing the list of orders in the system?        | OrderRepository                           | IE: knows all the data needed to list.                     |
+| Step 2: manage orders                                    | ... accet or reject order?                           | PropertyOrderManagementController                          | Pure Fabrication                                           |
+| Step 2: manage orders                                     |  ...                                          |                                                           | Pure Fabrication                                           |
+| Step 2: manage orders                           | ...                                          |                           | Pure Fabrication                                           |
+|Step 2: manage orders                                       |  ...                                          |                         | Pure Fabrication                                           |
+| Step 6: reject order                                     | ...                                          | PropertyOrderManagementController                         | Pure Fabrication                                           |
+| Step 7: accept Order                                     | ...                                          | PropertyOrderManagementController                         | Pure Fabrication                                           |
+| Step 3 : System displays operation success	              | ... informing operation success?                     | CreateRequestUI                           | Pure Fabrication
 
 
 ### Systematization ##
@@ -29,8 +29,8 @@ According to the taken rationale, the conceptual classes promoted to software cl
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * CreateRequestUI  
- * CreateRequestController
+ * PropertyOrderManagementUI
+ * PropertyOrderManagementController
 
 
 ## 3.2. Sequence Diagram (SD)
