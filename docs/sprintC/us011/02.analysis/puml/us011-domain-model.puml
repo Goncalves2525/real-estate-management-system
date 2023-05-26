@@ -11,32 +11,26 @@ title Domain Model
 
 class Employee  {
 }
+class Agent extends Employee {
 
-class Role {
-    agent
-    client
 }
-
-class PurchaseOrder{
-    id
-    creationDate
-    status
-    price
-    property
-    endUser
+class Employee extends Person{
 }
 class Person{
     name
     passportCardNumber
     taxNumber
-    email
     telephoneNumber
+    email
 }
 
-class Property{
-    area
-    distanceFromCenter
-    price
+class Order{
+    id
+    announcementId
+    orderAmount
+    clientEmail
+    date
+    orderState
 }
 
 class Email{
@@ -44,19 +38,21 @@ class Email{
     decison
     orderid
 }
-
-class endUser{
-    name
-    email
-    telephoneNumber
+class Announcement{
+    typeOfBuisness
+    typeOfProperty
+    publishedDate
+    publishedBy
+    comission
+}
+class Client extends Person{
 }
 
-PurchaseOrder "1" - "1" Property: has >
-Employee "1" - "*" Role: has >
-Employee "1" -- "*" PurchaseOrder: list >
-PurchaseOrder "1" -- "*" Email: has >
-Employee "1" -- "*" Email: send >
-endUser "1" -- "*" Email: has >
-endUser "1" -- "*" Role: has >
+
+Agent "1" -- "*" Order: accepr or reject >
+Order "*" -- "1" Announcement: have <
+Agent "1" -- "*" Email: send >
+Email "1" -- "1" Client:  whith decison >
+
 
 @enduml
