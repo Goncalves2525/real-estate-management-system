@@ -21,8 +21,8 @@ in the system.
 
 **From the client clarifications:**
 
-> **Question:** Q: Does the client provide (by typing) their name and phone number for the message, regardless of whether or not that information is already available to the system?
-
+> **Question:** Does the client provide (by typing) their name and phone number for the message, regardless of whether or not that information is already available to the system?
+>
 > **Answer:** The information available in the system should be used. The client does not need to type the name and phone number.
 
 
@@ -48,7 +48,7 @@ in the system.
 
 > **Question:** In AC2, when the suggestion of date and time is sent, is there a standard duration for the visit or is it mandatory to fill in a start time and an end time for the visit?
 >
-> **Answer:**There is no standard duration to schedule a visit. The client should define his availability specifying the start time and the end time for the visit.
+> **Answer:** There is no standard duration to schedule a visit. The client should define his availability specifying the start time and the end time for the visit.
 
 
 > **Question:** In AC2, can any time be used or are we limited to certain hours?

@@ -13,7 +13,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**
+ * @author Luis Leal 1100253@isep.ipp.pt
+ */
 
+/**
+ * The Visit schedule controller.
+ */
 public class VisitScheduleController {
     private AuthenticationRepository authenticationRepository = null;
     private VisitScheduleRepository visitScheduleRepository = null;
@@ -23,6 +29,9 @@ public class VisitScheduleController {
     private AuthenticationController authController = new AuthenticationController();
 
 
+    /**
+     * Instantiates a new Visit schedule controller.
+     */
     public VisitScheduleController() {
         Repositories repositories = Repositories.getInstance();
         this.clientRepository = repositories.getClientRepository();
@@ -32,10 +41,17 @@ public class VisitScheduleController {
     }
 
 
+    /**
+     * Get announcement sorted by default criteria array list.
+     */
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
+
+    /**
+     * Get announcement repository
+     */
     private AnnouncementRepository getAnnoucementRepository() {
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -44,10 +60,19 @@ public class VisitScheduleController {
         return announcementRepository;
     }
 
+    /**
+     * Get property by id announcement.
+     * @param announcement
+     * @return property
+     */
     public Property getPropertyByAnnouncement(Announcement announcement){
         return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }
 
+    /**
+     * Get announcement repository
+     *
+     */
     private AnnouncementRepository getAnnouncementRepository(){
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -56,17 +81,31 @@ public class VisitScheduleController {
         return announcementRepository;
     }
 
+
+    /**
+     * verify if announcement id is valid
+     * @param id
+     * @return
+     */
     public boolean verifyAnnouncementID(int id) {
         Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
         return announcement != null;
     }
 
 
-
+    /**
+     * Get current user email
+     * @return
+     */
     public String getCurrentUserEmail() {
         return authController.getUserEmail();
     }
 
+
+    /**
+     * Get current user phone
+     * @return user phone
+     */
     public int getCurrentUserPhone() {
         String currentUserEmail = getCurrentUserEmail();
         if (currentUserEmail != null) {
@@ -78,6 +117,11 @@ public class VisitScheduleController {
         return 0;
     }
 
+
+    /**
+     * Get current user name
+     * @return user name
+     */
     public String getCurrentUserName() {
         String currentUserEmail = getCurrentUserEmail();
         if (currentUserEmail != null) {
@@ -90,6 +134,14 @@ public class VisitScheduleController {
     }
 
 
+    /**
+     * Check if the visit schedule is valid and not overlapping with existing schedules
+     * @param userPhone
+     * @param visitDate
+     * @param startTime
+     * @param endTime
+     * @return true if the visit schedule is valid and not overlapping with existing schedules
+     */
     public boolean isOverlappingWithExistingSchedules(int userPhone, LocalDate visitDate, LocalTime startTime, LocalTime endTime) {
         // Convert string times to LocalTime objects
         LocalTime start = startTime;
@@ -115,7 +167,11 @@ public class VisitScheduleController {
     }
 
 
-
+    /**
+     * Get agent email by announcement id
+     * @param id announcement id
+     * @return agent email
+     */
     public String getAgentEmailByAnnouncementID(int id) {
         Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
         if (announcement != null) {
@@ -125,6 +181,16 @@ public class VisitScheduleController {
     }
 
 
+    /**
+     * Save visit schedule
+     * @param announcementID announcement id
+     * @param name client name
+     * @param telephoneNumber client phone
+     * @param date visit date
+     * @param startTime visit start time
+     * @param endTime visit end time
+     * @param approvedbyAgent true if approved by agent
+     */
     public void saveVisitSchedule(int announcementID , String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent){
         String agentEmail = getAgentEmailByAnnouncementID(announcementID);
         VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail);
@@ -132,6 +198,16 @@ public class VisitScheduleController {
         sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail);
     }
 
+    /**
+     * Send email to agent
+     * @param announcementID announcement id
+     * @param name client name
+     * @param telephoneNumber client phone
+     * @param date visit date
+     * @param startTime visit start time
+     * @param endTime visit end time
+     * @param agentEmail agent email
+     */
     private void sendEmailToAgent(int announcementID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail) {
         String filename = "EmailToAgent_" + agentEmail + "_Announcement_" + announcementID + ".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
@@ -159,17 +235,28 @@ public class VisitScheduleController {
     }
 
 
-
-
+    /**
+     * Approve visit by agent
+     * @param visitSchedule
+     */
     public void approveVisit(VisitSchedule visitSchedule) {
         visitSchedule.setApprovedByAgent(true);
     }
 
 
+    /**
+     * Remove visit schedule from repository
+     * @param visit
+     */
     public void removeVisit(VisitSchedule visit) {
         visitScheduleRepository.removeVisitSchedule(visit);
     }
 
+    /**
+     * Get pending visits by agent email
+     * @param agentEmail agent email
+     * @return pending visits
+     */
     public ArrayList<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
         ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
         for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {

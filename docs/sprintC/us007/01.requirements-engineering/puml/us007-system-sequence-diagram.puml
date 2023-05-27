@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD)
 
 autonumber
 
@@ -26,5 +26,14 @@ activate Owner
 
         Owner -> System : Click on the verification link in the email
         activate System
+
+        System --> Owner: Displays the verification form
+    deactivate System
+
+        Owner -> System : Click on the "Verify" button
+    activate System
+
+        System --> Owner: Verifies the user, alerts of the operation success \nand sends welcome email
+    deactivate System
 
 @enduml

@@ -11,10 +11,27 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Luis Leal 1100253@isep.ipp.pt
+ */
+
+/**
+ * VisitScheduleUI class.
+ * <p>
+ * This class is responsible for creating the UI for the user to schedule a visit.
+ */
 public class VisitScheduleUI implements Runnable {
+    /**
+     * Instance variables.
+     */
     private VisitScheduleController controller = new VisitScheduleController();
     private Scanner sc = new Scanner(System.in);
 
+    /**
+     * Run method.
+     * <p>
+     * This method is responsible for running the UI for the user to schedule a visit.
+     */
     @Override
     public void run() {
         ArrayList<Announcement> announcements = controller.getAllAnnouncementsSortedByDefualtCriteria();
@@ -30,6 +47,13 @@ public class VisitScheduleUI implements Runnable {
         }
     }
 
+    /**
+     * Show Announcements method.
+     * <p>
+     * This method is responsible for showing the user the announcements and asking for the announcement ID.
+     *
+     * @param publishedPropertiesList
+     */
     private void showAnnouncements(ArrayList<Announcement> publishedPropertiesList) {
         System.out.println("-------------------------\n" +
                 "|  Published Properties  |\n" +
@@ -43,6 +67,10 @@ public class VisitScheduleUI implements Runnable {
         }
     }
 
+    /**
+     * Ask for another visit method.
+     *
+     */
     private boolean askForAnotherVisit() {
         String response;
         do {
@@ -55,7 +83,9 @@ public class VisitScheduleUI implements Runnable {
         return response.equalsIgnoreCase("Y");
     }
 
-
+    /**
+     * Select announcement method.
+     */
     private int selectAnnouncement() {
         int announcementID = -1;
         boolean continueLoop = true;
@@ -81,6 +111,12 @@ public class VisitScheduleUI implements Runnable {
         return announcementID;
     }
 
+    /**
+     * Input date and time method.
+     * <p>
+     *
+     * @param announcementID
+     */
     private void scheduleVisit(int announcementID) {
         LocalDate visitDate = inputDate();
         LocalTime startTime;
@@ -113,6 +149,10 @@ public class VisitScheduleUI implements Runnable {
 
     }
 
+    /**
+     * Check if the information is correct method.
+     * @return
+     */
     private boolean isTheInformationCorrect() {
         System.out.println("Is the information correct? (Y/N)");
         String response;
@@ -129,6 +169,9 @@ public class VisitScheduleUI implements Runnable {
         }
     }
 
+    /**
+     * Input date method
+     */
     private LocalDate inputDate() {
         while (true) {
             try {
@@ -141,6 +184,11 @@ public class VisitScheduleUI implements Runnable {
         }
     }
 
+    /**
+     * Input time method.
+     * @param timeType
+     * @return LocalTime
+     */
     private LocalTime inputTime(String timeType) {
         while (true) {
             try {

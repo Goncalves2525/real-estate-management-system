@@ -69,11 +69,7 @@ properties.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us007-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us007-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram](svg/us007-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

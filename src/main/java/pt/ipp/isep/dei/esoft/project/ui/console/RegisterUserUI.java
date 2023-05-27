@@ -283,7 +283,7 @@ public class RegisterUserUI implements Runnable {
 
         } else {
 
-            System.out.println("Failed to register. Acount with the same email may already exist.");
+            System.out.println("Failed to register. Account with the same email may already exist.");
 
         }
 

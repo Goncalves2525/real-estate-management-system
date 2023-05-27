@@ -1,4 +1,4 @@
-# US 001 - Display Listed Properties
+# US 007 - As an unregistered person, register in the system to buy, sell or rent properties
 
 ## 3. Design - User Story Realization 
 
@@ -35,9 +35,9 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this person story.
 
-![Sequence Diagram - Full](svg/us001-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us007-sequence-diagram-full.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us001-class-diagram.svg)
+![Class Diagram](svg/us007-class-diagram.svg)

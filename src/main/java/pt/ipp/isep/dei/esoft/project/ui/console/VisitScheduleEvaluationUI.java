@@ -27,7 +27,7 @@ public class VisitScheduleEvaluationUI implements Runnable {
 
         System.out.println("Select a visit to approve or remove (or enter a negative number to exit):");
         int visitIndex = sc.nextInt() - 1;
-        sc.nextLine(); // Consume newline left-over
+        sc.nextLine(); // Consume newline
         if (visitIndex < 0) {
             System.out.println("Exiting...");
             return;
