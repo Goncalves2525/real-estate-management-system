@@ -1,4 +1,4 @@
-# US 007 - As an unregistered person, register in the system to buy, sell or rent properties
+# US 007 - As an unregistered user, register in the system to buy, sell or rent properties
 
 ## 1. Requirements Engineering
 
@@ -14,7 +14,7 @@ properties.
 
 **From the specifications document:**
 
-> The unregister person must be able to register in the system to buy, sell or rent properties.
+> The unregister user must be able to register in the system to buy, sell or rent properties.
 
 
 

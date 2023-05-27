@@ -13,7 +13,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * -Has central heating
  * -Has air conditioning
  */
-public abstract class Residency extends Property{
+public abstract class  Residency extends Property{
 
     private int numberOfBedrooms;
     private int numberOfBathrooms;

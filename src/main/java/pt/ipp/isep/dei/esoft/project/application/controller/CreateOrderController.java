@@ -51,6 +51,9 @@ public class CreateOrderController {
         return authenticationRepository;
     }
 
+    /**
+     * @return announcement repository
+     */
     private AnnouncementRepository getAnnouncementRepository() {
         if (announcementRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -78,23 +81,44 @@ public class CreateOrderController {
         return orderRepository.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(orderAmount, announcementId);
     }
 
+    /**
+     * @param id announcement id
+     * @return property price by announcement id
+     */
     public double getPropertyPriceByAnnouncementId(int id){
         return getAnnouncementRepository().getPropertyPriceByAnnouncmentId(id);
     }
 
+    /**
+     * @return client email
+     */
     public String getClientEmail(){
         return getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
     }
 
+    /**
+     * @param orderAmount order amount
+     * @param announcementId announcement id
+     * @param clientEmail client email
+     * @param date date
+     * @param orderState order state
+     */
     public void createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState){
         OrderRepository orderRepository = getOrderRepository();
         orderRepository.addOrder(orderAmount, announcementId, clientEmail, date, orderState);
     }
 
+    /**
+     * @return all announcements
+     */
     public ArrayList<Announcement> getAllAnnouncements(){
         return getAnnouncementRepository().getAllAnnouncementsSortedByDefualtCriteria();
     }
 
+    /**
+     * @param announcement announcement
+     * @return property by announcement
+     */
     public Property getPropertyByAnnouncement(Announcement announcement){
         return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }

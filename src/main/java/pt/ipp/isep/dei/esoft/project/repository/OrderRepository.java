@@ -51,6 +51,14 @@ public class OrderRepository {
         return false;
     }
 
+    /**
+     * Creates and adds an order to the repository.
+     * @param orderAmount amount of the order
+     * @param announcementId id of the announcement
+     * @param clientEmail current user email
+     * @param date date of the order
+     * @param orderState state of the order
+     */
     public void addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) {
         ArrayList<Announcement> announcements = Repositories.getInstance().announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
         boolean announcementExists = false;
@@ -69,19 +77,34 @@ public class OrderRepository {
     }
 
 
+    /**
+     * This method removes all orders from the repository.
+     */
     public void removeAllOrders(){
         orders.clear();
     }
 
+    /**
+     * @return size of the repository
+     */
     public int getSize(){
         return orders.size();
     }
 
 
+    /**
+     * Adds an order that already exists to the repository.
+     * @param order order
+     */
     public void addOrder(Order order) {
         orders.add(order);
     }
 
+    /**
+     * @param id id of the order
+     * @param idAnnouncement id of the announcement
+     * @return order by id
+     */
     public ArrayList<Order> getOrderByID(int id,int idAnnouncement) {
         ArrayList<Order> ordersByID = new ArrayList<>();
         for (Order order : orders) {
@@ -119,7 +142,10 @@ public class OrderRepository {
     }
 
 
-
+    /**
+     * @param idOrder id of the order
+     * @param idAnnouncement id of the announcement
+     */
     public void acceptOrder(int idOrder, int idAnnouncement) {
         for (Order order : orders) {
             if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
@@ -128,6 +154,10 @@ public class OrderRepository {
         }
     }
 
+    /**
+     * @param idOrder id of the order
+     * @param idAnnouncement id of the announcement
+     */
     public void rejectOrder(int idOrder, int idAnnouncement) {
         for (Order order : orders) {
             if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
@@ -136,6 +166,9 @@ public class OrderRepository {
         }
     }
 
+    /**
+     * @param idAnnouncement id of the announcement
+     */
     public void rejectAllOrdersFromAnnouncement(int idAnnouncement) {
        // ArrayList<Order> ordersByAnnouncementId = new ArrayList<>();
         for (Order order : orders) {
@@ -151,6 +184,11 @@ public class OrderRepository {
 
     }
 
+    /**
+     * @param idOrder id of the order
+     * @param idAnnouncement id of the announcement
+     * @return state of the order
+     */
     public OrderState getOrderStateById(int idOrder, int idAnnouncement) {
         for (Order order : orders) {
             if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
