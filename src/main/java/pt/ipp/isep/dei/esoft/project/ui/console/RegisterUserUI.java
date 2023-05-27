@@ -17,6 +17,9 @@ public class RegisterUserUI implements Runnable {
 
     private final RegisterUserController controller = new RegisterUserController();
 
+    /**
+     * Runs the UI
+     */
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
@@ -38,6 +41,11 @@ public class RegisterUserUI implements Runnable {
         processRegistration(password, name, email, passportCardNumber, taxNumber, telephoneNumber, address);
     }
 
+    /** Verifies input name
+     *
+     * @param scanner
+     * @return name
+     */
     private String inputName(Scanner scanner) {
         System.out.println();
         System.out.print("Name: ");
@@ -57,6 +65,11 @@ public class RegisterUserUI implements Runnable {
         return name;
     }
 
+    /** Verifies input email
+     *
+     * @param scanner
+     * @return email
+     */
     private String inputEmail(Scanner scanner) {
         System.out.print("Email: ");
         String email = scanner.nextLine();
@@ -70,12 +83,22 @@ public class RegisterUserUI implements Runnable {
         return email;
     }
 
+    /**Verifies if email is valid
+     *
+     * @param email
+     * @return boolean
+     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
         return pat.matcher(email).matches();
     }
 
+    /** Verifies input passport card number
+     *
+     * @param scanner
+     * @return passport card number
+     */
     private int inputPassportCardNumber(Scanner scanner) {
         System.out.print("Passport Card Number: ");
 
@@ -104,6 +127,11 @@ public class RegisterUserUI implements Runnable {
         return passportCardNumber;
     }
 
+    /** Verifies input tax number
+     *
+     * @param scanner
+     * @return tax number
+     */
     private int inputTaxNumber(Scanner scanner) {
         System.out.print("Tax Number: ");
 
@@ -132,6 +160,11 @@ public class RegisterUserUI implements Runnable {
         return taxNumber;
     }
 
+    /** Verifies input telephone number
+     *
+     * @param scanner
+     * @return telephone number
+     */
     private int inputTelephoneNumber(Scanner scanner) {
         System.out.print("Telephone Number: ");
 
@@ -158,6 +191,11 @@ public class RegisterUserUI implements Runnable {
         return telephoneNumber;
     }
 
+    /** Verifies input address
+     *
+     * @param scanner
+     * @return address
+     */
     private Address inputAddress(Scanner scanner) {
         System.out.print("Do you want to add an address? (Y/N): ");
         String answerAdress;
@@ -232,6 +270,13 @@ public class RegisterUserUI implements Runnable {
         }
     }
 
+    /**
+     * writes password to file
+     * @param name
+     * @param email
+     * @param password
+     * @param fileName
+     */
     private void writePasswordToFile(String name, String email, String password, String fileName) {
 
         String welcomeMessage = String.format("Dear %s,%n%n" +
@@ -261,6 +306,16 @@ public class RegisterUserUI implements Runnable {
 
     }
 
+    /**
+     * processes registration
+     * @param password
+     * @param name
+     * @param email
+     * @param passportCardNumber
+     * @param taxNumber
+     * @param telephoneNumber
+     * @param address
+     */
     private void processRegistration(String password, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
 
 

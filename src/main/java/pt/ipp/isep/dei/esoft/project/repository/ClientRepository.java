@@ -25,7 +25,16 @@ public class ClientRepository {
         return false;
     }
 
-
+    /**
+     * Add client
+     * @param name
+     * @param email
+     * @param passportCardNumber
+     * @param taxNumber
+     * @param telephoneNumber
+     * @param address
+     * @return true if client is added, false otherwise
+     */
     public boolean addClient(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
         Client client = new Client(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
         if (!clientExists(client.getEmail())) {
