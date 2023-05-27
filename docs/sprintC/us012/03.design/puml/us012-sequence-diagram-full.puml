@@ -6,43 +6,60 @@ skinparam shadowing false
 autonumber
 
 actor "System Administrator" as Admin
-participant ":UserInterface" as UI
+participant ":ImportUI" as UI
 participant ":ImportController" as CTRL
-participant "legacySystem:\nLegacySystem" as LS
+participant "repositories\n:Repositories" as REPO
+participant ":AnnouncementRepository" as ANNREPO
 
-activate Admin
 
-Admin -> UI : asks to import a csv file
+    activate Admin
 
-activate UI
+    Admin -> UI : asks to import a csv file
+    activate UI
 
-    UI -> CTRL : initiateImport()
+    UI -> CTRL : selectFile()
     activate CTRL
 
-        CTRL -> UI : requestFileLocation()
+    CTRL --> UI : asks for csv file location
     deactivate CTRL
 
     UI --> Admin : asks for csv file location
-deactivate UI
+    deactivate UI
 
-Admin -> UI : provides file location
-activate UI
+    Admin -> UI : provides file location
+    activate UI
 
-    UI -> CTRL : importFile(location)
+    UI -> CTRL : checkFile()
     activate CTRL
 
-        CTRL -> LS : loadData(location)
-        activate LS
+    CTRL -> REPO : getInstance()
+    activate REPO
 
-            LS --> CTRL : importResult
-        deactivate LS
+    REPO --> CTRL: repositories
+    deactivate REPO
 
-        CTRL -> UI : displayImportResult(importResult)
+    CTRL -> REPO : getAnnouncementRepository()
+    activate REPO
+
+    REPO -> ANNREPO : getAuthenticationRepository()
+    activate ANNREPO
+
+    ANNREPO --> REPO: authenticationRepository
+    deactivate ANNREPO
+
+    REPO --> CTRL: announcementRepository
+    deactivate REPO
+
+    CTRL --> ANNREPO: addAnnouncementFromImportedFile()
+    activate ANNREPO
+
+    ANNREPO -> CTRL : returns importResult
+    deactivate ANNREPO
+
+    CTRL -> UI : displayImportResult(importResult)
     deactivate CTRL
 
     UI --> Admin : displays success message or error
-deactivate UI
-
-deactivate Admin
+    deactivate UI
 
 @enduml

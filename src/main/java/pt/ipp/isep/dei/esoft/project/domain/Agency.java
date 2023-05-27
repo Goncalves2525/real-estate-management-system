@@ -10,7 +10,7 @@ public class Agency {
     private final int id;
     private String name;
     private String emailAddress;
-    private int phoneNumber;
+    private long phoneNumber;
 
     private Address address;
 
@@ -26,7 +26,7 @@ public class Agency {
      * @param address address
      * @param agents agents
      */
-    public Agency(String name, String emailAddress, int phoneNumber, Address address, ArrayList<Employee> agents) {
+    public Agency(String name, String emailAddress, long phoneNumber, Address address, ArrayList<Employee> agents) {
         this.name = name;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
@@ -41,11 +41,27 @@ public class Agency {
      * @param emailAddress email address
      * @param phoneNumber phone number
      */
-    public Agency(String name, String emailAddress, int phoneNumber) {
+    public Agency(String name, String emailAddress, long phoneNumber) {
         this.name = name;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         id = idCounter++;
+    }
+
+    /**
+     * Agency Constructor with existing ID
+     * @param id id
+     * @param name name
+     * @param emailAddress email address
+     * @param phoneNumber phone number
+     * @param address address
+     */
+    public Agency(int id, String name, String emailAddress, long phoneNumber, Address address) {
+        this.id = id;
+        this.name = name;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     // Getters and Setters
@@ -77,7 +93,7 @@ public class Agency {
         return emailAddress;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 

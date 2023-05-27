@@ -123,7 +123,7 @@ public class VisitScheduleUI implements Runnable {
         LocalTime endTime;
 
         // Getting the phone number of the current user
-        int phoneNumber = controller.getCurrentUserPhone();
+        long phoneNumber = controller.getCurrentUserPhone();
 
         do {
             startTime = inputTime("start");

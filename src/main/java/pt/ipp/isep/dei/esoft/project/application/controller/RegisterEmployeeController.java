@@ -76,7 +76,7 @@ public class RegisterEmployeeController {
      * @param roles
      * @return
      */
-    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> roles) {
+    public boolean registerEmployee(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address, int agencyID, ArrayList<Role> roles) {
         Employee employee = new Employee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles, agencyID);
         return employeeRepository.addEmployee(employee);
     }

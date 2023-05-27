@@ -11,7 +11,7 @@ public abstract class Person {
     private final String email;
     private int passportCardNumber;
     private int taxNumber;
-    private int telephoneNumber;
+    private long telephoneNumber;
     private Address address;
     private List<Role> roles;
 
@@ -26,7 +26,7 @@ public abstract class Person {
      * @param address             the address
      */
 
-    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -47,7 +47,7 @@ public abstract class Person {
      * @param roles               the roles
      */
 
-    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -67,7 +67,7 @@ public abstract class Person {
      * @param roles               the roles
      */
 
-    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, List<Role> roles) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -95,7 +95,7 @@ public abstract class Person {
      * @param taxNumber           the tax number
      * @param telephoneNumber     the telephone number
      */
-    public Person(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber) {
+    public Person(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber) {
         this.name = name;
         this.email = email;
         this.passportCardNumber = passportCardNumber;
@@ -132,11 +132,11 @@ public abstract class Person {
         return taxNumber;
     }
 
-    public int getTelephoneNumber() {
+    public long getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(long telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

@@ -24,24 +24,19 @@ activate Admin
     System --> Admin : requests to insert csv file location
     deactivate System
 
-    alt  Agents
-        Admin -> System: selects csv file location
-        activate System
-        System --> Admin: checks if the file is valid and displays data to import
-        deactivate System
-    else  Agencies
-        Admin -> System: selects csv file location
-        activate System
-        System --> Admin: checks if the file is valid and displays data to import
-        deactivate System
-    else  Orders
-        Admin -> System: selects csv file location
-        activate System
-        System --> Admin: checks if the file is valid and displays data to import
-        deactivate System
-    end
+    Admin -> System: selects csv file location
+    activate System
 
-    Admin -> System : confirms to import data
+    System --> Admin: checks if the file is valid and asks for the delimiter
+    deactivate System
+
+    Admin -> System: selects the delimiter
+    activate System
+
+    System --> Admin: displays the data that it found in the csv file
+    deactivate System
+
+    Admin -> System : confirms the displayed data is the one to import
     activate System
 
     System --> Admin : displays success message

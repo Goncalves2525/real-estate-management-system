@@ -24,7 +24,7 @@ public class Employee extends Person {
      * @param roles Roles of the employee
      * @param agencyID Agency ID of the employee
      */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, List<Role> roles, int agencyID) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address, List<Role> roles, int agencyID) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address, roles);
         this.agencyID = agencyID;
     }
@@ -37,7 +37,7 @@ public class Employee extends Person {
      * @param telephoneNumber Telephone number of the employee
      * @param agencyID Agency ID of the employee
      */
-    public Employee(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, List<Role> roles, int agencyID) {
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, List<Role> roles, int agencyID) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
         this.agencyID = agencyID;
     }
@@ -108,21 +108,7 @@ public class Employee extends Person {
                 getRoles().equals(employee.getRoles());
     }
 
-    /**
-     * Hash code.
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        int result = getEmail().hashCode();
-        result = 31 * result + getPassportCardNumber();
-        result = 31 * result + getTaxNumber();
-        result = 31 * result + getTelephoneNumber();
-        result = 31 * result + getAddress().hashCode();
-        result = 31 * result + getRoles().hashCode();
-        return result;
-    }
+
 
     /**
      * Checks if has email.

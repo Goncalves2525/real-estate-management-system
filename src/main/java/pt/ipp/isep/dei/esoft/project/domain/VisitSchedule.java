@@ -14,7 +14,7 @@ import java.time.LocalTime;
 public class VisitSchedule {
     private int propertyID;
     private String name;
-    private int telephoneNumber;
+    private long telephoneNumber;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -33,7 +33,7 @@ public class VisitSchedule {
      * @param agentEmail the agent email
      */
 
-    public VisitSchedule(int propertyID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail){
+    public VisitSchedule(int propertyID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail){
         this.propertyID = propertyID;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
@@ -76,14 +76,14 @@ public class VisitSchedule {
     /**
      * Gets telephone number.
      */
-    public int getTelephoneNumber() {
+    public long getTelephoneNumber() {
         return telephoneNumber;
     }
 
     /**
      * Sets telephone number.
      */
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(long telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

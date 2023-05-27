@@ -15,11 +15,11 @@ public class Client extends Person {
      * @param telephoneNumber telephone number
      * @param address address
      */
-    public Client(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+    public Client(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address) {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
     }
 
-    public Client(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber){
+    public Client(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber){
         super(name, email, passportCardNumber, taxNumber, telephoneNumber);
     }
 

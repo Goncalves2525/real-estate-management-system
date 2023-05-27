@@ -12,13 +12,6 @@ hide methods
 
 title Domain Model
 
-class Agency{
-ID
-name
-email
-phoneNumber
-}
-
 class Order{
     id
     announcementId
@@ -27,27 +20,6 @@ class Order{
     date
     orderState
 }
-
-class LegacySystem{
-}
-
-class SystemAdministrator{
-}
-
-class Employee extends Person{
-}
-
-class Person{
-        name
-        email
-        passportCardNumber
-        taxNumber
-        telephoneNumber
-}
-
-SystemAdministrator "1" -- "1" LegacySystem : imports information from >
-SystemAdministrator "1" -- "1" Employee : creates from imported data >
-SystemAdministrator "1" -- "1" Agency : creates from imported data >
 SystemAdministrator "1" -- "1" Order : creates from imported data >
 
 @enduml

@@ -7,33 +7,38 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class LegacySystem {
-    + loadData(location) : importResult
-}
+'class LegacySystem {
+'    + loadData(location) : importResult
+'}
 
 class SystemAdministrator {
     - name
     - email
 }
 
-class ImportInformationController {
+class ImportController {
     + initiateImport()
     + requestFileLocation() : location
     + importFile(location)
     + displayImportResult(importResult)
 }
 
-class ImportInformationUI {
-    + askToImportFile()
-    + askForFileLocation() : location
-    + displayImportResult(importResult)
+class ImportUI {
+    - ImportController
+    + selectFile()
+}
+
+class AnnouncementRepository {
+    - addAnnouncement()
 }
 
 
-ImportInformationUI ..> ImportInformationController : calls
+ImportUI ..> ImportController : calls
 
-ImportInformationController --> LegacySystem : uses
+'ImportInformationController --> LegacySystem : uses
 
-SystemAdministrator -- ImportInformationUI : interacts
+SystemAdministrator -- ImportUI : interacts
+
+ImportController ..> AnnouncementRepository : uses
 
 @enduml

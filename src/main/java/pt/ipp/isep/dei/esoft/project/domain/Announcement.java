@@ -20,6 +20,9 @@ public class Announcement {
 
     public static int idCounter = 0;
 
+    private Agency agency;
+
+
     /**
      * This method is the constructor of Announcement.
      * @param propertyID int
@@ -98,6 +101,27 @@ public class Announcement {
         this.publishDate = publishDate;
         this.photos = photos;
         id = idCounter++;
+    }
+
+    /**
+     * This method is the constructor of Announcement, with an existing ID.
+     * @param sid int
+     */
+    public Announcement(int sid, String owner_name, int owner_passportNum, String owner_TIN, String owner_email, String owner_phone, String property_type, int property_area, String property_location, int property_distanceFromCenter,
+                        String property_numberBedrooms, String property_numberBathrooms, String property_pnumParking, String property_centralHeating, String property_airconditioned, String property_basement, String property_loft, String property_sunExposure, int property_requested_sale_rent_price, int property_sale_rent_price, int commission, String contract_duration, Date property_dateAnnounceRequest, Date property_dateofSale, String type_business, int store_ID, String store_name, String store_location, String store_phonenumber, String store_emailAddress) {
+        this.id = sid;
+        this.transactionType = TransactionType.valueOf(type_business.toUpperCase());
+        this.typeOfProperty = TypeOfProperty.valueOf(property_type.toUpperCase());
+        this.publishDate = property_dateAnnounceRequest;
+        this.commission = new Commission(commission);
+        String[] storeAddressArray = store_location.trim().split(",");
+        Address storeAddress = new Address(storeAddressArray[0],storeAddressArray[1],storeAddressArray[2],Integer.parseInt(storeAddressArray[storeAddressArray.length-1].trim()));
+        this.agency = new Agency(store_ID,store_name,store_emailAddress,Long.parseLong(store_phonenumber.replace("-","")),storeAddress);
+        String[] propertyAddressArray = property_location.trim().split(",");
+        Address propertyAddress = new Address(propertyAddressArray[0],propertyAddressArray[1],propertyAddressArray[2],Integer.parseInt(propertyAddressArray[propertyAddressArray.length-1].trim()));
+        Property propertyForAnnouncement = new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+        this.propertyID = propertyForAnnouncement.getId();
+        //Order orderForAnnouncement = new Order()
     }
 
     /**

@@ -59,7 +59,7 @@ public class RegisterUserController {
      * @param address           the address
      * @return True if client is added, false otherwise
      */
-    public boolean registerClient(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+    public boolean registerClient(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address) {
         return getClientRepository().addClient(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
     }
 

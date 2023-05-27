@@ -2,12 +2,13 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.domain.Address;
+import pt.ipp.isep.dei.esoft.project.domain.Agency;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Role;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +39,7 @@ class RegisterEmployeeControllerTest {
         String email = "john.doe@example.com";
         int passportCardNumber = 123456;
         int taxNumber = 654321;
-        int telephoneNumber = 987654;
+        long telephoneNumber = 987654;
         int agencyID = 3;
         Address address = new Address("happy","new","dist","big",4525);
         ArrayList<Employee> agenteTest = new ArrayList<>();

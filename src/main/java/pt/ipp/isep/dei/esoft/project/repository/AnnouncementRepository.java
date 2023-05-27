@@ -1,18 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import pt.ipp.isep.dei.esoft.project.application.controller.ListAnnouncementsController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Predicate;
 
 /**
  * The Announcement repository.
@@ -99,31 +92,25 @@ public class AnnouncementRepository {
             if (property instanceof House) {
                 if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null) {
                     iterator.remove();
-                }
-                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                } else if (announcement.getTransactionType() != transactionType && transactionType != null) {
                     iterator.remove();
-                }
-                else if (((House) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
+                } else if (((House) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
                     iterator.remove();
                 }
             } else if (property instanceof Apartment) {
                 if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null) {
                     iterator.remove();
-                }
-                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                } else if (announcement.getTransactionType() != transactionType && transactionType != null) {
                     iterator.remove();
-                }
-                else if (((Apartment) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
+                } else if (((Apartment) property).getNumberOfBedrooms() != numberOfRooms && numberOfRooms != 0) {
                     iterator.remove();
                 }
             } else if (property instanceof Land) {
-                if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null ) {
+                if (announcement.getTypeOfProperty() != typeOfProperty && typeOfProperty != null) {
                     iterator.remove();
-                }
-                else if (announcement.getTransactionType() != transactionType && transactionType != null) {
+                } else if (announcement.getTransactionType() != transactionType && transactionType != null) {
                     iterator.remove();
-                }
-                else if (numberOfRooms > 0) {
+                } else if (numberOfRooms > 0) {
                     iterator.remove();
                 }
             }
@@ -411,5 +398,44 @@ public class AnnouncementRepository {
         }
     };
 
+    /**
+     * Adds an announcement to the repository, imported from a .csv file
+     *
+     * @param sid                                - announcement id
+     * @param owner_name                         - owner name
+     * @param owner_passportNum                  - owner passport number
+     * @param owner_TIN                          - owner TIN
+     * @param owner_email                        - owner email
+     * @param owner_phone                        - owner phone
+     * @param property_type                      - property type
+     * @param property_area                      - property area
+     * @param property_location                  - property location
+     * @param property_distanceFromCenter        - property distance from center
+     * @param property_numberBedrooms            - property number of bedrooms
+     * @param property_numberBathrooms           - property number of bathrooms
+     * @param property_pnumParking               - property number of parking spaces
+     * @param property_centralHeating            - property central heating
+     * @param property_airconditioned            - property airconditioned
+     * @param property_basement                  - property basement
+     * @param property_loft                      - property loft
+     * @param property_sunExposure               - property sun exposure
+     * @param property_requested_sale_rent_price - property requested sale/rent price
+     * @param property_sale_rent_price           - property sale/rent price
+     * @param commission                         - commission
+     * @param contract_duration                  - contract duration
+     * @param property_dateAnnounceRequest       - property date announce request
+     * @param property_dateofSale                - property date of sale
+     * @param type_business                      - type of business
+     * @param store_ID                           - store id
+     * @param store_name                         - store name
+     * @param store_location                     - store location
+     * @param store_phonenumber                  - store phone number
+     * @param store_emailAddress                 - store email address
+     */
+    public void addAnnouncementFromImportedFile(int sid, String owner_name, int owner_passportNum, String owner_TIN, String owner_email, String owner_phone, String property_type, int property_area, String property_location, int property_distanceFromCenter,
+                                                String property_numberBedrooms, String property_numberBathrooms, String property_pnumParking, String property_centralHeating, String property_airconditioned, String property_basement, String property_loft, String property_sunExposure, int property_requested_sale_rent_price, int property_sale_rent_price, int commission, String contract_duration, Date property_dateAnnounceRequest, Date property_dateofSale, String type_business, int store_ID, String store_name, String store_location, String store_phonenumber, String store_emailAddress) {
+        Announcement announcement = new Announcement(sid, owner_name, owner_passportNum, owner_TIN, owner_email, owner_phone, property_type, property_area, property_location, property_distanceFromCenter, property_numberBedrooms, property_numberBathrooms, property_pnumParking, property_centralHeating, property_airconditioned, property_basement, property_loft, property_sunExposure, property_requested_sale_rent_price, property_sale_rent_price, commission, contract_duration, property_dateAnnounceRequest, property_dateofSale, type_business, store_ID, store_name, store_location, store_phonenumber, store_emailAddress);
+        announcements.add(announcement);
+    }
 
 }

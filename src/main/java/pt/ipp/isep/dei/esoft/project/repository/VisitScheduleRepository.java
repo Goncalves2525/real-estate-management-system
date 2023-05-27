@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
+
+import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
 /**
  * @author Luis Leal 1100253@isep.ipp.pt
@@ -40,7 +42,7 @@ public class VisitScheduleRepository {
      * @param visitDate the visit date
      * @return the array list of visit schedules
      */
-    public ArrayList<VisitSchedule> getVisitSchedulesByUserPhoneAndDate(int userPhone, LocalDate visitDate) {
+    public ArrayList<VisitSchedule> getVisitSchedulesByUserPhoneAndDate(long userPhone, LocalDate visitDate) {
         ArrayList<VisitSchedule> userSchedules = new ArrayList<>();
         for (VisitSchedule visit : visitSchedules) {
             if (visit.getTelephoneNumber() == userPhone && visit.getDate().equals(visitDate)) {

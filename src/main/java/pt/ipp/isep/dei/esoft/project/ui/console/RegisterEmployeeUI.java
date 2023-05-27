@@ -47,7 +47,7 @@ public class RegisterEmployeeUI implements Runnable {
 
         int taxNumber = inputTaxNumber(scanner);
 
-        int telephoneNumber = inputTelephoneNumber(scanner);
+        long telephoneNumber = inputTelephoneNumber(scanner);
 
         Address address = inputAddress(scanner);
 
@@ -324,16 +324,16 @@ public class RegisterEmployeeUI implements Runnable {
      * @param scanner
      * @return Telephone Number
      */
-    private int inputTelephoneNumber(Scanner scanner) {
+    private long inputTelephoneNumber(Scanner scanner) {
         System.out.print("Telephone Number: ");
 
-        int telephoneNumber;
+        long telephoneNumber;
         String telephoneNumberStr;
 
         while (true) {
             try {
                 telephoneNumberStr = scanner.nextLine();
-                telephoneNumber = Integer.parseInt(telephoneNumberStr);
+                telephoneNumber = Long.parseLong(telephoneNumberStr);
 
                 if (telephoneNumberStr.length() == 10 && telephoneNumber != 0) {
                     break;
@@ -436,7 +436,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param telephoneNumber The 10-digit telephone number to be formatted
      * @return The formatted telephone number
      */
-    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
+    private String displayConfirmation(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please confirm the following information:");
@@ -486,7 +486,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param phoneNumber The 10-digit telephone number to be formatted
      * @return The formatted telephone number
      */
-    private String formatPhoneNumber(int phoneNumber) {
+    private String formatPhoneNumber(long phoneNumber) {
         String rawNumber = String.format("%010d", phoneNumber); // Pad with zeros if needed
         String areaCode = rawNumber.substring(0, 3);
         String firstThreeDigits = rawNumber.substring(3, 6);
@@ -508,7 +508,7 @@ public class RegisterEmployeeUI implements Runnable {
      * @param selectedRoles
      * @param agencyID
      */
-    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
+    private void processRegistration(String password, String answer, String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address, int agencyID, ArrayList<Role> selectedRoles) {
 
         if (answer.equalsIgnoreCase("Y")) {
 

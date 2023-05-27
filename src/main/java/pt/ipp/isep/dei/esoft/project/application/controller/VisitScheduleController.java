@@ -106,7 +106,7 @@ public class VisitScheduleController {
      * Get current user phone
      * @return user phone
      */
-    public int getCurrentUserPhone() {
+    public long getCurrentUserPhone() {
         String currentUserEmail = getCurrentUserEmail();
         if (currentUserEmail != null) {
             Client client = clientRepository.getClientByEmail(currentUserEmail);
@@ -142,7 +142,7 @@ public class VisitScheduleController {
      * @param endTime
      * @return true if the visit schedule is valid and not overlapping with existing schedules
      */
-    public boolean isOverlappingWithExistingSchedules(int userPhone, LocalDate visitDate, LocalTime startTime, LocalTime endTime) {
+    public boolean isOverlappingWithExistingSchedules(long userPhone, LocalDate visitDate, LocalTime startTime, LocalTime endTime) {
         // Convert string times to LocalTime objects
         LocalTime start = startTime;
         LocalTime end = endTime;
@@ -191,7 +191,7 @@ public class VisitScheduleController {
      * @param endTime visit end time
      * @param approvedbyAgent true if approved by agent
      */
-    public void saveVisitSchedule(int announcementID , String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent){
+    public void saveVisitSchedule(int announcementID , String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent){
         String agentEmail = getAgentEmailByAnnouncementID(announcementID);
         VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail);
         this.visitScheduleRepository.addVisitSchedule(visitSchedule);
@@ -208,7 +208,7 @@ public class VisitScheduleController {
      * @param endTime visit end time
      * @param agentEmail agent email
      */
-    private void sendEmailToAgent(int announcementID, String name, int telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail) {
+    private void sendEmailToAgent(int announcementID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail) {
         String filename = "EmailToAgent_" + agentEmail + "_Announcement_" + announcementID + ".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             if (agentEmail != null) {

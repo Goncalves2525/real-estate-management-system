@@ -9,7 +9,8 @@ autonumber
 actor "Agent" as AGENT
 participant ":PublishSaleAnnouncementUI" as UI
 participant ":PublishAnnouncementController" as CTRL
-participant ":AnnouncementRepository" as RepositorySingleton
+participant ":Repositories" as REPO
+participant ":AnnouncementRepository" as AnnouncementRepository
 participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
 participant ":AuthenticationRepository" as AuthSingleton
 participant "authRepository:\nAuthenticationRepository" as AuthenticationRepository
@@ -25,11 +26,14 @@ activate UI
 UI -> CTRL : getAnnouncementsByUser()
 activate CTRL
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
+    CTRL -> REPO: getInstance()
+    activate REPO
 
-        RepositorySingleton --> CTRL: announcementRepository
-    deactivate RepositorySingleton
+    REPO -> CTRL : returns instance
+    deactivate REPO
+
+    CTRL --> REPO: getAnnouncementRepository()
+    activate REPO
 
     CTRL -> AuthSingleton : getInstance()
     activate AuthSingleton
@@ -55,11 +59,11 @@ deactivate CTRL
 UI -> CTRL : publishAnnouncement(announcement, commission)
 activate CTRL
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
+    CTRL -> AnnouncementRepository : getInstance()
+    activate AnnouncementRepository
 
-        RepositorySingleton --> CTRL: announcementRepository
-    deactivate RepositorySingleton
+        AnnouncementRepository --> CTRL: announcementRepository
+    deactivate AnnouncementRepository
 
     CTRL -> AuthSingleton : getInstance()
     activate AuthSingleton
@@ -97,11 +101,11 @@ activate UI
 UI -> CTRL : getAnnouncementById(id)
 activate CTRL
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
+    CTRL -> AnnouncementRepository : getInstance()
+    activate AnnouncementRepository
 
-        RepositorySingleton --> CTRL: announcementRepository
-    deactivate RepositorySingleton
+        AnnouncementRepository --> CTRL: announcementRepository
+    deactivate AnnouncementRepository
 
     CTRL -> AuthSingleton : getInstance()
     activate AuthSingleton

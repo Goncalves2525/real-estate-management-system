@@ -3,13 +3,11 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterUserController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Address;
-import pt.ipp.isep.dei.esoft.project.domain.Role;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -32,7 +30,7 @@ public class RegisterUserUI implements Runnable {
 
         int taxNumber = inputTaxNumber(sc);
 
-        int telephoneNumber = inputTelephoneNumber(sc);
+        long telephoneNumber = inputTelephoneNumber(sc);
 
         Address address = inputAddress(sc);
 
@@ -165,16 +163,16 @@ public class RegisterUserUI implements Runnable {
      * @param scanner
      * @return telephone number
      */
-    private int inputTelephoneNumber(Scanner scanner) {
+    private long inputTelephoneNumber(Scanner scanner) {
         System.out.print("Telephone Number: ");
 
-        int telephoneNumber;
+        long telephoneNumber;
         String telephoneNumberStr;
 
         while (true) {
             try {
                 telephoneNumberStr = scanner.nextLine();
-                telephoneNumber = Integer.parseInt(telephoneNumberStr);
+                telephoneNumber = Long.parseLong(telephoneNumberStr);
 
                 if (telephoneNumberStr.length() == 10 && telephoneNumber != 0) {
                     break;
@@ -316,7 +314,7 @@ public class RegisterUserUI implements Runnable {
      * @param telephoneNumber
      * @param address
      */
-    private void processRegistration(String password, String name, String email, int passportCardNumber, int taxNumber, int telephoneNumber, Address address) {
+    private void processRegistration(String password, String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, Address address) {
 
 
         boolean success = controller.registerClient(name, email, passportCardNumber, taxNumber, telephoneNumber, address);
