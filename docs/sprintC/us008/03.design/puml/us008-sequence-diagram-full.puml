@@ -1,0 +1,78 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+'actor "Unregistered User" as uUser
+'participant ":RegisterUserUI" as UI
+'participant ":RegisterUserController" as CTRL
+'participant ":Repositories" as REPOS
+'participant "repositories\n:Repositories" as repos
+'participant "authenticationRepository:\nAuthenticationRepository" as AuthenticationRepository
+'participant "userRepository:\nUserRepository" as UserRepository
+'activate uUser
+'
+'            uUser -> UI : requests to resgister
+'            activate UI
+'
+'            UI --> uUser : shows the registration form
+'            deactivate UI
+'
+'            uUser -> UI : fills the registration form (name, passportCardNumber, taxNumber, email, telephoneNumber, password, (address)))
+'            activate UI
+'
+'            UI -> CTRL** : create
+'            activate CTRL
+'
+'
+'
+'            CTRL -> REPOS : getInstance()
+'            activate REPOS
+'
+'            REPOS --> CTRL: repositories
+'            deactivate REPOS
+'
+'            CTRL -> repos : getAuthenticationRepository()
+'            activate repos
+'
+'            repos --> CTRL: authenticationRepository
+'            deactivate repos
+'
+'            CTRL -> AuthenticationRepository : createUser(name, passportCardNumber, taxNumber, email, telephoneNumber, password, (address)))
+'            activate AuthenticationRepository
+'
+'            AuthenticationRepository --> CTRL : user
+'            deactivate AuthenticationRepository
+'
+'            CTRL -> REPOS : getInstance()
+'            activate REPOS
+'
+'            REPOS --> CTRL: repositories
+'            deactivate REPOS
+'
+'            CTRL -> repos : getUserRepository()
+'            activate repos
+'
+'            repos --> CTRL: userRepository
+'            deactivate repos
+'
+'            CTRL -> UserRepository : addUser(user)
+'            activate UserRepository
+'
+'            UserRepository --> CTRL : user
+'            deactivate UserRepository
+'
+'            CTRL -> UI : user
+'            deactivate CTRL
+'
+'            UI -> UI : sendEmailConfirmation(user)
+'            UI -> UI : showUserDetails(user)
+'            UI --> uUser : displays the user details
+'            deactivate UI
+'
+
+
+@enduml

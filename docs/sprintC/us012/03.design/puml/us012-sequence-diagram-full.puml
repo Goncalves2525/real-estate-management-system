@@ -17,10 +17,16 @@ participant ":AnnouncementRepository" as ANNREPO
     Admin -> UI : asks to import a csv file
     activate UI
 
-    UI -> CTRL : selectFile()
+    UI -> CTRL: getInstance()
     activate CTRL
 
-    CTRL --> UI : asks for csv file location
+'    CTRL -> UI : importController
+'    activate REPO
+
+'    UI -> CTRL : selectFile()
+'    activate CTRL
+
+    CTRL --> UI : selectFile()
     deactivate CTRL
 
     UI --> Admin : asks for csv file location

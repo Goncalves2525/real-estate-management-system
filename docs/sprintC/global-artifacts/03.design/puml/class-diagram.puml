@@ -42,7 +42,7 @@ class AnnouncementRepository {
     +getAllAnnouncementsSortedBySortCriteria(String sortCriteria, String order) : ArrayList<Announcement>
     +getFilteredAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms) : ArrayList<Announcement>
     +getFilteredAndSortedAnnouncements(TypeOfProperty typeOfProperty, TransactionType transactionType,\n int numberOfRooms, String sortCriteria, String order) : ArrayList<Announcement>
-
+    +addAnnouncementFromImportedFile() : void
 
 }
 
@@ -398,6 +398,18 @@ enum OrderState{
     +toString() : String
 }
 
+class ImportController{
+-announcementRepository : AnnouncementRepository
++ImportController()
++getAnnouncementRepository() : Repository
++selectFile()
+}
+
+class ImportUI{
+-controller: ImportController
++ImportUI() : ImportUI
++run() : void
+}
 
 
 Repositories -> Repositories : instances
@@ -443,7 +455,9 @@ AuthenticationUI ..> AdminUI
 EmployeeUI ..> PublishAnnouncementUI
 ClientUI ..> CreateRequestUI
 AdminUI ..> RegisterEmployeeUI
+AdminUI ..> ImportUI
 CreateRequestController ..> Repositories
+ImportController ..> Repositories
 PublishAnnouncementController ..> Repositories
 RegisterEmployeeController ..> Repositories
 AuthenticationRepository "1" --> "1" AuthenticationFacade : has

@@ -17,10 +17,9 @@ class SystemAdministrator {
 }
 
 class ImportController {
-    + initiateImport()
-    + requestFileLocation() : location
-    + importFile(location)
-    + displayImportResult(importResult)
+    - AnnouncementRepository
+    + importData()
+    + checkFile()
 }
 
 class ImportUI {
@@ -29,7 +28,7 @@ class ImportUI {
 }
 
 class AnnouncementRepository {
-    - addAnnouncement()
+    - addAnnouncementFromImportedFile()
 }
 
 

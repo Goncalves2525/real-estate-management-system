@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.repository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 import java.util.ArrayList;
 import java.util.Date;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AnnouncementRepositoryTest {
 Repositories repositories = Repositories.getInstance();
@@ -149,4 +150,25 @@ PropertyRepository propertyRepository = repositories.getPropertyRepository();
 
         assertEquals(expected, result);
     }
+
+    @Test
+    void getAnnouncementsByAgent() {
+        ArrayList<Announcement> result = announcementRepository.getAnnouncementsByAgent("employee5@this.app");
+
+        int expected = 0;
+        int resultInt = result.size();
+
+        assertEquals(expected, resultInt);
+    }
+
+    @Test
+    void getAnnouncementsByAgent_ReturnsEmptyWithWrongEmail() {
+        ArrayList<Announcement> result = announcementRepository.getAnnouncementsByAgent("wrongemail@this.app");
+
+        int expected = 0;
+        int resultInt = result.size();
+
+        assertEquals(expected, resultInt);
+    }
+
 }

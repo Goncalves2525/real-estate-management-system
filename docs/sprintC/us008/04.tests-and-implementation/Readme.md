@@ -1,4 +1,4 @@
-# US 007 - 
+# US 008 - Post an Announcement
 
 # 4. Tests 
 
