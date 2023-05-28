@@ -1,73 +1,35 @@
-
 @startuml
 
-'skinparam monochrome true
-
 skinparam packageStyle rectangle
-
 skinparam shadowing false
-
 skinparam linetype polyline
-
-'skinparam linetype orto
-
-
 
 
 skinparam classAttributeIconSize 0
 
-
-class Announcement {
-+setIsPublished(): void
-+toString(): String
+class PropertyOrderManagementController {
+    +getAllAnnouncementsSortedByproperty() : ArrayList<Announcement>
+    +getOrdersListByAnnouncementId(Announcementid) : ArrayList<Order>
+    +acceptOrder(Orderid,Announcementid) : void
+    +rejectOrder(Orderid,Announcementid) : void
 }
-
-enum TransactionType {
-    RENT
-    SALE
-}
-
-class AnnouncementRepository {
-+addAnnouncementFromOwner: void
-
-}
-
-class AgencyListRepository{
-+getAgencyList(id) : ArrayList<Agencies>
-
-}
-
-class EmployeeRepository{
-+getEmployeeList(Agency) : ArrayList<Employee>
-}
-
-
-
 
 class Repositories {
-+getInstance(): Repositories
-+AgencyListRepository()
-+getAnnouncementRepository()
-+getEmployeeListRepository()
+    +Repositories()
+    +getInstance() : Repositories
+    +getOrderRepository() : OrderRepository
+    +getAnnouncementRepository() : AnnouncementRepository
+
+}
+class AnnouncementRepository {
+    +getAllAnnouncementsSortedByproperty() : ArrayList<Announcement>
 }
 
-
-
-
-class CreateRequestController {
-+CreateRequestController(AnnouncementRepository,\nAgencyListRepository,EmployeeRepository)
-+getAgencyList()
-+getEmployeeList()
-+Createannouncemnt (Employee agent, TransactionType,\n TypeOfProperty,Property)
--getEmployeeList(Agency) : ArrayList<Employee>
--getAgencyListRepository() :
--getAnnouncementRepository()
-}
-
-
-
-
-class CreateRequestUI {
+class OrderRepository{
+    +getOrdersListByAnnouncementId(Announcementid)
+    +acceptOrder(Orderid,Announcementid)
+    +rejectAllOrder(Announcementid)
+    +rejectOrder(Orderid,Announcementid)
 }
 
 class Property{
@@ -81,6 +43,7 @@ class Property{
       + getPrice() : double
       + toString() : String
 }
+
 class Announcement {
    - typeOfProperty : TypeOfProperty
    - transactionType : TransactionType
@@ -94,116 +57,37 @@ class Announcement {
    + toString() : String
 }
 
-class Residence {
-- numberOfBedrooms : int
-- numberOfBathrooms : int
-- numberOfParkingSpaces : int
-- hasCentralHeating : boolean
-- hasAirConditioning : boolean
-+getNumberOfParkingSpaces():int
-+getNumberOfBathrooms():int
-+getHasAirConditioning():boolean
-+getHasCentralHeating():boolean
+class Order{
+    -id : int
+    -idCounter : int
+    -orderAmount : double
+    -announcementId : int
+    -clientEmail : String
+    -date : Date
+    -state : OrderState
 
+    +toString() : String
 }
 
-enum sunExposure{
-NORTH
-SOUTH
-EAST
-WEST
-}
-class Land {
-}
-class Apartment {
-}
-class House {
-- hasBasement : boolean
-- hasInhabitableLoft : boolean
-+getInhabitableLoft():boolean
-+getHasBasement():boolean
-}
+Repositories -> Repositories : instances
 
-class Agency{
-- id : int
-- name : String
-- emailAddress : String
-- phoneNumber : int
-- Address address
-}
+PropertyOrderManagement .> PropertyOrderManagementController
 
-class Employee{
-- id : int
-- name : String
-- emailAddress : String
-- phoneNumber : int
-- Address address
-}
+PropertyOrderManagementController ..> Repositories
 
-enum Role{
-ADMIN
-AGENT
-STORE_NETWORK_MANAGER
-STORE_MANAGER
-CLIENT
-}
-
-class User{
--String name : String
--String email : String
--passportCardNumber : int
--taxNumber : int
--telephoneNumber : int
--Address address
--List<Role> roles
--Agency agency
-}
-
-class Address{
--street : String
--city : String
--district : String
--state : String
--zipCode : int
-}
-
-
-
-CreateRequestUI .> CreateRequestController
-
-CreateRequestController ..> Repositories
-Repositories --> Repositories : instances
-Repositories "1" --> "1" AgencyListRepository : has
 Repositories "1" --> "1" AnnouncementRepository : has
-Repositories "1" --> "1" EmployeeRepository : has
 
-CreateRequestController ..> AnnouncementRepository : AnnouncementRepository
-CreateRequestController ..> AgencyListRepository : AgencyListRepository
-CreateRequestController ..> EmployeeRepository : EmployeeRepository
+Repositories "1" --> "1" OrderRepository : has
+
+PropertyOrderManagementController ..> AnnouncementRepository
 
 AnnouncementRepository "1" --> "*" Announcement : has
 
 Announcement "1" --> "1" Property : has
-Announcement "1" --> "1" TransactionType : has
 
-Property "1" --> "1" Residence : has
-Property "1" --> "1" Land : has
-Property "1" --> "1" Address : has
-Residence  "1" --> "1" Apartment : has
-Residence  "1" --> "1" House : has
-House "1" --> "1" sunExposure
+OrderRepository "1" --> "*" Order : has
 
-AgencyListRepository "1" --> "*" Agency : has
-
-EmployeeRepository "1" --> "*" Employee : has
-Employee "1" --> "1" Role : has
-User "1" --> "1" Role : has
-
-Agency --> "*" Employee : employs
-
-Property "*" --> "1" User : Created by
 @enduml
-
 
 
 

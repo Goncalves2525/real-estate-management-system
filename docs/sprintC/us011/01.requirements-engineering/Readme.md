@@ -22,60 +22,40 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 >  
 > **Answer:** The order should be removed from the list but not from the system.
 
-> **Question:** 
+> **Question:** : Regarding US011 should we provide all the property characteristics to assist agents in choosing the appropriate purchase order? If so, is it required to display the amount established by the property owner?
 >
-> **Answer:** 
+> **Answer:** Yes. Yes.
 
-> **Question:**
+> **Question:** Is it convenient to give the ability to filter the properties by their attributes when the agent is listing them?
 >
-> **Answer:**
+> **Answer:** We always have a low number of purchase orders. Please check AC1
 
-> **Question:**
+> **Question:** The notification should be sent to the client, but we need to consider this client the owner or the potential buyer?
 >
-> **Answer:**
+> **Answer:** The client is the registered user that placed the order (in US10).
 
-> **Question:**
+> **Question:** Assuming the previous anwser is the potential buyer, should the owner be informed about the sale success?
 >
-> **Answer:**
+> **Answer:** The owner will be contacted by means of a phone call. This is not a feature of the system.
 
-> **Question:**
->
-> **Answer:**
-
-> **Question:**
->
-> **Answer:**
-
-> **Question:**
->
-> **Answer:**
 ### 1.3. Acceptance Criteria
 
-
-* **AC1:** All required fiels must be filled in.
-* **AC2:** The list of purchase orders should be grouped by property. The properties should be sorted from the oldest to the most recent one. For each property, the list of purchase orders should be sorted by the amount offered, the highest offer must appear first.
-* **AC3:** For each offer, the agent must be able to accept or decline it. The action of accepting or declining an offer should trigger an email notification to the client. 
-* **AC4:** When a purchase order is accepted, all the other orders should be declined, and a message sent to the client.
-* **AC5:** If a property does not contain any offers, the system should show an empty list of offers.
-* **AC6:**
+* **AC1:** The list of purchase orders should be grouped by property. The properties should be sorted from the oldest to the most recent one. For each property, the list of purchase orders should be sorted by the amount offered, the highest offer must appear first.
+* **AC2:** For each offer, the agent must be able to accept or decline it. The action of accepting or declining an offer should trigger an email notification to the client. 
+* **AC3:** When a purchase order is accepted, all the other orders should be declined, and a message sent to the client.
+* **AC4:** If a property does not contain any offers, the system should show an empty list of offers.
 
 ### 1.4. Found out Dependencies
 
-
-* There is a dependency to "US 003 - As a system administrator, I want to register a new employee" since the choice of agent depends on its creation.
-
+* There is a dependency to "US 010 - Place an order to purchase the property" since the choice of orders depends on its creation.
 
 ### 1.5 Input and Output Data
 
-
 **Input Data:**
 
-* Typed data:
-	*
-      
 * Selected data:
-	* Property type (filter)
-	* Price (sort)
+	* Announcemnt (property)
+	* Order 
 
 **Output Data:**
 
@@ -83,15 +63,11 @@ As an agent, I want to list real estate purchase orders to accept or decline a p
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Other alternatives might exist.**
 
 #### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us011-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us011-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

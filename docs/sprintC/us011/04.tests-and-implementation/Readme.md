@@ -1,78 +1,125 @@
-# US 004 - Owner submit sale or rent
+# US 011 - As an agent, I want to list real estate purchase orders to accept or decline
 
 # 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check if the announcements are sorted by property type and then by id - AC2.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
+    @Test
+    public void testPropertyAndIdCriteriaComparator() {
+        // Create test announcements
+        Announcement announcement1 = new Announcement(1, "Property A");
+        Announcement announcement2 = new Announcement(2, "Property B");
+        Announcement announcement3 = new Announcement(3, "Property A");
+        Announcement announcement4 = new Announcement(4, "Property C");
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+        ArrayList<Announcement> announcements = new ArrayList<>(List.of(announcement1, announcement2, announcement3, announcement4));
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+        // Sort the announcements using the propertyAndIdCriteria comparator
+        Comparator<Announcement> propertyAndIdCriteria = new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                return p1.getTypeOfProperty().compareTo(p2.getTypeOfProperty());
+            }
+        };
+        Collections.sort(announcements, propertyAndIdCriteria);
+
+        // Define the expected order after sorting
+        ArrayList<Announcement> expectedOrder = new ArrayList<>(List.of(announcement1, announcement3, announcement2, announcement4));
+
+        // Verify that the announcements are sorted correctly
+        assertEquals(expectedOrder, announcements);
+    }
+
+**Test 2:** Check for each offer if the agent can accept it - AC3.
+
+    @Test
+    public void testAcceptOrder() {
+        // Arrange
+        int idOrder = 1;
+        int idAnnouncement = 1;
+        Order order = new Order();
+        order.setId(idOrder);
+        order.setAnnouncementId(idAnnouncement);
+        order.setState(OrderState.PENDING);
+
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        when(orderRepository.getOrders()).thenReturn(orders);
+
+        // Act
+        controller.acceptOrder(idOrder, idAnnouncement);
+
+        // Assert
+        verify(orderRepository, times(1)).getOrders();
+        verify(orderRepository, times(1)).acceptOrder(idOrder, idAnnouncement);
+
+        // Ensure the order state is set to ACCEPTED
+        assertSame(OrderState.ACCEPTED, order.getState());
+    }
 
 
-*It is also recommended to organize this content by subsections.* 
+**Test 3:** Check for each offer if the agent can declining it - AC3.
+
+    @Test
+    public void testRejectOrder() {
+        // Arrange
+        int idOrder = 1;
+        int idAnnouncement = 1;
+        Order order = new Order();
+        order.setId(idOrder);
+        order.setAnnouncementId(idAnnouncement);
+        order.setState(OrderState.PENDING);
+
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        when(orderRepository.getOrders()).thenReturn(orders);
+
+        // Act
+        controller.rejectOrder(idOrder, idAnnouncement);
+
+        // Assert
+        verify(orderRepository, times(1)).getOrders();
+        verify(orderRepository, times(1)).rejectOrder(idOrder, idAnnouncement);
+
+        // Ensure the order state is set to REJECTED
+        assertSame(OrderState.REJECTED, order.getState());
+    }
 
 # 5. Construction (Implementation)
 
 
-## Class CreateTaskController 
+## Class PropertyOrderManagementController
 
 ```java
-public Task createTask(String reference, String description, String informalDescription,
-								 String technicalDescription, Integer duration, Double cost,
-								 String taskCategoryDescription) {
-
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, 
-			duration, cost,taskCategory, employee);
-    
-	return newTask;
-}
+    public ArrayList<Announcement> getAllAnnouncementsSortedByproperty() {
+        return getAnnouncementRepository().getgetAllAnnouncementsSortedByproperty();
+        }
 ```
 
+```java   
+   public ArrayList<Order> getOrdersListByAnnouncementId(Announcementid) {
+        return getOrderRepository().getOrdersByAnnouncementId(id);
+    }   
+``` 
 
-## Class Organization
-
-```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                     String technicalDescription, Integer duration, Double cost,
-                                     TaskCategory taskCategory, Employee employee) {
-    
-        Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                taskCategory, employee);
-
-        addTask(task);
-        
-        return task;
-    }
+```java   
+    public void acceptOrder(int idOrder, int Announcementid) {
+        getOrderRepository().acceptOrder(idOrder,idAnnouncement);
+    }       
+```
+```java   
+    public void rejectOrder(int idOrder, int Announcementid) {
+        getOrderRepository().rejectOrder(idOrder,idAnnouncement);
+    }       
 ```
 
 # 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
-
-* Some demo purposes some tasks are bootstrapped while system starts.
-
 
 # 7. Observations
 
-Platform and Organization classes are getting too many responsibilities due to IE pattern and, therefore, they are becoming huge and harder to maintain. 
-
-Is there any way to avoid this to happen?
 
 
 

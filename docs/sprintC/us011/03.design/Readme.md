@@ -6,32 +6,29 @@
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID                                           | Question: Which class is responsible for...          | Answer                                    | Justification (with patterns)                              |
-|:---------------------------------------------------------|:-----------------------------------------------------|:------------------------------------------|:-----------------------------------------------------------|  
-| Step 1 : start to list announcements to accept or reject | ... interacting with the actor?                      | PropertyOrderManagementUI                 | Pure Fabrication                                           |
-| 	                                                        | ... coordinating the US?                             | PropertyOrderManagementController         | Controller                                                 |
-| 	                                                        | ... knowing the list of announcements in the system? | AnnouncementRepository                    | IE: knows all the data needed to list.                     |
-| 	                                                        | ... knowing the list of orders in the system?        | OrderRepository                           | IE: knows all the data needed to list.                     |
-| Step 2: manage orders                                    | ... accet or reject order?                           | PropertyOrderManagementController                          | Pure Fabrication                                           |
-| Step 2: manage orders                                     |  ...                                          |                                                           | Pure Fabrication                                           |
-| Step 2: manage orders                           | ...                                          |                           | Pure Fabrication                                           |
-|Step 2: manage orders                                       |  ...                                          |                         | Pure Fabrication                                           |
-| Step 6: reject order                                     | ...                                          | PropertyOrderManagementController                         | Pure Fabrication                                           |
-| Step 7: accept Order                                     | ...                                          | PropertyOrderManagementController                         | Pure Fabrication                                           |
-| Step 3 : System displays operation success	              | ... informing operation success?                     | CreateRequestUI                           | Pure Fabrication
+| Interaction ID                                                 | Question: Which class is responsible for...          | Answer                            | Justification (with patterns)          |
+|:---------------------------------------------------------------|:-----------------------------------------------------|:----------------------------------|:---------------------------------------|  
+| Step 1 : start to list announcements to accept or reject       | ... interacting with the actor?                      | PropertyOrderManagementUI         | Pure Fabrication                       |
+| 	                                                             | ... coordinating the US?                             | PropertyOrderManagementController | Controller                             |
+| 	                                                             | ... knowing the list of announcements in the system? | AnnouncementRepository            | IE: knows all the data needed to list. |
+| 	                                                             | ... knowing the list of orders in the system?        | OrderRepository                   | IE: knows all the data needed to list. |
+| Step 2 : manage orders                                         | ... accet or reject order?                           | PropertyOrderManagementController | Controller                             |
+|                                                                | ... change order status ?                            | OrderRepository                   | IE : Have the list of orders.          |
+| Step 3 : System displays operation success	                 | ... informing operation success?                     | PropertyOrderManagementUI         | Pure Fabrication                       |
 
-
+saving the created visit schedule?
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Announcement
+ * n\a
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
  * PropertyOrderManagementUI
  * PropertyOrderManagementController
-
+ * AnnouncementRepository
+ * OrderRepository
 
 ## 3.2. Sequence Diagram (SD)
 
