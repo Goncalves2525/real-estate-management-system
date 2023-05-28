@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -33,9 +34,8 @@ public class VisitScheduleController {
      * Instantiates a new Visit schedule controller.
      */
     public VisitScheduleController() {
-        Repositories repositories = Repositories.getInstance();
-        this.clientRepository = repositories.getClientRepository();
-        this.visitScheduleRepository = repositories.getVisitScheduleRepository();
+        getClientRepository();
+        getVisitScheduleRepository();
         getAnnouncementRepository();
 
     }
@@ -45,20 +45,10 @@ public class VisitScheduleController {
      * Get announcement sorted by default criteria array list.
      */
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
-        AnnouncementRepository announcementRepository = getAnnoucementRepository();
+        AnnouncementRepository announcementRepository = getAnnouncementRepository();
         return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 
-    /**
-     * Get announcement repository
-     */
-    private AnnouncementRepository getAnnoucementRepository() {
-        if (announcementRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            announcementRepository = repositories.getAnnouncementRepository();
-        }
-        return announcementRepository;
-    }
 
     /**
      * Get property by id announcement.
@@ -68,6 +58,33 @@ public class VisitScheduleController {
     public Property getPropertyByAnnouncement(Announcement announcement){
         return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }
+
+    /**
+     * Get client repository
+     *
+     * @return clientRepository
+     */
+    private ClientRepository getClientRepository() {
+        if (clientRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            clientRepository = repositories.getClientRepository();
+        }
+        return clientRepository;
+    }
+
+    /**
+     * Get visit schedule repository
+     *
+     * @return visitScheduleRepository
+     */
+    private VisitScheduleRepository getVisitScheduleRepository() {
+        if (visitScheduleRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            visitScheduleRepository = repositories.getVisitScheduleRepository();
+        }
+        return visitScheduleRepository;
+    }
+
 
     /**
      * Get announcement repository
@@ -220,7 +237,7 @@ public class VisitScheduleController {
                 writer.write("My name is " + name + ". I am interested in the property listed under announcement number " + announcementID + ".\n\n");
             }
             if (date != null && startTime != null && endTime != null) {
-                writer.write("I would like to propose a visit on " + date + " starting from " + startTime + " until " + endTime + ". Please feel free to contact me at the following telephone number: " + telephoneNumber + " if there are any issues with the proposed timing.\n\n");
+                writer.write("I would like to propose a visit on " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " starting from " + startTime + " until " + endTime + ". Please feel free to contact me at the following telephone number: " + telephoneNumber + " if there are any issues with the proposed timing.\n\n");
             }
             writer.write("I look forward to your confirmation of the visit.\n");
             writer.write("Thank you for your attention.\n\n");
