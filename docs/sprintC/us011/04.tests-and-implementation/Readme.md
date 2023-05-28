@@ -115,8 +115,28 @@
     }       
 ```
 
-# 6. Integration and Demo 
+## Class OrderRepository
 
+```java
+    public void acceptOrder(int idOrder, int Announcementid) {
+        for (Order order : orders) {
+            if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
+                order.setState(OrderState.ACCEPTED);
+            }
+        }
+    }
+```
+
+```java
+    public void rejectOrder(int idOrder, int Announcementid) {
+        for (Order order : orders) {
+            if (order.getId() == idOrder && order.getAnnouncementId() == idAnnouncement) {
+                order.setState(OrderState.REJECTED);
+            }
+        }
+    }
+```
+# 6. Integration and Demo 
 
 # 7. Observations
 

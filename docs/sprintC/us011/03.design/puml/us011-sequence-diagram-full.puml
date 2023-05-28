@@ -88,11 +88,17 @@ alt accept the order
     CTRL -> OrderRepository : acceptOrder(Orderid,Announcementid)
     activate OrderRepository
 
+    loop
+    OrderRepository-->OrderRepository: change orderState (ACCEPTED)
+    end
     OrderRepository --> CTRL : OrderAccepted
     deactivate OrderRepository
 
     CTRL -> OrderRepository : rejectAllOrder(Announcementid)
     activate OrderRepository
+    loop
+    OrderRepository-->OrderRepository: change orderState (REJECTED)
+    end
 
     OrderRepository --> CTRL : AllOrderRejected
     deactivate OrderRepository
@@ -101,11 +107,11 @@ alt accept the order
     deactivate
 
     UI --> AGENT : displays operation success
-deactivate
+    deactivate
 
 else reject the order
 
-AGENT -> UI : Select reject
+    AGENT -> UI : Select reject
     activate UI
 
     UI -> CTRL : rejectOrder(Orderid,Announcementid)
@@ -113,6 +119,10 @@ AGENT -> UI : Select reject
 
     CTRL -> OrderRepository : rejectOrder(Orderid,Announcementid)
     activate OrderRepository
+
+   loop
+   OrderRepository-->OrderRepository: change orderState (REJECTED)
+   end
 
     OrderRepository --> CTRL : orderRejected
     deactivate OrderRepository

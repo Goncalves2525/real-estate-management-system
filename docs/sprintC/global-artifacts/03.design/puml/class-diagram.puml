@@ -74,6 +74,12 @@ class CreateOrderController {
     +getPropertyByAnnouncement(Announcement announcement) : Property
     +createOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
 }
+class PropertyOrderManagementController {
+    +getAllAnnouncementsSortedByproperty() : ArrayList<Announcement>
+    +getOrdersListByAnnouncementId(Announcementid) : ArrayList<Order>
+    +acceptOrder(Orderid,Announcementid) : void
+    +rejectOrder(Orderid,Announcementid) : void
+}
 
 class CreateOrderUI {
     +showAnnouncements(ArrayList<Announcement> publishedPropertiesList) : void
@@ -217,6 +223,9 @@ class OrderRepository{
     +clientAlreadyMadeOrderForThisAnnouncement(String clientEmail, int announcementId) : boolean
     +someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(double orderAmount, int announcementId) : boolean
     +addOrder(double orderAmount, int announcementId, String clientEmail, Date date, OrderState orderState) : void
+    +acceptOrder(Orderid,Announcementid)
+    +rejectAllOrder(Announcementid)
+    +rejectOrder(Orderid,Announcementid)
 }
 
 class Order{
@@ -459,6 +468,9 @@ ListAnnouncementsController ..> AnnouncementRepository
 CreateRequestController ..> AnnouncementRepository
 CreateRequestController ..> AgencyRepository
 CreateRequestController ..> EmployeeRepository
+PropertyOrderManagementController ..> AnnouncementRepository
+PropertyOrderManagement .> PropertyOrderManagementController
+PropertyOrderManagementController ..> Repositories
 PublishAnnouncementController ..> AnnouncementRepository
 RegisterEmployeeController ..> EmployeeRepository
 RegisterEmployeeController ..> RoleRepository
