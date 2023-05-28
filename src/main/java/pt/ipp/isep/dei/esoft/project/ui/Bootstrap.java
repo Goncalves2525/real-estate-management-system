@@ -109,7 +109,7 @@ public class Bootstrap implements Runnable {
 
         // Add the new client to the client repository
         ClientRepository clientRepository = Repositories.getInstance().getClientRepository();
-        clientRepository.addClient("Joao Comprador", "client1@this.app", 11111111, 222222222, 912312332, clientAddress);
+        clientRepository.addClient("Joao Comprador", "client1@this.app", 11111111, 222222222, 1765656578, clientAddress);
 
     }
 
@@ -141,20 +141,20 @@ public class Bootstrap implements Runnable {
     }
     private void addOrders() {
         OrderRepository orderRepository = Repositories.getInstance().getOrderRepository();
-        Order order1 = new Order(505521, 1, "aaaa@",new Date(2022, Calendar.AUGUST, 10),OrderState.PENDING);
-        Order order2 = new Order(401511, 2, "bbaa@",new Date(2022, Calendar.NOVEMBER, 10),OrderState.PENDING);
-        Order order3 = new Order(3012211, 2, "ccaa@",new Date(2022, Calendar.DECEMBER, 10),OrderState.PENDING);
-        Order order4 = new Order(23262, 0, "ddaaa@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
-        Order order5 = new Order(565656, 0, "eeaaa@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
-        Order order6 = new Order(98888, 3, "fffff@",new Date(2022, Calendar.APRIL, 15),OrderState.PENDING);
-        Order order7 = new Order(132, 3, "ggggg@",new Date(2022, Calendar.APRIL, 11),OrderState.PENDING);
-        Order order8 = new Order(6252, 8, "hhhhh@",new Date(2022, Calendar.APRIL, 1),OrderState.PENDING);
-        Order order9 = new Order(9658, 5, "iiiiii@",new Date(2022, Calendar.APRIL, 9),OrderState.PENDING);
-        Order order10 = new Order(23262, 5, "jjjjjj@",new Date(2022, Calendar.APRIL, 28),OrderState.PENDING);
-        Order order11= new Order(59999, 8, "kkkkk@",new Date(2022, Calendar.APRIL, 20),OrderState.PENDING);
-        Order order12= new Order(966222300, 1, "lllll@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
-        Order order13= new Order(2352, 1, "mmmmm@",new Date(2022, Calendar.MARCH, 10),OrderState.PENDING);
-        Order order14= new Order(45566131, 0, "ooooo@",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order1 = new Order(505521, 1, "aaaa@as.pt",new Date(2022, Calendar.AUGUST, 10),OrderState.PENDING);
+        Order order2 = new Order(401511, 2, "bbaa@as.pt",new Date(2022, Calendar.NOVEMBER, 10),OrderState.PENDING);
+        Order order3 = new Order(3012211, 2, "ccaa@as.pt",new Date(2022, Calendar.DECEMBER, 10),OrderState.PENDING);
+        Order order4 = new Order(23262, 0, "ddaaa@as.pt",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order5 = new Order(565656, 0, "eeaaa@as.pt",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order6 = new Order(98888, 3, "fffff@as.pt",new Date(2022, Calendar.APRIL, 15),OrderState.PENDING);
+        Order order7 = new Order(132, 3, "ggggg@as.pt",new Date(2022, Calendar.APRIL, 11),OrderState.PENDING);
+        Order order8 = new Order(6252, 8, "hhhhh@as.pt",new Date(2022, Calendar.APRIL, 1),OrderState.PENDING);
+        Order order9 = new Order(9658, 5, "iiiiii@as.pt",new Date(2022, Calendar.APRIL, 9),OrderState.PENDING);
+        Order order10 = new Order(23262, 5, "jjjjjj@as.pt",new Date(2022, Calendar.APRIL, 28),OrderState.PENDING);
+        Order order11= new Order(59999, 8, "kkkkk@as.pt",new Date(2022, Calendar.APRIL, 20),OrderState.PENDING);
+        Order order12= new Order(966222300, 1, "lllll@as.pt",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
+        Order order13= new Order(2352, 1, "mmmmm@as.pt",new Date(2022, Calendar.MARCH, 10),OrderState.PENDING);
+        Order order14= new Order(45566131, 0, "ooooo@as.pt",new Date(2022, Calendar.APRIL, 10),OrderState.PENDING);
         orderRepository.addOrder(order1);
         orderRepository.addOrder(order2);
         orderRepository.addOrder(order3);
