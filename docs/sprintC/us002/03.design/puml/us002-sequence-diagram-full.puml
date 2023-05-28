@@ -10,12 +10,7 @@ actor "Agent" as AGENT
 participant ":PublishSaleAnnouncementUI" as UI
 participant ":PublishAnnouncementController" as CTRL
 participant ":Repositories" as REPO
-participant ":AnnouncementRepository" as AnnouncementRepository
-participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
-participant ":AuthenticationRepository" as AuthSingleton
-participant "authRepository:\nAuthenticationRepository" as AuthenticationRepository
-'participant "Commission" as COMMISSION
-'participant "Announcement" as ANN
+participant "announcementRepository:\nAnnouncementRepository" as ANNREPO
 
 activate AGENT
 
@@ -23,74 +18,35 @@ AGENT -> UI : asks to publish an announcement
 
 activate UI
 
-UI -> CTRL : getAnnouncementsByUser()
+UI -> CTRL: getInstance()
 activate CTRL
 
-    CTRL -> REPO: getInstance()
+    CTRL --> UI : publishAnnouncementController
+    deactivate CTRL
+
+    UI -> CTRL : getAnnouncements()
+    activate CTRL
+
+    CTRL --> REPO: getInstance()
     activate REPO
 
-    REPO -> CTRL : returns instance
+    REPO -> ANNREPO : getAnnouncementRepository()
+    activate ANNREPO
+
+    ANNREPO --> REPO: announcementRepository
+    deactivate ANNREPO
+
+    REPO --> CTRL : repositories
     deactivate REPO
 
-    CTRL --> REPO: getAnnouncementRepository()
-    activate REPO
+    CTRL -> ANNREPO : getAnnouncements()
+    activate ANNREPO
 
-    CTRL -> AuthSingleton : getInstance()
-    activate AuthSingleton
+    ANNREPO --> CTRL: announcements
+    deactivate ANNREPO
 
-        AuthSingleton --> CTRL: authenticationRepository
-    deactivate AuthSingleton
-
-    CTRL -> AuthenticationRepository : getCurrentUserSession()
-    activate AuthenticationRepository
-
-        AuthenticationRepository --> CTRL: UserSession
-    deactivate AuthenticationRepository
-
-    CTRL -> AnnouncementRepository : getAnnouncementsByAgent(getCurrentUserSession().getUserId().getEmail())
-    activate AnnouncementRepository
-
-        AnnouncementRepository --> CTRL: announcements
-    deactivate AnnouncementRepository
-
-    CTRL --> UI : shows non published announcements
-deactivate CTRL
-
-UI -> CTRL : publishAnnouncement(announcement, commission)
-activate CTRL
-
-    CTRL -> AnnouncementRepository : getInstance()
-    activate AnnouncementRepository
-
-        AnnouncementRepository --> CTRL: announcementRepository
-    deactivate AnnouncementRepository
-
-    CTRL -> AuthSingleton : getInstance()
-    activate AuthSingleton
-
-        AuthSingleton --> CTRL: authenticationRepository
-    deactivate AuthSingleton
-
-    CTRL -> AuthenticationRepository : getCurrentSession()
-    activate AuthenticationRepository
-
-        AuthenticationRepository --> CTRL: session
-    deactivate AuthenticationRepository
-
-    CTRL -> AnnouncementRepository : publishAnnouncement(announcement.getId())
-    activate AnnouncementRepository
-
-        AnnouncementRepository --> CTRL: success
-    deactivate AnnouncementRepository
-
-    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
-    activate AnnouncementRepository
-
-        AnnouncementRepository --> CTRL: announcements
-    deactivate AnnouncementRepository
-
-    CTRL --> UI : shows non published announcements
-deactivate CTRL
+    CTRL --> UI : returns non published announcements
+    deactivate CTRL
 
 UI -> AGENT : shows non published announcements
 deactivate UI
@@ -101,37 +57,34 @@ activate UI
 UI -> CTRL : getAnnouncementById(id)
 activate CTRL
 
-    CTRL -> AnnouncementRepository : getInstance()
-    activate AnnouncementRepository
+    CTRL -> ANNREPO : getAnnouncementsByID(announcementId)
+    activate ANNREPO
 
-        AnnouncementRepository --> CTRL: announcementRepository
-    deactivate AnnouncementRepository
+    ANNREPO --> CTRL: return Announcement
+    deactivate ANNREPO
 
-    CTRL -> AuthSingleton : getInstance()
-    activate AuthSingleton
-
-        AuthSingleton --> CTRL: authenticationRepository
-    deactivate AuthSingleton
-
-    CTRL -> AuthenticationRepository : getCurrentSession()
-    activate AuthenticationRepository
-
-        AuthenticationRepository --> CTRL: session
-    deactivate AuthenticationRepository
-
-    CTRL -> AnnouncementRepository : getAnnouncementsByUser(session.getUser())
-    activate AnnouncementRepository
-
-        AnnouncementRepository --> CTRL: announcements
-    deactivate AnnouncementRepository
-
-    CTRL --> UI : shows non published announcements
+    CTRL --> UI : returns Announcement details
 deactivate CTRL
 
-UI --> AGENT : shows non published announcements
+UI --> AGENT : shows Announcement details
 deactivate UI
 
-AGENT -> UI : closes UI
-deactivate AGENT
+AGENT -> UI : Confirms to publish the Announcement
+activate UI
+
+UI -> CTRL : publishAnnouncement(announcement.getId())
+activate CTRL
+
+    CTRL -> ANNREPO : publishAnnouncement(announcement)
+    activate ANNREPO
+
+    ANNREPO --> CTRL : returns Announcement
+    deactivate ANNREPO
+
+    CTRL --> UI : returns Success message
+    deactivate CTRL
+
+UI --> AGENT : shows Success message
 deactivate UI
+
 @enduml

@@ -52,7 +52,7 @@ public class PublishAnnouncementController {
             }
         }
         catch (Exception e) {
-
+            System.out.println("Invalid announcement id");
         }
     }
 
@@ -63,8 +63,13 @@ public class PublishAnnouncementController {
      */
     public void setCommission(int id, Commission commission) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
-        if (announcement.getId() >= 0) {
-            announcement.setCommission(commission);
+        try{
+            if (announcement.getId() >= 0) {
+                announcement.setCommission(commission);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Invalid announcement id");
         }
     }
 

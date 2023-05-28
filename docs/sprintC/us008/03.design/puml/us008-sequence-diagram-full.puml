@@ -6,73 +6,112 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-'actor "Unregistered User" as uUser
-'participant ":RegisterUserUI" as UI
-'participant ":RegisterUserController" as CTRL
-'participant ":Repositories" as REPOS
-'participant "repositories\n:Repositories" as repos
-'participant "authenticationRepository:\nAuthenticationRepository" as AuthenticationRepository
-'participant "userRepository:\nUserRepository" as UserRepository
-'activate uUser
-'
-'            uUser -> UI : requests to resgister
-'            activate UI
-'
-'            UI --> uUser : shows the registration form
-'            deactivate UI
-'
-'            uUser -> UI : fills the registration form (name, passportCardNumber, taxNumber, email, telephoneNumber, password, (address)))
-'            activate UI
-'
-'            UI -> CTRL** : create
-'            activate CTRL
-'
-'
-'
-'            CTRL -> REPOS : getInstance()
-'            activate REPOS
-'
-'            REPOS --> CTRL: repositories
-'            deactivate REPOS
-'
-'            CTRL -> repos : getAuthenticationRepository()
-'            activate repos
-'
-'            repos --> CTRL: authenticationRepository
-'            deactivate repos
-'
-'            CTRL -> AuthenticationRepository : createUser(name, passportCardNumber, taxNumber, email, telephoneNumber, password, (address)))
-'            activate AuthenticationRepository
-'
-'            AuthenticationRepository --> CTRL : user
-'            deactivate AuthenticationRepository
-'
-'            CTRL -> REPOS : getInstance()
-'            activate REPOS
-'
-'            REPOS --> CTRL: repositories
-'            deactivate REPOS
-'
-'            CTRL -> repos : getUserRepository()
-'            activate repos
-'
-'            repos --> CTRL: userRepository
-'            deactivate repos
-'
-'            CTRL -> UserRepository : addUser(user)
-'            activate UserRepository
-'
-'            UserRepository --> CTRL : user
-'            deactivate UserRepository
-'
-'            CTRL -> UI : user
-'            deactivate CTRL
-'
-'            UI -> UI : sendEmailConfirmation(user)
-'            UI -> UI : showUserDetails(user)
-'            UI --> uUser : displays the user details
-'            deactivate UI
-'
+actor "Agent" as AGENT
+participant ":PublishSaleAnnouncementUI" as UI
+participant ":PublishAnnouncementController" as CTRL
+participant ":Repositories" as REPO
+participant "announcementRepository:\nAnnouncementRepository" as ANNREPO
+participant "authenticationRepository:\nAuthenticationRepository" as AUTHREPO
+participant "AuthFacade" as AUTHFACADE
+participant "UserSession" as SESSION
 
+activate AGENT
+
+AGENT -> UI : asks to publish an announcement
+
+activate UI
+
+UI -> CTRL: getInstance()
+activate CTRL
+
+    CTRL --> UI : publishAnnouncementController
+    deactivate CTRL
+
+    UI -> CTRL : getAnnouncementsByUser()
+    activate CTRL
+
+    CTRL --> REPO: getInstance()
+    activate REPO
+
+    REPO -> AUTHREPO : getAuthenticationRepositoru()
+    activate AUTHREPO
+
+    AUTHREPO --> REPO: authenticationRepository
+    deactivate AUTHREPO
+
+    REPO -> ANNREPO : getAnnouncementRepository()
+    activate ANNREPO
+
+    ANNREPO --> REPO: announcementRepository
+    deactivate ANNREPO
+
+    REPO --> CTRL : repositories
+    deactivate REPO
+
+    CTRL -> AUTHREPO : getCurrentUserSession()
+    activate AUTHREPO
+
+    AUTHREPO -> AUTHFACADE : getCurrentUserSession()
+    activate AUTHFACADE
+
+    AUTHFACADE -> SESSION : getCurrentUserSession()
+    activate SESSION
+
+    SESSION --> AUTHFACADE : userSession
+    deactivate SESSION
+
+    AUTHFACADE --> AUTHREPO : userSession
+    deactivate AUTHFACADE
+
+    AUTHREPO --> CTRL: UserSession
+    deactivate AUTHREPO
+
+    CTRL -> ANNREPO : getAnnouncementsByAgent(userSession)
+    activate ANNREPO
+
+    ANNREPO --> CTRL: announcements
+    deactivate ANNREPO
+
+    CTRL --> UI : returns non published announcements of the agent
+    deactivate CTRL
+
+UI -> AGENT : shows non published announcements
+deactivate UI
+
+AGENT -> UI : selects ID of the Announcement to publish
+activate UI
+
+UI -> CTRL : getAnnouncementById(id)
+activate CTRL
+
+    CTRL -> ANNREPO : getAnnouncementsByID(announcementId)
+    activate ANNREPO
+
+    ANNREPO --> CTRL: return Announcement
+    deactivate ANNREPO
+
+    CTRL --> UI : returns Announcement details
+deactivate CTRL
+
+UI --> AGENT : shows Announcement details
+deactivate UI
+
+AGENT -> UI : Confirms to publish the Announcement
+activate UI
+
+UI -> CTRL : publishAnnouncement(announcement.getId())
+activate CTRL
+
+    CTRL -> ANNREPO : publishAnnouncement(announcement)
+    activate ANNREPO
+
+    ANNREPO --> CTRL : returns Announcement
+    deactivate ANNREPO
+
+    CTRL --> UI : returns Success message
+    deactivate CTRL
+
+UI --> AGENT : shows Success message
+deactivate UI
 
 @enduml

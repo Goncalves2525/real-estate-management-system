@@ -5,28 +5,29 @@
 ### 3.1. Rationale
 
 
-| Interaction ID | Question: Which class is responsible for...                       | Answer                       | Patterns                                                    |
-|:---------------|:------------------------------------------------------------------|:-----------------------------|:------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?                                  | ImportInformationUI          | Pure Fabrication                                            |
-| 			  		        | 	... coordinating the US?                                         | ImportInformationController  | Controller                                                  |
-| 			  		        | 	... requesting the file location?                                | ImportInformationController  | Information Expert                                          |
-| Step 2  		     | 	.. providing the file location?	                                 | SystemAdministrator          | Information Expert                                          |
-| 		             | 	... processing the import request?                               | ImportInformationController                         | Information Expert                                          |
-| Step 3  		     | 	... loading the data from the file?                              | LegacySystem                       | Information Expert       |
-| Step 4  		     | 	... displaying the success message?                              | ImportInformationUI                         | Information Expert |
+| Interaction ID | Question: Which class is responsible for...                       | Answer                 | Patterns           |
+|:---------------|:------------------------------------------------------------------|:-----------------------|:-------------------|
+| Step 1  		     | 	... interacting with the actor?                                  | ImportUI               | Pure Fabrication   |
+| 			  		        | 	... coordinating the US?                                         | ImportController       | Controller         |
+| 			  		        | 	... requesting the file location?                                | ImportUI               | Pure Fabrication   |
+| Step 2  		     | 	.. providing the file location?	                                 | ImportUI               | Pure Fabrication   |
+| 		             | 	... processing the import request?                               | ImportController       | Controller         |
+| Step 3  		     | 	... loading the data from the file?                              | AnnouncementRepository | Information Expert |
+| Step 4  		     | 	... displaying the success message?                              | ImportUI               | Pure Fabrication   |
 
 
-### Systematization ##
+[//]: # (### Systematization ##)
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+[//]: # (According to the taken rationale, the conceptual classes promoted to software classes are: )
 
- * LegacySystem
+[//]: # ()
+[//]: # ( * LegacySystem)
 
 
-Other software classes (i.e. Pure Fabrication) identified: 
+[//]: # (Other software classes &#40;i.e. Pure Fabrication&#41; identified: )
 
- * ImportInformationUI  
- * ImportInformationController
+[//]: # ()
+[//]: # ( * ImportUI  )
 
 
 ## 3.2. Sequence Diagram (SD)

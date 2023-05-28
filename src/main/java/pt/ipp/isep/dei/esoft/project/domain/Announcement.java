@@ -103,11 +103,40 @@ public class Announcement {
     }
 
     /**
-     * This method is the constructor of Announcement, with an existing ID.
-     * @param sid int
+     * This method is a constructor of Announcement, with an existing ID (sid).
      *
-
+     * @param sid                       The unique ID of the property.
+     * @param owner_name                The name of the property owner.
+     * @param owner_passportNum         The passport number of the property owner.
+     * @param owner_TIN                 The TIN (Tax Identification Number) of the property owner.
+     * @param owner_email               The email address of the property owner.
+     * @param owner_phone               The phone number of the property owner.
+     * @param property_type             The type of the property (house, apartment, land).
+     * @param property_area             The area of the property.
+     * @param property_location         The address of the property.
+     * @param property_distanceFromCenter The distance of the property from the center.
+     * @param property_numberBedrooms   The number of bedrooms in the property.
+     * @param property_numberBathrooms  The number of bathrooms in the property.
+     * @param property_pnumParking      The number of parking spaces available for the property.
+     * @param property_centralHeating   Indicates if the property has central heating (Y for yes, N for no, NA for not available).
+     * @param property_airconditioned   Indicates if the property is air-conditioned (Y for yes, N for no, NA for not available).
+     * @param property_basement         Indicates if the property has a basement (Y for yes, N for no, NA for not available).
+     * @param property_loft             Indicates if the property has a loft (Y for yes, N for no, NA for not available).
+     * @param property_sunExposure      The sun exposure of the property (S for south, E for east, NA for not available).
+     * @param property_requested_sale_rent_price The requested sale/rent price of the property.
+     * @param property_sale_rent_price  The actual sale/rent price of the property.
+     * @param commission                The commission percentage for the property.
+     * @param contract_duration         The duration of the contract in months.
+     * @param property_dateAnnounceRequest     The date when the property announcement was requested.
+     * @param property_dateofSale       The date when the property was sold.
+     * @param type_business             The type of business (sale, rent).
+     * @param store_ID                  The ID of the store associated with the property.
+     * @param store_name                The name of the store associated with the property.
+     * @param store_location            The address of the store associated with the property.
+     * @param store_phonenumber         The phone number of the store associated with the property.
+     * @param store_emailAddress        The email address of the store associated with the property.
      */
+
     public Announcement(int sid, String owner_name, int owner_passportNum, String owner_TIN, String owner_email, String owner_phone, String property_type, int property_area, String property_location, int property_distanceFromCenter,
                         String property_numberBedrooms, String property_numberBathrooms, String property_pnumParking, String property_centralHeating, String property_airconditioned, String property_basement, String property_loft, String property_sunExposure, int property_requested_sale_rent_price, int property_sale_rent_price, int commission, String contract_duration, Date property_dateAnnounceRequest, Date property_dateofSale, String type_business, int store_ID, String store_name, String store_location, String store_phonenumber, String store_emailAddress) {
         this.id = sid;
@@ -125,20 +154,43 @@ public class Announcement {
         }
         catch (NumberFormatException e){
         }
+        int noOfBathrooms = 0;
+        try{
+            noOfBathrooms = Integer.parseInt(property_numberBathrooms);
+        }
+        catch (NumberFormatException e){
+        }
+        int noOfParking = 0;
+        try{
+            noOfParking = Integer.parseInt(property_pnumParking);
+        }
+        catch (NumberFormatException e){
+        }
         String[] propertyAddressArray = property_location.trim().split(",");
-        Address propertyAddress = new Address(propertyAddressArray[0],propertyAddressArray[1],propertyAddressArray[2],Integer.parseInt(propertyAddressArray[propertyAddressArray.length-1].trim()));
+        Address propertyAddress;
+        if(propertyAddressArray.length > 4){
+            propertyAddress = new Address(propertyAddressArray[0],propertyAddressArray[1],propertyAddressArray[3],propertyAddressArray[4],Integer.parseInt(propertyAddressArray[propertyAddressArray.length-1].trim()));
+        }
+        else {
+            propertyAddress = new Address(propertyAddressArray[0],propertyAddressArray[1],propertyAddressArray[2],Integer.parseInt(propertyAddressArray[propertyAddressArray.length-1].trim()));
+        }
         int propertyID = 0;
         if(TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.HOUSE){
-            House propertyForAnnouncement = (House) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            //House propertyForAnnouncement = (House) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             propertyID = propertyForAnnouncement.getId();
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.APARTMENT) {
-            Apartment propertyForAnnouncement = (Apartment) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            //Apartment propertyForAnnouncement = (Apartment) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             propertyID = propertyForAnnouncement.getId();
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.LAND) {
             Land propertyForAnnouncement = (Land) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             propertyID = propertyForAnnouncement.getId();
         }
         this.propertyID = propertyID;
+        if(!property_sunExposure.equals("NA")){
+            SunExposure sunExposure = SunExposure.valueOf(property_sunExposure.toUpperCase());
+        }
     }
 
     /**

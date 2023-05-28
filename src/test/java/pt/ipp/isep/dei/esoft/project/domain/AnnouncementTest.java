@@ -89,4 +89,14 @@ class AnnouncementTest {
         announcement.setPublished(true);
         assertTrue(announcement.isPublished());
     }*/
+
+    @Test()
+    public void ensureNullIsNotAllowed() {
+        Announcement announcement = new Announcement(employee, propertyID, typeOfProperty, transactionType, publishDate, commission, photos);
+        assertThrows(IllegalArgumentException.class, () -> announcement.setTransactionType(null));
+        assertThrows(IllegalArgumentException.class, () -> announcement.setTypeOfProperty(null));
+        assertThrows(IllegalArgumentException.class, () -> announcement.setPublishDate(null));
+        assertThrows(IllegalArgumentException.class, () -> announcement.setCommission(null));
+    }
+
 }
