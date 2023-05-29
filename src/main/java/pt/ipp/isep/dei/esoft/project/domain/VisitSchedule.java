@@ -131,12 +131,12 @@ public class VisitSchedule {
      */
     public boolean isOverlapping(LocalTime startTime, LocalTime endTime) {
         // Check if the start time is within the VisitSchedule's time range
-        if (startTime.isAfter(this.startTime) && startTime.isBefore(this.endTime)) {
+        if ((startTime.equals(this.startTime) || startTime.isAfter(this.startTime)) && startTime.isBefore(this.endTime)) {
             return true;
         }
 
         // Check if the end time is within the VisitSchedule's time range
-        if (endTime.isAfter(this.startTime) && endTime.isBefore(this.endTime)) {
+        if (endTime.isAfter(this.startTime) && (endTime.isBefore(this.endTime) || endTime.equals(this.endTime))) {
             return true;
         }
 
@@ -147,6 +147,7 @@ public class VisitSchedule {
 
         return false;
     }
+
 
     /**
      * Is approved by agent boolean.
