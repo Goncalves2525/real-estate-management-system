@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing true
+skinparam linetype ortho
+
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+class UnregisteredUser{
+}
+
+class UserAcount{
+    name
+    email
+    roleDescription
+}
+
+'class SystemAdministrator {
+'   userName
+'   password
+'}
+
+UnregisteredUser "1" --- "1" UserAcount : registers to create >
+
+
+@enduml

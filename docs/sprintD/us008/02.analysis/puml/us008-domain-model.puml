@@ -1,0 +1,102 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+'skinparam linetype ortho
+hide circle
+hide methods
+
+title Domain Model
+
+'class Employee{
+'}
+
+class Agent {
+}
+
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+class Photos {
+}
+
+class Address{
+    doorNumber
+    zipCode
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
+    basement
+    inhabitableLoft
+}
+
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+
+}
+
+class PublishedProperty{
+    publishedDate
+    'publishedBy
+}
+
+class Commission{
+    percentage
+    value
+}
+
+'class TypeOfProperty{
+'    APARTMENT
+'    HOUSE
+'    LAND
+'}
+
+class Land extends Property{
+}
+
+class Equipment{
+    equipmentName
+}
+
+
+class SunExposure{
+NORTH
+SOUTH
+EAST
+WEST
+}
+
+class TransactionType{
+RENT
+SALE
+BUY
+}
+
+
+'PublishedProperty "1" -- "1" TypeOfProperty: has a >
+Agent "1" -- "1" Owner : contacted by >
+Agent "*" -- "*" Property: publishes >
+Agent "1" - "*" Property: sets \ncommission >
+'Request' "*" -- "1" Agent: is sent to >
+'Request "1" - "1" Property: has >
+'Request "1" - "1" TransactionType: has >
+Property "1" -- "1..*" Photos: has >
+PublishedProperty "1" -- "1" Commission: is set for <
+Residency "1" -- "*" Equipment: has >
+PublishedProperty "1" -- "1" Property: part of <
+Property "1" - "1" Address: has an >
+PublishedProperty "1" -- "1" Commission : has a >
+House "1" -- "1" SunExposure: has a value of >
+PublishedProperty "1" -- "1" TransactionType: has a value of >
+
+
+@enduml

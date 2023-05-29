@@ -1,0 +1,94 @@
+@startuml
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+
+skinparam classAttributeIconSize 0
+
+class PropertyOrderManagementController {
+    +getAllAnnouncementsSortedByproperty() : ArrayList<Announcement>
+    +getOrdersListByAnnouncementId(Announcementid) : ArrayList<Order>
+    +acceptOrder(Orderid,Announcementid) : void
+    +rejectOrder(Orderid,Announcementid) : void
+}
+
+class Repositories {
+    +Repositories()
+    +getInstance() : Repositories
+    +getOrderRepository() : OrderRepository
+    +getAnnouncementRepository() : AnnouncementRepository
+
+}
+class AnnouncementRepository {
+    +getAllAnnouncementsSortedByproperty() : ArrayList<Announcement>
+}
+
+class OrderRepository{
+    +getOrdersListByAnnouncementId(Announcementid)
+    +acceptOrder(Orderid,Announcementid)
+    +rejectAllOrder(Announcementid)
+    +rejectOrder(Orderid,Announcementid)
+}
+
+class Property{
+      - area : double
+      - distanceFromCenter : double
+      - price : double
+      - address : Address
+      + getAddress() : Address
+      + getArea() : double
+      + getDistanceFromCenter() : int
+      + getPrice() : double
+      + toString() : String
+}
+
+class Announcement {
+   - typeOfProperty : TypeOfProperty
+   - transactionType : TransactionType
+   - publishDate : Date
+   - comission : Commission
+   - photos ArrayList<Photo>
+   - isPublished : boolean
+   - id : int
+   - idCounter : int
+   + getProperty() : Property
+   + toString() : String
+}
+
+class Order{
+    -id : int
+    -idCounter : int
+    -orderAmount : double
+    -announcementId : int
+    -clientEmail : String
+    -date : Date
+    -state : OrderState
+
+    +toString() : String
+}
+
+Repositories -> Repositories : instances
+
+PropertyOrderManagement .> PropertyOrderManagementController
+
+PropertyOrderManagementController ..> Repositories
+
+Repositories "1" --> "1" AnnouncementRepository : has
+
+Repositories "1" --> "1" OrderRepository : has
+
+PropertyOrderManagementController ..> AnnouncementRepository
+
+AnnouncementRepository "1" --> "*" Announcement : has
+
+Announcement "1" --> "1" Property : has
+
+OrderRepository "1" --> "*" Order : has
+
+@enduml
+
+
+
+

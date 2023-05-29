@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Owner" as Owner
+participant ":System" as System
+
+activate Owner
+
+        Owner -> System : Requests to register in the system
+    activate System
+
+        System --> Owner : Displays the registration form with its fields
+    deactivate System
+
+        Owner -> System : Types the requested data and submits the form
+     activate System
+
+        System --> Owner: Creates the user, alerts of the operation success \nand sends confirmation email
+     deactivate System
+
+        Owner -> System : Click on the verification link in the email
+        activate System
+
+        System --> Owner: Displays the verification form
+    deactivate System
+
+        Owner -> System : Click on the "Verify" button
+    activate System
+
+        System --> Owner: Verifies the user, alerts of the operation success \nand sends welcome email
+    deactivate System
+
+@enduml

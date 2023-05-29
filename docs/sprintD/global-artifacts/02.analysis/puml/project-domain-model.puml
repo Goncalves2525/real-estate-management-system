@@ -1,0 +1,180 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+'skinparam linetype ortho
+hide circle
+hide methods
+
+title Domain Model
+
+class Client extends Person{
+}
+
+class Owner extends Person {
+}
+
+class Employee extends Person{
+}
+
+class Agent extends Employee{
+}
+
+class Order{
+    id
+    announcementId
+    orderAmount
+    clientEmail
+    date
+    orderState
+}
+
+class UserAccount {
+    email
+    password
+    roleDescription
+}
+
+class Person{
+    name
+    email
+    passportCardNumber
+    taxNumber
+    telephoneNumber
+}
+
+class Agency{
+    ID
+    name
+    email
+    phoneNumber
+}
+
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+class Photo {
+}
+
+class Address{
+    doorNumber
+    zipCode
+}
+
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Street{
+}
+
+class Apartment extends Residency{
+}
+
+class House extends Residency{
+    basement
+    inhabitableLoft
+    sunExposureDescription
+
+}
+
+class Residency extends Property{
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+
+}
+
+class Announcement{
+    publishedDate
+    publishedBy
+    isPublished
+    transactionTypeDescription
+    propertyDescription
+    commissionValue
+}
+
+
+
+
+class Land extends Property{
+}
+
+class Equipment{
+    equipmentName
+}
+
+
+
+class SystemAdministrator extends Employee{
+}
+
+class StoreManager extends Employee{
+}
+
+class StoreNetworkManager extends Employee{
+}
+
+
+
+class UnregisteredUser{
+}
+
+class VisitSchedule{
+    name
+    telephoneNumber
+    date
+    startTime
+    endTime
+    aprovatedByAgent
+}
+
+class LegacySystem{
+}
+
+'class Request{
+'}
+
+UnregisteredUser "1" -- "1" UserAccount : registers to create >
+Agent "1" -- "1" Announcement: publishes >
+StoreNetworkManager "1" -- "*" StoreManager: manages >
+Agency "1" -- "*" Agent: has >
+SystemAdministrator "1" -- "*" Employee: creates >
+
+Agent "1" -- "1" Owner : contacted by >
+Owner "1" -- "*" Property: owns >
+Owner "1" -- "*" Announcement: makes >
+Announcement "*" -- "1" Agent: requested to >
+Announcement "1" - "1" Property: has >
+Address "1" -- "1" State : has >
+City "*" -- "1" District : part of >
+District "*" --- "1" State : part of >
+Property "1" -- "1...*" Photo: has >
+Residency "1" -- "*" Equipment: has >
+Announcement "1" -- "1" Property: part of <
+Person "1" -- "*" Address: has >
+Property "1" -- "1" Address: has >
+StoreManager "1" --- "1" Agency: manages >
+Agency "1" -- "1" Address: has >
+UnregisteredUser "1" -- "*" Announcement: views >
+Client "1" -- "*" Order : makes >
+Order "*" -- "1" Agent : requested to >
+Street "*" --- "1" City : part of >
+Person "1" -- "1" UserAccount: has >
+Client "1" -- "*" VisitSchedule : makes >
+VisitSchedule "*" -- "*" Agent : availability checked >
+Agent "*" -- "*" VisitSchedule : confirms availability >
+SystemAdministrator "1" -- "1" LegacySystem : imports information from >
+Agent "1" -- "*" Order : accept or reject >
+
+@enduml

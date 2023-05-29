@@ -1,0 +1,79 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title US009 Domain Model
+
+class UserAccount {
+    email
+    password
+    roleDescription
+}
+
+class Person{
+    name
+    email
+    passportCardNumber
+    taxNumber
+    telephoneNumber
+}
+
+class Client extends Person{
+}
+
+/'class Address{
+    doorNumber
+    zipCode
+}
+
+class City{
+}
+
+class District{
+}
+
+class State{
+}
+
+class Street{
+}'/
+
+class Employee extends Person{
+}
+
+class Agent extends Employee{
+}
+
+class VisitSchedule{
+    name
+    telephoneNumber
+    date
+    startTime
+    endTime
+    approvedByAgent
+}
+
+Person "1" -- "1" UserAccount: has >
+Client "1" -- "*" VisitSchedule : makes >
+VisitSchedule "*" -- "*" Agent : availability checked >
+Agent "*" -- "*" VisitSchedule : confirms availability >
+
+
+
+
+
+/'Person "1" -- "*" Address: has >
+Street "*" -- "1" City : part of >
+District "*" -- "1" State : part of >
+City "*" -- "1" District : part of >
+Address "1" -- "1" State : has >'/
+
+
+
+
+
+@enduml

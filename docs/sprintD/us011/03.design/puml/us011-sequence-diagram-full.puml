@@ -1,0 +1,145 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as AGENT
+participant ":PropertyOrderManagementUI" as UI
+participant ":PropertyOrderManagementController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "AnnouncementRepository:\nAnnouncementRepository" as AnnouncementRepository
+participant "OrderRepository:\nOrderRepository" as OrderRepository
+
+
+activate AGENT
+
+AGENT -> UI : ask to list announcements and the orders to accept or reject
+activate UI
+UI -> CTRL** : create
+UI -> CTRL : getAllAnnouncementsSortedByproperty()
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+
+ CTRL -> PLAT : getAnnouncementRepository()
+activate PLAT
+
+PLAT --> CTRL: getAnnouncementRepository
+deactivate PLAT
+
+CTRL --> AnnouncementRepository : getAllAnnouncementsSortedByproperty()
+activate AnnouncementRepository
+
+ AnnouncementRepository --> CTRL : getAllAnnouncementsSortedByproperty
+deactivate AnnouncementRepository
+
+CTRL--> UI : getAllAnnouncementsSortedByproperty
+deactivate
+
+ UI -> AGENT: Display list of all announcements sorted by property \nand ask to select one
+ deactivate
+
+ AGENT -> UI : Select an announcement
+ activate UI
+
+UI -> CTRL : getOrdersListByAnnouncementId(Announcementid)
+activate CTRL
+
+ CTRL -> PLAT : getOrdersRepository()
+activate PLAT
+
+PLAT --> CTRL: getOrderRepository
+deactivate PLAT
+
+CTRL -> OrderRepository : getOrdersListByAnnouncementId(Announcementid)
+activate OrderRepository
+
+OrderRepository --> CTRL : OrdersList
+deactivate OrderRepository
+
+CTRL--> UI : OrdersList
+deactivate
+
+UI -> AGENT: Show list of orders and ask to select one
+deactivate
+
+AGENT -> UI : Select an order
+activate UI
+
+UI -> AGENT : ask to accept or reject the order
+deactivate
+
+alt accept the order
+
+    AGENT -> UI : Select accept
+    activate UI
+
+    UI -> CTRL : acceptOrder(Orderid,Announcementid)
+    activate CTRL
+
+    CTRL -> OrderRepository : acceptOrder(Orderid,Announcementid)
+    activate OrderRepository
+
+    loop
+    OrderRepository-->OrderRepository: change orderState (ACCEPTED)
+    end
+    OrderRepository --> CTRL : OrderAccepted
+    deactivate OrderRepository
+
+    CTRL -> OrderRepository : rejectAllOrder(Announcementid)
+    activate OrderRepository
+    loop
+    OrderRepository-->OrderRepository: change orderState (REJECTED)
+    end
+
+    OrderRepository --> CTRL : AllOrderRejected
+    deactivate OrderRepository
+
+    CTRL -> UI : OrderAccepted and All OtherOrdersRejected
+    deactivate
+
+    UI --> AGENT : displays operation success
+    deactivate
+
+else reject the order
+
+    AGENT -> UI : Select reject
+    activate UI
+
+    UI -> CTRL : rejectOrder(Orderid,Announcementid)
+    activate CTRL
+
+    CTRL -> OrderRepository : rejectOrder(Orderid,Announcementid)
+    activate OrderRepository
+
+   loop
+   OrderRepository-->OrderRepository: change orderState (REJECTED)
+   end
+
+    OrderRepository --> CTRL : orderRejected
+    deactivate OrderRepository
+
+    CTRL -> UI : OrderRejected
+    deactivate
+    UI --> AGENT : displays operation success
+deactivate
+end
+
+
+
+
+
+
+
+
+
+
+            @enduml

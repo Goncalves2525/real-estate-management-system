@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+
+skinparam classAttributeIconSize 0
+'skinparam groupInheritance 2
+
+hide circle
+hide methods
+
+title Domain Model
+
+class UserAcount{
+    email
+    password
+    roleDescription
+}
+
+class Employee extends Person{
+}
+class Person{
+    name
+    passportCardNumber
+    taxNumber
+    telephoneNumber
+    email
+}
+
+class Client extends Person{
+}
+
+class Order{
+    id
+    announcementId
+    orderAmount
+    clientEmail
+    date
+    orderState
+}
+
+class Agent extends Employee{
+}
+
+
+Client "1" -- "*" Order : makes >
+Order "*" -- "1" Agent : requested to >
+Person "1" -- "1" UserAcount : has >
+
+@enduml

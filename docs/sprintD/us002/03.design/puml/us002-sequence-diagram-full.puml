@@ -1,0 +1,90 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as AGENT
+participant ":PublishSaleAnnouncementUI" as UI
+participant ":PublishAnnouncementController" as CTRL
+participant ":Repositories" as REPO
+participant "announcementRepository:\nAnnouncementRepository" as ANNREPO
+
+activate AGENT
+
+AGENT -> UI : asks to publish an announcement
+
+activate UI
+
+UI -> CTRL: getInstance()
+activate CTRL
+
+    CTRL --> UI : publishAnnouncementController
+    deactivate CTRL
+
+    UI -> CTRL : getAnnouncements()
+    activate CTRL
+
+    CTRL --> REPO: getInstance()
+    activate REPO
+
+    REPO -> ANNREPO : getAnnouncementRepository()
+    activate ANNREPO
+
+    ANNREPO --> REPO: announcementRepository
+    deactivate ANNREPO
+
+    REPO --> CTRL : repositories
+    deactivate REPO
+
+    CTRL -> ANNREPO : getAnnouncements()
+    activate ANNREPO
+
+    ANNREPO --> CTRL: announcements
+    deactivate ANNREPO
+
+    CTRL --> UI : returns non published announcements
+    deactivate CTRL
+
+UI -> AGENT : shows non published announcements
+deactivate UI
+
+AGENT -> UI : selects ID of the Announcement to publish
+activate UI
+
+UI -> CTRL : getAnnouncementById(id)
+activate CTRL
+
+    CTRL -> ANNREPO : getAnnouncementsByID(announcementId)
+    activate ANNREPO
+
+    ANNREPO --> CTRL: return Announcement
+    deactivate ANNREPO
+
+    CTRL --> UI : returns Announcement details
+deactivate CTRL
+
+UI --> AGENT : shows Announcement details
+deactivate UI
+
+AGENT -> UI : Confirms to publish the Announcement
+activate UI
+
+UI -> CTRL : publishAnnouncement(announcement.getId())
+activate CTRL
+
+    CTRL -> ANNREPO : publishAnnouncement(announcement)
+    activate ANNREPO
+
+    ANNREPO --> CTRL : returns Announcement
+    deactivate ANNREPO
+
+    CTRL --> UI : returns Success message
+    deactivate CTRL
+
+UI --> AGENT : shows Success message
+deactivate UI
+
+@enduml

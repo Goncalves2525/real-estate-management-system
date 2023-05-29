@@ -1,0 +1,41 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) of US009 - Schedule a visit
+
+autonumber
+
+actor "Client" as Client
+participant ":System" as System
+
+activate Client
+
+
+    Client -> System : Ask to schedule a visit
+        activate System
+
+        System --> Client : Show all announcements sorted by newest to oldest and \nrequests to select the announcement ID to schedule a visit
+    deactivate System
+
+    Client -> System : Types the announcement ID
+        activate System
+
+        System --> Client : Requests data (date of visit, time of visit start and time of visit end))
+    deactivate System
+
+    Client -> System : Types requested data (date of visit, time of visit start and time of visit end)
+        activate System
+
+        System --> Client : Confirm there is not a visit request from the same client at the same time and\n display the data typed by the client for confirmation
+    deactivate System
+
+    Client -> System : Confirms that the information is correct and asks to send the message to the agent
+        activate System
+
+        System --> Client : Send a message to the agent and show a confirmation message to the client
+    deactivate System
+
+
+@enduml

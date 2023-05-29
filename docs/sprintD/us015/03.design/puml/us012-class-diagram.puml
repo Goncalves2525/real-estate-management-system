@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+'class LegacySystem {
+'    + loadData(location) : importResult
+'}
+
+class SystemAdministrator {
+    - name
+    - email
+}
+
+class ImportController {
+    - AnnouncementRepository
+    + importData()
+    + checkFile()
+}
+
+class ImportUI {
+    - ImportController
+    + selectFile()
+}
+
+class AnnouncementRepository {
+    - addAnnouncementFromImportedFile()
+}
+
+
+ImportUI ..> ImportController : calls
+
+'ImportInformationController --> LegacySystem : uses
+
+SystemAdministrator -- ImportUI : interacts
+
+ImportController ..> AnnouncementRepository : uses
+
+@enduml

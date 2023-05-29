@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US008 - Post an announcement
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : asks to create a new sale for publish from existing order
+activate System
+
+System --> Agent : Lists Announcements assigned to Agent that are not published yet\nand asks to select one
+deactivate System
+
+Agent -> System : selects an Announcement
+activate System
+
+System --> Agent : validates Commission and sets it to the selected Announcement
+deactivate System
+
+Agent -> System : confirms the Published Announcement
+activate System
+
+System --> Agent : publishes the Announcement, sets the Published Date and shows operation success
+deactivate System
+
+
+@enduml

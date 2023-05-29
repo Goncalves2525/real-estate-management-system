@@ -1,0 +1,128 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Client" as client
+participant "CreateOrderUI" as ui
+participant "CreateOrderController" as ctrl
+participant "Repositories" as REPOS
+participant "repositories\nRepositories" as repos
+participant "announcementRepository\nAnnouncementRepository" as AnnouncementRepository
+participant "authenticationRepository\nAuthenticationRepository" as AuthenticationRepository
+participant "authenticationFacade\nAuthenticationFacade" as AuthenticationFacade
+participant "userSession\nUserSession" as UserSession
+participant "user\nUser" as user
+participant "orderRepository\nOrderRepository" as OrderRepository
+
+
+
+
+
+activate client
+
+    client -> ui : requests to make an order to purchase a property
+    activate ui
+
+    ui -> client : requests announcement id
+    deactivate ui
+
+    client -> ui : inserts announcement id
+    activate ui
+
+    ui -> ctrl : getPropertyPriceByAnnouncementId(id)
+    activate ctrl
+
+    note right
+        Always creates instance of repositories
+    end note
+    ctrl -> REPOS : getInstance()
+    activate REPOS
+
+    REPOS --> ctrl : repositories
+    deactivate REPOS
+
+
+
+    ctrl -> repos : getAnnouncementRepository()
+    activate repos
+
+    repos --> ctrl : announcementRepository
+    deactivate repos
+
+    ctrl -> AnnouncementRepository : getPropertyPriceByAnnouncementId(id)
+    activate AnnouncementRepository
+
+    AnnouncementRepository -> AnnouncementRepository : getPropertyPriceByAnnouncementId(id)
+
+    AnnouncementRepository --> ctrl : price
+    deactivate AnnouncementRepository
+
+    ctrl --> ui : price
+    deactivate ctrl
+
+
+    ui --> client : requests order amount
+    deactivate ui
+
+    client -> ui : inserts order amount (equal or lower than the price set by the owner)
+    activate ui
+
+    ui -> ctrl : createOrder(announcemementId, amount)
+    activate ctrl
+
+
+    ctrl -> repos : getAuthenticationRepository()
+    activate repos
+
+    repos -> ctrl : authenticationRepository
+    deactivate repos
+
+    ctrl -> AuthenticationRepository : getUser()
+    activate AuthenticationRepository
+
+    AuthenticationRepository -> AuthenticationFacade : getCurrentUserSession()
+    activate AuthenticationFacade
+
+    AuthenticationFacade -> UserSession : getCurrentUserSession()
+    activate UserSession
+
+    UserSession -> user : getUserId()
+    activate user
+
+    user -> user : getId()
+
+    user --> UserSession : email
+    deactivate user
+
+    UserSession --> AuthenticationFacade : email
+    deactivate UserSession
+
+    AuthenticationFacade --> AuthenticationRepository : email
+    deactivate AuthenticationFacade
+
+    AuthenticationRepository --> ctrl : email
+    deactivate AuthenticationRepository
+
+    ctrl -> OrderRepository : createOrder(announcementId, amount, clientEmail, date, orderState)
+    activate OrderRepository
+
+    OrderRepository -> Order** : create
+
+    OrderRepository -> OrderRepository : addOrder(announcementId, amount, clientEmail, date, orderState)
+
+    OrderRepository --> ctrl : order
+    deactivate OrderRepository
+
+    ctrl --> ui : order
+    deactivate ctrl
+
+    ui --> client : displays operation success
+
+
+
+
+@enduml

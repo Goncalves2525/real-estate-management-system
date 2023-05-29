@@ -1,0 +1,46 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing true
+
+skinparam rectangle{
+    BorderColor yellow
+}
+
+title Use Case Diagram
+
+left to right direction
+
+rectangle "System Actors" as actors {
+    actor "Unregistered User"
+    actor "Client"
+    actor "Agent"
+    actor "System Administrator"
+    actor "Owner"
+}
+
+
+rectangle "Use Cases" as usecases{
+    usecase "UC1 - Display listed properties" as UC1
+            "Unregistered User" ---> UC1
+    usecase "UC2 - Publish any sale announcement on the system" as UC2
+            "Agent" --> UC2
+    usecase "UC3 - Register a new employee" as UC3
+            "System Administrator" --> UC3
+    usecase "UC4 - Submit Sale or Rent" as UC4
+            "Owner" --> UC4
+    usecase "UC7 - Register in the system to buy, sell or rent properties" as UC7
+            "Client" --> UC7
+    usecase "UC8 - See the list of property announcement requests made to himself" as UC8
+            "Agent" --> UC8
+    usecase "UC9 - Leave a message to the agent to schedule a visit to a property" as UC9
+            "Client" --> UC9
+    usecase "UC10 - Place an order to purchase the property" as UC10
+            "Client" --> UC10
+    usecase "UC11 - List real estate purchase orders to accept or decline a purchase order for a property" as UC11
+            "Agent" --> UC11
+    usecase "UC12 - Import information from a legacy system that has been in use in several agencies" as UC12
+            "System Administrator" --> UC12
+}
+
+@enduml

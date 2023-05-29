@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+
+class Employee  {
+}
+class Agent extends Employee {
+
+}
+class Employee extends Person{
+}
+class Person{
+    name
+    passportCardNumber
+    taxNumber
+    telephoneNumber
+    email
+}
+
+class Order{
+    id
+    announcementId
+    orderAmount
+    clientEmail
+    date
+    orderState
+}
+
+class Email{
+    email
+    decison
+    orderid
+}
+class Announcement{
+    typeOfBuisness
+    typeOfProperty
+    publishedDate
+    publishedBy
+    comission
+}
+class Client extends Person{
+}
+
+
+Agent "1" -- "*" Order: accepr or reject >
+Order "*" -- "1" Announcement: have <
+Agent "1" -- "*" Email: send >
+Email "1" -- "1" Client:  whith decison >
+
+
+@enduml

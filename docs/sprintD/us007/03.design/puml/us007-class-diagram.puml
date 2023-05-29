@@ -1,0 +1,81 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right directio
+
+
+class Repositories {
+    +Repositories()
+    +getInstance()
+    +getAuthenticationRepository()
+    +getUserRepository()
+}
+
+class RegisterUserController {
+    +getAuthenticationRepository()
+    +getUserRepository()
+    +createUser()
+    +addUser()
+}
+
+class RegisterUserUI {
++createUser()
++getController()
+}
+
+class AuthenticationRepository{
+    +createUser()
+}
+
+class UserRepository{
+    +addUser()
+}
+
+class User{
+    - String name
+    - String email
+    - String password
+    - int passportCardNumber
+    - int taxNumber
+    - int telephoneNumber
+    + setName()
+    + setEmail()
+    + setPassword()
+    + setPassportCardNumber()
+    + setTelephoneNumber()
+
+}
+
+class Address{
+    - String street
+    - String city
+    - String state
+    - int zipCode
+}
+
+
+Repositories -> Repositories : instances
+
+RegisterUserUI .> RegisterUserController
+
+RegisterUserController ..> Repositories
+
+Repositories "1" --> "1" AuthenticationRepository : has
+
+Repositories "1" --> "1" UserRepository : has
+
+UserRepository "1" -> "*" User : has
+
+User "1" -> "1" Address : has
+
+
+
+
+
+@enduml
