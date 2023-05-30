@@ -24,6 +24,8 @@ public class MainMenuWindow implements Runnable, Initializable {
     private Scene employeeScene;
     private Scene adminScene;
     private Scene clientScene;
+    private Scene storeManagerScene;
+    private Scene networkManagerScene;
     @FXML
     private Button btLogin;
     @FXML
@@ -32,7 +34,6 @@ public class MainMenuWindow implements Runnable, Initializable {
     private TextField txtEmail;
     @FXML
     private PasswordField txtPass;
-
 
 
     public MainMenuWindow() {
@@ -62,7 +63,15 @@ public class MainMenuWindow implements Runnable, Initializable {
             Parent adminRoot = adminLoader.load();
             adminScene = new Scene(adminRoot);
 
+            FXMLLoader storeManagerLoader = new FXMLLoader();
+            storeManagerLoader.setLocation(getClass().getResource("/StoreManagerMenuScene.fxml"));
+            Parent storeManagerRoot = storeManagerLoader.load();
+            storeManagerScene = new Scene(storeManagerRoot);
 
+            FXMLLoader networkManagerLoader = new FXMLLoader();
+            networkManagerLoader.setLocation(getClass().getResource("/NetworkManagerMenuScene.fxml"));
+            Parent networkManagerRoot = networkManagerLoader.load();
+            networkManagerScene = new Scene(networkManagerRoot);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -95,7 +104,9 @@ public class MainMenuWindow implements Runnable, Initializable {
     @FXML
     private void onBtLoginAction() {
         boolean success = false;
+        Alert alert;
         success = getAuthenticationController().doLogin(txtEmail.getText(), txtPass.getText());
+
 
         if (success) {
             List<UserRoleDTO> roles = getAuthenticationController().getUserRoles();
@@ -107,12 +118,14 @@ public class MainMenuWindow implements Runnable, Initializable {
                     List<MenuItem> rolesUI = getMenuItemForRoles();
                     this.redirectToRoleUI(rolesUI, role);
                 } else {
-                    createAlert(Alert.AlertType.WARNING, "Roles", "No roles selected");
+                    alert = createAlert(Alert.AlertType.WARNING, "Roles", "No roles selected");
+                    alert.show();
                 }
             }
         }
         else {
-            createAlert(Alert.AlertType.ERROR, "Login", "Login failed.");
+            alert = createAlert(Alert.AlertType.ERROR, "Login", "Login failed.");
+            alert.show();
         }
     }
 
@@ -127,11 +140,11 @@ public class MainMenuWindow implements Runnable, Initializable {
             } else if (role.getDescription().equals(AuthenticationController.ROLE_CLIENT)) {
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_CLIENT, new MainMenuWindow()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_NETWORK_MANAGER)) {
-                //currently not in use; ignore the UI used
+
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, new MainMenuWindow()));
             } else if (role.getDescription().equals(AuthenticationController.ROLE_STORE_MANAGER)){
-                //currently not in use; ignore the UI used
-                rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, new MainMenuWindow()));
+
+                rolesUI.add(new MenuItem(AuthenticationController.ROLE_STORE_MANAGER, new MainMenuWindow()));
             } else {
                 rolesUI.add(new MenuItem(AuthenticationController.ROLE_NO_ROLE, new MainMenuWindow()));
             }
@@ -176,6 +189,22 @@ public class MainMenuWindow implements Runnable, Initializable {
                     mainStage.setScene(clientScene);
                     mainStage.setTitle("Client Menu");
                     mainStage.show();
+                } else if (item.toString().equals(AuthenticationController.ROLE_STORE_NETWORK_MANAGER)) {
+                    txtEmail.clear();
+                    txtPass.clear();
+                    Stage mainStage = getMainStage();
+                    mainStage.setScene(networkManagerScene);
+                    mainStage.setTitle("Store Network Manager Menu");
+                    mainStage.show();
+                } else if (item.toString().equals(AuthenticationController.ROLE_STORE_MANAGER)) {
+                    txtEmail.clear();
+                    txtPass.clear();
+                    Stage mainStage = getMainStage();
+                    mainStage.setScene(storeManagerScene);
+                    mainStage.setTitle("Store Manager Menu");
+                    mainStage.show();
+                } else {
+                    System.out.println("There is no UI for users with role '" + role.getDescription() + "'");
                 }
             }
         }

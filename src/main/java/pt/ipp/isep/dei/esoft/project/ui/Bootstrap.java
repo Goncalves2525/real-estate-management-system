@@ -118,9 +118,10 @@ public class Bootstrap implements Runnable {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
         authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE,
-                AuthenticationController.ROLE_EMPLOYEE);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE, AuthenticationController.ROLE_EMPLOYEE);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_CLIENT, AuthenticationController.ROLE_CLIENT);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_STORE_MANAGER, AuthenticationController.ROLE_STORE_MANAGER);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_STORE_NETWORK_MANAGER, AuthenticationController.ROLE_STORE_NETWORK_MANAGER);
 
         authenticationRepository.addUserWithRole("MainAdministrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
@@ -136,6 +137,12 @@ public class Bootstrap implements Runnable {
 
         authenticationRepository.addUserWithRole("Joao Comprador", "client1@this.app", "pwd",
                 AuthenticationController.ROLE_CLIENT);
+
+        authenticationRepository.addUserWithRole("Store Manager", "storemanager@this.app", "pwd",
+                AuthenticationController.ROLE_STORE_MANAGER);
+
+        authenticationRepository.addUserWithRole("Network Manager", "networkmanager@this.app", "pwd",
+                AuthenticationController.ROLE_STORE_NETWORK_MANAGER);
 
 
     }
