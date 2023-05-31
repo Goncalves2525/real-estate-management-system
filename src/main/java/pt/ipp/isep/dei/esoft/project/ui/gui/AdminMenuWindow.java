@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -74,8 +75,23 @@ public class AdminMenuWindow implements Runnable {
     }
 
     @FXML
-    private void onbtLogout(javafx.event.ActionEvent event) {
-        btLogout.getScene().getWindow().hide();
+    public void onbtLogout(ActionEvent actionEvent) {
+        Stage mainStage = getMainStage();
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/MainMenuScene.fxml"));
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene mainMenuScene = new Scene(mainMenuRoot);
+        mainStage.setScene(mainMenuScene);
+        mainStage.setTitle("Real Estate USA");
+        mainStage.show();
+    }
+
+    private Stage getMainStage() {
+        return (Stage) btLogout.getScene().getWindow();
     }
 
 }

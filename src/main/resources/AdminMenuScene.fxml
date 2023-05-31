@@ -29,7 +29,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="btLogout" mnemonicParsing="false" onAction="#onbtLogout" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="btLogout" mnemonicParsing="false" onAction="#onbtLogout" text="Return" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font size="21.0" />
          </font>
