@@ -515,8 +515,13 @@ public class RegisterEmployeeUI implements Runnable {
             boolean success = controller.registerEmployee(name, email, passportCardNumber, taxNumber, telephoneNumber, address, agencyID, selectedRoles);
 
             if (success) {
-
-                controller.createUser(name, email, password, AuthenticationController.ROLE_EMPLOYEE);
+                if (selectedRoles.contains(Role.STORE_NETWORK_MANAGER)) {
+                    controller.createUser(name, email, password, AuthenticationController.ROLE_STORE_NETWORK_MANAGER);
+                } else if (selectedRoles.contains(Role.STORE_MANAGER)) {
+                    controller.createUser(name, email, password, AuthenticationController.ROLE_STORE_MANAGER);
+                } else {
+                    controller.createUser(name, email, password, AuthenticationController.ROLE_EMPLOYEE);
+                }
 
                 writePasswordToFile(name, email, password, "email.txt");
 
