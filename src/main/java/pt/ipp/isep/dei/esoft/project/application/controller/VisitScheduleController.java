@@ -41,6 +41,15 @@ public class VisitScheduleController {
     }
 
 
+    public String getPropertyAddressByAnnouncementId(int id) {
+        Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
+        Property property = getPropertyByAnnouncement(announcement);
+        return String.valueOf(property.getAddress());
+    }
+
+
+
+
     /**
      * Get announcement sorted by default criteria array list.
      */
@@ -51,13 +60,14 @@ public class VisitScheduleController {
 
 
     /**
-     * Get property by id announcement.
+     * Get property by announcement.
      * @param announcement
      * @return property
      */
     public Property getPropertyByAnnouncement(Announcement announcement){
         return getAnnouncementRepository().getPropertyByAnnouncement(announcement);
     }
+
 
     /**
      * Get client repository
@@ -198,6 +208,8 @@ public class VisitScheduleController {
     }
 
 
+
+
     /**
      * Save visit schedule
      * @param announcementID announcement id
@@ -208,11 +220,11 @@ public class VisitScheduleController {
      * @param endTime visit end time
      * @param approvedbyAgent true if approved by agent
      */
-    public void saveVisitSchedule(int announcementID , String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent){
+    public void saveVisitSchedule(int announcementID , String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent, String adressOfProperty){
         String agentEmail = getAgentEmailByAnnouncementID(announcementID);
-        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail);
+        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail, adressOfProperty);
         this.visitScheduleRepository.addVisitSchedule(visitSchedule);
-        sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail);
+        sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail, adressOfProperty);
     }
 
     /**
@@ -225,7 +237,7 @@ public class VisitScheduleController {
      * @param endTime visit end time
      * @param agentEmail agent email
      */
-    private void sendEmailToAgent(int announcementID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail) {
+    private void sendEmailToAgent(int announcementID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail, String adressOfProperty) {
         String filename = "EmailToAgent_" + agentEmail + "_Announcement_" + announcementID + ".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             if (agentEmail != null) {
@@ -234,7 +246,7 @@ public class VisitScheduleController {
             writer.write("Subject: Visit Schedule - Announcement " + announcementID + "\n\n");
             writer.write("Dear Agent,\n\n");
             if (name != null) {
-                writer.write("My name is " + name + ". I am interested in the property listed under announcement number " + announcementID + ".\n\n");
+                writer.write("My name is " + name + ". I am interested in the property listed under announcement number " + announcementID + " which is located at " + adressOfProperty + ".\n\n");
             }
             if (date != null && startTime != null && endTime != null) {
                 writer.write("I would like to propose a visit on " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " starting from " + startTime + " until " + endTime + ". Please feel free to contact me at the following telephone number: " + telephoneNumber + " if there are any issues with the proposed timing.\n\n");

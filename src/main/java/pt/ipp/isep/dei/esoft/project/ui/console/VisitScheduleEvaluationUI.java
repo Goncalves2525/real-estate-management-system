@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.VisitScheduleControl
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,11 +27,25 @@ public class VisitScheduleEvaluationUI implements Runnable {
         }
 
         System.out.println("Select a visit to approve or remove (or enter a negative number to exit):");
-        int visitIndex = sc.nextInt() - 1;
-        sc.nextLine(); // Consume newline
-        if (visitIndex < 0) {
-            System.out.println("Exiting...");
-            return;
+
+        int visitIndex = -1;
+
+        while (true) {
+            try {
+                visitIndex = sc.nextInt() - 1;
+                sc.nextLine(); // Consume newline
+                if (visitIndex < 0) {
+                    return;
+                }
+                System.out.println(pendingVisits.get(visitIndex)); // This will throw IndexOutOfBoundsException if index is invalid
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid integer:");
+                sc.nextLine(); // Consume invalid input
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid input. Please enter a number between 1 and " + pendingVisits.size() + ":");
+                sc.nextLine(); // Consume invalid input
+            }
         }
 
         String response="";

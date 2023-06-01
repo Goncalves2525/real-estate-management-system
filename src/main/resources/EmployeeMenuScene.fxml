@@ -18,7 +18,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button fx:id="btAppointmentRequest" mnemonicParsing="false" onAction="#onBtAppointmentRequest" prefHeight="48.0" prefWidth="267.0" text="Appointment requests" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button fx:id="btAppointmentRequest" mnemonicParsing="false" onAction="#onBtAppointmentRequest" onKeyPressed="#onKeyEnterbtAppointmentRequest" prefHeight="48.0" prefWidth="267.0" text="Visit Schedule Requests" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
@@ -26,9 +26,9 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="btReturn" mnemonicParsing="false" onAction="#onBtReturn" text="Return" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <Button fx:id="btReturn" mnemonicParsing="false" onAction="#onBtReturn" text="Return" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <GridPane.margin>
-            <Insets right="50.0" />
+            <Insets bottom="15.0" right="15.0" />
          </GridPane.margin>
          <font>
             <Font size="22.0" />

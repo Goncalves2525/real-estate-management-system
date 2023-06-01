@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,8 +30,19 @@ public class EmployeeMenuWindow implements Runnable {
     }
 
     @FXML
-    public void onBtAppointmentRequest(ActionEvent actionEvent) {
-
+    public void onBtAppointmentRequest() {
+        Stage mainStage = getMainStage();
+        FXMLLoader visitScheduleRequestsLoader = new FXMLLoader(getClass().getResource("/VisitScheduleRequestsScene.fxml"));
+        Parent visitScheduleRequestsRoot = null;
+        try {
+            visitScheduleRequestsRoot = visitScheduleRequestsLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene visitScheduleRequestsScene = new Scene(visitScheduleRequestsRoot);
+        mainStage.setScene(visitScheduleRequestsScene);
+        mainStage.setTitle("Real Estate USA - Visit Schedule Requests");
+        mainStage.show();
     }
 
     @FXML
@@ -50,5 +63,10 @@ public class EmployeeMenuWindow implements Runnable {
 
     private Stage getMainStage() {
         return (Stage) btReturn.getScene().getWindow();
+    }
+
+    public void onKeyEnterbtAppointmentRequest(KeyEvent keyEvent) {if (keyEvent.getCode() == KeyCode.ENTER) {
+        onBtAppointmentRequest();
+    }
     }
 }

@@ -101,7 +101,6 @@ public class MainMenuWindow implements Runnable, Initializable {
         mainStage.show();
     }
 
-
     @FXML
     private void onBtLoginAction() {
         boolean success = false;
@@ -230,7 +229,6 @@ public class MainMenuWindow implements Runnable, Initializable {
             onBtLoginAction();
         }
     }
-
 
 
 

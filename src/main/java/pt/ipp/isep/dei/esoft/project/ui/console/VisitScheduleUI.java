@@ -137,7 +137,7 @@ public class VisitScheduleUI implements Runnable {
         if (!controller.isOverlappingWithExistingSchedules(phoneNumber, visitDate, startTime, endTime)) {
             System.out.println("Are you trying to schedule a visit to the property with the ID "+ announcementID+  " to date " + visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " from " + startTime + " to " + endTime + ".");
             if (isTheInformationCorrect()){
-            controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false);
+            controller.saveVisitSchedule(announcementID, controller.getCurrentUserName(), phoneNumber, visitDate, startTime, endTime,false, controller.getPropertyAddressByAnnouncementId(announcementID));
             System.out.println("Your visit has sent to the Agent for confirmation.");
             } else {
                 System.out.println("Your visit has not been scheduled.");
