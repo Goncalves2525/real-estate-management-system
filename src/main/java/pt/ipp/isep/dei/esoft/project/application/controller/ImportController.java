@@ -4,8 +4,11 @@ import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Scanner;
 
 /**
@@ -93,5 +96,24 @@ public class ImportController {
     private Date parseDate(String date) {
         String[] dateSplit = date.split("-");
         return new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
+    }
+
+    //create a method to load properties from a file with the Properties class
+    public void loadProperties(String file) {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream("path/filename"));
+        } catch (IOException e) {
+        }
+    }
+
+
+
+
+    public void sendEmail(String mail) {
+
+
+
+
     }
 }

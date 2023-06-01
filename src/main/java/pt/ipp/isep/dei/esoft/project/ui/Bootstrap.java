@@ -4,9 +4,13 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
 public class Bootstrap implements Runnable {
 
@@ -18,8 +22,44 @@ public class Bootstrap implements Runnable {
         addAnnouncements();
         addClients();
         addOrders();
+        addEmailProperties();
+        addSMSProperties();
     }
 
+    private void addSMSProperties() {
+        try{
+            OutputStream output = new FileOutputStream("src/main/resources/sms.properties");
+            Properties prop = new Properties();
+
+            prop.setProperty("user","isepSMS");
+            prop.setProperty("password","isepSMS");
+            prop.setProperty("number", "123456789");
+            // save properties to project root folder
+            prop.store(output, null);
+        }
+        catch (IOException ex){
+            System.out.println("Error reading file or file not found");
+        }
+    }
+
+    private void addEmailProperties() {
+        try{
+            OutputStream output = new FileOutputStream("src/main/resources/email.properties");
+            Properties prop = new Properties();
+
+            prop.setProperty("user","isepEmail");
+            prop.setProperty("password","isepEmail");
+            prop.setProperty("host","isep.ipp.pt");
+            prop.setProperty("port","123");
+            prop.setProperty("smtp","smtp");
+            prop.setProperty("from", "no-reply@this.app");
+            // save properties to project root folder
+            prop.store(output, null);
+        }
+        catch (IOException ex){
+            System.out.println("Error reading file or file not found");
+        }
+    }
 
 
     private void addAgencies() {

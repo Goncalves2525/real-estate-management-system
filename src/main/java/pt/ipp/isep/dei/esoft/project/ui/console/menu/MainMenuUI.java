@@ -38,6 +38,7 @@ public class MainMenuUI implements Runnable {
             options.add(new MenuItem("Register", new RegisterUserUI()));
             options.add(new MenuItem("View Properties", new ListAnnouncementsUI()));
             options.add(new MenuItem("Dev Team", new DevTeamUI()));
+            options.add(new MenuItem("Set/Read System Properties", new SystemPropertiesUI()));
 
         //}
 
