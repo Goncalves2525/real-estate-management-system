@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Luis Leal 1100253@isep.ipp.pt
@@ -297,4 +299,13 @@ public class VisitScheduleController {
     }
 
 
+    public List<VisitSchedule> getFilteredVisitsByAgentEmail(String agentEmail, LocalDate startDate, LocalDate endDate) {
+        List<VisitSchedule> filteredVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
+            if (visit.getAgentEmail().equals(agentEmail) && visit.getDate().compareTo(startDate) >= 0 && visit.getDate().compareTo(endDate) <= 0) {
+                filteredVisits.add(visit);
+            }
+        }
+        return filteredVisits;
+    }
 }

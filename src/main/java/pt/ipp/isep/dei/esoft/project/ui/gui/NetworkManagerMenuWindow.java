@@ -1,64 +1,19 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NetworkManagerMenuWindow implements Initializable {
 
-
     @FXML
-    private Button btSelectionSort;
-
-    @FXML
-    private Button btInsertionSort;
-
-    @FXML
-    private Button btReturn;
-
-
+    private Label lb;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-
-    public void noBtSelectionSort(ActionEvent actionEvent) {
-
-
-    }
-
-    public void onBtInsertionSort(ActionEvent actionEvent) {
-
-    }
-
-    public void onBtReturn(ActionEvent actionEvent) {
-        Stage mainStage = getMainStage();
-        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/MainMenuScene.fxml"));
-        Parent mainMenuRoot = null;
-        try {
-            mainMenuRoot = mainMenuLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene mainMenuScene = new Scene(mainMenuRoot);
-        mainStage.setScene(mainMenuScene);
-        mainStage.setTitle("Real Estate USA");
-        mainStage.show();
-
-    }
-
-    private Stage getMainStage() {
-        return (Stage) this.btReturn.getScene().getWindow();
     }
 }
