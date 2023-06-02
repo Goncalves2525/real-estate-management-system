@@ -59,7 +59,38 @@ public class PropertyRepository {
         return properties;
     }
 
-
+    public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
+        ArrayList<Property> propertiesSorted = new ArrayList<>();
+        for (Property p : properties) {
+            propertiesSorted.add(p);
+        }
+        for (int i = 1; i < propertiesSorted.size(); i++) {
+            Property key = propertiesSorted.get(i);
+            int j = i - 1;
+            while (j >= 0 && propertiesSorted.get(j).getArea() > key.getArea()) {
+                propertiesSorted.set(j + 1, propertiesSorted.get(j));
+                j = j - 1;
+            }
+            propertiesSorted.set(j + 1, key);
+        }
+        return propertiesSorted;
+    }
+    public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
+        ArrayList<Property> propertiesSorted = new ArrayList<>();
+        for (Property p : properties) {
+            propertiesSorted.add(p);
+        }
+        for (int i = 1; i < propertiesSorted.size(); i++) {
+            Property key = propertiesSorted.get(i);
+            int j = i - 1;
+            while (j >= 0 && propertiesSorted.get(j).getArea() < key.getArea()) {
+                propertiesSorted.set(j + 1, propertiesSorted.get(j));
+                j = j - 1;
+            }
+            propertiesSorted.set(j + 1, key);
+        }
+        return propertiesSorted;
+    }
 
 
 

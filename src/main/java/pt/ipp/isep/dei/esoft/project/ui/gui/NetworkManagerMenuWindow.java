@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,13 +34,25 @@ public class NetworkManagerMenuWindow implements Initializable {
 
     }
 
-    public void noBtSelectionSort(ActionEvent actionEvent) {
 
+    public void onBtInsertionSort(ActionEvent actionEvent) {
+        Stage mainStage = getSortStage();
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/NetworkManagerSortScene.fxml"));
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene mainMenuScene = new Scene(mainMenuRoot);
+        mainStage.setScene(mainMenuScene);
+        mainStage.setTitle("Real Estate USA");
+        mainStage.show();
 
     }
 
-    public void onBtInsertionSort(ActionEvent actionEvent) {
-
+    private Stage getSortStage() {
+        return (Stage) this.btInsertionSort.getScene().getWindow();
     }
 
     public void onBtReturn(ActionEvent actionEvent) {
@@ -58,7 +71,12 @@ public class NetworkManagerMenuWindow implements Initializable {
 
     }
 
-    private Stage getMainStage() {
+    private Stage getMainStage()
+    {
         return (Stage) this.btReturn.getScene().getWindow();
+    }
+
+
+    public void onBtSelectionSort(ActionEvent event) {
     }
 }

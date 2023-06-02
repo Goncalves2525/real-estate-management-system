@@ -19,7 +19,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button fx:id="btSelectionSort" mnemonicParsing="false" onAction="#noBtSelectionSort" prefHeight="48.0" prefWidth="528.0" text="Selection Sort" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="btSelectionSort" mnemonicParsing="false" onAction="#onBtSelectionSort" prefHeight="48.0" prefWidth="528.0" text="Selection Sort" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="200.0" right="200.0" />
          </GridPane.margin>

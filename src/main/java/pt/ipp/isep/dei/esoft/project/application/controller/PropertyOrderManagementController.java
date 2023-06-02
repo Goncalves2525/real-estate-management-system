@@ -4,10 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Order;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrderRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,13 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyOrderManagementController {
+    private PropertyRepository propertyRepository = null;
     private OrderRepository orderRepository = null;
     private AnnouncementRepository announcementRepository;
     private AuthenticationRepository authenticationRepository;
 
     public PropertyOrderManagementController() {
-
+        getPropertyRepository();
         getOrderRepository();
+    }
+
+    private void getPropertyRepository() {
+        if (propertyRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            propertyRepository = repositories.getPropertyRepository();
+        }
     }
 
     private OrderRepository getOrderRepository() {
@@ -129,6 +134,12 @@ public class PropertyOrderManagementController {
 
 
 
+    }
+    public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
+        return propertyRepository.getPropertiesInsertionSortByAreaDescending();
+    }
+    public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
+        return propertyRepository.getPropertiesInsertionSortByAreaAscending();
     }
 }
 
