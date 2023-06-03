@@ -302,7 +302,7 @@ public class VisitScheduleController {
     public List<VisitSchedule> getFilteredVisitsByAgentEmail(String agentEmail, LocalDate startDate, LocalDate endDate) {
         List<VisitSchedule> filteredVisits = new ArrayList<>();
         for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (visit.getAgentEmail().equals(agentEmail) && visit.getDate().compareTo(startDate) >= 0 && visit.getDate().compareTo(endDate) <= 0) {
+            if (visit.getAgentEmail().equals(agentEmail) && visit.getDate().compareTo(startDate) >= 0 && visit.getDate().compareTo(endDate) <= 0 && !visit.isApprovedByAgent()) {
                 filteredVisits.add(visit);
             }
         }

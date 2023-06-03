@@ -85,11 +85,14 @@ public class VisitScheduleRequestsWindow implements Initializable {
     }
     @FXML
     public void onbtFilterSchedules(ActionEvent actionEvent) {
+        showFilteredVisits();
+    }
+
+    public void showFilteredVisits() {
         LocalDate startDate = dpStartDate.getValue();
         LocalDate endDate = dpEndDate.getValue();
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> filteredVisits = controller.getFilteredVisitsByAgentEmail(agentEmail, startDate, endDate);
-
         showObservableList(filteredVisits);
     }
 
@@ -168,12 +171,12 @@ public class VisitScheduleRequestsWindow implements Initializable {
 
     public void removeVisit(VisitSchedule visit) {
         controller.removeVisit(visit);
-        listPendingVisits();
+        showFilteredVisits();
     }
 
     public void approveVisit(VisitSchedule visit) {
         controller.approveVisit(visit);
-        listPendingVisits();
+        showFilteredVisits();
     }
 
     @FXML
