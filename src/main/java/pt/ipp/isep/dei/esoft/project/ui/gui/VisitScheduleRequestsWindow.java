@@ -10,17 +10,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.VisitScheduleController;
+import pt.ipp.isep.dei.esoft.project.domain.SortStrategy;
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -80,8 +79,9 @@ public class VisitScheduleRequestsWindow implements Initializable {
     private void listPendingVisits() {
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> pendingVisits = controller.getPendingVisitsByAgentEmail(agentEmail);
-
-        showObservableList(pendingVisits);
+        SortStrategy sortStrategy = controller.getSortStrategyFromConfig();
+        List<VisitSchedule> sortedVisits = sortStrategy.sort(pendingVisits);
+        showObservableList(sortedVisits);
     }
     @FXML
     public void onbtFilterSchedules(ActionEvent actionEvent) {
@@ -93,8 +93,12 @@ public class VisitScheduleRequestsWindow implements Initializable {
         LocalDate endDate = dpEndDate.getValue();
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> filteredVisits = controller.getFilteredVisitsByAgentEmail(agentEmail, startDate, endDate);
-        showObservableList(filteredVisits);
+        SortStrategy sortStrategy = controller.getSortStrategyFromConfig();
+        List<VisitSchedule> sortedVisits = sortStrategy.sort(filteredVisits);
+
+        showObservableList(sortedVisits);
     }
+
 
     public void showObservableList(List<VisitSchedule> filteredVisits) {
         ObservableList<VisitSchedule> data = FXCollections.observableArrayList(filteredVisits);

@@ -1,20 +1,21 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Client;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
-import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.ui.gui.VisitScheduleRequestsWindow;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @author Luis Leal 1100253@isep.ipp.pt
@@ -302,10 +303,50 @@ public class VisitScheduleController {
     public List<VisitSchedule> getFilteredVisitsByAgentEmail(String agentEmail, LocalDate startDate, LocalDate endDate) {
         List<VisitSchedule> filteredVisits = new ArrayList<>();
         for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (visit.getAgentEmail().equals(agentEmail) && visit.getDate().compareTo(startDate) >= 0 && visit.getDate().compareTo(endDate) <= 0 && !visit.isApprovedByAgent()) {
+            if (visit.getAgentEmail().equals(agentEmail)
+                    && (startDate == null || visit.getDate().compareTo(startDate) >= 0)
+                    && (endDate == null || visit.getDate().compareTo(endDate) <= 0)
+                    && !visit.isApprovedByAgent()) {
                 filteredVisits.add(visit);
             }
         }
         return filteredVisits;
+    }
+
+    public SortStrategy getSortStrategyFromConfig() {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+            String filename = "sortAlgoritm.properties";
+            input = VisitScheduleRequestsWindow.class.getClassLoader().getResourceAsStream(filename);
+            if (input == null) {
+                System.out.println("Sorry, unable to find " + filename);
+                return null;
+            }
+
+            prop.load(input);
+
+            String strategyClass = prop.getProperty("sorting.strategy");
+
+            SortStrategy sortStrategy = (SortStrategy) Class.forName(strategyClass).getDeclaredConstructor().newInstance();
+
+            return sortStrategy;
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ReflectiveOperationException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
     }
 }
