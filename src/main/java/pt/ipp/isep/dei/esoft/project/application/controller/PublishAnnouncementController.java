@@ -7,11 +7,14 @@ import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
-    /**
-    * This class is the controller for the user story of publishing announcements.
-    */
+/**
+ * This class is the controller for the user story of publishing announcements.
+ */
 public class PublishAnnouncementController {
     /**
      * The Announcement repository.
@@ -35,50 +38,51 @@ public class PublishAnnouncementController {
     /**
      * @return List<Announcement> the list of announcements
      */
-    public List<Announcement> getAnnouncementsByUser(){
+    public List<Announcement> getAnnouncementsByUser() {
         String userEmail = authenticationRepository.getCurrentUserSession().getUserId().getEmail();
         return announcementRepository.getAnnouncementsByAgent(userEmail);
     }
 
     /**
      * Publishes an announcement by its id
+     *
      * @param id the id of the announcement
      */
     public void publishAnnouncement(int id) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
-        try{
+        try {
             if (announcement.getId() >= 0) {
                 announcement.setIsPublished();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Invalid announcement id");
         }
     }
 
     /**
      * Sets the commission of an announcement by its id
-     * @param id the id of the announcement
+     *
+     * @param id         the id of the announcement
      * @param commission the commission of the announcement
      */
     public void setCommission(int id, Commission commission) {
         Announcement announcement = announcementRepository.getAnnouncementById(id);
-        try{
+        try {
             if (announcement.getId() >= 0) {
                 announcement.setCommission(commission);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Invalid announcement id");
         }
     }
 
     /**
      * Gets the announcement by its id
+     *
      * @param id the id of the announcement
      * @return Announcement the announcement
      */
-    public Announcement getAnnouncementById(int id){
+    public Announcement getAnnouncementById(int id) {
         try {
             return announcementRepository.getAnnouncementById(id);
         } catch (IllegalArgumentException e) {
@@ -86,7 +90,35 @@ public class PublishAnnouncementController {
         }
     }
 
-        public Property getPropertyByAnnouncement(Announcement announcement){
-            return announcementRepository.getPropertyByAnnouncement(announcement);
+    /**
+     * Gets the property by its announcement
+     *
+     * @param announcement the announcement
+     * @return Property the property
+     */
+    public Property getPropertyByAnnouncement(Announcement announcement) {
+        return announcementRepository.getPropertyByAnnouncement(announcement);
+    }
+
+    /**
+     * Sends a notification to the owner of an announcement's property
+     *
+     * @param announcement the announcement
+     */
+    public void sendNotification(Announcement announcement) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("sms.properties")) {
+
+            Properties prop = new Properties();
+
+            if (input == null) {
+                System.out.println("Sorry, unable to find file");
+                return;
+            }
+            prop.load(input);
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+    }
 }

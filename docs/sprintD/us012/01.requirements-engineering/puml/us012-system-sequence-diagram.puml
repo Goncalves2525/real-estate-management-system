@@ -27,7 +27,7 @@ activate Admin
     Admin -> System: selects csv file location
     activate System
 
-    System --> Admin: checks if the file is valid and displays the amount of \ndata found to import
+    System --> Admin: displays the amount of data found to import \nand the success message
     deactivate System
 
 '    Admin -> System: selects the delimiter
@@ -36,11 +36,11 @@ activate Admin
 '    System --> Admin: displays the data that it found in the csv file
 '    deactivate System
 
-    Admin -> System : confirms the displayed data is the one to import
-    activate System
-
-    System --> Admin : displays success message
-    deactivate System
+'    Admin -> System : confirms the displayed data is the one to import
+'    activate System
+'
+'    System --> Admin : displays success message
+'    deactivate System
 
 
 @enduml

@@ -68,6 +68,8 @@ public class PublishAnnouncementUI implements Runnable {
                             if(confirmation.equals("Y") || confirmation.equals("y")){
                                 controller.publishAnnouncement(id);
                                 System.out.println("Announcement with ID " + id + " published successfully!\n");
+                                controller.sendNotification(controller.getAnnouncementById(id));
+                                System.out.println("SMS notification sent to the property owner.\n");
                                 announcements = controller.getAnnouncementsByUser();
                             }
                         }while (!confirmation.equals("Y") && !confirmation.equals("y") && !confirmation.equals("N") && !confirmation.equals("n"));

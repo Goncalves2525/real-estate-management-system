@@ -1,11 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.utils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -147,4 +147,77 @@ public class Utils {
 
         return value - 1;
     }
+
+    /**
+     * Sends an email to a recipient
+     * @param mail - the recipient's email
+     * @param subject - the email's subject
+     * @param body - the email's body
+     */
+    public Boolean sendEmail(String mail, String subject, String body) {
+        try{
+            Properties prop = loadPropertiesFromFile("email.properties");
+            String host = prop.getProperty("host");
+            String port = prop.getProperty("port");
+            String user = prop.getProperty("user");
+            String pass = prop.getProperty("password");
+            String from = prop.getProperty("from");
+
+            FileWriter myWriter = new FileWriter("emailNotification.txt");
+            myWriter.write("From: " + from + "\n");
+            myWriter.write("To: " + mail + "\n");
+            myWriter.write("Subject: " + subject + "\n");
+            myWriter.write("Body: " + body + "\n");
+            myWriter.close();
+            return true;
+        }catch (Exception e){
+            System.out.println("An error occurred." + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Sends a SMS to a recipient
+     * @param number - the recipient's number
+     * @param message - the message to send
+     */
+    public Boolean sendSMS(String number, String message) {
+        try{
+            Properties prop = loadPropertiesFromFile("email.properties");
+            String numberFrom = prop.getProperty("number");
+            String password = prop.getProperty("password");
+            String user = prop.getProperty("user");
+
+            FileWriter myWriter = new FileWriter("smsNotification.txt");
+            myWriter.write("From: " + numberFrom + "\n");
+            myWriter.write("To: " + number + "\n");
+            myWriter.write("Message: " + message + "\n");
+            myWriter.close();
+            return true;
+        }catch (Exception e){
+            System.out.println("An error occurred." + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Loads properties from a file
+     * @param fileName - the name of the file
+     * @return
+     */
+    public Properties loadPropertiesFromFile(String fileName) {
+        Properties prop = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(fileName)) {
+
+            if (input == null) {
+                System.out.println("Error finding file");
+                return null;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return prop;
+    }
+
+
 }

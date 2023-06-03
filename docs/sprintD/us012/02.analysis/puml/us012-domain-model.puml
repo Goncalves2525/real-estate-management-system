@@ -20,6 +20,42 @@ class Order{
     date
     orderState
 }
+
+class LegacySystem{
+    sid
+    owner_name
+    owner_passportNum
+    owner_TIN
+    owner_email
+    owner_phone
+    property_type
+    property_area
+    property_location
+    property_distanceFromCenter
+    property_numberBedrooms
+    property_numberBathrooms
+    property_pnumParking
+    property_centralHeating
+    property_airconditioned
+    property_basement
+    property_loft
+    property_sunExposure
+    property_requested_sale_rent_price
+    property_sale_rent_price
+    commission
+    contract_duration
+    property_dateAnnounceRequest
+    property_dateofSale
+    type_business
+    store_ID
+    store_name
+    store_location
+    store_phonenumber
+    store_emailAddress
+}
+
+
+LegacySystem "1" -- "1" SystemAdministrator : receives data from <
 SystemAdministrator "1" -- "1" Order : creates from imported data >
 
 @enduml

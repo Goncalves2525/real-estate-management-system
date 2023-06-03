@@ -1,12 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.DataImporter;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -28,8 +28,7 @@ public class ImportController {
 
     /**
      * Reads a file.
-     *
-     * @param file      file to read
+     * @param file file to read
      * @param delimiter delimiter
      * @return result of the read operation
      */
@@ -55,9 +54,7 @@ public class ImportController {
         return readResult;
     }
 
-    /**
-     * Checks if a file exists.
-     *
+    /** Checks if a file exists.
      * @param fileName name of the file
      * @return true if the file exists, false otherwise
      */
@@ -68,7 +65,6 @@ public class ImportController {
 
     /**
      * Imports data from a file.
-     *
      * @param dataToImport data to import
      * @return result of the import operation
      */
@@ -95,7 +91,6 @@ public class ImportController {
 
     /**
      * Parses a date.
-     *
      * @param date string date to parse
      * @return parsed date
      */
@@ -104,12 +99,18 @@ public class ImportController {
         return new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
     }
 
-    //create a method to load properties from a file with the Properties class
-    public void loadProperties(String file) {
+    public void importData(String filePath) {
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream("path/filename"));
-        } catch (IOException e) {
+        try (FileInputStream fis = new FileInputStream("legacySystemFile.properties")) {
+            properties.load(fis);
+            String fileType = filePath.split("\\.")[1];
+            String importerClassName = properties.getProperty("importer"+fileType);
+            Class<?> importerClass = Class.forName(importerClassName);
+            DataImporter importer = (DataImporter) importerClass.getDeclaredConstructor().newInstance();
+            importer.importData(filePath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
