@@ -10,8 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 
 import java.io.IOException;
@@ -65,9 +65,7 @@ public class SaleForecastWindow implements Initializable {
                 System.out.println(deal.toString());
             }
         }
-
-
-
+        SimpleRegression regression = new SimpleRegression();
     }
 
     @FXML
