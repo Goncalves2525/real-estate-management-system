@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class SaleForecastWindow implements Initializable {
 
-    private ImportController controller;
+    private final ImportController controller;
 
     @FXML
     private Button btImport;
@@ -30,6 +32,10 @@ public class SaleForecastWindow implements Initializable {
 
     @FXML
     private TextField txtField;
+
+    public SaleForecastWindow() {
+        controller = new ImportController();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,12 +56,17 @@ public class SaleForecastWindow implements Initializable {
         // Show the file chooser dialog
         Stage mainStage = getMainStage();
         String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
-
         if (!Objects.equals(selectedDirectory, "")) {
             ArrayList<String[]> dataToImport = controller.readFile(selectedDirectory, ";");
             String importResult = controller.importData(dataToImport);
-
+            System.out.println(importResult);
+            ArrayList<Announcement> deals = controller.getDeals();
+            for (Announcement deal : deals) {
+                System.out.println(deal.toString());
+            }
         }
+
+
 
     }
 

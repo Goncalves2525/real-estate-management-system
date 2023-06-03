@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -27,7 +28,8 @@ public class ImportController {
 
     /**
      * Reads a file.
-     * @param file file to read
+     *
+     * @param file      file to read
      * @param delimiter delimiter
      * @return result of the read operation
      */
@@ -53,7 +55,9 @@ public class ImportController {
         return readResult;
     }
 
-    /** Checks if a file exists.
+    /**
+     * Checks if a file exists.
+     *
      * @param fileName name of the file
      * @return true if the file exists, false otherwise
      */
@@ -64,6 +68,7 @@ public class ImportController {
 
     /**
      * Imports data from a file.
+     *
      * @param dataToImport data to import
      * @return result of the import operation
      */
@@ -75,7 +80,7 @@ public class ImportController {
 
             for (String[] data : dataToImport) {
                 try {
-                    dealRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24],Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
+                    dealRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24], Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
                     totalImported++;
                     importResult += "\nAnnouncement imported: " + data[0];
                 } catch (Exception e) {
@@ -90,6 +95,7 @@ public class ImportController {
 
     /**
      * Parses a date.
+     *
      * @param date string date to parse
      * @return parsed date
      */
@@ -108,12 +114,12 @@ public class ImportController {
     }
 
 
-
-
     public void sendEmail(String mail) {
 
 
+    }
 
-
+    public ArrayList<Announcement> getDeals() {
+        return dealRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 }
