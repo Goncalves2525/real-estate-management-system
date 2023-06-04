@@ -8,7 +8,8 @@ public enum SunExposure {
          NORTH,
          SOUTH,
          WEST,
-         EAST;
+         EAST,
+         NA;
 
          /**
           * Returns a string representation of the object.

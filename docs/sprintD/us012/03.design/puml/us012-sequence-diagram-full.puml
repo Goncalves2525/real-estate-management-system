@@ -10,6 +10,12 @@ participant ":ImportUI" as UI
 participant ":ImportController" as CTRL
 participant "repositories\n:Repositories" as REPO
 participant ":AnnouncementRepository" as ANNREPO
+participant ":Announcement" as ANN
+participant ":Property" as PROP
+participant ":Address" as ADDR
+participant ":Order" as ORD
+participant ":Residency" as RES
+participant ":SunExposure" as SUN
 
 
     activate Admin

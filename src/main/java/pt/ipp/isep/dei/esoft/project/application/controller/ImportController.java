@@ -1,11 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.DataImporter;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -16,13 +17,13 @@ import java.util.Scanner;
  */
 public class ImportController {
 
-    private AnnouncementRepository announcementRepository;
+    private final AnnouncementRepository dealRepository;
 
     /**
      * Instantiates a new Import controller.
      */
     public ImportController() {
-        this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
+        this.dealRepository = Repositories.getInstance().getDealRepository();
     }
 
     /**
@@ -75,7 +76,7 @@ public class ImportController {
 
             for (String[] data : dataToImport) {
                 try {
-                    announcementRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24],Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
+                    dealRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24], Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
                     totalImported++;
                     importResult += "\nAnnouncement imported: " + data[0];
                 } catch (Exception e) {
@@ -98,22 +99,28 @@ public class ImportController {
         return new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
     }
 
-    //create a method to load properties from a file with the Properties class
-    public void loadProperties(String file) {
+    public void importData(String filePath) {
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream("path/filename"));
-        } catch (IOException e) {
+        try (FileInputStream fis = new FileInputStream("legacySystemFile.properties")) {
+            properties.load(fis);
+            String fileType = filePath.split("\\.")[1];
+            String importerClassName = properties.getProperty("importer"+fileType);
+            Class<?> importerClass = Class.forName(importerClassName);
+            DataImporter importer = (DataImporter) importerClass.getDeclaredConstructor().newInstance();
+            importer.importData(filePath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
 
 
     public void sendEmail(String mail) {
 
 
+    }
 
-
+    public ArrayList<Announcement> getDeals() {
+        return dealRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 }

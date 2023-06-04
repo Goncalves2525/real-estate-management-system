@@ -12,6 +12,7 @@ public class Repositories {
     private static final Repositories instance = new Repositories();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     AnnouncementRepository announcementRepository = new AnnouncementRepository();
+    AnnouncementRepository dealRepository = new AnnouncementRepository();
     AgencyRepository agencyRepository = new AgencyRepository();
     EmployeeRepository employeeRepository = new EmployeeRepository();
     RoleRepository roleRepository = new RoleRepository();
@@ -29,6 +30,10 @@ public class Repositories {
 
     public AnnouncementRepository getAnnouncementRepository() {
         return announcementRepository;
+    }
+
+    public AnnouncementRepository getDealRepository() {
+        return dealRepository;
     }
 
     public AuthenticationRepository getAuthenticationRepository() {

@@ -166,6 +166,23 @@ public class Announcement {
         }
         catch (NumberFormatException e){
         }
+        Boolean centralHeating = false;
+        if(property_centralHeating.toUpperCase().equals("Y")){
+            centralHeating = true;
+        }
+        Boolean airconditioned = false;
+        if(property_airconditioned.toUpperCase().equals("Y")){
+            airconditioned = true;
+        }
+        Boolean basement = false;
+        if(property_basement.toUpperCase().equals("Y")){
+            basement = true;
+        }
+        Boolean loft = false;
+        if(property_loft.toUpperCase().equals("Y")){
+            loft = true;
+        }
+        SunExposure sunExposure = SunExposure.valueOf(property_sunExposure.toUpperCase());
         String[] propertyAddressArray = property_location.trim().split(",");
         Address propertyAddress;
         if(propertyAddressArray.length > 4){
@@ -176,21 +193,28 @@ public class Announcement {
         }
         int propertyID = 0;
         if(TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.HOUSE){
-            Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            //Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             //House propertyForAnnouncement = (House) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
-            propertyID = propertyForAnnouncement.getId();
+            //propertyID = propertyForAnnouncement.getId();
+
+            House teste =  new House(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfBathrooms,noOfParking,centralHeating,airconditioned,basement,loft,sunExposure);
+            propertyID = ((Residency) teste).getId();
+
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.APARTMENT) {
             //Apartment propertyForAnnouncement = (Apartment) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
-            Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
-            propertyID = propertyForAnnouncement.getId();
+            //Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+
+            Apartment teste =  new Apartment(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfParking);
+            propertyID = ((Residency) teste).getId();
+
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.LAND) {
-            Land propertyForAnnouncement = (Land) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
-            propertyID = propertyForAnnouncement.getId();
+            //Land propertyForAnnouncement = (Land) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            //propertyID = propertyForAnnouncement.getId();
+
+            Land teste =  new Land(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            propertyID = ((Property) teste).getId();
         }
         this.propertyID = propertyID;
-        if(!property_sunExposure.equals("NA")){
-            SunExposure sunExposure = SunExposure.valueOf(property_sunExposure.toUpperCase());
-        }
     }
 
     /**
