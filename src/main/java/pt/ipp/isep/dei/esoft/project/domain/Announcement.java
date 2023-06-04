@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Announcement {
     private int propertyID;
+    private Property property;
     private TypeOfProperty typeOfProperty;
     private TransactionType transactionType;
     private Date publishDate;
@@ -197,24 +198,33 @@ public class Announcement {
             //House propertyForAnnouncement = (House) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             //propertyID = propertyForAnnouncement.getId();
 
-            House teste =  new House(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfBathrooms,noOfParking,centralHeating,airconditioned,basement,loft,sunExposure);
-            propertyID = ((Residency) teste).getId();
+            property =  new House(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfBathrooms,noOfParking,centralHeating,airconditioned,basement,loft,sunExposure);
+            propertyID = ((Residency) property).getId();
 
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.APARTMENT) {
             //Apartment propertyForAnnouncement = (Apartment) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             //Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
 
-            Apartment teste =  new Apartment(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfParking);
-            propertyID = ((Residency) teste).getId();
+            property =  new Apartment(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfParking);
+            propertyID = ((Residency) property).getId();
 
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.LAND) {
             //Land propertyForAnnouncement = (Land) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             //propertyID = propertyForAnnouncement.getId();
 
-            Land teste =  new Land(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
-            propertyID = ((Property) teste).getId();
+            property =  new Land(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
+            propertyID = ((Property) property).getId();
         }
         this.propertyID = propertyID;
+        isPublished = true;
+
+    }
+
+    /**
+     * @return property
+     */
+    public Property getProperty(){
+        return property;
     }
 
     /**

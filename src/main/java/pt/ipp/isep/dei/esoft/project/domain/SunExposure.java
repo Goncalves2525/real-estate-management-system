@@ -9,6 +9,10 @@ public enum SunExposure {
          SOUTH,
          WEST,
          EAST,
+        N,
+        S,
+        W,
+        E,
          NA;
 
          /**

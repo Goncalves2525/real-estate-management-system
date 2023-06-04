@@ -23,12 +23,14 @@ import java.util.ResourceBundle;
 public class SaleForecastWindow implements Initializable {
 
     private final ImportController controller;
-
+    private Scene selectRegressionModelScene;
     @FXML
     private Button btImport;
 
     @FXML
     private Button btReturn;
+    @FXML
+    private Button btDeals;
 
     @FXML
     private TextField txtField;
@@ -39,7 +41,14 @@ public class SaleForecastWindow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            FXMLLoader selectRegressionLoader = new FXMLLoader();
+            selectRegressionLoader.setLocation(getClass().getResource("/SelectRegressionModelScene.fxml"));
+            Parent selectRegressionRoot = selectRegressionLoader.load();
+            selectRegressionModelScene = new Scene(selectRegressionRoot);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Stage getMainStage() {
@@ -61,11 +70,22 @@ public class SaleForecastWindow implements Initializable {
             String importResult = controller.importData(dataToImport);
             System.out.println(importResult);
             ArrayList<Announcement> deals = controller.getDeals();
-            for (Announcement deal : deals) {
-                System.out.println(deal.toString());
-            }
         }
-        SimpleRegression regression = new SimpleRegression();
+
+        mainStage = getMainStage();
+        mainStage.setScene(selectRegressionModelScene);
+        mainStage.setTitle("Select Regression Model");
+        mainStage.show();
+    }
+
+    @FXML
+    private void onBtDeals(ActionEvent event){
+        ArrayList<Announcement> deals = controller.getDeals();
+
+        Stage mainStage = getMainStage();
+        mainStage.setScene(selectRegressionModelScene);
+        mainStage.setTitle("Select Regression Model");
+        mainStage.show();
     }
 
     @FXML
