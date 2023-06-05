@@ -165,21 +165,23 @@ public class VisitScheduleRequestsWindow implements Initializable {
                     Optional<String> textResult = textDialog.showAndWait();
                     if (textResult.isPresent()) {
                         String reason = textResult.get();
-                        System.out.println(reason);
-                        removeVisit(visitSchedule);
+                        removeVisit(visitSchedule, reason);
                     }
                 }
             }
         }
     }
 
-    public void removeVisit(VisitSchedule visit) {
+    public void removeVisit(VisitSchedule visit,String reason) {
+        controller.disapproveVisit(visit);
+        controller.respondToBookingRequest(visit, reason);
         controller.removeVisit(visit);
         showFilteredVisits();
     }
 
     public void approveVisit(VisitSchedule visit) {
         controller.approveVisit(visit);
+        controller.respondToBookingRequest(visit, "Visit approved.");
         showFilteredVisits();
     }
 

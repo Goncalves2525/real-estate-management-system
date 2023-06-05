@@ -11,6 +11,7 @@ participant ":PublishSaleAnnouncementUI" as UI
 participant ":PublishAnnouncementController" as CTRL
 participant ":Repositories" as REPO
 participant "announcementRepository:\nAnnouncementRepository" as ANNREPO
+participant "utils:\nUtils" as UTILS
 
 activate AGENT
 
@@ -80,6 +81,12 @@ activate CTRL
 
     ANNREPO --> CTRL : returns Announcement
     deactivate ANNREPO
+
+    CTRL -> UTILS : sendSMSNotification()
+    activate UTILS
+
+    UTILS -> CTRL : returns Success message
+    deactivate UTILS
 
     CTRL --> UI : returns Success message
     deactivate CTRL

@@ -17,6 +17,7 @@ import java.util.List;
 public class ListAnnouncementsController {
 
     private AnnouncementRepository announcementRepository = null;
+    private AnnouncementRepository dealRepository = null;
     private PropertyRepository propertyRepository = null;
     private AuthenticationRepository authenticationRepository = null;
 
@@ -30,6 +31,15 @@ public class ListAnnouncementsController {
         getAnnoucementRepository();
         getPropertyRepository();
         getAuthenticationRepository();
+        getDealRepository();
+    }
+
+    private AnnouncementRepository getDealRepository() {
+        if (dealRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            dealRepository = repositories.getDealRepository();
+        }
+        return dealRepository;
     }
 
     /**
@@ -74,6 +84,11 @@ public class ListAnnouncementsController {
         return announcementRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 
+    public ArrayList<Announcement> getAllDealsSortedByDefualtCriteria() {
+        AnnouncementRepository dealRepository = getDealRepository();
+        return dealRepository.getAllAnnouncementsSortedByDefualtCriteria();
+    }
+
     /**
      * This is the method used for when the user wants to only sort the announcements
      * @param sortCriteria - sort criteria
@@ -97,6 +112,8 @@ public class ListAnnouncementsController {
         return announcementRepository.getFilteredAnnouncements(typeOfProperty, transactionType, numberOfRooms);
     }
 
+
+
     /**
      * This is the method used for when the user wants to filter and sort the announcements
      * @param typeOfProperty - type of property
@@ -114,6 +131,11 @@ public class ListAnnouncementsController {
     public ArrayList<Announcement> getFilteredAnnouncementsForGUI(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms){
         AnnouncementRepository announcementRepository = getAnnoucementRepository();
         return announcementRepository.getFilteredAnnouncementsForGUI(typeOfProperty, transactionType, numberOfRooms);
+    }
+
+    public ArrayList<Announcement> getFilteredDealsForGUI(TypeOfProperty typeOfProperty, TransactionType transactionType, int numberOfRooms){
+        AnnouncementRepository dealRepository = getDealRepository();
+        return dealRepository.getFilteredAnnouncementsForGUI(typeOfProperty, transactionType, numberOfRooms);
     }
 
     public Property getPropertyByAnnouncement(Announcement announcement){

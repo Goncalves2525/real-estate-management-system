@@ -43,11 +43,13 @@ public class ImportUI implements Runnable {
                 String importAnswer = Utils.readLineFromConsole("\nIs this the data you want to import? (Y/N)");
                 do {
                     if (importAnswer.equals("Y") || importAnswer.equals("y")) {
-                        String importResult = controller.importData(dataToImport);
-                        if (!importResult.equals("")) {
-                            System.out.println("Operation completed with the following result:");
-                            System.out.println(importResult + "\n");
-                        }
+                        controller.importData(fileName);
+                        System.out.println("Data imported successfully.");
+//                        String importResult =
+//                        if (!importResult.equals("")) {
+//                            System.out.println("Operation completed with the following result:");
+//                            System.out.println(importResult + "\n");
+//                        }
                     }
                     break;
                 } while (!importAnswer.equals("Y") && !importAnswer.equals("y") && !importAnswer.equals("N") && !importAnswer.equals("n"));
@@ -55,15 +57,15 @@ public class ImportUI implements Runnable {
                 System.out.println("Missing/with error import data.");
             }
         }
-        int option = 0;
-        do {
-            option = Utils.showAndSelectIndex(options, "\n\nImport Menu:");
-            //option = Utils.showAndSelectIndex(options, "");
-
-            if ((option >= 0) && (option < options.size())) {
-                options.get(option).run();
-            }
-        } while (option != -1);
+//        int option = 0;
+//        do {
+//            option = Utils.showAndSelectIndex(options, "\n\nImport Menu:");
+//            //option = Utils.showAndSelectIndex(options, "");
+//
+//            if ((option >= 0) && (option < options.size())) {
+//                options.get(option).run();
+//            }
+//        } while (option != -1);
     }
 
     private String selectFile(Scanner sc) {

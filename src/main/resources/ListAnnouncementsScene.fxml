@@ -81,9 +81,6 @@
             <TableColumn fx:id="hasBasement" text="Has basement" />
             <TableColumn fx:id="hasInabitableLoft" text="Has inhabitable loft" />
             <TableColumn fx:id="sunExposure" text="Sun Exposure" />
-
-
-
         </columns>
     </TableView>
 

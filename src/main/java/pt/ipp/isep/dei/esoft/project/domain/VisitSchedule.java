@@ -21,6 +21,7 @@ public class VisitSchedule {
     private boolean approvedByAgent;
     private String agentEmail;
     private String adressOfProperty;
+    private String requesterEmail;
 
     /**
      * Instantiates a new Visit schedule.
@@ -32,9 +33,11 @@ public class VisitSchedule {
      * @param endTime the end time
      * @param approvedByAgent the approved by agent
      * @param agentEmail the agent email
+     * @param adressOfProperty the adress of property
+     * @param requesterEmail the requester email
      */
 
-    public VisitSchedule(int propertyID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail, String adressOfProperty) {
+    public VisitSchedule(int propertyID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail, String adressOfProperty, String requesterEmail) {
         this.propertyID = propertyID;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
@@ -44,6 +47,7 @@ public class VisitSchedule {
         this.approvedByAgent = approvedByAgent;
         this.agentEmail = agentEmail;
         this.adressOfProperty = adressOfProperty;
+        this.requesterEmail = requesterEmail;
     }
 
 
@@ -197,6 +201,14 @@ public class VisitSchedule {
      */
     public void setAgentEmail(String agentEmail) {
         this.agentEmail = agentEmail;
+    }
+
+    public String getRequesterEmail() {
+        return requesterEmail;
+    }
+
+    public void setRequesterEmail(String requesterEmail) {
+        this.requesterEmail = requesterEmail;
     }
 
     /**

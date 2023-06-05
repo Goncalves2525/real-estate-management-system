@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.VisitScheduleRequestsWindow;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,12 +25,11 @@ import java.util.Properties;
  * The Visit schedule controller.
  */
 public class VisitScheduleController {
-    private AuthenticationRepository authenticationRepository = null;
     private VisitScheduleRepository visitScheduleRepository = null;
     private AnnouncementRepository announcementRepository = null;
-    private PropertyRepository propertyRepository = null;
     private ClientRepository clientRepository = null;
     private AuthenticationController authController = new AuthenticationController();
+    private EmployeeRepository employeeRepository = null;
 
 
     /**
@@ -212,7 +211,6 @@ public class VisitScheduleController {
 
 
 
-
     /**
      * Save visit schedule
      * @param announcementID announcement id
@@ -223,9 +221,9 @@ public class VisitScheduleController {
      * @param endTime visit end time
      * @param approvedbyAgent true if approved by agent
      */
-    public void saveVisitSchedule(int announcementID , String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent, String adressOfProperty){
+    public void saveVisitSchedule(int announcementID , String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedbyAgent, String adressOfProperty,String requesterEmail){
         String agentEmail = getAgentEmailByAnnouncementID(announcementID);
-        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail, adressOfProperty);
+        VisitSchedule visitSchedule = new VisitSchedule(announcementID, name, telephoneNumber, date, startTime, endTime, approvedbyAgent, agentEmail, adressOfProperty, requesterEmail);
         this.visitScheduleRepository.addVisitSchedule(visitSchedule);
         sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail, adressOfProperty);
     }
@@ -275,6 +273,14 @@ public class VisitScheduleController {
         visitSchedule.setApprovedByAgent(true);
     }
 
+    /**
+     * Disapprove visit by agent
+     * @param visitSchedule
+     */
+    public void disapproveVisit(VisitSchedule visitSchedule) {
+        visitSchedule.setApprovedByAgent(false);
+    }
+
 
     /**
      * Remove visit schedule from repository
@@ -289,30 +295,25 @@ public class VisitScheduleController {
      * @param agentEmail agent email
      * @return pending visits
      */
-    public ArrayList<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
-        ArrayList<VisitSchedule> pendingVisits = new ArrayList<>();
-        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (!visit.isApprovedByAgent() && visit.getAgentEmail().equals(agentEmail)) {
-                pendingVisits.add(visit);
-            }
-        }
-        return pendingVisits;
+    public List<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
+        return this.visitScheduleRepository.getPendingVisitsByAgentEmail(agentEmail);
     }
 
-
+    /**
+     * Get filtered visits by agent email
+     * @param agentEmail agent email
+     * @param startDate start date
+     * @param endDate end date
+     * @return filtered visits
+     */
     public List<VisitSchedule> getFilteredVisitsByAgentEmail(String agentEmail, LocalDate startDate, LocalDate endDate) {
-        List<VisitSchedule> filteredVisits = new ArrayList<>();
-        for (VisitSchedule visit : visitScheduleRepository.getVisitSchedules()) {
-            if (visit.getAgentEmail().equals(agentEmail)
-                    && (startDate == null || visit.getDate().compareTo(startDate) >= 0)
-                    && (endDate == null || visit.getDate().compareTo(endDate) <= 0)
-                    && !visit.isApprovedByAgent()) {
-                filteredVisits.add(visit);
-            }
-        }
-        return filteredVisits;
+        return this.visitScheduleRepository.getFilteredVisitsByAgentEmail(agentEmail, startDate, endDate);
     }
 
+    /**
+     * Get sorted visits by agent email
+     * @return sorted visits
+     */
     public SortStrategy getSortStrategyFromConfig() {
         Properties prop = new Properties();
         InputStream input = null;
@@ -349,4 +350,67 @@ public class VisitScheduleController {
 
         return null;
     }
+
+    private EmployeeRepository getEmployeeRepository(){
+        if (employeeRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            employeeRepository = repositories.getEmployeeRepository();
+        }
+        return employeeRepository;
+    }
+
+    public String getEmployeeNameByEmail(String email) {
+        Employee employee = getEmployeeRepository().getEmployeeByEmail(email);
+        if (employee != null) {
+            return employee.getName();
+        }
+        return null;
+    }
+
+    public Long getEmployeePhoneNumberByEmail(String email) {
+        Employee employee = getEmployeeRepository().getEmployeeByEmail(email);
+        if (employee != null) {
+            return employee.getTelephoneNumber();
+        }
+        return null;
+    }
+
+
+
+    public void respondToBookingRequest(VisitSchedule visitSchedule, String reason) {
+        String requesterEmail = visitSchedule.getRequesterEmail();
+        int propertyId = visitSchedule.getPropertyID();
+        String propertyLocation = visitSchedule.getAdressOfProperty();
+        LocalDate visitDate = visitSchedule.getDate();
+        LocalTime startTime = visitSchedule.getStartTime();
+        LocalTime endTime = visitSchedule.getEndTime();
+        boolean isAccepted = visitSchedule.isApprovedByAgent();
+        String agentName = getEmployeeNameByEmail(visitSchedule.getAgentEmail());
+        long agentPhone = getEmployeePhoneNumberByEmail(visitSchedule.getAgentEmail());
+
+        // Format date and time
+        String formattedDate = visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+        String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+
+        // Create subject and body of the email based on whether the request is accepted or rejected
+        String subject = isAccepted ? "Your Visit Booking Request Has Been Accepted" : "Your Visit Booking Request Has Been Rejected";
+        String body = "Dear Customer,\n\n" +
+                "Thank you for your interest in the property listed with ID: " + propertyId +
+                " and located at: " + propertyLocation + ".\n\n" +
+                "You had requested a visit for the date: " + formattedDate +
+                ", with a start time at: " + formattedStartTime +
+                " and ending at: " + formattedEndTime + ".\n\n" +
+                (isAccepted ? "We are pleased to inform you that your booking request has been accepted. You will be greeted by our agent " + agentName + ".\n" +
+                        "In case of any changes or queries, you may contact them at the following number: " + agentPhone + ".\n\n" +
+                        "We look forward to welcoming you for the visit." :
+                        "We regret to inform you that your booking request has been rejected for the following reason:\n\n" + reason +
+                                "\n\nIf you have any doubts and need help you may contact the agent " + agentName + " with the following number: " + agentPhone + "\n") +
+                "\nBest Regards,\n" +
+                agentName;
+
+        // Send the email
+        Utils.sendEmail(requesterEmail, subject, body);
+    }
+
 }

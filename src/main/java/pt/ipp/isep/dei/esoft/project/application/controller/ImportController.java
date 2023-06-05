@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -101,8 +101,8 @@ public class ImportController {
 
     public void importData(String filePath) {
         Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream("legacySystemFile.properties")) {
-            properties.load(fis);
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("legacySystemFile.properties")) {
+            properties.load(input);
             String fileType = filePath.split("\\.")[1];
             String importerClassName = properties.getProperty("importer"+fileType);
             Class<?> importerClass = Class.forName(importerClassName);

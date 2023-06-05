@@ -10,12 +10,12 @@
    <children>
       <VBox prefHeight="302.0" prefWidth="307.0">
          <children>
-            <Button fx:id="bt" mnemonicParsing="false" onAction="#onBtAction" prefHeight="141.0" prefWidth="316.0" text="Forecast Property Sale">
+            <Button fx:id="bt" mnemonicParsing="false" onAction="#onBtAction" prefHeight="141.0" prefWidth="318.0" text="Forecast Property Sales">
                <VBox.margin>
                   <Insets top="80.0" />
                </VBox.margin>
                <font>
-                  <Font size="28.0" />
+                  <Font size="27.0" />
                </font>
             </Button>
             <Button fx:id="btReturn" mnemonicParsing="false" onAction="#onBtReturn" text="Return">

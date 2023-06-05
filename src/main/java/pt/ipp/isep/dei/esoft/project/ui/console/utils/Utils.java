@@ -154,7 +154,7 @@ public class Utils {
      * @param subject - the email's subject
      * @param body - the email's body
      */
-    public Boolean sendEmail(String mail, String subject, String body) {
+    public static Boolean sendEmail(String mail, String subject, String body) {
         try{
             Properties prop = loadPropertiesFromFile("email.properties");
             String host = prop.getProperty("host");
@@ -181,7 +181,7 @@ public class Utils {
      * @param number - the recipient's number
      * @param message - the message to send
      */
-    public Boolean sendSMS(String number, String message) {
+    public static Boolean sendSMS(String number, String message) {
         try{
             Properties prop = loadPropertiesFromFile("email.properties");
             String numberFrom = prop.getProperty("number");
@@ -205,9 +205,9 @@ public class Utils {
      * @param fileName - the name of the file
      * @return
      */
-    public Properties loadPropertiesFromFile(String fileName) {
+    public static Properties loadPropertiesFromFile(String fileName) {
         Properties prop = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream(fileName)) {
+        try (InputStream input = Utils.class.getClassLoader().getResourceAsStream(fileName)) {
 
             if (input == null) {
                 System.out.println("Error finding file");
