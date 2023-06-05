@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US 019 -  I want to divide the set of all stores into two subsets
 
 ## 3. Design - User Story Realization 
 
@@ -36,10 +36,10 @@
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us012-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us019-sequence-diagram-full.svg)
 
 
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us012-class-diagram.svg)
+![Class Diagram](svg/us019-class-diagram.svg)
