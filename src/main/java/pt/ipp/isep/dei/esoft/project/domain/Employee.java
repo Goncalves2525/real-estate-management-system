@@ -41,6 +41,20 @@ public class Employee extends Person {
         super(name, email, passportCardNumber, taxNumber, telephoneNumber, roles);
         this.agencyID = agencyID;
     }
+
+    /**
+     * @param name Name of the employee
+     * @param email Email of the employee
+     * @param passportCardNumber Passport card number of the employee
+     * @param taxNumber Tax number of the employee
+     * @param telephoneNumber Telephone number of the employee
+     * @param agencyID Agency ID of the employee
+     */
+    public Employee(String name, String email, int passportCardNumber, int taxNumber, long telephoneNumber, int agencyID) {
+        super(name, email, passportCardNumber, taxNumber, telephoneNumber);
+        this.agencyID = agencyID;
+    }
+
     /**
      * @param email Email of the employee
      */

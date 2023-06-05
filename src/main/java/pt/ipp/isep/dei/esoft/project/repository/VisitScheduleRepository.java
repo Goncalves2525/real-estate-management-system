@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Luis Leal 1100253@isep.ipp.pt
@@ -60,6 +61,30 @@ public class VisitScheduleRepository {
     public void removeVisitSchedule(VisitSchedule visitSchedule) {
         visitSchedules.remove(visitSchedule);
     }
+
+    public List<VisitSchedule> getPendingVisitsByAgentEmail(String agentEmail) {
+        List<VisitSchedule> pendingVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitSchedules) {
+            if (!visit.isApprovedByAgent() && visit.getAgentEmail().equals(agentEmail)) {
+                pendingVisits.add(visit);
+            }
+        }
+        return pendingVisits;
+    }
+
+    public List<VisitSchedule> getFilteredVisitsByAgentEmail(String agentEmail, LocalDate startDate, LocalDate endDate) {
+        List<VisitSchedule> filteredVisits = new ArrayList<>();
+        for (VisitSchedule visit : visitSchedules) {
+            if (visit.getAgentEmail().equals(agentEmail)
+                    && (startDate == null || visit.getDate().compareTo(startDate) >= 0)
+                    && (endDate == null || visit.getDate().compareTo(endDate) <= 0)
+                    && !visit.isApprovedByAgent()) {
+                filteredVisits.add(visit);
+            }
+        }
+        return filteredVisits;
+    }
+
 
 
 
