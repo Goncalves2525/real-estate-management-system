@@ -219,7 +219,7 @@ public class Announcement {
         this.propertyID = propertyID;
         isPublished = true;
 
-        Client client = new Client(owner_email,owner_name,owner_passportNum,Integer.parseInt(owner_TIN.replace("-","")),Long.parseLong(owner_phone));
+        Client client = new Client(owner_email,owner_name,owner_passportNum,Integer.parseInt(owner_TIN.replace("-","")),Long.parseLong(owner_phone.replace("-","")));
         this.owner = client;
     }
 
