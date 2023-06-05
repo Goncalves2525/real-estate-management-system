@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US 019 -  I want to divide the set of all stores into two subsets
 
 # 4. Tests 
 

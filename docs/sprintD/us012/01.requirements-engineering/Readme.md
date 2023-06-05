@@ -76,7 +76,6 @@ administrator if the file is empty or its content is not in the requested format
 **Input Data:**
 
 * Typed data:
-  * type of data to import (orders, agents, agencies, etc.)
   * csv file location
 
 
