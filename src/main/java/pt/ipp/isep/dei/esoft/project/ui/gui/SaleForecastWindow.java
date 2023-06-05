@@ -69,7 +69,6 @@ public class SaleForecastWindow implements Initializable {
             ArrayList<String[]> dataToImport = controller.readFile(selectedDirectory, ";");
             String importResult = controller.importData(dataToImport);
             System.out.println(importResult);
-            ArrayList<Announcement> deals = controller.getDeals();
         }
 
         mainStage = getMainStage();
@@ -80,8 +79,6 @@ public class SaleForecastWindow implements Initializable {
 
     @FXML
     private void onBtDeals(ActionEvent event){
-        ArrayList<Announcement> deals = controller.getDeals();
-
         Stage mainStage = getMainStage();
         mainStage.setScene(selectRegressionModelScene);
         mainStage.setTitle("Select Regression Model");

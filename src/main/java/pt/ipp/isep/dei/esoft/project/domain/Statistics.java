@@ -5,77 +5,142 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import java.util.ArrayList;
 
 public class Statistics {
+    private static final Statistics instance = new Statistics();
     private ArrayList<Announcement> deals;
+    private ArrayList<Double> forecastedPrices = new ArrayList<>();
+    private double slope;
+    private double intercept;
+    private double correlationCoefficient;
+    private double determinationCoefficient;
+    private double adjustedDeterminationCoefficient;
+    private double standardError;
+    private double confidenceLevel;
+    private double criticalValue;
+    private double[] confidenceInterval;
+    private double significance;
+    private double interceptStandardError;
 
-    public Statistics(ArrayList<Announcement> deals) {
-        this.deals = deals;
+    private Statistics() {
     }
 
-    public double calcSimpleRegressionArea(double area){
+    public static Statistics getInstance() {
+        return instance;
+    }
+
+    public void calcSimpleRegressionArea() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
-            if (!(deal.getProperty() instanceof Land)){
-                regression.addData(deal.getProperty().getArea(), deal.getProperty().getPrice());
-            }
+            regression.addData(deal.getProperty().getArea(), deal.getProperty().getPrice());
         }
-        return regression.predict(area);
-    }
 
-    public double calcSimpleRegressionDistance(double distanceFromCenter){
-        SimpleRegression regression = new SimpleRegression();
-        for (Announcement deal : deals) {
-            if (!(deal.getProperty() instanceof Land)){
-                regression.addData(deal.getProperty().getDistanceFromCenter(), deal.getProperty().getPrice());
-            }
+        for(Announcement deal : deals){
+            forecastedPrices.add(regression.predict(deal.getProperty().getArea()));
         }
-        return regression.predict(distanceFromCenter);
+
+
+
     }
 
-    public double calcSimpleRegressionBedrooms(int numberOfBedrooms){
+    public void calcSimpleRegressionDistance(double distanceFromCenter) {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
-            if (deal.getProperty() instanceof House){
+            regression.addData(deal.getProperty().getDistanceFromCenter(), deal.getProperty().getPrice());
+        }
+
+    }
+
+    public void calcSimpleRegressionBedrooms(int numberOfBedrooms) {
+        SimpleRegression regression = new SimpleRegression();
+        for (Announcement deal : deals) {
+            if (deal.getProperty() instanceof House) {
                 regression.addData(((House) deal.getProperty()).getNumberOfBedrooms(), deal.getProperty().getPrice());
-            }
-            else if (deal.getProperty() instanceof Apartment){
+            } else if (deal.getProperty() instanceof Apartment) {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfBedrooms(), deal.getProperty().getPrice());
             }
 
         }
-        return regression.predict(numberOfBedrooms);
     }
 
-    public double calcSimpleRegressionBathrooms(int numberOfBathrooms){
+    public void calcSimpleRegressionBathrooms(int numberOfBathrooms) {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
-            if (deal.getProperty() instanceof House){
+            if (deal.getProperty() instanceof House) {
                 regression.addData(((House) deal.getProperty()).getNumberOfBathrooms(), deal.getProperty().getPrice());
-            }
-            else if (deal.getProperty() instanceof Apartment){
+            } else if (deal.getProperty() instanceof Apartment) {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfBathrooms(), deal.getProperty().getPrice());
             }
 
         }
-        return regression.predict(numberOfBathrooms);
     }
 
-    public double calcSimpleRegressionParkingSpaces(int numberOfParkingSpaces){
+    public void calcSimpleRegressionParkingSpaces(int numberOfParkingSpaces) {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
-            if (deal.getProperty() instanceof House){
+            if (deal.getProperty() instanceof House) {
                 regression.addData(((House) deal.getProperty()).getNumberOfParkingSpaces(), deal.getProperty().getPrice());
-            }
-            else if (deal.getProperty() instanceof Apartment){
+            } else if (deal.getProperty() instanceof Apartment) {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfParkingSpaces(), deal.getProperty().getPrice());
             }
-
         }
-        return regression.predict(numberOfParkingSpaces);
     }
 
-    public double calcMultipleRegression(double area, double distanceFromCenter, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces){
+    public double calcMultipleRegression(double area, double distanceFromCenter, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces) {
         return -1;
     }
 
+    public void setDeals(ArrayList<Announcement> deals) {
+        this.deals = deals;
+    }
 
+    public ArrayList<Announcement> getDeals() {
+        return deals;
+    }
+
+    public ArrayList<Double> getForecastedPrices() {
+        return forecastedPrices;
+    }
+
+    public double getSlope() {
+        return slope;
+    }
+
+    public double getIntercept() {
+        return intercept;
+    }
+
+    public double getCorrelationCoefficient() {
+        return correlationCoefficient;
+    }
+
+    public double getDeterminationCoefficient() {
+        return determinationCoefficient;
+    }
+
+    public double getAdjustedDeterminationCoefficient() {
+        return adjustedDeterminationCoefficient;
+    }
+
+    public double getStandardError() {
+        return standardError;
+    }
+
+    public double getConfidenceLevel() {
+        return confidenceLevel;
+    }
+
+    public double getCriticalValue() {
+        return criticalValue;
+    }
+
+    public double[] getConfidenceInterval() {
+        return confidenceInterval;
+    }
+
+    public double getSignificance() {
+        return significance;
+    }
+
+    public double getInterceptStandardError() {
+        return interceptStandardError;
+    }
 }

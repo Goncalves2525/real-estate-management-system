@@ -66,15 +66,21 @@
         <columns>
             <TableColumn fx:id="id" text="ID" />
             <TableColumn fx:id="typeOfProperty" text="Type of property" />
+            <TableColumn fx:id="transactionType" text="Transaction Type" />
+            <TableColumn fx:id="publishDate" text="Publish Date" />
+            <TableColumn fx:id="commission" text="Commission" />
             <TableColumn fx:id="area" text="Area" />
             <TableColumn fx:id="distanceFromCenter" text="Distance From Center" />
             <TableColumn fx:id="price" text="Price" />
+            <TableColumn fx:id="address" text="Address" />
             <TableColumn fx:id="numberOfBedrooms" text="Number of Bedrooms" />
             <TableColumn fx:id="numberOfBathrooms" text="Number of Bathrooms" />
             <TableColumn fx:id="numberOfParkingSpaces" text="Number of parking spaces" />
-
-
-
+            <TableColumn fx:id="hasCentralHeating" text="Has central heating" />
+            <TableColumn fx:id="hasAirConditioning" text="Has air conditioning" />
+            <TableColumn fx:id="hasBasement" text="Has basement" />
+            <TableColumn fx:id="hasInabitableLoft" text="Has inhabitable loft" />
+            <TableColumn fx:id="sunExposure" text="Sun Exposure" />
         </columns>
     </TableView>
 
