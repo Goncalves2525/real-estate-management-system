@@ -9,13 +9,16 @@ actor "System Administrator" as Admin
 participant ":ImportUI" as UI
 participant ":ImportController" as CTRL
 participant "repositories\n:Repositories" as REPO
+'participant ":Property" as PROP
+'participant ":Address" as ADDR
+'participant ":Order" as ORD
+'participant ":Residency" as RES
+'participant ":SunExposure" as SUN
+participant ":CSVImport" as CSV
+participant ":properties\n:Properties" as PROP
+participant ":legacySystemFile\n:LegacySystemFile" as LEGACY
 participant ":AnnouncementRepository" as ANNREPO
 participant ":Announcement" as ANN
-participant ":Property" as PROP
-participant ":Address" as ADDR
-participant ":Order" as ORD
-participant ":Residency" as RES
-participant ":SunExposure" as SUN
 
 
     activate Admin
@@ -53,20 +56,41 @@ participant ":SunExposure" as SUN
     CTRL -> REPO : getAnnouncementRepository()
     activate REPO
 
-    REPO -> ANNREPO : getAuthenticationRepository()
+    REPO -> ANNREPO : getAnnouncementRepository()
     activate ANNREPO
 
-    ANNREPO --> REPO: authenticationRepository
+    ANNREPO --> REPO: announcementRepository
     deactivate ANNREPO
 
     REPO --> CTRL: announcementRepository
     deactivate REPO
 
-    CTRL --> ANNREPO: addAnnouncementFromImportedFile()
+'    CTRL --> ANNREPO: importData()
+'    activate ANNREPO
+
+    CTRL --> PROP: importData()
+    activate PROP
+
+    PROP -> LEGACY: gets import Class
+    activate LEGACY
+
+    LEGACY --> PROP: returns import Class
+    deactivate LEGACY
+
+    PROP -> ANNREPO: imports Data based on import class
     activate ANNREPO
 
-    ANNREPO -> CTRL : returns importResult
+    ANNREPO --> ANN: creates new Announcement
+    activate ANN
+
+    ANN --> ANNREPO: returns new Announcement
+    deactivate ANN
+
+    ANNREPO --> PROP: returns importResult
     deactivate ANNREPO
+
+    PROP --> CTRL: returns importResult
+    deactivate PROP
 
     CTRL -> UI : displayImportResult(importResult)
     deactivate CTRL

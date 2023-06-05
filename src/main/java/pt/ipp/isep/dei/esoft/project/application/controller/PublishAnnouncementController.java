@@ -6,11 +6,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * This class is the controller for the user story of publishing announcements.
@@ -106,19 +104,7 @@ public class PublishAnnouncementController {
      * @param announcement the announcement
      */
     public void sendNotification(Announcement announcement) {
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("sms.properties")) {
-
-            Properties prop = new Properties();
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find file");
-                return;
-            }
-            prop.load(input);
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        String ownerNumber = "" + announcement.getOwner().getTelephoneNumber();
+        Utils.sendSMS(ownerNumber, "Your property has been published!");
     }
 }

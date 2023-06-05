@@ -22,6 +22,7 @@ public class Announcement {
     public static int idCounter = 0;
     private Agency agency;
 
+    private Client owner;
 
     /**
      * This method is the constructor of Announcement.
@@ -218,6 +219,8 @@ public class Announcement {
         this.propertyID = propertyID;
         isPublished = true;
 
+        Client client = new Client(owner_email,owner_name,owner_passportNum,Integer.parseInt(owner_TIN),Long.parseLong(owner_phone));
+        this.owner = client;
     }
 
     /**
@@ -419,5 +422,9 @@ public class Announcement {
     public void setIsPublished() {
         this.isPublished = true;
         this.publishDate = new Date();
+    }
+
+    public Client getOwner() {
+        return owner;
     }
 }

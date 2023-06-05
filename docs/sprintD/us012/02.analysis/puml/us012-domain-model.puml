@@ -54,8 +54,11 @@ class LegacySystem{
     store_emailAddress
 }
 
+class DataImporter{
+}
 
 LegacySystem "1" -- "1" SystemAdministrator : receives data from <
 SystemAdministrator "1" -- "1" Order : creates from imported data >
+SystemAdministrator "1" -- "1" DataImporter : selects class used to import >
 
 @enduml

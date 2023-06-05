@@ -181,7 +181,7 @@ public class Utils {
      * @param number - the recipient's number
      * @param message - the message to send
      */
-    public Boolean sendSMS(String number, String message) {
+    public static Boolean sendSMS(String number, String message) {
         try{
             Properties prop = loadPropertiesFromFile("email.properties");
             String numberFrom = prop.getProperty("number");
