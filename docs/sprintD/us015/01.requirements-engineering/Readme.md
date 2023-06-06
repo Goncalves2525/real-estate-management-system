@@ -90,7 +90,7 @@ administrator if the file is empty or its content is not in the requested format
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us012-system-sequence-diagram.svg)
+![System Sequence Diagram - Alternative One](svg/us015-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

@@ -213,6 +213,7 @@ public class Utils {
                 System.out.println("Error finding file");
                 return null;
             }
+            prop.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

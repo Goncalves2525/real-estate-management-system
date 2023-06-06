@@ -1,17 +1,15 @@
-From: null
-To: emailcomprador6@qualquer.coisa
-Subject: Your Visit Booking Request Has Been Rejected
+From: no-reply@this.app
+To: emailcomprador4@qualquer.coisa
+Subject: Your Visit Booking Request Has Been Accepted
 Body: Dear Customer,
 
-Thank you for your interest in the property listed with ID: 6 and located at: Street of happy 6.
+Thank you for your interest in the property listed with ID: 4 and located at: Street of happy 4.
 
-You had requested a visit for the date: 06/06/2023, with a start time at: 10:06 and ending at: 11:00.
+You had requested a visit for the date: 04/06/2023, with a start time at: 10:04 and ending at: 11:00.
 
-We regret to inform you that your booking request has been rejected for the following reason:
+We are pleased to inform you that your booking request has been accepted. You will be greeted by our agent Luis.
+In case of any changes or queries, you may contact them at the following number: 9223454345.
 
-i dont like you
-
-If you have any doubts and need help you may contact the agent Luis with the following number: 9223454345
-
+We look forward to welcoming you for the visit.
 Best Regards,
 Luis
