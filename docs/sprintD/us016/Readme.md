@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US016 - As an agent, when viewing a booking request, I want to respond to the user that scheduled the visit.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

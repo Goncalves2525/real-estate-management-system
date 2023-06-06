@@ -3,8 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) of US015 - List all booking requests for properties managed by the agent
-
+title System Sequence Diagram (SSD) of US015 - As an agent, I intend to list \nall booking requests for properties managed by me
 autonumber
 
 actor "Agent" as Agent
@@ -13,7 +12,7 @@ participant ":System" as System
 activate Agent
 
 
-    Agent -> System : Ask to list all booking requests for properties
+    Agent -> System : Ask to list all booking requests for properties managed by me
         activate System
 
         System --> Agent : Show all booking requests for properties managed by the agent

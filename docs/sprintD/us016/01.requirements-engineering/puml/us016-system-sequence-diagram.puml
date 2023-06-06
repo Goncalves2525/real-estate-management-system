@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) of US016 - As an agent, when viewing a booking request, I want to respond to the user \nthat scheduled the visit.
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : Select a booking request from the list of pending booking requests
+        activate System
+
+        System --> Agent : Show the option to accept or reject the booking request
+    deactivate System
+
+    Agent -> System : Select the option to accept/reject the booking request
+        activate System
+
+    opt Reject
+        System --> Agent : Show the option to write a message to the user
+        deactivate System
+
+        Agent -> System : Write a message to the user with the reason of the rejection
+            activate System
+
+            System --> Agent : Send the email to the user with the response to the booking request and remove the booking request from the list of pending booking requests
+        deactivate System
+    else Accept
+        System --> Agent : Send the email to the user with the acceptance of the booking request and remove the booking request from the list of pending booking requests
+        deactivate System
+    end
+
+@enduml

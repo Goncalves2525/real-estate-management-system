@@ -63,7 +63,7 @@ public class EmailSender {
                         "In case of any changes or queries, you may contact them at the following number: " + agentPhone + ".\n\n" +
                         "We look forward to welcoming you for the visit." :
                         "We regret to inform you that your booking request has been rejected for the following reason:\n\n" + reason +
-                                "\n\nIf you have any doubts and need help you may contact the agent " + agentName + " with the following number: " + agentPhone + "\n") +
+                                "If you have any doubts and need help you may contact the agent " + agentName + " with the following number: " + agentPhone + "\n") +
                 "\nBest Regards,\n" +
                 agentName;
 

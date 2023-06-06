@@ -378,7 +378,7 @@ public class VisitScheduleController {
         long agentPhone = getEmployeePhoneNumberByEmail(visitSchedule.getAgentEmail());
 
         emailSender.respondToBookingRequestEmail(requesterEmail, propertyId, propertyLocation, visitDate,
-                startTime, endTime, isAccepted, agentName, agentPhone, reason);
+                startTime, endTime, isAccepted, agentName, agentPhone, reason.equals("") ? "No reason was presented.+\n+\n" : reason + "\n\n");
     }
 
 }
