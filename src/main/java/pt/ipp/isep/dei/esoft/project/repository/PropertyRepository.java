@@ -92,8 +92,41 @@ public class PropertyRepository {
         return propertiesSorted;
     }
 
-
-
-
+    public ArrayList<Property> getPropertiesSelectionSortByAreaDescending() {
+        ArrayList<Property> propertiesSorted = new ArrayList<>();
+        for (Property p : properties) {
+            propertiesSorted.add(p);
+        }
+        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < propertiesSorted.size(); j++) {
+                if (propertiesSorted.get(j).getArea() > propertiesSorted.get(index).getArea()) {
+                    index = j;
+                }
+            }
+            Property smallerNumber = propertiesSorted.get(index);
+            propertiesSorted.set(index, propertiesSorted.get(i));
+            propertiesSorted.set(i, smallerNumber);
+        }
+        return propertiesSorted;
+    }
+    public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
+        ArrayList<Property> propertiesSorted = new ArrayList<>();
+        for (Property p : properties) {
+            propertiesSorted.add(p);
+        }
+        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < propertiesSorted.size(); j++) {
+                if (propertiesSorted.get(j).getArea() < propertiesSorted.get(index).getArea()) {
+                    index = j;
+                }
+            }
+            Property smallerNumber = propertiesSorted.get(index);
+            propertiesSorted.set(index, propertiesSorted.get(i));
+            propertiesSorted.set(i, smallerNumber);
+        }
+        return propertiesSorted;
+    }
 
 }

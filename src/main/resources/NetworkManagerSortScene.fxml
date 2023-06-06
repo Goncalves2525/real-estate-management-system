@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="677.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerSortWindow">
    <children>
-      <TableView fx:id="propertyTable" layoutX="14.0" layoutY="-1.0" prefHeight="662.0" prefWidth="894.0">
+      <TableView fx:id="PropertyTableView" layoutX="14.0" layoutY="-1.0" prefHeight="662.0" prefWidth="894.0">
         <columns>
             <TableColumn fx:id="id" text="ID" />
-            <TableColumn fx:id="area" prefWidth="85.0" text="Area" />
-            <TableColumn fx:id="typeOfProperty" prefWidth="95.0" text="Type of property" />
-            <TableColumn fx:id="transactionType" prefWidth="60.0" text="Transaction Type" />
-            <TableColumn fx:id="publishDate" prefWidth="113.0" text="Publish Date" />
-            <TableColumn fx:id="commission" prefWidth="79.0" text="Commission" />
-            <TableColumn fx:id="distanceFromCenter" prefWidth="120.0" text="Distance From Center" />
-            <TableColumn fx:id="price" prefWidth="126.0" text="Price" />
-            <TableColumn fx:id="address" prefWidth="135.0" text="Address" />
+            <TableColumn fx:id="address" prefWidth="582.0" text="Adress" />
+            <TableColumn fx:id="area" prefWidth="231.0" text="Area (m2)" />
         </columns>
       </TableView>
-      <Button fx:id="btAscendingSort" layoutX="918.0" layoutY="14.0" mnemonicParsing="false" onAction="#onbtAscendingSort" prefHeight="36.0" prefWidth="189.0" text="Sort Ascending " />
-      <Button fx:id="btDescendingSort" layoutX="918.0" layoutY="52.0" mnemonicParsing="false" onAction="#onbtDescendingSort" prefHeight="36.0" prefWidth="189.0" text="Sort Descending" />
-      <Button fx:id="btReturn" layoutX="918.0" layoutY="90.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Return" />
+      <Button fx:id="btAscendingSortInsertion" layoutX="920.0" layoutY="96.0" mnemonicParsing="false" onAction="#onbtAscendingSortInsertion" prefHeight="36.0" prefWidth="189.0" text="Ascending " textFill="#c92a2a" />
+      <Button fx:id="btDescendingSortInsertion" layoutX="920.0" layoutY="145.0" mnemonicParsing="false" onAction="#onbtDescendingSortInsertion" prefHeight="36.0" prefWidth="189.0" text="Descending" textFill="#d71d1d" />
+      <Button fx:id="btReturn" layoutX="918.0" layoutY="505.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Return" />
+      <Button fx:id="btImport" layoutX="918.0" layoutY="627.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Import CSV" />
+      <Label alignment="TOP_CENTER" graphicTextGap="5.0" layoutX="920.0" layoutY="70.0" prefHeight="17.0" prefWidth="189.0" text="Insertion Sort" textAlignment="CENTER" textFill="#c32929" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_CENTER" graphicTextGap="5.0" layoutX="918.0" layoutY="275.0" prefHeight="17.0" prefWidth="189.0" text="Selection Sort" textAlignment="CENTER" textFill="#245747" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="btAscendingSortSelection" layoutX="920.0" layoutY="312.0" mnemonicParsing="false" onAction="#onbtAscendingSortSelection" prefHeight="36.0" prefWidth="189.0" text="Ascending " textFill="#2d7959" />
+      <Button fx:id="btDescendingSortSelection" layoutX="920.0" layoutY="356.0" mnemonicParsing="false" onAction="#onbtDescendingSortSelection" prefHeight="36.0" prefWidth="189.0" text="Descending" textFill="#3c7935" />
    </children>
 </AnchorPane>

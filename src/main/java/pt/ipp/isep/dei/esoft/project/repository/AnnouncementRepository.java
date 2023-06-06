@@ -438,4 +438,18 @@ public class AnnouncementRepository {
         announcements.add(announcement);
     }
 
+    public ArrayList<Announcement> getAnnouncementsInsertionSortByAreaDescending() {
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        for (int i = 1; i < resultAnnouncements.size(); i++) {
+            Announcement key = resultAnnouncements.get(i);
+            int j = i - 1;
+            while (j >= 0 && resultAnnouncements.get(j).getProperty().getArea() < key.getProperty().getArea()) {
+                resultAnnouncements.set(j + 1, resultAnnouncements.get(j));
+                j--;
+            }
+            resultAnnouncements.set(j + 1, key);
+        }
+        System.out.println(resultAnnouncements);
+        return resultAnnouncements;
+    }
 }

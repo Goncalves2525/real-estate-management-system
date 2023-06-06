@@ -17,12 +17,8 @@ import java.util.ResourceBundle;
 
 public class NetworkManagerMenuWindow implements Initializable {
 
-
     @FXML
-    private Button btSelectionSort;
-
-    @FXML
-    private Button btInsertionSort;
+    private Button btSort;
 
     @FXML
     private Button btReturn;
@@ -35,24 +31,8 @@ public class NetworkManagerMenuWindow implements Initializable {
     }
 
 
-    public void onBtInsertionSort(ActionEvent actionEvent) {
-        Stage mainStage = getSortStage();
-        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/NetworkManagerSortScene.fxml"));
-        Parent mainMenuRoot = null;
-        try {
-            mainMenuRoot = mainMenuLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene mainMenuScene = new Scene(mainMenuRoot);
-        mainStage.setScene(mainMenuScene);
-        mainStage.setTitle("Real Estate USA");
-        mainStage.show();
-
-    }
-
     private Stage getSortStage() {
-        return (Stage) this.btInsertionSort.getScene().getWindow();
+        return (Stage) this.btSort.getScene().getWindow();
     }
 
     public void onBtReturn(ActionEvent actionEvent) {
@@ -78,5 +58,20 @@ public class NetworkManagerMenuWindow implements Initializable {
 
 
     public void onBtSelectionSort(ActionEvent event) {
+    }
+
+    public void onBtSort(ActionEvent event) {
+        Stage mainStage = getSortStage();
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/NetworkManagerSortScene.fxml"));
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene mainMenuScene = new Scene(mainMenuRoot);
+        mainStage.setScene(mainMenuScene);
+        mainStage.setTitle("Real Estate USA");
+        mainStage.show();
     }
 }

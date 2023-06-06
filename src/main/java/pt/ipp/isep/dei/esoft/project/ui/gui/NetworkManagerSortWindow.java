@@ -15,82 +15,66 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
 import pt.ipp.isep.dei.esoft.project.application.controller.PropertyOrderManagementController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class NetworkManagerSortWindow implements Initializable {
     private final PropertyOrderManagementController controller = new PropertyOrderManagementController();
+    private final ImportController importController = new ImportController();
     @FXML
-    private TableView<Property> propertyTable;
+    private TableView<Property> PropertyTableView;
     @FXML
-    private Button btAscendingSort;
+    private Button btAscendingSortInsertion;
     @FXML
-    private Button btDescendingSort;
+    private Button btDescendingSortInsertion;
+    @FXML
+    private Button btAscendingSortSelection;
+    @FXML
+    private Button btDescendingSortSelection;
     @FXML
     private Button btReturn;
     @FXML
-    private TableColumn<Property, Integer> id;
-    @FXML
-    private TableColumn<Property, TypeOfProperty> typeOfProperty;
-    @FXML
-    private TableColumn<Property, TransactionType> transactionType;
-    @FXML
-    private TableColumn<Property, Date> publishDate;
-    @FXML
-    private TableColumn<Property, Commission> commission;
-    @FXML
-    private TableColumn<Property, Double> area;
-    @FXML
-    private TableColumn<Property, Double> distanceFromCenter;
-    @FXML
-    private TableColumn<Property, Double> price;
-    @FXML
-    private TableColumn<Property, Address> address;
-    @FXML
-    private TableColumn<Property, Integer> numberOfBedrooms;
-    @FXML
+    private Button btImport;
 
-    private TableColumn<Property, Integer> numberOfBathrooms;
     @FXML
-    private TableColumn<Property, Integer> numberOfParkingSpaces;
+    private TableColumn<Property, String> id;
     @FXML
-    private TableColumn<Property, Boolean> hasCentralHeating;
+    private TableColumn<Property, String> address;
     @FXML
-    private TableColumn<Property, Boolean> hasAirConditioning;
+    private TableColumn<Property, String> area;
     @FXML
-    private TableColumn<Property, Boolean> hasInabitableLoft;
-    @FXML
-    private TableColumn<Property, Boolean> hasBasement;
-    @FXML
-    private TableColumn<Property, SunExposure> sunExposure;
+    private TableColumn<Property, String> typeOfProperty;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        typeOfProperty.setCellValueFactory(new PropertyValueFactory<>("typeOfProperty"));
-        transactionType.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
-        publishDate.setCellValueFactory(new PropertyValueFactory<>("publishDate"));
-        commission.setCellValueFactory(new PropertyValueFactory<>("commission"));
-        area.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getArea()).asObject());
-
-
+        address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        area.setCellValueFactory(new PropertyValueFactory<>("Area"));
+        //typeOfProperty.setCellValueFactory(new PropertyValueFactory<>("TypeOfProperty"));
 
     }
 
-    public void onbtAscendingSort(ActionEvent actionEvent) {
-        ObservableList<Property> observableList = FXCollections.observableArrayList(controller.getPropertiesInsertionSortByAreaAscending());
-        propertyTable.setItems(observableList);
+    public void onbtAscendingSortInsertion(ActionEvent actionEvent) {
+       ObservableList<Property> observableList = FXCollections.observableArrayList(controller.getPropertiesInsertionSortByAreaAscending());
+        PropertyTableView.setItems(observableList);
+
     }
 
-    public void onbtDescendingSort(ActionEvent actionEvent) {
+    public void onbtDescendingSortInsertion(ActionEvent actionEvent) {
+        ObservableList<Property> observableList = FXCollections.observableArrayList(controller.getPropertiesInsertionSortByAreaDescending());
+        PropertyTableView.setItems(observableList);
     }
     public void onBtReturn(ActionEvent actionEvent) {
         Stage mainStage = getMainStage();
@@ -112,4 +96,31 @@ public class NetworkManagerSortWindow implements Initializable {
     }
 
 
+    public void onBtImport(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set the title of the file chooser dialog
+        fileChooser.setTitle("Select File");
+
+        // Show the file chooser dialog
+        Stage mainStage = getMainStage();
+        String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
+        if (!Objects.equals(selectedDirectory, "")) {
+            ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
+            String importResult = importController.importDatatoprperty(dataToImport);
+            System.out.println(importResult);
+        }
+    }
+
+
+    public void onbtAscendingSortSelection(ActionEvent event) {
+        ObservableList<Property> observableList = FXCollections.observableArrayList(controller.getPropertiesSelectionSortByAreaAscending());
+        PropertyTableView.setItems(observableList);
+    }
+
+    public void onbtDescendingSortSelection(ActionEvent event) {
+        ObservableList<Property> observableList = FXCollections.observableArrayList(controller. getPropertiesSelectionSortByAreaDescending());
+        PropertyTableView.setItems(observableList);
+
+    }
 }

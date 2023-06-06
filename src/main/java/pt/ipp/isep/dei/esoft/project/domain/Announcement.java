@@ -427,4 +427,12 @@ public class Announcement {
     public Client getOwner() {
         return owner;
     }
+
+    public ArrayList<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(ArrayList<Photo> photos) {
+        this.photos = photos;
+    }
 }

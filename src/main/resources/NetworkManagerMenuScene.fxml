@@ -16,10 +16,9 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button fx:id="btSelectionSort" mnemonicParsing="false" onAction="#onBtSelectionSort" prefHeight="48.0" prefWidth="528.0" text="Selection Sort" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="btSort" mnemonicParsing="false" onAction="#onBtSort" prefHeight="48.0" prefWidth="553.0" text="Sort all properties by property area" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="200.0" right="200.0" />
          </GridPane.margin>
@@ -27,15 +26,7 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="btInsertionSort" mnemonicParsing="false" onAction="#onBtInsertionSort" prefHeight="48.0" prefWidth="553.0" text="Insertion Sort" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets left="200.0" right="200.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Button>
-      <Button fx:id="btReturn" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="46.0" prefWidth="335.0" text="Return" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="btReturn" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="46.0" prefWidth="335.0" text="Return" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
@@ -43,7 +34,7 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="901.0" text="Sort all properties by property area" textAlignment="CENTER">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="901.0" text="Network Manager Menu" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>

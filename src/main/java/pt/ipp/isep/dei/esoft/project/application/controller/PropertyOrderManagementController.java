@@ -21,6 +21,7 @@ public class PropertyOrderManagementController {
     public PropertyOrderManagementController() {
         getPropertyRepository();
         getOrderRepository();
+        getAnnouncementRepository();
     }
 
     private void getPropertyRepository() {
@@ -141,5 +142,12 @@ public class PropertyOrderManagementController {
     public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
         return propertyRepository.getPropertiesInsertionSortByAreaAscending();
     }
+    public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
+        return propertyRepository.getPropertiesSelectionSortByAreaAscending();
+    }
+    public ArrayList<Property> getPropertiesSelectionSortByAreaDescending() {
+        return propertyRepository.getPropertiesSelectionSortByAreaDescending();
+    }
+
 }
 
