@@ -62,7 +62,6 @@ public class NetworkManagerSortWindow implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         area.setCellValueFactory(new PropertyValueFactory<>("Area"));
-        //typeOfProperty.setCellValueFactory(new PropertyValueFactory<>("TypeOfProperty"));
 
     }
 
