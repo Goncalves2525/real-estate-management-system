@@ -14,14 +14,24 @@ import java.util.List;
 
 public class PropertyOrderManagementController {
     private PropertyRepository propertyRepository = null;
+    private PropertyRepository propertyDealRepository = null;
     private OrderRepository orderRepository = null;
     private AnnouncementRepository announcementRepository;
     private AuthenticationRepository authenticationRepository;
+
 
     public PropertyOrderManagementController() {
         getPropertyRepository();
         getOrderRepository();
         getAnnouncementRepository();
+        getPropertyDealRepository();
+    }
+
+    private void getPropertyDealRepository() {
+        if (propertyDealRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            propertyDealRepository = repositories.getPropertyDealRepository();
+        }
     }
 
     private void getPropertyRepository() {
@@ -137,16 +147,16 @@ public class PropertyOrderManagementController {
 
     }
     public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
-        return propertyRepository.getPropertiesInsertionSortByAreaDescending();
+        return propertyDealRepository.getPropertiesInsertionSortByAreaDescending();
     }
     public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
-        return propertyRepository.getPropertiesInsertionSortByAreaAscending();
+        return propertyDealRepository.getPropertiesInsertionSortByAreaAscending();
     }
     public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
-        return propertyRepository.getPropertiesSelectionSortByAreaAscending();
+        return propertyDealRepository.getPropertiesSelectionSortByAreaAscending();
     }
     public ArrayList<Property> getPropertiesSelectionSortByAreaDescending() {
-        return propertyRepository.getPropertiesSelectionSortByAreaDescending();
+        return propertyDealRepository.getPropertiesSelectionSortByAreaDescending();
     }
 
 }

@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class ImportController {
 
     private final AnnouncementRepository dealRepository;
-    private final PropertyRepository propertyRepository;
+    private final PropertyRepository propertyDealRepository;
 
     /**
      * Instantiates a new Import controller.
@@ -29,7 +29,7 @@ public class ImportController {
     public ImportController() {
 
         this.dealRepository = Repositories.getInstance().getDealRepository();
-        this.propertyRepository = Repositories.getInstance().getPropertyRepository();
+        this.propertyDealRepository = Repositories.getInstance().getPropertyDealRepository();
     }
 
     /**
@@ -179,7 +179,7 @@ public class ImportController {
                         boolean hasInhabitableLoft = propertyLoft;
                         SunExposure sunExposure = SunExposure.valueOf(propertySunExposure);
                         Address address = createAddress(data[8]);
-                        propertyId = propertyRepository.addHouse(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
+                        propertyId = propertyDealRepository.addHouse(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
                                 numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning,
                                 hasBasement, hasInhabitableLoft, sunExposure);
                     } else if (propertyType.equalsIgnoreCase("Apartment")) {
@@ -189,11 +189,11 @@ public class ImportController {
                         boolean hasCentralHeating = propertyCentralHeating;
                         boolean hasAirConditioning = propertyAirconditioned;
                         Address address = createAddress(data[8]);
-                        propertyId = propertyRepository.addApartment(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
+                        propertyId = propertyDealRepository.addApartment(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
                                 numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
                     } else if (propertyType.equalsIgnoreCase("Land")) {
                         Address address = createAddress(data[8]);
-                        propertyId = propertyRepository.addLand(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address);
+                        propertyId = propertyDealRepository.addLand(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address);
                     } else {
                         throw new IllegalArgumentException("Invalid property type: " + propertyType);
                     }

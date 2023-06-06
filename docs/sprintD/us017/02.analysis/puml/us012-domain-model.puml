@@ -20,6 +20,6 @@ class Order{
     date
     orderState
 }
-SystemAdministrator "1" -- "1" Order : creates from imported data >
+NetworkManager "1" -- "1"  : creates from imported data >
 
 @enduml

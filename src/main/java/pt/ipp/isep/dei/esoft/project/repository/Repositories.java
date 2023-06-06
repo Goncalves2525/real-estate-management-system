@@ -21,6 +21,8 @@ public class Repositories {
     PropertyRepository propertyRepository = new PropertyRepository();
     VisitScheduleRepository visitScheduleRepository = new VisitScheduleRepository();
 
+    PropertyRepository propertyDealRepository = new PropertyRepository();
+
     private Repositories() {
     }
 
@@ -34,6 +36,9 @@ public class Repositories {
 
     public AnnouncementRepository getDealRepository() {
         return dealRepository;
+    }
+    public PropertyRepository getPropertyDealRepository() {
+        return propertyDealRepository;
     }
 
     public AuthenticationRepository getAuthenticationRepository() {
