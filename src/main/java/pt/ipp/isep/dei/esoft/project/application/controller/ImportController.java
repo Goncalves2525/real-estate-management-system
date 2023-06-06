@@ -79,7 +79,6 @@ public class ImportController {
         int totalImported = 0;
         int totalItemsToImport = dataToImport.size();
         try {
-
             for (String[] data : dataToImport) {
                 try {
                     dealRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24], Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
