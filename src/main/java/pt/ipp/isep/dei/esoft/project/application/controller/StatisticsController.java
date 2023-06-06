@@ -11,7 +11,7 @@ public class StatisticsController {
     private AnnouncementRepository dealRepository = null;
     private Statistics statistics = Statistics.getInstance();
 
-    public StatisticsController(){
+    public StatisticsController() {
         getDealRepository();
     }
 
@@ -31,4 +31,74 @@ public class StatisticsController {
         statistics.setDeals(deals);
         statistics.calcSimpleRegressionArea();
     }
+
+    public ArrayList<Double> getForecastedPrices() {
+        return statistics.getForecastedPrices();
+    }
+
+    public double[] getCoefficients() {
+        double[] coefficients = new double[3];
+        coefficients[0] = statistics.getCorrelationCoefficient();
+        coefficients[1] = statistics.getDeterminationCoefficient();
+        coefficients[2] = statistics.getAdjustedDeterminationCoefficient();
+
+        return coefficients;
+    }
+
+    public double[][] getConfidenceIntervals() {
+        return statistics.getConfidenceIntervals();
+    }
+
+    public boolean[] getRejects() {
+        return statistics.getRejects();
+    }
+
+    public double getAlfa() {
+        return statistics.getAlfa();
+    }
+
+    public double getInterceptPValue() {
+        return statistics.getInterceptPValue();
+    }
+
+    public double getSlopePValue() {
+        return statistics.getSlopePValue();
+    }
+
+    public double getTotalSumOfSquares(){
+        return statistics.getTotalSumOfSquares();
+    }
+
+    public double getRegressionSumOfSquares(){
+        return statistics.getRegressionSumOfSquares();
+    }
+    public double getResidualSumOfSquares(){
+        return statistics.getResidualSumOfSquares();
+    }
+    public double getPValue(){
+        return statistics.getpValue();
+    }
+
+    public double getFValue(){
+        return statistics.getfValue();
+    }
+
+    public int getTotalDegreesOfFreedom(){
+        return statistics.getTotalDegreesOfFreedom();
+    }
+    public int getRegressionDegreesOfFreedom(){
+        return statistics.getRegressionDegreesOfFreedom();
+    }
+    public int getResidualDegreesOfFreedom(){
+        return statistics.getResidualDegreesOfFreedom();
+    }
+
+    public double getRegressionMeanSquare(){
+        return statistics.getRegressionMeanSquare();
+    }
+    public double getResidualMeanSquare(){
+        return statistics.getResidualMeanSquare();
+    }
+
+
 }
