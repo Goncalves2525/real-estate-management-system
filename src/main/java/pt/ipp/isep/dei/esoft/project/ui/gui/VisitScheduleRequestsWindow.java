@@ -174,14 +174,14 @@ public class VisitScheduleRequestsWindow implements Initializable {
 
     public void removeVisit(VisitSchedule visit,String reason) {
         controller.disapproveVisit(visit);
-        controller.respondToBookingRequest(visit, reason);
+        controller.respondToBookingRequestByEmail(visit, reason);
         controller.removeVisit(visit);
         showFilteredVisits();
     }
 
     public void approveVisit(VisitSchedule visit) {
         controller.approveVisit(visit);
-        controller.respondToBookingRequest(visit, "Visit approved.");
+        controller.respondToBookingRequestByEmail(visit, "Visit approved.");
         showFilteredVisits();
     }
 

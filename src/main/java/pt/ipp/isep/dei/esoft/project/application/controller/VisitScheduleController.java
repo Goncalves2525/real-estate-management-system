@@ -4,15 +4,11 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.VisitScheduleRequestsWindow;
-import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -30,6 +26,7 @@ public class VisitScheduleController {
     private ClientRepository clientRepository = null;
     private AuthenticationController authController = new AuthenticationController();
     private EmployeeRepository employeeRepository = null;
+    private EmailSender emailSender = new EmailSender();
 
 
     /**
@@ -48,7 +45,6 @@ public class VisitScheduleController {
         Property property = getPropertyByAnnouncement(announcement);
         return String.valueOf(property.getAddress());
     }
-
 
 
 
@@ -210,7 +206,6 @@ public class VisitScheduleController {
     }
 
 
-
     /**
      * Save visit schedule
      * @param announcementID announcement id
@@ -239,29 +234,7 @@ public class VisitScheduleController {
      * @param agentEmail agent email
      */
     private void sendEmailToAgent(int announcementID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, String agentEmail, String adressOfProperty) {
-        String filename = "EmailToAgent_" + agentEmail + "_Announcement_" + announcementID + ".txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            if (agentEmail != null) {
-                writer.write("To: " + agentEmail + "\n\n");
-            }
-            writer.write("Subject: Visit Schedule - Announcement " + announcementID + "\n\n");
-            writer.write("Dear Agent,\n\n");
-            if (name != null) {
-                writer.write("My name is " + name + ". I am interested in the property listed under announcement number " + announcementID + " which is located at " + adressOfProperty + ".\n\n");
-            }
-            if (date != null && startTime != null && endTime != null) {
-                writer.write("I would like to propose a visit on " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " starting from " + startTime + " until " + endTime + ". Please feel free to contact me at the following telephone number: " + telephoneNumber + " if there are any issues with the proposed timing.\n\n");
-            }
-            writer.write("I look forward to your confirmation of the visit.\n");
-            writer.write("Thank you for your attention.\n\n");
-            if (name != null) {
-                writer.write("Best regards,\n");
-                writer.write(name);
-            }
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + filename);
-            e.printStackTrace();
-        }
+        emailSender.sendEmailToAgent(announcementID, name, telephoneNumber, date, startTime, endTime, agentEmail, adressOfProperty);
     }
 
 
@@ -351,6 +324,9 @@ public class VisitScheduleController {
         return null;
     }
 
+    /**
+     * Get employee repository
+     */
     private EmployeeRepository getEmployeeRepository(){
         if (employeeRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -359,6 +335,11 @@ public class VisitScheduleController {
         return employeeRepository;
     }
 
+    /**
+     * Get employee name by email
+     * @param email
+     * @return employee name
+     */
     public String getEmployeeNameByEmail(String email) {
         Employee employee = getEmployeeRepository().getEmployeeByEmail(email);
         if (employee != null) {
@@ -367,6 +348,11 @@ public class VisitScheduleController {
         return null;
     }
 
+    /**
+     * Get employee phone number by email
+     * @param email
+     * @return employee phone number
+     */
     public Long getEmployeePhoneNumberByEmail(String email) {
         Employee employee = getEmployeeRepository().getEmployeeByEmail(email);
         if (employee != null) {
@@ -375,9 +361,12 @@ public class VisitScheduleController {
         return null;
     }
 
-
-
-    public void respondToBookingRequest(VisitSchedule visitSchedule, String reason) {
+    /**
+     * Respond to booking request by email
+     * @param visitSchedule
+     * @param reason
+     */
+    public void respondToBookingRequestByEmail(VisitSchedule visitSchedule, String reason) {
         String requesterEmail = visitSchedule.getRequesterEmail();
         int propertyId = visitSchedule.getPropertyID();
         String propertyLocation = visitSchedule.getAdressOfProperty();
@@ -388,29 +377,8 @@ public class VisitScheduleController {
         String agentName = getEmployeeNameByEmail(visitSchedule.getAgentEmail());
         long agentPhone = getEmployeePhoneNumberByEmail(visitSchedule.getAgentEmail());
 
-        // Format date and time
-        String formattedDate = visitDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
-        String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("HH:mm"));
-
-        // Create subject and body of the email based on whether the request is accepted or rejected
-        String subject = isAccepted ? "Your Visit Booking Request Has Been Accepted" : "Your Visit Booking Request Has Been Rejected";
-        String body = "Dear Customer,\n\n" +
-                "Thank you for your interest in the property listed with ID: " + propertyId +
-                " and located at: " + propertyLocation + ".\n\n" +
-                "You had requested a visit for the date: " + formattedDate +
-                ", with a start time at: " + formattedStartTime +
-                " and ending at: " + formattedEndTime + ".\n\n" +
-                (isAccepted ? "We are pleased to inform you that your booking request has been accepted. You will be greeted by our agent " + agentName + ".\n" +
-                        "In case of any changes or queries, you may contact them at the following number: " + agentPhone + ".\n\n" +
-                        "We look forward to welcoming you for the visit." :
-                        "We regret to inform you that your booking request has been rejected for the following reason:\n\n" + reason +
-                                "\n\nIf you have any doubts and need help you may contact the agent " + agentName + " with the following number: " + agentPhone + "\n") +
-                "\nBest Regards,\n" +
-                agentName;
-
-        // Send the email
-        Utils.sendEmail(requesterEmail, subject, body);
+        emailSender.respondToBookingRequestEmail(requesterEmail, propertyId, propertyLocation, visitDate,
+                startTime, endTime, isAccepted, agentName, agentPhone, reason);
     }
 
 }
