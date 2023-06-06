@@ -34,7 +34,8 @@ public class Statistics {
     private int residualDegreesOfFreedom;
     private double fValue;
     private double pValue;
-    private SimpleRegression regression;
+
+
 
     private Statistics() {
     }
@@ -66,12 +67,6 @@ public class Statistics {
         n = deals.size();
         residualDegreesOfFreedom = n - 2;
         TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
-
-        double meanConfidenceError = slopeStandardError * tDistribution.inverseCumulativeProbability(1 - alfa / 2);
-        double meanLowerBound = regression.predict(deals.get(0).getProperty().getArea()) - (meanConfidenceError / 2);
-        double meanUpperBound = regression.predict(deals.get(0).getProperty().getArea()) + (meanConfidenceError / 2);
-        confidenceIntervals[0][0] = meanLowerBound;
-        confidenceIntervals[0][1] = meanUpperBound;
 
         interceptStandardError = regression.getInterceptStdErr();
         double interceptLowerBound = regression.getIntercept() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
@@ -128,17 +123,90 @@ public class Statistics {
         fValue = regressionMeanSquare / residualMeanSquare;
         FDistribution fDistribution = new FDistribution(regressionDegreesOfFreedom, residualDegreesOfFreedom);
         pValue = 1 - fDistribution.cumulativeProbability(fValue);
-
     }
 
-    public void calcSimpleRegressionDistance(double distanceFromCenter) {
+    public void calcSimpleRegressionDistance() {
         SimpleRegression regression = new SimpleRegression();
+        //Forecast Prices
         for (Announcement deal : deals) {
             regression.addData(deal.getProperty().getDistanceFromCenter(), deal.getProperty().getPrice());
         }
+
+        for (Announcement deal : deals) {
+            forecastedPrices.add(regression.predict(deal.getProperty().getDistanceFromCenter()));
+        }
+
+        //R, R^2 and adjusted R^2
+        correlationCoefficient = regression.getR();
+        determinationCoefficient = regression.getRSquare();
+        adjustedDeterminationCoefficient = 1 - (1 - determinationCoefficient) * (deals.size() - 1) / (deals.size() - 2 - 1);
+
+        //Confidence Interval
+        slopeStandardError = regression.getSlopeStdErr();
+        slope = regression.getSlope();
+        alfa = 1 - confidenceLevel;
+        n = deals.size();
+        residualDegreesOfFreedom = n - 2;
+        TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
+
+        interceptStandardError = regression.getInterceptStdErr();
+        double interceptLowerBound = regression.getIntercept() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        double interceptUpperBound = regression.getIntercept() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        confidenceIntervals[1][0] = interceptLowerBound;
+        confidenceIntervals[1][1] = interceptUpperBound;
+
+        double slopeLowerBound = regression.getSlope() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        double slopeUpperBound = regression.getSlope() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        confidenceIntervals[2][0] = slopeLowerBound;
+        confidenceIntervals[2][1] = slopeUpperBound;
+
+
+        //Hyphotesis Test
+        double a0 = 0;
+        double b0 = 0;
+        boolean interceptReject;
+        boolean slopeReject;
+        intercept = regression.getIntercept();
+        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
+
+        if (interceptPValue < alfa) {
+            interceptReject = true;
+        } else {
+            interceptReject = false;
+        }
+
+        slope = regression.getSlope();
+        double slopeTValue = (slope - b0) / slopeStandardError;
+        slopePValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(slopeTValue)));
+
+        if (slopePValue < alfa) {
+            slopeReject = true;
+        } else {
+            slopeReject = false;
+        }
+
+        rejects[0] = interceptReject;
+        rejects[1] = slopeReject;
+
+        //Anova
+        totalSumOfSquares = regression.getTotalSumSquares();
+        regressionSumOfSquares = regression.getRegressionSumSquares();
+        residualSumOfSquares = regression.getSumSquaredErrors();
+
+        totalDegreesOfFreedom = n - 1;
+        regressionDegreesOfFreedom = 1;
+        residualDegreesOfFreedom = n - 2;
+
+        regressionMeanSquare = regressionSumOfSquares / regressionDegreesOfFreedom;
+        residualMeanSquare = residualSumOfSquares / residualDegreesOfFreedom;
+
+        fValue = regressionMeanSquare / residualMeanSquare;
+        FDistribution fDistribution = new FDistribution(regressionDegreesOfFreedom, residualDegreesOfFreedom);
+        pValue = 1 - fDistribution.cumulativeProbability(fValue);
     }
 
-    public void calcSimpleRegressionBedrooms(int numberOfBedrooms) {
+    public void calcSimpleRegressionBedrooms() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
@@ -148,9 +216,87 @@ public class Statistics {
             }
 
         }
+
+        for (Announcement deal : deals) {
+            if (deal.getProperty() instanceof House) {
+                forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfBedrooms()));
+            } else if (deal.getProperty() instanceof Apartment) {
+                forecastedPrices.add(regression.predict(((Apartment) deal.getProperty()).getNumberOfBedrooms()));
+            }
+
+        }
+
+        //R, R^2 and adjusted R^2
+        correlationCoefficient = regression.getR();
+        determinationCoefficient = regression.getRSquare();
+        adjustedDeterminationCoefficient = 1 - (1 - determinationCoefficient) * (deals.size() - 1) / (deals.size() - 2 - 1);
+
+        //Confidence Interval
+        slopeStandardError = regression.getSlopeStdErr();
+        slope = regression.getSlope();
+        alfa = 1 - confidenceLevel;
+        n = deals.size();
+        residualDegreesOfFreedom = n - 2;
+        TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
+
+        interceptStandardError = regression.getInterceptStdErr();
+        double interceptLowerBound = regression.getIntercept() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        double interceptUpperBound = regression.getIntercept() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        confidenceIntervals[1][0] = interceptLowerBound;
+        confidenceIntervals[1][1] = interceptUpperBound;
+
+        double slopeLowerBound = regression.getSlope() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        double slopeUpperBound = regression.getSlope() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        confidenceIntervals[2][0] = slopeLowerBound;
+        confidenceIntervals[2][1] = slopeUpperBound;
+
+
+        //Hyphotesis Test
+        double a0 = 0;
+        double b0 = 0;
+        boolean interceptReject;
+        boolean slopeReject;
+        intercept = regression.getIntercept();
+        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
+
+        if (interceptPValue < alfa) {
+            interceptReject = true;
+        } else {
+            interceptReject = false;
+        }
+
+        slope = regression.getSlope();
+        double slopeTValue = (slope - b0) / slopeStandardError;
+        slopePValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(slopeTValue)));
+
+        if (slopePValue < alfa) {
+            slopeReject = true;
+        } else {
+            slopeReject = false;
+        }
+
+        rejects[0] = interceptReject;
+        rejects[1] = slopeReject;
+
+        //Anova
+        totalSumOfSquares = regression.getTotalSumSquares();
+        regressionSumOfSquares = regression.getRegressionSumSquares();
+        residualSumOfSquares = regression.getSumSquaredErrors();
+
+        totalDegreesOfFreedom = n - 1;
+        regressionDegreesOfFreedom = 1;
+        residualDegreesOfFreedom = n - 2;
+
+        regressionMeanSquare = regressionSumOfSquares / regressionDegreesOfFreedom;
+        residualMeanSquare = residualSumOfSquares / residualDegreesOfFreedom;
+
+        fValue = regressionMeanSquare / residualMeanSquare;
+        FDistribution fDistribution = new FDistribution(regressionDegreesOfFreedom, residualDegreesOfFreedom);
+        pValue = 1 - fDistribution.cumulativeProbability(fValue);
     }
 
-    public void calcSimpleRegressionBathrooms(int numberOfBathrooms) {
+    public void calcSimpleRegressionBathrooms() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
@@ -158,11 +304,87 @@ public class Statistics {
             } else if (deal.getProperty() instanceof Apartment) {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfBathrooms(), deal.getProperty().getPrice());
             }
-
         }
+
+        for (Announcement deal : deals) {
+            if (deal.getProperty() instanceof House) {
+                forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfBathrooms()));
+            } else if (deal.getProperty() instanceof Apartment) {
+                forecastedPrices.add(regression.predict(((Apartment) deal.getProperty()).getNumberOfBathrooms()));
+            }
+        }
+
+        //R, R^2 and adjusted R^2
+        correlationCoefficient = regression.getR();
+        determinationCoefficient = regression.getRSquare();
+        adjustedDeterminationCoefficient = 1 - (1 - determinationCoefficient) * (deals.size() - 1) / (deals.size() - 2 - 1);
+
+        //Confidence Interval
+        slopeStandardError = regression.getSlopeStdErr();
+        slope = regression.getSlope();
+        alfa = 1 - confidenceLevel;
+        n = deals.size();
+        residualDegreesOfFreedom = n - 2;
+        TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
+
+        interceptStandardError = regression.getInterceptStdErr();
+        double interceptLowerBound = regression.getIntercept() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        double interceptUpperBound = regression.getIntercept() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        confidenceIntervals[1][0] = interceptLowerBound;
+        confidenceIntervals[1][1] = interceptUpperBound;
+
+        double slopeLowerBound = regression.getSlope() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        double slopeUpperBound = regression.getSlope() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        confidenceIntervals[2][0] = slopeLowerBound;
+        confidenceIntervals[2][1] = slopeUpperBound;
+
+
+        //Hyphotesis Test
+        double a0 = 0;
+        double b0 = 0;
+        boolean interceptReject;
+        boolean slopeReject;
+        intercept = regression.getIntercept();
+        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
+
+        if (interceptPValue < alfa) {
+            interceptReject = true;
+        } else {
+            interceptReject = false;
+        }
+
+        slope = regression.getSlope();
+        double slopeTValue = (slope - b0) / slopeStandardError;
+        slopePValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(slopeTValue)));
+
+        if (slopePValue < alfa) {
+            slopeReject = true;
+        } else {
+            slopeReject = false;
+        }
+
+        rejects[0] = interceptReject;
+        rejects[1] = slopeReject;
+
+        //Anova
+        totalSumOfSquares = regression.getTotalSumSquares();
+        regressionSumOfSquares = regression.getRegressionSumSquares();
+        residualSumOfSquares = regression.getSumSquaredErrors();
+
+        totalDegreesOfFreedom = n - 1;
+        regressionDegreesOfFreedom = 1;
+        residualDegreesOfFreedom = n - 2;
+
+        regressionMeanSquare = regressionSumOfSquares / regressionDegreesOfFreedom;
+        residualMeanSquare = residualSumOfSquares / residualDegreesOfFreedom;
+
+        fValue = regressionMeanSquare / residualMeanSquare;
+        FDistribution fDistribution = new FDistribution(regressionDegreesOfFreedom, residualDegreesOfFreedom);
+        pValue = 1 - fDistribution.cumulativeProbability(fValue);
     }
 
-    public void calcSimpleRegressionParkingSpaces(int numberOfParkingSpaces) {
+    public void calcSimpleRegressionParkingSpaces() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
@@ -171,6 +393,83 @@ public class Statistics {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfParkingSpaces(), deal.getProperty().getPrice());
             }
         }
+
+        for (Announcement deal : deals) {
+            if (deal.getProperty() instanceof House) {
+                forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfParkingSpaces()));
+            } else if (deal.getProperty() instanceof Apartment) {
+                forecastedPrices.add(regression.predict(((Apartment) deal.getProperty()).getNumberOfParkingSpaces()));
+            }
+        }
+
+        //R, R^2 and adjusted R^2
+        correlationCoefficient = regression.getR();
+        determinationCoefficient = regression.getRSquare();
+        adjustedDeterminationCoefficient = 1 - (1 - determinationCoefficient) * (deals.size() - 1) / (deals.size() - 2 - 1);
+
+        //Confidence Interval
+        slopeStandardError = regression.getSlopeStdErr();
+        slope = regression.getSlope();
+        alfa = 1 - confidenceLevel;
+        n = deals.size();
+        residualDegreesOfFreedom = n - 2;
+        TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
+
+        interceptStandardError = regression.getInterceptStdErr();
+        double interceptLowerBound = regression.getIntercept() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        double interceptUpperBound = regression.getIntercept() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * interceptStandardError;
+        confidenceIntervals[1][0] = interceptLowerBound;
+        confidenceIntervals[1][1] = interceptUpperBound;
+
+        double slopeLowerBound = regression.getSlope() - tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        double slopeUpperBound = regression.getSlope() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
+        confidenceIntervals[2][0] = slopeLowerBound;
+        confidenceIntervals[2][1] = slopeUpperBound;
+
+
+        //Hyphotesis Test
+        double a0 = 0;
+        double b0 = 0;
+        boolean interceptReject;
+        boolean slopeReject;
+        intercept = regression.getIntercept();
+        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
+
+        if (interceptPValue < alfa) {
+            interceptReject = true;
+        } else {
+            interceptReject = false;
+        }
+
+        slope = regression.getSlope();
+        double slopeTValue = (slope - b0) / slopeStandardError;
+        slopePValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(slopeTValue)));
+
+        if (slopePValue < alfa) {
+            slopeReject = true;
+        } else {
+            slopeReject = false;
+        }
+
+        rejects[0] = interceptReject;
+        rejects[1] = slopeReject;
+
+        //Anova
+        totalSumOfSquares = regression.getTotalSumSquares();
+        regressionSumOfSquares = regression.getRegressionSumSquares();
+        residualSumOfSquares = regression.getSumSquaredErrors();
+
+        totalDegreesOfFreedom = n - 1;
+        regressionDegreesOfFreedom = 1;
+        residualDegreesOfFreedom = n - 2;
+
+        regressionMeanSquare = regressionSumOfSquares / regressionDegreesOfFreedom;
+        residualMeanSquare = residualSumOfSquares / residualDegreesOfFreedom;
+
+        fValue = regressionMeanSquare / residualMeanSquare;
+        FDistribution fDistribution = new FDistribution(regressionDegreesOfFreedom, residualDegreesOfFreedom);
+        pValue = 1 - fDistribution.cumulativeProbability(fValue);
     }
 
     public double calcMultipleRegression(double area, double distanceFromCenter, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces) {

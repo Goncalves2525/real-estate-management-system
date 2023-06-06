@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Statistics;
+import pt.ipp.isep.dei.esoft.project.dto.StatisticsDTO;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -30,6 +31,26 @@ public class StatisticsController {
     public void calcSimpleRegressionArea(ArrayList<Announcement> deals) {
         statistics.setDeals(deals);
         statistics.calcSimpleRegressionArea();
+    }
+
+    public void calcSimpleRegressionDistance(ArrayList<Announcement> deals) {
+        statistics.setDeals(deals);
+        statistics.calcSimpleRegressionDistance();
+    }
+
+    public void calcSimpleRegressionParkingSpaces(ArrayList<Announcement> deals) {
+        statistics.setDeals(deals);
+        statistics.calcSimpleRegressionParkingSpaces();
+    }
+
+    public void calcSimpleRegressionBedrooms(ArrayList<Announcement> deals) {
+        statistics.setDeals(deals);
+        statistics.calcSimpleRegressionBedrooms();
+    }
+
+    public void calcSimpleRegressionBathrooms(ArrayList<Announcement> deals) {
+        statistics.setDeals(deals);
+        statistics.calcSimpleRegressionBathrooms();
     }
 
     public ArrayList<Double> getForecastedPrices() {
@@ -100,5 +121,8 @@ public class StatisticsController {
         return statistics.getResidualMeanSquare();
     }
 
-
+    public StatisticsDTO getStats(){
+        StatisticsDTO stats = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getAlfa(), statistics.getIntercept(), statistics.getSlope());
+        return stats;
+    }
 }

@@ -8,10 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
 import pt.ipp.isep.dei.esoft.project.application.controller.StatisticsController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Statistics;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +70,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();
-        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/MainMenuScene.fxml"));
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/SaleForecastScene.fxml"));
         Parent mainMenuRoot = null;
         try {
             mainMenuRoot = mainMenuLoader.load();
@@ -81,7 +79,7 @@ public class SelectRegressionModelWindow implements Initializable {
         }
         Scene mainMenuScene = new Scene(mainMenuRoot);
         mainStage.setScene(mainMenuScene);
-        mainStage.setTitle("Real Estate USA");
+        mainStage.setTitle("Sale Forecast");
         mainStage.show();
     }
 
@@ -98,21 +96,41 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtSimpleBathrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.calcSimpleRegressionBathrooms(deals);
+        Stage mainStage = getMainStage();
+        mainStage.setScene(showStatisticsScene);
+        mainStage.setTitle("Statistics");
+        mainStage.show();
     }
 
     @FXML
     void onBtSimpleBedrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.calcSimpleRegressionBedrooms(deals);
+        Stage mainStage = getMainStage();
+        mainStage.setScene(showStatisticsScene);
+        mainStage.setTitle("Statistics");
+        mainStage.show();
     }
 
     @FXML
     void onBtSimpleDistance(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.calcSimpleRegressionDistance(deals);
+        Stage mainStage = getMainStage();
+        mainStage.setScene(showStatisticsScene);
+        mainStage.setTitle("Statistics");
+        mainStage.show();
     }
 
     @FXML
     void onBtSimpleParking(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.calcSimpleRegressionParkingSpaces(deals);
+        Stage mainStage = getMainStage();
+        mainStage.setScene(showStatisticsScene);
+        mainStage.setTitle("Statistics");
+        mainStage.show();
     }
 
 

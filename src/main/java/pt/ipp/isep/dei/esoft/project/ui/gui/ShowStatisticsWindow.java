@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.StatisticsController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Statistics;
+import pt.ipp.isep.dei.esoft.project.dto.StatisticsDTO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,8 +44,7 @@ public class ShowStatisticsWindow implements Initializable {
     private Button btValues;
     @FXML
     private Button btReturn;
-    @FXML
-    private Button btGraphic;
+
 
     public ShowStatisticsWindow() {
         controller = new StatisticsController();
@@ -52,21 +52,7 @@ public class ShowStatisticsWindow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
-            FXMLLoader showGraphicLoader = new FXMLLoader();
-            showGraphicLoader.setLocation(getClass().getResource("/ShowGraphicScene.fxml"));
-            Parent showGraphicRoot = showGraphicLoader.load();
-            Scene scene = new Scene(showGraphicRoot);
-            showGraphicWindow = new Stage();
-            showGraphicWindow.initModality(Modality.APPLICATION_MODAL);
-            showGraphicWindow.setTitle("Graphic");
-            showGraphicWindow.setResizable(false);
-            showGraphicWindow.setScene(scene);
-            ShowGraphicWindow showGraphicWindow = showGraphicLoader.getController();
-            showGraphicWindow.associateParentUI(this);
-        }catch (IOException e){
-            throw new RuntimeException(e);
-        }
+
     }
 
 
@@ -171,17 +157,44 @@ public class ShowStatisticsWindow implements Initializable {
 
     @FXML
     private void onBtValues(ActionEvent event) {
+        StatisticsDTO stats = controller.getStats();
+        int n = stats.getN();
+        double intercept = stats.getIntercept();
+        double slope = stats.getSlope();
+        double confidenceLevel = stats.getConfidenceLevel();
+        double alfa = stats.getAlfa();
+
+        txtArea.clear();
+        txtArea.setText("Values:\n");
+        txtArea.appendText("n: " + n + "\n");
+        txtArea.appendText("Intercept: " + intercept + "\n");
+        txtArea.appendText("Slope: " + slope + "\n");
+        txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
+        txtArea.appendText("Alfa: " + alfa + "\n");
+        txtArea.appendText("\n");
+        txtArea.appendText("Regression line: y = " + slope + "x + (" + intercept + ")");
 
     }
 
-    @FXML
-    private void onBtGraphic(ActionEvent event) {
-
-    }
 
     @FXML
     private void onBtReturn(ActionEvent event) {
+        Stage mainStage = getMainStage();
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/SelectRegressionModelScene.fxml"));
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene mainMenuScene = new Scene(mainMenuRoot);
+        mainStage.setScene(mainMenuScene);
+        mainStage.setTitle("Select Regression Model");
+        mainStage.show();
+    }
 
+    private Stage getMainStage() {
+        return (Stage) this.btReturn.getScene().getWindow();
     }
 
 
