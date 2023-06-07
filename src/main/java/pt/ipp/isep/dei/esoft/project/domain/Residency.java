@@ -161,5 +161,11 @@ public abstract class  Residency extends Property{
         return String.format(super.toString() + "\n-Number of bedrooms: %d\n-Number of bathrooms: %d\n-Number of parking spaces: %d\n-Has central heating: %b\n-Has air conditioning: %b", numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
     }
 
+    public int getStoreID(){
+        return super.getAgencyID();
+    }
 
+    public String getStoreName(){
+        return super.getAgencyName();
+    }
 }

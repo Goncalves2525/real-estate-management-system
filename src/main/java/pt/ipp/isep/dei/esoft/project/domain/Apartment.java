@@ -55,4 +55,12 @@ public class Apartment extends Residency{
     public String toString(){
         return String.format(super.toString());
     }
+
+    public int getStoreID(){
+        return super.getAgencyID();
+    }
+
+    public String getStoreName(){
+        return super.getAgencyName();
+    }
 }

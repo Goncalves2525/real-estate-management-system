@@ -64,8 +64,8 @@ public class NetworkManagerSortWindow implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         area.setCellValueFactory(new PropertyValueFactory<>("Area"));
-        storeID.setCellValueFactory(new PropertyValueFactory<>("agencyID"));
-        storeName.setCellValueFactory(new PropertyValueFactory<>("agencyName"));
+        storeID.setCellValueFactory(new PropertyValueFactory<>("storeID"));
+        storeName.setCellValueFactory(new PropertyValueFactory<>("storeName"));
     }
 
     public void onbtAscendingSortInsertion(ActionEvent actionEvent) {

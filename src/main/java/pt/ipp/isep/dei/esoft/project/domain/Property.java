@@ -135,4 +135,11 @@ public class Property {
     public String toString(){
         return String.format("\n-Area: %.2f\n-Distance from center: %.2f\n-Price: %.2f$\n-Address: %s", area, distanceFromCenter, price, address.toString());
     }
+
+    public int getAgencyID() {
+        return agencyID;
+    }
+    public String getAgencyName(){
+        return agencyName;
+    }
 }

@@ -101,4 +101,13 @@ public class House extends Residency{
     public String toString(){
         return String.format(super.toString() + "\n-Has basement: %b\n-Has inhabitable loft: %b", hasBasement, hasInhabitableLoft);
     }
+
+
+    public int getStoreID(){
+        return super.getAgencyID();
+    }
+
+    public String getStoreName(){
+        return super.getAgencyName();
+    }
 }

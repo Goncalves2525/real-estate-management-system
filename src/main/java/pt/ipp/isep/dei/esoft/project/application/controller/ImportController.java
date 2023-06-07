@@ -179,6 +179,7 @@ public class ImportController {
                         boolean hasInhabitableLoft = propertyLoft;
                         SunExposure sunExposure = SunExposure.valueOf(propertySunExposure);
                         Address address = createAddress(data[8]);
+
                         propertyId = propertyDealRepository.addHouseWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
                                 numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning,
                                 hasBasement, hasInhabitableLoft, sunExposure, storeID,storeName);
