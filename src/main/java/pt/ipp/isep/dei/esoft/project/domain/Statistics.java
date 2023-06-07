@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.apache.commons.math3.distribution.FDistribution;
 import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Statistics {
     private double interceptStandardError;
     private double alfa;
     private int n;
-    private double confidenceLevel = 0.95;
+    private double confidenceLevel;
     private double[][] confidenceIntervals = new double[3][2];
     private boolean[] rejects = new boolean[2];
     private double totalSumOfSquares;
@@ -36,8 +37,8 @@ public class Statistics {
     private double pValue;
 
 
-
     private Statistics() {
+        alfa = 1 - confidenceLevel;
     }
 
     public static Statistics getInstance() {
@@ -45,6 +46,7 @@ public class Statistics {
     }
 
     public void calcSimpleRegressionArea() {
+
         SimpleRegression regression = new SimpleRegression();
         //Forecast Prices
         for (Announcement deal : deals) {
@@ -472,8 +474,57 @@ public class Statistics {
         pValue = 1 - fDistribution.cumulativeProbability(fValue);
     }
 
-    public double calcMultipleRegression(double area, double distanceFromCenter, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces) {
-        return -1;
+    public void calcMultipleRegression(double area, double distanceFromCenter, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces) {
+
+        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+
+
+        double[][] independentVariables = new double[deals.size()][5];
+        double[] dependentVariable = new double[deals.size()];
+
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            independentVariables[i][0] = deal.getProperty().getArea();
+            independentVariables[i][1] = deal.getProperty().getDistanceFromCenter();
+            if (deal.getProperty() instanceof House){
+                independentVariables[i][2] = ((House) deal.getProperty()).getNumberOfBedrooms();
+                independentVariables[i][3] = ((House) deal.getProperty()).getNumberOfBathrooms();
+                independentVariables[i][4] = ((House) deal.getProperty()).getNumberOfParkingSpaces();
+            }
+            else if (deal.getProperty() instanceof Apartment){
+                independentVariables[i][2] = ((Apartment) deal.getProperty()).getNumberOfBedrooms();
+                independentVariables[i][3] = ((Apartment) deal.getProperty()).getNumberOfBathrooms();
+                independentVariables[i][4] = ((Apartment) deal.getProperty()).getNumberOfParkingSpaces();
+            }
+
+            dependentVariable[i] = deal.getProperty().getPrice();
+        }
+
+        regression.newSampleData(dependentVariable, independentVariables);
+
+        // Coefficients
+        double[] coefficients = regression.estimateRegressionParameters();
+        double rSquared = regression.calculateRSquared();
+        double adjustedRSquared = regression.calculateAdjustedRSquared();
+        double[] standardErrors = regression.estimateRegressionParametersStandardErrors();
+
+        // Confidence Intervals
+        int numPredictors = 5; // Number of independent variables
+        int degreesOfFreedom = n - numPredictors - 1;
+        TDistribution tDistribution = new TDistribution(degreesOfFreedom);
+        double criticalValue = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+
+        double[] lowerBounds = new double[coefficients.length];
+        double[] upperBounds = new double[coefficients.length];
+        for (int i = 0; i < coefficients.length; i++) {
+            double coefficient = coefficients[i];
+            double standardError = standardErrors[i];
+            lowerBounds[i] = coefficient - criticalValue * standardError;
+            upperBounds[i] = coefficient + criticalValue * standardError;
+        }
+
+
     }
 
     public void setDeals(ArrayList<Announcement> deals) {
@@ -585,5 +636,9 @@ public class Statistics {
 
     public double getResidualMeanSquare() {
         return residualMeanSquare;
+    }
+
+    public void setConfidenceLevel(double confidenceLevel) {
+        this.confidenceLevel = confidenceLevel;
     }
 }

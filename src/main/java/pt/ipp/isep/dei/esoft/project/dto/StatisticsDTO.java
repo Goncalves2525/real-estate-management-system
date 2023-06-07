@@ -2,15 +2,15 @@ package pt.ipp.isep.dei.esoft.project.dto;
 
 public class StatisticsDTO {
     private int n;
-    private double confidenceLevel = 0.95;
+    private double confidenceLevel;
     private double alfa;
     private double intercept;
     private double slope;
 
-    public StatisticsDTO(int n, double confidenceLevel, double alfa, double intercept, double slope) {
+    public StatisticsDTO(int n, double confidenceLevel, double intercept, double slope) {
         this.n = n;
         this.confidenceLevel = confidenceLevel;
-        this.alfa = alfa;
+        this.alfa = 1 - confidenceLevel;
         this.intercept = intercept;
         this.slope = slope;
     }

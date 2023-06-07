@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.StatisticsController;
@@ -25,7 +27,6 @@ public class ShowStatisticsWindow implements Initializable {
 
     private final StatisticsController controller;
     private Stage showGraphicWindow;
-    private final Statistics statistics = Statistics.getInstance();
     @FXML
     private TextArea txtArea;
     @FXML
@@ -62,6 +63,7 @@ public class ShowStatisticsWindow implements Initializable {
         ArrayList<Double> forecastedPrices = controller.getForecastedPrices();
         ArrayList<Announcement> deals = controller.getDeals();
         txtArea.clear();
+        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Prices:\n");
         for (int i = 0; i < forecastedPrices.size(); i++) {
             String string = String.format("Property %d Forecasted Price: %-30f    Real Price: %-30f\n", i, forecastedPrices.get(i), deals.get(i).getProperty().getPrice());
@@ -73,6 +75,7 @@ public class ShowStatisticsWindow implements Initializable {
     private void onBtR(ActionEvent event) {
         double[] coefficients = controller.getCoefficients();
         txtArea.clear();
+        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Coefficients:\n");
         txtArea.appendText("R: " + coefficients[0] + "\n");
         txtArea.appendText("R2: " + coefficients[1] + "\n");
@@ -89,6 +92,7 @@ public class ShowStatisticsWindow implements Initializable {
         double pValueSlope = controller.getSlopePValue();
 
         txtArea.clear();
+        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Hypothesis Test:\n\n");
         txtArea.appendText("Intercept P-Value: " + pValueIntercept + "\n");
         txtArea.appendText("Slope P-Value: " + pValueSlope + "\n");
@@ -114,6 +118,7 @@ public class ShowStatisticsWindow implements Initializable {
     private void onBtInterval(ActionEvent event) {
         double[][] interval = controller.getConfidenceIntervals();
         txtArea.clear();
+        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Confidence Intervals:\n");
         //txtArea.appendText("Mean Confidence Interval: ]" + interval[0][0] + " ; " + interval[0][1] + "[\n");
         txtArea.appendText("Intercept Confidence Interval: ]" + interval[1][0] + " ; " + interval[1][1] + "[\n");
@@ -151,7 +156,6 @@ public class ShowStatisticsWindow implements Initializable {
 
         txtArea.setFont(Font.font("Monospaced"));
 
-
         txtArea.appendText(anovaTable);
     }
 
@@ -165,6 +169,7 @@ public class ShowStatisticsWindow implements Initializable {
         double alfa = stats.getAlfa();
 
         txtArea.clear();
+        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Values:\n");
         txtArea.appendText("n: " + n + "\n");
         txtArea.appendText("Intercept: " + intercept + "\n");
@@ -180,15 +185,22 @@ public class ShowStatisticsWindow implements Initializable {
     @FXML
     private void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();
-        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/SelectRegressionModelScene.fxml"));
-        Parent mainMenuRoot = null;
+        FXMLLoader selectRegressionModelLoader = new FXMLLoader(getClass().getResource("/SelectRegressionModelScene.fxml"));
+        Parent selectRegressionModelRoot = null;
         try {
-            mainMenuRoot = mainMenuLoader.load();
+            selectRegressionModelRoot = selectRegressionModelLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Scene mainMenuScene = new Scene(mainMenuRoot);
-        mainStage.setScene(mainMenuScene);
+
+        SelectRegressionModelWindow controller = selectRegressionModelLoader.getController();
+        double confidenceLevel = this.controller.getConfidenceLevel();
+        String confidence = Double.toString(confidenceLevel);
+        confidence = String.format("Confidence = %s%%", confidence);
+        controller.setLabel(confidence);
+
+        Scene SelectRegressionModelScene = new Scene(selectRegressionModelRoot);
+        mainStage.setScene(SelectRegressionModelScene);
         mainStage.setTitle("Select Regression Model");
         mainStage.show();
     }

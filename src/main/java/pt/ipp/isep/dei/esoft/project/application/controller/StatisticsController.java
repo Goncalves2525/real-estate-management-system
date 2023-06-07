@@ -121,8 +121,16 @@ public class StatisticsController {
         return statistics.getResidualMeanSquare();
     }
 
+    public double getConfidenceLevel(){
+        return statistics.getConfidenceLevel();
+    }
+
+    public void setConfidenceLevel(double confidenceLevel){
+        statistics.setConfidenceLevel(confidenceLevel);
+    }
+
     public StatisticsDTO getStats(){
-        StatisticsDTO stats = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getAlfa(), statistics.getIntercept(), statistics.getSlope());
+        StatisticsDTO stats = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getIntercept(), statistics.getSlope());
         return stats;
     }
 }

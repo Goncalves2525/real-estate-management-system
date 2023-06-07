@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.StatisticsController;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
@@ -40,6 +41,15 @@ public class SelectRegressionModelWindow implements Initializable {
 
     @FXML
     private Button btSimpleParking;
+    @FXML
+    private Button btConfidence90;
+    @FXML
+    private Button btConfidence95;
+    @FXML
+    private Button btConfidence99;
+
+    @FXML
+    private Label lbConfidence;
 
     public SelectRegressionModelWindow() {
         controller = new StatisticsController();
@@ -131,6 +141,28 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.setScene(showStatisticsScene);
         mainStage.setTitle("Statistics");
         mainStage.show();
+    }
+
+    @FXML
+    private void onBtConfidence90(ActionEvent event) {
+        controller.setConfidenceLevel(0.9);
+        lbConfidence.setText("Confidence = 90%");
+    }
+
+    @FXML
+    private void onBtConfidence95(ActionEvent event) {
+        controller.setConfidenceLevel(0.95);
+        lbConfidence.setText("Confidence = 95%");
+    }
+
+    @FXML
+    private void onBtConfidence99(ActionEvent event) {
+        controller.setConfidenceLevel(0.99);
+        lbConfidence.setText("Confidence = 99%");
+    }
+
+    public void setLabel(String label) {
+        lbConfidence.setText(label);
     }
 
 
