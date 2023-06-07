@@ -179,9 +179,9 @@ public class ImportController {
                         boolean hasInhabitableLoft = propertyLoft;
                         SunExposure sunExposure = SunExposure.valueOf(propertySunExposure);
                         Address address = createAddress(data[8]);
-                        propertyId = propertyDealRepository.addHouse(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
+                        propertyId = propertyDealRepository.addHouseWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
                                 numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning,
-                                hasBasement, hasInhabitableLoft, sunExposure);
+                                hasBasement, hasInhabitableLoft, sunExposure, storeID,storeName);
                     } else if (propertyType.equalsIgnoreCase("Apartment")) {
                         int numberOfBedrooms = propertyNumberBedrooms;
                         int numberOfBathrooms = propertyNumberBathrooms;
@@ -189,11 +189,11 @@ public class ImportController {
                         boolean hasCentralHeating = propertyCentralHeating;
                         boolean hasAirConditioning = propertyAirconditioned;
                         Address address = createAddress(data[8]);
-                        propertyId = propertyDealRepository.addApartment(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
-                                numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning);
+                        propertyId = propertyDealRepository.addApartmentWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
+                                numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID,storeName);
                     } else if (propertyType.equalsIgnoreCase("Land")) {
                         Address address = createAddress(data[8]);
-                        propertyId = propertyDealRepository.addLand(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address);
+                        propertyId = propertyDealRepository.addLandWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address, storeID,storeName);
                     } else {
                         throw new IllegalArgumentException("Invalid property type: " + propertyType);
                     }

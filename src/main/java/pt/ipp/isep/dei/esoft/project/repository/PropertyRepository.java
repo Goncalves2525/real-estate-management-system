@@ -26,6 +26,24 @@ public class PropertyRepository {
         return land.getId();
     }
 
+    public int addHouseWithAgency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, boolean hasBasement, boolean hasInhabitableLoft, SunExposure sunExposure, int storeID, String storeName) {
+        House house = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure, storeID, storeName);
+        properties.add(house);
+        return house.getId();
+    }
+
+    public int addApartmentWithAgency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, int storeID, String storeName){
+        Apartment apartment = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID, storeName);
+        properties.add(apartment);
+        return apartment.getId();
+    }
+
+    public int addLandWithAgency(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName){
+        Land land = new Land(area, distanceFromCenter, price, address, storeID, storeName);
+        properties.add(land);
+        return land.getId();
+    }
+
 
     public boolean verifyIfPropertyIsEqual(Property property) {
         for (Property p : properties) {
@@ -119,6 +137,25 @@ public class PropertyRepository {
             int index = i;
             for (int j = i + 1; j < propertiesSorted.size(); j++) {
                 if (propertiesSorted.get(j).getArea() < propertiesSorted.get(index).getArea()) {
+                    index = j;
+                }
+            }
+            Property smallerNumber = propertiesSorted.get(index);
+            propertiesSorted.set(index, propertiesSorted.get(i));
+            propertiesSorted.set(i, smallerNumber);
+        }
+        return propertiesSorted;
+    }
+
+    public ArrayList<Property> getPropertiesSelectionSortByID() {
+        ArrayList<Property> propertiesSorted = new ArrayList<>();
+        for (Property p : properties) {
+            propertiesSorted.add(p);
+        }
+        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < propertiesSorted.size(); j++) {
+                if (propertiesSorted.get(j).getId() > propertiesSorted.get(index).getId()) {
                     index = j;
                 }
             }

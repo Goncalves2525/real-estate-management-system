@@ -11,9 +11,11 @@
    <children>
       <TableView fx:id="PropertyTableView" layoutX="14.0" layoutY="-1.0" prefHeight="662.0" prefWidth="894.0">
         <columns>
-            <TableColumn fx:id="id" text="ID" />
-            <TableColumn fx:id="address" prefWidth="582.0" text="Adress" />
-            <TableColumn fx:id="area" prefWidth="231.0" text="Area (m2)" />
+            <TableColumn fx:id="id" prefWidth="50.0" text="ID" />
+            <TableColumn fx:id="address" prefWidth="231.0" text="Adress" />
+            <TableColumn fx:id="area" prefWidth="102.0" text="Area (m2)" />
+            <TableColumn fx:id="storeID" prefWidth="50.0" text="Store ID" />
+            <TableColumn fx:id="storeName" prefWidth="102.0" text="Store Name" />
         </columns>
       </TableView>
       <Button fx:id="btAscendingSortInsertion" layoutX="920.0" layoutY="96.0" mnemonicParsing="false" onAction="#onbtAscendingSortInsertion" prefHeight="36.0" prefWidth="189.0" text="Ascending " textFill="#c92a2a" />

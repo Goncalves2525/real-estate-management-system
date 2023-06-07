@@ -19,6 +19,10 @@ public class Land extends Property {
         super(area, distanceFromCenter, price, address);
     }
 
+    public Land(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName) {
+        super(area, distanceFromCenter, price, address);
+    }
+
     /**
      * To string Land.
      * @return

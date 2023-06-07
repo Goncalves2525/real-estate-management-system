@@ -48,6 +48,11 @@ public class Agency {
         id = idCounter++;
     }
 
+    public Agency(int id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
     /**
      * Agency Constructor with existing ID
      * @param id id

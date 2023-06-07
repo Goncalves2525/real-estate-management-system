@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+//import javafx.stage.FileChooser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +22,9 @@ public class NetworkManagerMenuWindow implements Initializable {
 
     @FXML
     private Button btReturn;
+
+    @FXML
+    private Button btnDivideStores;
 
 
 
@@ -66,6 +69,21 @@ public class NetworkManagerMenuWindow implements Initializable {
         Parent mainMenuRoot = null;
         try {
             mainMenuRoot = mainMenuLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene mainMenuScene = new Scene(mainMenuRoot);
+        mainStage.setScene(mainMenuScene);
+        mainStage.setTitle("Real Estate USA");
+        mainStage.show();
+    }
+
+    public void onBtnDivideStores(ActionEvent actionEvent) {
+        Stage mainStage = getSortStage();
+        FXMLLoader divideStoresLoader = new FXMLLoader(getClass().getResource("/NetworkManagerDivideStoresScene.fxml"));
+        Parent mainMenuRoot = null;
+        try {
+            mainMenuRoot = divideStoresLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

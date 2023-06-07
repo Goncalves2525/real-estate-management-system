@@ -159,5 +159,9 @@ public class PropertyOrderManagementController {
         return propertyDealRepository.getPropertiesSelectionSortByAreaDescending();
     }
 
+    public ArrayList<Property> getPropertiesSelectionSortByID() {
+        return propertyDealRepository.getPropertiesSelectionSortByID();
+    }
+
 }
 

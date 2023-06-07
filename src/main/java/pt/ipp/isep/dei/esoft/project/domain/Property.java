@@ -19,6 +19,9 @@ public class Property {
 
     public static int idCounter = 0;
 
+    public int agencyID;
+    public String agencyName;
+
     /**
      * Instantiates a new Property.
      *
@@ -34,6 +37,18 @@ public class Property {
         this.address = address;
         id = idCounter++;
     }
+
+
+    public Property(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName) {
+        this.area = area;
+        this.distanceFromCenter = distanceFromCenter;
+        this.price = price;
+        this.address = address;
+        this.agencyName = storeName;
+        this.agencyID = storeID;
+        id = idCounter++;
+    }
+
     /**
      * Gets address.
      *

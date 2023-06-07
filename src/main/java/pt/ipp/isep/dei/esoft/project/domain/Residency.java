@@ -44,6 +44,15 @@ public abstract class  Residency extends Property{
         this.hasAirConditioning = hasAirConditioning;
     }
 
+    public Residency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, int storeID, String storeName) {
+        super(area, distanceFromCenter, price, address, storeID, storeName);
+        this.numberOfBedrooms = numberOfBedrooms;
+        this.numberOfBathrooms = numberOfBathrooms;
+        this.numberOfParkingSpaces = numberOfParkingSpaces;
+        this.hasCentralHeating = hasCentralHeating;
+        this.hasAirConditioning = hasAirConditioning;
+    }
+
     /**
      * Instantiates a new Residency.
      *

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="677.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerDivideStoresWindow">
+   <children>
+      <TableView fx:id="PropertyTableView" layoutX="14.0" layoutY="-1.0" prefHeight="662.0" prefWidth="894.0">
+        <columns>
+            <TableColumn fx:id="id" text="ID" />
+            <TableColumn fx:id="property" text="Property" />
+            <TableColumn fx:id="store" text="Store" />
+        </columns>
+      </TableView>
+      <Button fx:id="btReturn" layoutX="918.0" layoutY="625.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
+      <Button fx:id="btImport" layoutX="918.0" layoutY="535.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
+      <Label fx:id="importOperationLabel" layoutX="927.0" layoutY="580.0"/>
+   </children>
+</AnchorPane>

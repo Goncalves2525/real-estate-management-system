@@ -2,9 +2,11 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Commission;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -23,6 +25,8 @@ public class PublishAnnouncementController {
      */
     private AuthenticationRepository authenticationRepository;
 
+    private EmployeeRepository employeeRepository;
+
 
     /**
      * Instantiates a new Publish announcement controller.
@@ -30,6 +34,7 @@ public class PublishAnnouncementController {
     public PublishAnnouncementController() {
         this.announcementRepository = Repositories.getInstance().getAnnouncementRepository();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        this.employeeRepository = Repositories.getInstance().getEmployeeRepository();
     }
 
 
@@ -104,7 +109,11 @@ public class PublishAnnouncementController {
      * @param announcement the announcement
      */
     public void sendNotification(Announcement announcement) {
+        String agent = authenticationRepository.getCurrentUserSession().getUserId().getEmail();
+        Employee employee = employeeRepository.getEmployeeByEmail(agent);
+        String employeeName = employee.getName();
+        String employeeNumber = "" + employee.getTelephoneNumber();
         String ownerNumber = "" + announcement.getOwner().getTelephoneNumber();
-        Utils.sendSMS(ownerNumber, "Your property has been published!");
+        Utils.sendSMS(ownerNumber, "Your property has been published! By: " + employeeName + ", with the contact: " + employeeNumber);
     }
 }
