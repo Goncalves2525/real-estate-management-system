@@ -53,6 +53,9 @@ public class Statistics {
             regression.addData(deal.getProperty().getArea(), deal.getProperty().getPrice());
         }
 
+        if (!forecastedPrices.isEmpty()){
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             forecastedPrices.add(regression.predict(deal.getProperty().getArea()));
         }
@@ -133,7 +136,9 @@ public class Statistics {
         for (Announcement deal : deals) {
             regression.addData(deal.getProperty().getDistanceFromCenter(), deal.getProperty().getPrice());
         }
-
+        if (!forecastedPrices.isEmpty()){
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             forecastedPrices.add(regression.predict(deal.getProperty().getDistanceFromCenter()));
         }
@@ -218,7 +223,9 @@ public class Statistics {
             }
 
         }
-
+        if (!forecastedPrices.isEmpty()){
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
                 forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfBedrooms()));
@@ -307,7 +314,9 @@ public class Statistics {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfBathrooms(), deal.getProperty().getPrice());
             }
         }
-
+        if (!forecastedPrices.isEmpty()){
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
                 forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfBathrooms()));
@@ -395,7 +404,9 @@ public class Statistics {
                 regression.addData(((Apartment) deal.getProperty()).getNumberOfParkingSpaces(), deal.getProperty().getPrice());
             }
         }
-
+        if (!forecastedPrices.isEmpty()){
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             if (deal.getProperty() instanceof House) {
                 forecastedPrices.add(regression.predict(((House) deal.getProperty()).getNumberOfParkingSpaces()));

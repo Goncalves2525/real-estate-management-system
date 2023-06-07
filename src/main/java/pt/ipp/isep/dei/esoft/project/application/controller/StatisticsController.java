@@ -25,7 +25,7 @@ public class StatisticsController {
     }
 
     public ArrayList<Announcement> getDeals() {
-        return dealRepository.getAllAnnouncementsSortedByDefualtCriteria();
+        return dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse();
     }
 
     public void calcSimpleRegressionArea(ArrayList<Announcement> deals) {

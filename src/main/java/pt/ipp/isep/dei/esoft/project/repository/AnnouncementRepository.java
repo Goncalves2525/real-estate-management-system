@@ -31,6 +31,13 @@ public class AnnouncementRepository {
         return resultAnnouncements;
     }
 
+    public ArrayList<Announcement> getAllAnnouncementsSortedByDefaultCriteriaReverse(){
+        ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
+        resultAnnouncements.sort(defaultCriteria.reversed());
+        removeNonPublishedAnnouncements(resultAnnouncements);
+        return resultAnnouncements;
+    }
+
     /**
      * This is the method used for when the user wants to only sort the announcements
      *
