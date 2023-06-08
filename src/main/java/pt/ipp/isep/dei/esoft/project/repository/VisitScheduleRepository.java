@@ -46,7 +46,7 @@ public class VisitScheduleRepository {
     public ArrayList<VisitSchedule> getVisitSchedulesByUserPhoneAndDate(long userPhone, LocalDate visitDate) {
         ArrayList<VisitSchedule> userSchedules = new ArrayList<>();
         for (VisitSchedule visit : visitSchedules) {
-            if (visit.getTelephoneNumber() == userPhone && visit.getDate().equals(visitDate)) {
+            if (visit.getTelephoneNumberOfClient() == userPhone && visit.getDate().equals(visitDate)) {
                 userSchedules.add(visit);
             }
         }

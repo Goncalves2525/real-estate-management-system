@@ -14,10 +14,6 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author Luis Leal 1100253@isep.ipp.pt
- */
-
-/**
  * The Visit schedule controller.
  */
 public class VisitScheduleController {
@@ -36,7 +32,7 @@ public class VisitScheduleController {
         getClientRepository();
         getVisitScheduleRepository();
         getAnnouncementRepository();
-
+        getEmployeeRepository();
     }
 
 
@@ -287,7 +283,7 @@ public class VisitScheduleController {
      * Get sorted visits by agent email
      * @return sorted visits
      */
-    public SortStrategy getSortStrategyFromConfig() {
+    public SortVisitSchedule getSortVisitScheduleFromConfig() {
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -303,9 +299,9 @@ public class VisitScheduleController {
 
             String strategyClass = prop.getProperty("sorting.strategy");
 
-            SortStrategy sortStrategy = (SortStrategy) Class.forName(strategyClass).getDeclaredConstructor().newInstance();
+            SortVisitSchedule sortVisitSchedule = (SortVisitSchedule) Class.forName(strategyClass).getDeclaredConstructor().newInstance();
 
-            return sortStrategy;
+            return sortVisitSchedule;
 
         } catch (IOException ex) {
             ex.printStackTrace();

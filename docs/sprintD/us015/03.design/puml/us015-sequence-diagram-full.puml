@@ -5,67 +5,70 @@ skinparam shadowing false
 
 autonumber
 
-actor "System Administrator" as Admin
-participant ":ImportUI" as UI
-participant ":ImportController" as CTRL
+title Sequence Diagram - US15
+
+
+actor "Employee" as Employee
+participant "VisitScheduleRequestsWindow:UI" as UI
+participant "AuthenticationController:AuthCTRL" as AuthCTRL
+participant "VisitScheduleController:VCTRL" as VCTRL
 participant "repositories\n:Repositories" as REPO
-participant ":AnnouncementRepository" as ANNREPO
+participant ":VisitScheduleRepository" as VSREPO
 
+activate Employee
 
-    activate Admin
+Employee -> UI : asks to view scheduled visits
+activate UI
 
-    Admin -> UI : asks to import a csv file
-    activate UI
+UI -> AuthCTRL: getUserEmail()
+activate AuthCTRL
 
-    UI -> CTRL: getInstance()
-    activate CTRL
+AuthCTRL --> UI : userEmail
+deactivate AuthCTRL
 
-'    CTRL -> UI : importController
-'    activate REPO
+UI -> VCTRL: getPendingVisitsByAgentEmail(userEmail)
+activate VCTRL
 
-'    UI -> CTRL : selectFile()
-'    activate CTRL
+VCTRL -> REPO : getVisitScheduleRepository()
+activate REPO
 
-    CTRL --> UI : selectFile()
-    deactivate CTRL
+REPO --> VCTRL: visitScheduleRepository
+deactivate REPO
 
-    UI --> Admin : asks for csv file location
-    deactivate UI
+VCTRL -> VSREPO : getVisitSchedulesByAgentAndPeriod(userEmail, startDate, endDate)
+activate VSREPO
 
-    Admin -> UI : provides file location
-    activate UI
+VSREPO --> VCTRL: visitSchedules
+deactivate VSREPO
 
-    UI -> CTRL : checkFile()
-    activate CTRL
+VCTRL --> UI : return visitSchedules
+deactivate VCTRL
 
-    CTRL -> REPO : getInstance()
-    activate REPO
+UI --> Employee : displays scheduled visits
+deactivate UI
 
-    REPO --> CTRL: repositories
-    deactivate REPO
+Employee -> UI : asks to filter and sort scheduled visits
+activate UI
 
-    CTRL -> REPO : getAnnouncementRepository()
-    activate REPO
+UI -> VCTRL: getFilteredVisitsByAgentEmail(userEmail, filters)
+activate VCTRL
 
-    REPO -> ANNREPO : getAuthenticationRepository()
-    activate ANNREPO
+VCTRL -> REPO : getVisitScheduleRepository()
+activate REPO
 
-    ANNREPO --> REPO: authenticationRepository
-    deactivate ANNREPO
+REPO --> VCTRL: visitScheduleRepository
+deactivate REPO
 
-    REPO --> CTRL: announcementRepository
-    deactivate REPO
+VCTRL -> VSREPO : getVisitSchedulesByAgentAndPeriod(userEmail, startDate, endDate)
+activate VSREPO
 
-    CTRL --> ANNREPO: addAnnouncementFromImportedFile()
-    activate ANNREPO
+VSREPO --> VCTRL: filteredVisitSchedules
+deactivate VSREPO
 
-    ANNREPO -> CTRL : returns importResult
-    deactivate ANNREPO
+VCTRL --> UI : return filteredVisitSchedules
+deactivate VCTRL
 
-    CTRL -> UI : displayImportResult(importResult)
-    deactivate CTRL
-
-    UI --> Admin : displays success message or error
-    deactivate UI
+UI --> Employee : displays filtered and sorted scheduled visits
+deactivate UI
 
 @enduml

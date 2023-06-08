@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.VisitScheduleController;
-import pt.ipp.isep.dei.esoft.project.domain.SortStrategy;
+import pt.ipp.isep.dei.esoft.project.domain.SortVisitSchedule;
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
 import java.io.IOException;
@@ -64,7 +64,6 @@ public class VisitScheduleRequestsWindow implements Initializable {
     private TableView<VisitSchedule> tvBookingRequests;
 
 
-
     private VisitScheduleController controller;
 
     public VisitScheduleRequestsWindow() {
@@ -79,8 +78,8 @@ public class VisitScheduleRequestsWindow implements Initializable {
     private void listPendingVisits() {
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> pendingVisits = controller.getPendingVisitsByAgentEmail(agentEmail);
-        SortStrategy sortStrategy = controller.getSortStrategyFromConfig();
-        List<VisitSchedule> sortedVisits = sortStrategy.sort(pendingVisits);
+        SortVisitSchedule sortVisitSchedule = controller.getSortVisitScheduleFromConfig();
+        List<VisitSchedule> sortedVisits = sortVisitSchedule.sort(pendingVisits);
         showObservableList(sortedVisits);
     }
     @FXML
@@ -88,27 +87,26 @@ public class VisitScheduleRequestsWindow implements Initializable {
         showFilteredVisits();
     }
 
-    public void showFilteredVisits() {
+    private void showFilteredVisits() {
         LocalDate startDate = dpStartDate.getValue();
         LocalDate endDate = dpEndDate.getValue();
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> filteredVisits = controller.getFilteredVisitsByAgentEmail(agentEmail, startDate, endDate);
-        SortStrategy sortStrategy = controller.getSortStrategyFromConfig();
-        List<VisitSchedule> sortedVisits = sortStrategy.sort(filteredVisits);
+        SortVisitSchedule sortVisitSchedule = controller.getSortVisitScheduleFromConfig();
+        List<VisitSchedule> sortedVisits = sortVisitSchedule.sort(filteredVisits);
 
         showObservableList(sortedVisits);
     }
 
-
-    public void showObservableList(List<VisitSchedule> filteredVisits) {
+    private void showObservableList(List<VisitSchedule> filteredVisits) {
         ObservableList<VisitSchedule> data = FXCollections.observableArrayList(filteredVisits);
         tcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tcStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         tcEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         tcProperty.setCellValueFactory(new PropertyValueFactory<>("propertyID"));
         tcAddress.setCellValueFactory(new PropertyValueFactory<>("adressOfProperty"));
-        tcRequesterName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tcRequesterPhone.setCellValueFactory(new PropertyValueFactory<>("telephoneNumber"));
+        tcRequesterName.setCellValueFactory(new PropertyValueFactory<>("nameOfClient"));
+        tcRequesterPhone.setCellValueFactory(new PropertyValueFactory<>("telephoneNumberOfClient"));
 
         tvBookingRequests.setItems(data);
     }
@@ -172,14 +170,14 @@ public class VisitScheduleRequestsWindow implements Initializable {
         }
     }
 
-    public void removeVisit(VisitSchedule visit,String reason) {
+    private void removeVisit(VisitSchedule visit,String reason) {
         controller.disapproveVisit(visit);
         controller.respondToBookingRequestByEmail(visit, reason);
         controller.removeVisit(visit);
         showFilteredVisits();
     }
 
-    public void approveVisit(VisitSchedule visit) {
+    private void approveVisit(VisitSchedule visit) {
         controller.approveVisit(visit);
         controller.respondToBookingRequestByEmail(visit, "Visit approved.");
         showFilteredVisits();

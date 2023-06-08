@@ -10,7 +10,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-title Domain Model of US015
+title Domain Model of US016
 
 class Agent {
 }
@@ -26,6 +26,6 @@ class VisitSchedule{
     adressOfProperty
     requesterEmail
 }
-Agent "*" -- "*" VisitSchedule : Visualise >
+Agent "*" -- "*" VisitSchedule : confirm/reject >
 
 @enduml

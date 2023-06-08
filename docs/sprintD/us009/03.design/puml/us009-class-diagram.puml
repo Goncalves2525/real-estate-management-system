@@ -6,6 +6,8 @@ skinparam linetype polyline
 
 skinparam classAttributeIconSize 0
 
+title US009 Domain Model
+
 class UserSession {
     +getUserEmail()
 }

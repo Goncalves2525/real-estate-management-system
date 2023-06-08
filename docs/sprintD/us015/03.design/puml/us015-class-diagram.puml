@@ -1,43 +1,120 @@
 @startuml
-skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
+
 skinparam classAttributeIconSize 0
 
-'left to right direction
+title Class Diagram - US15
 
-'class LegacySystem {
-'    + loadData(location) : importResult
-'}
-
-class SystemAdministrator {
-    - name
-    - email
+class UserSession {
+    +getUserEmail()
 }
 
-class ImportController {
-    - AnnouncementRepository
-    + importData()
-    + checkFile()
+abstract class Person{
+    - name : String
+    - email : String
 }
 
-class ImportUI {
-    - ImportController
-    + selectFile()
+class Employee extends Person{
+}
+
+class Announcement {
+    - id : int
+    - Property : property
+    - Employee : agent
+}
+
+class VisitSchedule {
+    - propertyID : int
+    - visitDate : LocalDate
+    - startTime : LocalTime
+    - endTime : LocalTime
+    - approvedByAgent : boolean
+    - agentEmail : String
+    - adressOfProperty : String
+    - requesterEmail : String
+}
+
+class AuthenticationRepository {
+    +doLogin()
+    +doLogout()
+    +getCurrentUserSession()
+    +addUserRole()
+    +addUserWithRole()
+}
+
+class AuthenticationController {
+    - authController : AuthenticationController
+    +getUserEmail()
+}
+
+class VisitScheduleRequestsWindow {
+    +listPendingVisits()
+    +showFilteredVisits()
+    +onbtFilterSchedules()
+    +onBtReturn()
+    +getMainStage()
+}
+
+class VisitScheduleController {
+    - visitScheduleRepository : VisitScheduleRepository
+    - announcementRepository : AnnouncementRepository
+    - clientRepository : ClientRepository
+    - authController : AuthenticationController
+    - employeeRepository : EmployeeRepository
+    - emailSender : EmailSender
+    +getPendingVisitsByAgentEmail()
+    +getFilteredVisitsByAgentEmail()
+    +getSortVisitScheduleFromConfig()
+}
+
+class Repositories {
+    +getAnnouncementRepository()
+    +getEmployeeRepository()
+    +getVisitScheduleRepository()
 }
 
 class AnnouncementRepository {
-    - addAnnouncementFromImportedFile()
+    +getAnnouncement()
+    +getAgentEmailFromAnnouncement()
+    +getAllAnnouncementsSortedByDefaultCriteria()
 }
 
+class EmployeeRepository {
+    +getEmployeeByEmail()
+}
 
-ImportUI ..> ImportController : calls
+class VisitScheduleRepository {
+    +getVisitSchedulesByUserEmailAndDate()
+    +getVisitSchedulesByAgentAndPeriod()
+    +addVisitSchedule()
+    +sortVisitSchedules()
+}
 
-'ImportInformationController --> LegacySystem : uses
+interface SortVisitSchedule {
+    +sort()
+}
 
-SystemAdministrator -- ImportUI : interacts
+class BubbleSortVisitSchedule implements SortVisitSchedule {
+    +sort()
+}
 
-ImportController ..> AnnouncementRepository : uses
+class QuickSortVisitSchedule implements SortVisitSchedule {
+    +sort()
+}
+
+UserSession <-- AuthenticationRepository
+AuthenticationController ..> AuthenticationRepository
+VisitScheduleRequestsWindow ..> AuthenticationController
+VisitScheduleRequestsWindow --> VisitScheduleController
+Repositories <-- VisitScheduleController
+AnnouncementRepository <-- Repositories
+EmployeeRepository <-- Repositories
+VisitScheduleRepository <-- Repositories
+SortVisitSchedule <.. VisitScheduleRepository
+Announcement <-- AnnouncementRepository
+Employee <-- EmployeeRepository
+VisitSchedule <-- VisitScheduleRepository
 
 @enduml

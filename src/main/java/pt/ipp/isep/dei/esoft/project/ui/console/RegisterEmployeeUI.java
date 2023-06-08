@@ -523,7 +523,7 @@ public class RegisterEmployeeUI implements Runnable {
                     controller.createUser(name, email, password, AuthenticationController.ROLE_EMPLOYEE);
                 }
 
-                writePasswordToFile(name, email, password, "email.txt");
+                writeRegisterEmailToEmployee(name, email, password, "registerEmailTo"+name+".txt");
 
                 System.out.println();
 
@@ -559,37 +559,8 @@ public class RegisterEmployeeUI implements Runnable {
      * @param password
      * @param fileName
      */
-    private void writePasswordToFile(String name, String email, String password, String fileName) {
-
-        String welcomeMessage = String.format("Dear %s,%n%n" +
-
-                "I would like to extend a warm welcome to you as a new member of our team.%n" +
-
-                "Please find your login details below:%n%n" +
-
-                "Username: %s%n" +
-
-                "Password: %s%n%n" +
-
-                "Please keep this information secure and do not share it with anyone else.%n%n" +
-
-                "Best regards,%n" +
-
-                "admin", name, email, password);
-
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
-
-            writer.write(welcomeMessage);
-
-            writer.newLine();
-
-        } catch (IOException e) {
-
-            System.err.println("Error writing password to file: " + e.getMessage());
-
-        }
-
+    private void writeRegisterEmailToEmployee(String name, String email, String password, String fileName) {
+        controller.writeRegisterEmailToEmployee(name, email, password, fileName);
     }
 
 

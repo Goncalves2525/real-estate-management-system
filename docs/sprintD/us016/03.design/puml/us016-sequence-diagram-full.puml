@@ -1,0 +1,162 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+title Sequence Diagram - US16
+
+actor "Agent" as Agent
+participant "VisitScheduleRequestsWindow:UI" as UI
+participant "AuthenticationController:AuthCTRL" as AuthCTRL
+participant "VisitScheduleController:VCTRL" as VCTRL
+participant "repositories\n:Repositories" as REPO
+participant ":VisitScheduleRepository" as VSREPO
+participant ":EmployeeRepository" as EREPO
+participant "EmailSender:EMAILSENDER" as EMAILSENDER
+participant "VisitSchedule:Visit" as Visit
+participant "Employee:Employee" as Employee
+
+activate Agent
+
+Agent -> UI : asks to respond to a booking request
+activate UI
+
+UI -> AuthCTRL: getUserEmail()
+activate AuthCTRL
+
+AuthCTRL --> UI : userEmail
+deactivate AuthCTRL
+
+UI -> UI: onBtRespond()
+activate UI
+
+UI -> VCTRL: respondToBookingRequest(visitSchedule, userEmail)
+activate VCTRL
+
+opt Reject
+    VCTRL -> Visit: setApprovedByAgent(false)
+    activate Visit
+
+    Visit --> VCTRL: confirmation
+    deactivate Visit
+
+    VCTRL --> UI : visitDisapproved
+    deactivate VCTRL
+
+    UI -> Agent: Enter a reason for rejection
+    deactivate UI
+
+    Agent -> UI : Write a message to the user with the reason of the rejection
+    activate UI
+
+    UI -> VCTRL: respondToBookingRequestByEmail(visitSchedule, reason)
+    activate VCTRL
+
+    VCTRL -> REPO : getEmployeeRepository()
+    activate REPO
+
+    REPO --> VCTRL: employeeRepository
+    deactivate REPO
+
+    VCTRL -> EREPO: getEmployeeByEmail(visitSchedule.getAgentEmail())
+    activate EREPO
+
+    EREPO --> VCTRL: employee
+    deactivate EREPO
+
+    VCTRL -> Employee: getName()
+    activate Employee
+
+    Employee --> VCTRL: agentName
+    deactivate Employee
+
+    VCTRL -> Employee: getTelephoneNumber()
+    activate Employee
+
+    Employee --> VCTRL: agentPhone
+    deactivate Employee
+
+    VCTRL -> EMAILSENDER : respondToBookingRequestEmail(visitSchedule, reason)
+    activate EMAILSENDER
+
+    EMAILSENDER --> VCTRL: emailSent
+    deactivate EMAILSENDER
+
+    VCTRL --> UI : emailSentConfirmation
+    deactivate VCTRL
+
+    UI --> Agent : Confirm email sent
+    deactivate UI
+
+    VCTRL -> REPO : getVisitScheduleRepository()
+    activate REPO
+
+    REPO --> VCTRL: visitScheduleRepository
+    deactivate REPO
+
+    VCTRL -> VSREPO : removeVisitSchedule(visitSchedule)
+    activate VSREPO
+
+    VSREPO --> VCTRL: visitRemoved
+    deactivate VSREPO
+
+    VCTRL --> UI : visitRemovedConfirmation
+    deactivate VCTRL
+
+    UI --> Agent : Confirm the booking request has been removed
+    deactivate UI
+
+else Accept
+    VCTRL -> Visit: setApprovedByAgent(true)
+    activate Visit
+
+    Visit --> VCTRL: confirmation
+    deactivate Visit
+
+    VCTRL --> UI : visitApproved
+    deactivate VCTRL
+
+    UI -> VCTRL: respondToBookingRequestByEmail(visitSchedule, "Visit approved")
+    activate VCTRL
+
+    VCTRL -> REPO : getEmployeeRepository()
+    activate REPO
+
+    REPO --> VCTRL: employeeRepository
+    deactivate REPO
+
+    VCTRL -> EREPO: getEmployeeByEmail(visitSchedule.getAgentEmail())
+    activate EREPO
+
+    EREPO --> VCTRL: employee
+    deactivate EREPO
+
+    VCTRL -> Employee: getName()
+    activate Employee
+
+    Employee --> VCTRL: agentName
+    deactivate Employee
+
+    VCTRL -> Employee: getTelephoneNumber()
+    activate Employee
+
+    Employee --> VCTRL: agentPhone
+    deactivate Employee
+
+    VCTRL -> EMAILSENDER : respondToBookingRequestEmail(visitSchedule, "Visit approved")
+    activate EMAILSENDER
+
+    EMAILSENDER --> VCTRL: emailSent
+    deactivate EMAILSENDER
+
+    VCTRL --> UI : emailSentConfirmation
+    deactivate VCTRL
+
+    UI --> Agent : Confirm email sent
+    deactivate UI
+
+end
+
+@enduml

@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.time.LocalTime;
 import java.util.List;
 
-public class QuickSortStrategy implements SortStrategy {
+public class QuickSortVisitSchedule implements SortVisitSchedule {
     @Override
     public List<VisitSchedule> sort(List<VisitSchedule> list) {
         if (list == null || list.size() == 0) {

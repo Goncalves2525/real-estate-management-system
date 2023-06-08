@@ -40,7 +40,7 @@ As an agent, when viewing a booking request, I want to respond to the user that 
 ### 1.4. Found out Dependencies
 
 * US009 - As a client, I want to leave a message to the agent to schedule a visit to a property of my interest. - **Must be implemented before this user story.**
-* As an agent, I intend to list all booking requests for properties managed by me - **Must be implemented before this user story.**
+* US015 - As an agent, I intend to list all booking requests for properties managed by me - **Must be implemented before this user story.**
 
 ### 1.5 Input and Output Data
 

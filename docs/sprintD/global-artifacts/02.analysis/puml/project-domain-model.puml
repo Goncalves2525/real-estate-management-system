@@ -137,6 +137,9 @@ class VisitSchedule{
     startTime
     endTime
     aprovatedByAgent
+    agentEmail
+    adressOfProperty
+    requesterEmail
 }
 
 class LegacySystem{
@@ -172,9 +175,10 @@ Order "*" -- "1" Agent : requested to >
 Street "*" --- "1" City : part of >
 Person "1" -- "1" UserAccount: has >
 Client "1" -- "*" VisitSchedule : makes >
-VisitSchedule "*" -- "*" Agent : availability checked >
-Agent "*" -- "*" VisitSchedule : confirms availability >
+Agent "*" -- "*" VisitSchedule : confirm/reject >
 SystemAdministrator "1" -- "1" LegacySystem : imports information from >
 Agent "1" -- "*" Order : accept or reject >
+Agent "*" -- "*" VisitSchedule : visualise >
+
 
 @enduml

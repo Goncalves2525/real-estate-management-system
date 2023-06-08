@@ -3,7 +3,8 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) of US015 - As an agent, I intend to list \nall booking requests for properties managed by me
+title System Sequence Diagram (SSD) of US015
+
 autonumber
 
 actor "Agent" as Agent

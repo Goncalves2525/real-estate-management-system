@@ -3,18 +3,14 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * @author Luis Leal 1100253@isep.ipp.pt
- */
-
 
 /**
  * The Visit schedule
  */
 public class VisitSchedule {
     private int propertyID;
-    private String name;
-    private long telephoneNumber;
+    private String nameOfClient;
+    private long telephoneNumberOfClient;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -26,8 +22,8 @@ public class VisitSchedule {
     /**
      * Instantiates a new Visit schedule.
      * @param propertyID the property id
-     * @param name the name
-     * @param telephoneNumber the telephone number
+     * @param nameOfClient the name
+     * @param telephoneNumberOfClient the telephone number
      * @param date the date
      * @param startTime the start time
      * @param endTime the end time
@@ -37,10 +33,10 @@ public class VisitSchedule {
      * @param requesterEmail the requester email
      */
 
-    public VisitSchedule(int propertyID, String name, long telephoneNumber, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail, String adressOfProperty, String requesterEmail) {
+    public VisitSchedule(int propertyID, String nameOfClient, long telephoneNumberOfClient, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail, String adressOfProperty, String requesterEmail) {
         this.propertyID = propertyID;
-        this.name = name;
-        this.telephoneNumber = telephoneNumber;
+        this.nameOfClient = nameOfClient;
+        this.telephoneNumberOfClient = telephoneNumberOfClient;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -68,29 +64,29 @@ public class VisitSchedule {
     /**
      * Gets name.
      */
-    public String getName() {
-        return name;
+    public String getNameOfClient() {
+        return nameOfClient;
     }
 
     /**
      * Sets name.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setNameOfClient(String nameOfClient) {
+        this.nameOfClient = nameOfClient;
     }
 
     /**
      * Gets telephone number.
      */
-    public long getTelephoneNumber() {
-        return telephoneNumber;
+    public long getTelephoneNumberOfClient() {
+        return telephoneNumberOfClient;
     }
 
     /**
      * Sets telephone number.
      */
-    public void setTelephoneNumber(long telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setTelephoneNumberOfClient(long telephoneNumberOfClient) {
+        this.telephoneNumberOfClient = telephoneNumberOfClient;
     }
 
     /**
@@ -184,7 +180,7 @@ public class VisitSchedule {
     }
 
     public void setAdressOfProperty(String adressOfProperty) {
-        adressOfProperty = adressOfProperty;
+        this.adressOfProperty = adressOfProperty;
     }
 
     /**
@@ -219,8 +215,8 @@ public class VisitSchedule {
     public String toString() {
         return "VisitSchedule{" +
                 "propertyID=" + propertyID +
-                ", name='" + name + '\'' +
-                ", telephoneNumber=" + telephoneNumber +
+                ", name='" + nameOfClient + '\'' +
+                ", telephoneNumber=" + telephoneNumberOfClient +
                 ", date='" + date + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +

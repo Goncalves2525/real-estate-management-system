@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US015 - As an agent, I intend to list booking requests for properties managed by me
 
 ## 2. Analysis
 

@@ -43,6 +43,9 @@ public class EmailSender {
         }
     }
 
+    /**
+     * Send a email to the customer.
+     */
     public void respondToBookingRequestEmail(String requesterEmail, int propertyId, String propertyLocation,
                                              LocalDate visitDate, LocalTime startTime, LocalTime endTime,
                                              boolean isAccepted, String agentName, long agentPhone, String reason) {
@@ -69,6 +72,42 @@ public class EmailSender {
 
         // Send the email
         Utils.sendEmail(requesterEmail, subject, body);
+    }
+
+    /**
+     * Send a email to the Employee.
+     */
+    public void writeRegisterEmailToEmployee(String name, String email, String password, String fileName) {
+
+        String welcomeMessage = String.format("Dear %s,%n%n" +
+
+                "I would like to extend a warm welcome to you as a new member of our team.%n" +
+
+                "Please find your login details below:%n%n" +
+
+                "Username: %s%n" +
+
+                "Password: %s%n%n" +
+
+                "Please keep this information secure and do not share it with anyone else.%n%n" +
+
+                "Best regards,%n" +
+
+                "admin", name, email, password);
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+
+            writer.write(welcomeMessage);
+
+            writer.newLine();
+
+        } catch (IOException e) {
+
+            System.err.println("Error writing password to file: " + e.getMessage());
+
+        }
+
     }
 
 

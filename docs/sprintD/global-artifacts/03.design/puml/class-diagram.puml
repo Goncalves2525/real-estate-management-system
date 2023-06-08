@@ -426,15 +426,30 @@ class ClientRepository {
 }
 
 class VisitSchedule {
-    - visitDate
-    - startTime
-    - endTime
-    +isOverlapping(startTime, endTime)
+    - propertyID : int
+    - visitDate : LocalDate
+    - startTime : LocalTime
+    - endTime : LocalTime
+    - approvedByAgent : boolean
+    - agentEmail : String
+    - adressOfProperty : String
+    - requesterEmail : String
+}
+
+class VisitScheduleRequestsWindow {
+    +listPendingVisits()
+    +showFilteredVisits()
+    +onbtFilterSchedules()
+    +onBtReturn()
+    +getMainStage()
 }
 
 class VisitScheduleRepository {
-    +getVisitSchedulesByUserEmailAndDate(clientEmail, visitDate)
-    +addVisitSchedule(visitSchedule)
+    +getVisitSchedulesByUserEmailAndDate()
+    +getVisitSchedulesByAgentAndPeriod()
+    +addVisitSchedule()
+    +sortVisitSchedules()
+    +removeVisitScheduleById()
 }
 
 class VisitScheduleUI {
@@ -444,11 +459,44 @@ class VisitScheduleUI {
 }
 
 class VisitScheduleController {
+    - visitScheduleRepository : VisitScheduleRepository
+    - announcementRepository : AnnouncementRepository
+    - clientRepository : ClientRepository
+    - authController : AuthenticationController
+    - employeeRepository : EmployeeRepository
+    - emailSender : EmailSender
+    +getPendingVisitsByAgentEmail()
+    +getFilteredVisitsByAgentEmail()
+    +getSortVisitScheduleFromConfig()
     +getCurrentUserName()
     +selectAnnouncement(announcementID)
     +isOverlappingWithExistingSchedules(clientEmail, visitDate, startTime, endTime)
     +saveVisitSchedule(announcementID, clientEmail, visitDate, startTime, endTime, false)
     +getAllAnnouncementsSortedByDefaultCriteria()
+    +approveVisit()
+    +disapproveVisit()
+    +removeVisit()
+    +respondToBookingRequestByEmail()
+}
+
+interface SortVisitSchedule {
+    +sort()
+}
+
+class BubbleSortVisitSchedule implements SortVisitSchedule {
+    +sort()
+}
+
+class QuickSortVisitSchedule implements SortVisitSchedule {
+    +sort()
+}
+
+class Utils {
+    +sendEmail()
+}
+
+class EmailSender {
+    +respondToBookingRequestEmail()
 }
 
 
@@ -517,5 +565,12 @@ VisitScheduleRepository <-- Repositories
 VisitScheduleUI ..> VisitScheduleController
 Repositories <-- VisitScheduleController
 VisitScheduleUI ..> AuthenticationController
+VisitScheduleRequestsWindow --> VisitScheduleController
+VisitScheduleController --> EmailSender
+EmailSender --> Utils
+SortVisitSchedule <.. VisitScheduleRepository
+
+
+
 
 @enduml

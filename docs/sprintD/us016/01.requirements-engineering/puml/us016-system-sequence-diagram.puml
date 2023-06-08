@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) of US016 - As an agent, when viewing a booking request, I want to respond to the user \nthat scheduled the visit.
+title System Sequence Diagram (SSD) of US016
 
 autonumber
 

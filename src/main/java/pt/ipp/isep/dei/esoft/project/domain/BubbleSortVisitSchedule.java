@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.List;
 
-public class BubbleSortStrategy implements SortStrategy{
+public class BubbleSortVisitSchedule implements SortVisitSchedule {
     @Override
     public List<VisitSchedule> sort(List<VisitSchedule> list) {
         int n = list.size();

@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -23,6 +26,8 @@ public class RegisterEmployeeController {
     private RoleRepository roleRepository;
     private PasswordGenerator passwordGenerator;
     private AuthenticationRepository authenticationRepository;
+    private EmailSender emailSender = new EmailSender();
+
 
     /**
      * Instantiates a new Register Employee Controller.
@@ -104,4 +109,9 @@ public class RegisterEmployeeController {
     public void createUser(String name, String email, String password, String role) {
         authenticationRepository.addUserWithRole(name, email, password, role);
     }
+
+    public void writeRegisterEmailToEmployee(String name, String email, String password, String fileName) {
+        emailSender.writeRegisterEmailToEmployee(name, email, password, fileName);
+    }
+
 }

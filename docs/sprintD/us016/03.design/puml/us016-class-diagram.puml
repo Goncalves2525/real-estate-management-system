@@ -1,0 +1,102 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+skinparam classAttributeIconSize 0
+
+title Class Diagram - US16
+
+class UserSession {
+    +getUserEmail()
+}
+
+abstract class Person {
+    - name : String
+    - email : String
+    - phoneNumber : String
+}
+
+class Employee extends Person {
+}
+
+
+class VisitSchedule {
+    - id : int
+    - propertyID : int
+    - visitDate : LocalDate
+    - startTime : LocalTime
+    - endTime : LocalTime
+    - approvedByAgent : boolean
+    - agentEmail : String
+    - adressOfProperty : String
+    - requesterEmail : String
+}
+
+class AuthenticationRepository {
+    +doLogin()
+    +doLogout()
+    +getCurrentUserSession()
+    +addUserRole()
+    +addUserWithRole()
+}
+
+class AuthenticationController {
+    - authRepository : AuthenticationRepository
+    +getUserEmail()
+}
+
+class VisitScheduleRequestsWindow {
+    +respondToBookingRequest()
+    +updateBookingRequestsList()
+    +sendEmailResponse()
+}
+
+class VisitScheduleController {
+    - repositories : Repositories
+    - emailSender : EmailSender
+    +approveVisit()
+    +disapproveVisit()
+    +removeVisit()
+    +respondToBookingRequestByEmail()
+}
+
+
+class Repositories {
+    +getVisitScheduleRepository()
+    +getEmployeeRepository()
+}
+
+
+
+class VisitScheduleRepository {
+    +getVisitSchedulesByUserEmailAndDate()
+    +getVisitSchedulesByAgentAndPeriod()
+    +removeVisitScheduleById()
+}
+
+class Utils {
+    +sendEmail()
+}
+
+class EmployeeRepository {
+    +getEmployeeByEmail()
+}
+
+class EmailSender {
+    +respondToBookingRequestEmail()
+}
+
+UserSession <-- AuthenticationRepository
+AuthenticationController ..> AuthenticationRepository
+VisitScheduleRequestsWindow ..> AuthenticationController
+VisitScheduleRequestsWindow --> VisitScheduleController
+Repositories <-- VisitScheduleController
+VisitScheduleRepository <-- Repositories
+EmployeeRepository <-- Repositories
+VisitSchedule <-- VisitScheduleRepository
+Employee <-- EmployeeRepository
+VisitScheduleController --> EmailSender
+EmailSender --> Utils
+
+@enduml
