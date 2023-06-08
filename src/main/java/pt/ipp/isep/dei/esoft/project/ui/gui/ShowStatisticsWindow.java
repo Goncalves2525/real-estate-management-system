@@ -199,9 +199,21 @@ public class ShowStatisticsWindow implements Initializable {
             txtArea.appendText(explanation);
 
         }else{
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("Coefficient Intervals:\n");
+            for (int i = 0; i < coefficientLowerBound.length; i++) {
+                double lowerBound = coefficientLowerBound[i];
+                double upperBound = coefficientUpperBound[i];
+                String coefficientInterval = "Coefficient " + i + ": [" + lowerBound + ", " + upperBound + "]\n";
+                sb2.append(coefficientInterval);
+                txtArea.clear();
+                txtArea.appendText(sb2.toString());
+            }
+
+
             StringBuilder sb = new StringBuilder();
 
-            sb.append("Predicted Value Confidence Intervals:\n");
+            sb.append("\n\n\nPredicted Value Confidence Intervals:\n");
             for (int i = 0; i < deals.size(); i++) {
                 Announcement deal = deals.get(i);
                 double lowerBound = predictionsLowerBound.get(i);
@@ -213,7 +225,7 @@ public class ShowStatisticsWindow implements Initializable {
             }
 
             String result = sb.toString();
-            txtArea.clear();
+
             txtArea.appendText(result);
         }
 
