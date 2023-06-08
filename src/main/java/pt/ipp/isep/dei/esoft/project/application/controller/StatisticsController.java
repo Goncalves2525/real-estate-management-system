@@ -53,6 +53,11 @@ public class StatisticsController {
         statistics.calcSimpleRegressionBathrooms();
     }
 
+    public void calcMultipleRegression(ArrayList<Announcement> deals) {
+        statistics.setDeals(deals);
+        statistics.calcMultipleRegression();
+    }
+
     public ArrayList<Double> getForecastedPrices() {
         return statistics.getForecastedPrices();
     }
@@ -129,8 +134,76 @@ public class StatisticsController {
         statistics.setConfidenceLevel(confidenceLevel);
     }
 
-    public StatisticsDTO getStats(){
-        StatisticsDTO stats = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getIntercept(), statistics.getSlope());
-        return stats;
+    public double getCriticalValue(){
+        return statistics.getCriticalValue();
     }
+
+    public boolean getIsSignificant(){
+        return statistics.getIsSignificant();
+    }
+
+    public StatisticsDTO getStats(){
+        StatisticsDTO statsDTO = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getIntercept(), statistics.getSlope());
+        return statsDTO;
+    }
+
+    public double getInterceptTValue(){
+        return statistics.getInterceptTValue();
+    }
+
+    public double getSlopeTValue(){
+        return statistics.getSlopeTValue();
+    }
+
+    public void setIsMultipleRegression(boolean isMultipleRegression){
+        statistics.setIsMultipleRegression(isMultipleRegression);
+    }
+
+    public boolean getIsMultipleRegression(){
+        return statistics.getIsMultipleRegression();
+    }
+
+    public double[] getCoefficientLowerBounds(){
+        return statistics.getCoefficientLowerBounds();
+    }
+
+    public double[] getCoefficientUpperBounds(){
+        return statistics.getCoefficientUpperBounds();
+    }
+
+    public double getPredictionLowerBound(){
+        return statistics.getPredictionLowerBound();
+    }
+
+    public double getPredictionUpperBound(){
+        return statistics.getPredictionUpperBound();
+    }
+
+    public double[] getTValues(){
+        return statistics.getTValues();
+    }
+    public double[] getPValues(){
+        return statistics.getPValues();
+    }
+
+    public double[] getStandardErrors(){
+        return statistics.getStandardErrors();
+    }
+
+    public double getMeanSquareResidual(){
+        return statistics.getMeanSquareResidual();
+    }
+
+    public double getMeanSquareRegression(){
+        return statistics.getMeanSquareRegression();
+    }
+
+    public double getInterceptCriticalValue(){
+        return statistics.getInterceptCriticalValue();
+    }
+
+    public double getSlopeCriticalValue(){
+        return statistics.getSlopeCriticalValue();
+    }
+
 }

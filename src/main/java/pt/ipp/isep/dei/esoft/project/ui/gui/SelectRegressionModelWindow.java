@@ -55,7 +55,6 @@ public class SelectRegressionModelWindow implements Initializable {
         controller = new StatisticsController();
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -72,10 +71,6 @@ public class SelectRegressionModelWindow implements Initializable {
         return (Stage) this.btReturn.getScene().getWindow();
     }
 
-    @FXML
-    void onBtMultiple(ActionEvent event) {
-        ArrayList<Announcement> deals = controller.getDeals();
-    }
 
     @FXML
     void onBtReturn(ActionEvent event) {
@@ -94,8 +89,20 @@ public class SelectRegressionModelWindow implements Initializable {
     }
 
     @FXML
+    void onBtMultiple(ActionEvent event) {
+        ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(true);
+        controller.calcMultipleRegression(deals);
+        Stage mainStage = getMainStage();
+        mainStage.setScene(showStatisticsScene);
+        mainStage.setTitle("Statistics");
+        mainStage.show();
+    }
+
+    @FXML
     void onBtSimpleArea(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(false);
         controller.calcSimpleRegressionArea(deals);
         Stage mainStage = getMainStage();
         mainStage.setScene(showStatisticsScene);
@@ -106,6 +113,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtSimpleBathrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(false);
         controller.calcSimpleRegressionBathrooms(deals);
         Stage mainStage = getMainStage();
         mainStage.setScene(showStatisticsScene);
@@ -116,6 +124,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtSimpleBedrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(false);
         controller.calcSimpleRegressionBedrooms(deals);
         Stage mainStage = getMainStage();
         mainStage.setScene(showStatisticsScene);
@@ -126,6 +135,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtSimpleDistance(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(false);
         controller.calcSimpleRegressionDistance(deals);
         Stage mainStage = getMainStage();
         mainStage.setScene(showStatisticsScene);
@@ -136,6 +146,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtSimpleParking(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
+        controller.setIsMultipleRegression(false);
         controller.calcSimpleRegressionParkingSpaces(deals);
         Stage mainStage = getMainStage();
         mainStage.setScene(showStatisticsScene);
