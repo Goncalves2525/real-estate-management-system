@@ -5,16 +5,16 @@ skinparam shadowing false
 
 autonumber
 
-actor "System Administrator" as Admin
+actor "Network Manager" as Admin
 participant ":ImportUI" as UI
-participant ":ImportController" as CTRL
-participant "repositories\n:Repositories" as REPO
-participant ":AnnouncementRepository" as ANNREPO
+participant ":PropertyOrderManagementController" as CTRL
+participant "repositories\n:Repositories" as Repositories
+participant ":PropertyRepository" as PropertyRepository
 
 
     activate Admin
 
-    Admin -> UI : asks to import a csv file
+    Admin -> UI : Ask to list all deals made
     activate UI
 
     UI -> CTRL: getInstance()
@@ -29,10 +29,10 @@ participant ":AnnouncementRepository" as ANNREPO
     CTRL --> UI : selectFile()
     deactivate CTRL
 
-    UI --> Admin : asks for csv file location
+    UI --> Admin : Request to select the sort type
     deactivate UI
 
-    Admin -> UI : provides file location
+    Admin -> UI : Selects sort type
     activate UI
 
     UI -> CTRL : checkFile()
@@ -65,7 +65,7 @@ participant ":AnnouncementRepository" as ANNREPO
     CTRL -> UI : displayImportResult(importResult)
     deactivate CTRL
 
-    UI --> Admin : displays success message or error
+    UI --> Admin : Display the list of deals sorted by property area
     deactivate UI
 
 @enduml

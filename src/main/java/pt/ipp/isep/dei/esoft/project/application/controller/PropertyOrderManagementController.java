@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
-import pt.ipp.isep.dei.esoft.project.domain.Order;
-import pt.ipp.isep.dei.esoft.project.domain.OrderState;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.io.BufferedWriter;
@@ -146,12 +143,12 @@ public class PropertyOrderManagementController {
 
 
     }
-    public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
-        return propertyDealRepository.getPropertiesInsertionSortByAreaDescending();
-    }
-    public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
-        return propertyDealRepository.getPropertiesInsertionSortByAreaAscending();
-    }
+     public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
+         return propertyDealRepository.getPropertiesInsertionSortByAreaDescending();
+     }
+     public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
+         return propertyDealRepository.getPropertiesInsertionSortByAreaAscending();
+     }
     public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
         return propertyDealRepository.getPropertiesSelectionSortByAreaAscending();
     }
@@ -162,6 +159,7 @@ public class PropertyOrderManagementController {
     public ArrayList<Property> getPropertiesSelectionSortByID() {
         return propertyDealRepository.getPropertiesSelectionSortByID();
     }
+
 
 }
 

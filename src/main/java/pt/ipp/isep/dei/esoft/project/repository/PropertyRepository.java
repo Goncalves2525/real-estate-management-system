@@ -77,74 +77,19 @@ public class PropertyRepository {
         return properties;
     }
 
+
     public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
-        ArrayList<Property> propertiesSorted = new ArrayList<>();
-        for (Property p : properties) {
-            propertiesSorted.add(p);
-        }
-        for (int i = 1; i < propertiesSorted.size(); i++) {
-            Property key = propertiesSorted.get(i);
-            int j = i - 1;
-            while (j >= 0 && propertiesSorted.get(j).getArea() > key.getArea()) {
-                propertiesSorted.set(j + 1, propertiesSorted.get(j));
-                j = j - 1;
-            }
-            propertiesSorted.set(j + 1, key);
-        }
-        return propertiesSorted;
+        return SortProperty.sortPropertiesInsertionSortByAreaAscending(properties);
     }
     public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
-        ArrayList<Property> propertiesSorted = new ArrayList<>();
-        for (Property p : properties) {
-            propertiesSorted.add(p);
-        }
-        for (int i = 1; i < propertiesSorted.size(); i++) {
-            Property key = propertiesSorted.get(i);
-            int j = i - 1;
-            while (j >= 0 && propertiesSorted.get(j).getArea() < key.getArea()) {
-                propertiesSorted.set(j + 1, propertiesSorted.get(j));
-                j = j - 1;
-            }
-            propertiesSorted.set(j + 1, key);
-        }
-        return propertiesSorted;
+        return SortProperty.sortPropertiesInsertionSortByAreaDescending(properties);
     }
 
     public ArrayList<Property> getPropertiesSelectionSortByAreaDescending() {
-        ArrayList<Property> propertiesSorted = new ArrayList<>();
-        for (Property p : properties) {
-            propertiesSorted.add(p);
-        }
-        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
-            int index = i;
-            for (int j = i + 1; j < propertiesSorted.size(); j++) {
-                if (propertiesSorted.get(j).getArea() > propertiesSorted.get(index).getArea()) {
-                    index = j;
-                }
-            }
-            Property smallerNumber = propertiesSorted.get(index);
-            propertiesSorted.set(index, propertiesSorted.get(i));
-            propertiesSorted.set(i, smallerNumber);
-        }
-        return propertiesSorted;
+        return SortProperty.sortPropertiesSelectionSortByAreaDescending(properties);
     }
     public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
-        ArrayList<Property> propertiesSorted = new ArrayList<>();
-        for (Property p : properties) {
-            propertiesSorted.add(p);
-        }
-        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
-            int index = i;
-            for (int j = i + 1; j < propertiesSorted.size(); j++) {
-                if (propertiesSorted.get(j).getArea() < propertiesSorted.get(index).getArea()) {
-                    index = j;
-                }
-            }
-            Property smallerNumber = propertiesSorted.get(index);
-            propertiesSorted.set(index, propertiesSorted.get(i));
-            propertiesSorted.set(i, smallerNumber);
-        }
-        return propertiesSorted;
+        return SortProperty.sortPropertiesSelectionSortByAreaAscending(properties);
     }
 
     public ArrayList<Property> getPropertiesSelectionSortByID() {
@@ -165,5 +110,7 @@ public class PropertyRepository {
         }
         return propertiesSorted;
     }
+
+
 
 }
