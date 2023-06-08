@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.apache.commons.math3.distribution.FDistribution;
 import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
@@ -55,7 +56,16 @@ public class Statistics {
     private double meanSquareResidual;
     private double interceptCriticalValue;
     private double slopeCriticalValue;
+    private double explainedSumOfSquares;
+    private double degreesOfFreedomRSS;
+    private double degreesOfFreedomTSS;
+    private double meanSquaredError;
+    private double multipleCriticalValue;
+    private double[][] covarianceMatrix;
+    private double[] estimatedCoefficient;
 
+    private ArrayList<Double> predictionsLowerBound;
+    private ArrayList<Double> predictionsUpperBound;
 
 
     private Statistics() {
@@ -106,9 +116,6 @@ public class Statistics {
         confidenceIntervals[2][1] = slopeUpperBound;
 
 
-
-
-
         //Hypothesis Test
         double a0 = 0;
         double b0 = 0;
@@ -119,7 +126,7 @@ public class Statistics {
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
-        if(Math.abs(interceptTValue) > interceptCriticalValue) {
+        if (Math.abs(interceptTValue) > interceptCriticalValue) {
             interceptReject = true;
         } else {
             interceptReject = false;
@@ -206,7 +213,7 @@ public class Statistics {
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
-        if(Math.abs(interceptTValue) > interceptCriticalValue) {
+        if (Math.abs(interceptTValue) > interceptCriticalValue) {
             interceptReject = true;
         } else {
             interceptReject = false;
@@ -302,7 +309,7 @@ public class Statistics {
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
-        if(Math.abs(interceptTValue) > interceptCriticalValue) {
+        if (Math.abs(interceptTValue) > interceptCriticalValue) {
             interceptReject = true;
         } else {
             interceptReject = false;
@@ -396,7 +403,7 @@ public class Statistics {
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
-        if(Math.abs(interceptTValue) > interceptCriticalValue) {
+        if (Math.abs(interceptTValue) > interceptCriticalValue) {
             interceptReject = true;
         } else {
             interceptReject = false;
@@ -490,7 +497,7 @@ public class Statistics {
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
-        if(Math.abs(interceptTValue) > interceptCriticalValue) {
+        if (Math.abs(interceptTValue) > interceptCriticalValue) {
             interceptReject = true;
         } else {
             interceptReject = false;
@@ -560,14 +567,20 @@ public class Statistics {
         regression.newSampleData(dependentVariable, independentVariables);
 
 
-        // Coefficients
+        // General Data
         double[] coefficients = regression.estimateRegressionParameters();
-        correlationCoefficient = regression.calculateRSquared();
         determinationCoefficient = regression.calculateAdjustedRSquared();
         adjustedDeterminationCoefficient = regression.calculateAdjustedRSquared();
         standardErrors = regression.estimateRegressionParametersStandardErrors();
+        estimatedCoefficient = regression.estimateRegressionParameters();
+        covarianceMatrix = regression.estimateRegressionParametersVariance();
+        alfa = 1 - confidenceLevel;
+        int numIndependentVariables = 5;
 
         //Forecasted Prices
+        if (!forecastedPrices.isEmpty()) {
+            forecastedPrices.clear();
+        }
         for (Announcement deal : deals) {
             Property property = deal.getProperty();
             double predictedSaleValue = coefficients[0] + coefficients[1] * property.getArea() + coefficients[2] * property.getDistanceFromCenter();
@@ -603,69 +616,97 @@ public class Statistics {
 
 
         // Prediction Intervals
-        double sumSquaredErrors = regression.calculateResidualSumOfSquares();
-        double standardError = Math.sqrt(sumSquaredErrors / degreesOfFreedom);
-        double marginOfError = criticalValue * standardError;
+        predictionsLowerBound = new ArrayList<>();
+        predictionsUpperBound = new ArrayList<>();
+        meanSquaredError = regression.calculateResidualSumOfSquares() / (n - numIndependentVariables - 1);
+        double[][] x1 = new double[independentVariables.length][6];
 
-        predictionLowerBound = forecastedPrices.get(0) - marginOfError;
-        predictionUpperBound = forecastedPrices.get(0) + marginOfError;
+        for (int i = 0; i < independentVariables.length; i++) {
+            x1[i][0] = 1; // Set the first column to ones
+            Announcement deal = deals.get(i);
+            x1[i][1] = independentVariables[i][0];
+            x1[i][2] = independentVariables[i][1];
+            if (deal.getProperty() instanceof House) {
+                x1[i][3] = independentVariables[i][2];
+                x1[i][4] = independentVariables[i][3];
+                x1[i][5] = independentVariables[i][4];
+            } else if (deal.getProperty() instanceof Apartment) {
+                x1[i][3] = independentVariables[i][2];
+                x1[i][4] = independentVariables[i][3];
+                x1[i][5] = independentVariables[i][4];
+            }
+        }
 
-        for (int i = 1; i < n; i++) {
-            double prediction = forecastedPrices.get(i);
-            if (prediction - marginOfError < predictionLowerBound) {
-                predictionLowerBound = prediction - marginOfError;
+        for (Announcement deal : deals) {
+
+
+            Property property = deal.getProperty();
+            double predictedSaleValue = estimatedCoefficient[0] + estimatedCoefficient[1] * property.getArea() + estimatedCoefficient[2] * property.getDistanceFromCenter();
+            if (property instanceof Apartment) {
+                predictedSaleValue += estimatedCoefficient[3] * ((Apartment) property).getNumberOfBedrooms()
+                        + estimatedCoefficient[4] * ((Apartment) property).getNumberOfBathrooms()
+                        + estimatedCoefficient[5] * ((Apartment) property).getNumberOfParkingSpaces();
+            } else if (property instanceof House) {
+                predictedSaleValue += estimatedCoefficient[3] * ((House) property).getNumberOfBedrooms()
+                        + estimatedCoefficient[4] * ((House) property).getNumberOfBathrooms()
+                        + estimatedCoefficient[5] * ((House) property).getNumberOfParkingSpaces();
             }
-            if (prediction + marginOfError > predictionUpperBound) {
-                predictionUpperBound = prediction + marginOfError;
+
+
+            Property p0 = deals.get(0).getProperty();
+            RealMatrix x0;
+
+            if (p0 instanceof Apartment) {
+                x0 = MatrixUtils.createRealMatrix(new double[][]{{1, p0.getArea(), p0.getDistanceFromCenter(),
+                        ((Apartment) p0).getNumberOfBedrooms(), ((Apartment) p0).getNumberOfBathrooms(),
+                        ((Apartment) p0).getNumberOfParkingSpaces()}});
+            } else {
+                x0 = MatrixUtils.createRealMatrix(new double[][]{{1, p0.getArea(), p0.getDistanceFromCenter(),
+                        ((House) p0).getNumberOfBedrooms(), ((House) p0).getNumberOfBathrooms(),
+                        ((House) p0).getNumberOfParkingSpaces()}});
+
             }
+
+            RealMatrix x = MatrixUtils.createRealMatrix(x1);
+            RealMatrix x_x = x.transpose().multiply(x);
+            RealMatrix inverse_x_x = MatrixUtils.inverse(x_x);
+            RealMatrix x0T_inverse_x_x = x0.multiply(inverse_x_x);
+            RealMatrix x0T_inverse_x_x_x0 = x0T_inverse_x_x.multiply(x0.transpose());
+
+            double delta = criticalValue * Math.sqrt(meanSquaredError * (1 + x0T_inverse_x_x_x0.getEntry(0, 0)));
+
+            predictionsLowerBound.add(predictedSaleValue - delta);
+            predictionsUpperBound.add(predictedSaleValue + delta);
+            System.out.println(delta);
+
         }
 
         //ANOVA
-        standardErrors = new double[coefficients.length];
-        double[] residuals = regression.estimateResiduals();
-        double meanSquareError = regression.calculateResidualSumOfSquares() / (independentVariables.length - coefficients.length);
+        residualSumOfSquares = regression.calculateResidualSumOfSquares();
+        explainedSumOfSquares = regression.calculateTotalSumOfSquares() - residualSumOfSquares;
+        totalSumOfSquares = regression.calculateTotalSumOfSquares();
+        degreesOfFreedomRSS = n - numIndependentVariables - 1;
+        degreesOfFreedomTSS = n - 1;
+        meanSquareRegression = explainedSumOfSquares / numIndependentVariables;
+        meanSquaredError = residualSumOfSquares / degreesOfFreedomRSS;
+        fValue = meanSquareRegression / meanSquaredError;
 
-        int n = independentVariables.length; // Number of observations
-        int numIndependentVariables = independentVariables[0].length; // Number of independent variables
+        FDistribution fDistribution = new FDistribution(numIndependentVariables, n - numIndependentVariables - 1);
+        multipleCriticalValue = fDistribution.inverseCumulativeProbability(1 - alfa);
 
-        for (int i = 0; i < coefficients.length; i++) {
-            double sum = 0.0;
-            for (int j = 0; j < n; j++) {
-                double predicted = coefficients[0]; // intercept
-                for (int k = 0; k < numIndependentVariables; k++) {
-                    predicted += coefficients[k + 1] * independentVariables[j][k];
-                }
-                double residual = residuals[j];
-                sum += Math.pow(independentVariables[j][i % numIndependentVariables], 2) * (residual * residual) / (n - coefficients.length - 1);
-            }
-            standardErrors[i] = Math.sqrt(meanSquareError * sum);
+        if (fValue > multipleCriticalValue) {
+            isSignificant = true;
+        } else {
+            isSignificant = false;
         }
 
-        tValues = new double[coefficients.length];
-        for (int i = 0; i < coefficients.length; i++) {
-            tValues[i] = coefficients[i] / standardErrors[i];
-        }
-
-
-        pValues = new double[coefficients.length];
-        tDistribution = new TDistribution(independentVariables.length - coefficients.length);
-        for (int i = 0; i < coefficients.length; i++) {
-            double tValue = tValues[i];
-            pValues[i] = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(tValue)));
-        }
-
-        double SSR = regression.calculateTotalSumOfSquares() - regression.calculateResidualSumOfSquares();
-        double SSE = regression.calculateResidualSumOfSquares();
-
-        int dfR = regression.estimateRegressionParameters().length - 1;
-        int dfE = independentVariables.length - dfR - 1;
-
-        meanSquareRegression = SSR / dfR;
-        meanSquareResidual = SSE / dfE;
+        //Hyphotesis Testing
+        double testStatistic;
+        tDistribution = new TDistribution(degreesOfFreedomRSS);
+        criticalValue = tDistribution.inverseCumulativeProbability(1 - alfa / 2);
 
 
     }
-
 
     public void setDeals(ArrayList<Announcement> deals) {
         this.deals = deals;
@@ -852,5 +893,41 @@ public class Statistics {
 
     public double getSlopeCriticalValue() {
         return slopeCriticalValue;
+    }
+
+    public double getExplainedSumOfSquares() {
+        return explainedSumOfSquares;
+    }
+
+    public double getDegreesOfFreedomRSS() {
+        return degreesOfFreedomRSS;
+    }
+
+    public double getDegreesOfFreedomTSS() {
+        return degreesOfFreedomTSS;
+    }
+
+    public double getMeanSquaredError() {
+        return meanSquaredError;
+    }
+
+    public double getMultipleCriticalValue() {
+        return multipleCriticalValue;
+    }
+
+    public double[][] getCovarianceMatrix() {
+        return covarianceMatrix;
+    }
+
+    public double[] getEstimatedCoefficient() {
+        return estimatedCoefficient;
+    }
+
+    public ArrayList<Double> getPredictionsLowerBound() {
+        return predictionsLowerBound;
+    }
+
+    public ArrayList<Double> getPredictionsUpperBound() {
+        return predictionsUpperBound;
     }
 }
