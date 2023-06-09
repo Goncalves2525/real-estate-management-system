@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.isep.lei.esoft.auth.domain.model.UserRole;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -59,18 +60,25 @@ public class RegisterEmployeeController {
         return this.roleRepository.getRoleByValue(value);
     }
 
-
-
+    /**
+     * Gets the list of Agencies.
+     *
+     * @return list of Agencies
+     */
     public ArrayList<Agency> listAgencies() {
         return agencyRepository.getAgencies();
     }
 
+    /**
+     * Gets the total number of Agencies.
+     *
+     * @return total number of Agencies
+     */
     public int getTotalAgencies() {
         return agencyRepository.getAgencies().size();
     }
 
-
-    /**
+    /** Register Employee.
      * @param name
      * @param email
      * @param passportCardNumber
@@ -86,6 +94,11 @@ public class RegisterEmployeeController {
         return employeeRepository.addEmployee(employee);
     }
 
+    /** Get Agency by ID.
+     *
+     * @param agencyID
+     * @return
+     */
     public Agency getAgencyByID(int agencyID) {
         return agencyRepository.getAgencyById(agencyID);
     }
@@ -110,6 +123,18 @@ public class RegisterEmployeeController {
         authenticationRepository.addUserWithRole(name, email, password, role);
     }
 
+    public void createUserWithRoles(String name, String email, String password, String[] role) {
+        authenticationRepository.addUserWithRoles(name, email, password, role);
+    }
+
+    /**
+     * Writes the register email to employee.
+     *
+     * @param name     name
+     * @param email    email
+     * @param password password
+     * @param fileName file name
+     */
     public void writeRegisterEmailToEmployee(String name, String email, String password, String fileName) {
         emailSender.writeRegisterEmailToEmployee(name, email, password, fileName);
     }

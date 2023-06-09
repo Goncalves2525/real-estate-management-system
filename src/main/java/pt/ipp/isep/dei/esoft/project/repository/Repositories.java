@@ -115,7 +115,7 @@ public class Repositories implements Serializable{
 //                String name = user.getName();
 //                authenticationRepository.addUserWithRole(user.getName(),"","","");
 //            }
-            authenticationRepository = (AuthenticationRepository) in.readObject();
+            //authenticationRepository = (AuthenticationRepository) in.readObject();
             announcementRepository = (AnnouncementRepository) in.readObject();
             agencyRepository = (AgencyRepository) in.readObject();
             employeeRepository = (EmployeeRepository) in.readObject();

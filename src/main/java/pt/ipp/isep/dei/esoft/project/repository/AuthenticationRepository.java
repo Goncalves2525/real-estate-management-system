@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.domain.model.UserRole;
 import pt.isep.lei.esoft.auth.mappers.dto.UserDTO;
 
 import java.io.Serializable;
@@ -70,4 +71,7 @@ public class AuthenticationRepository implements Serializable {
     }
 
 
+    public void addUserWithRoles(String name, String email, String password, String[] role) {
+        authenticationFacade.addUserWithRoles(name, email, password, role);
+    }
 }

@@ -10,16 +10,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        File f = new File("RealEstateUSA.ser");
-        if(f.exists() && !f.isDirectory()) {
-            Repositories.getInstance().deserialize();
-        }
-        else{
+//
+//        File f = new File("RealEstateUSA.ser");
+//        if(f.exists() && !f.isDirectory()) {
+//            Repositories.getInstance().deserialize();
+//        }
+//        else{
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.run();
-            Repositories.getInstance().serialize();
-        }
+        //    Repositories.getInstance().serialize();
+        //}
 
         try {
             MainMenuUI menu = new MainMenuUI();
