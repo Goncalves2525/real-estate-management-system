@@ -3,12 +3,13 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Address;
 import pt.ipp.isep.dei.esoft.project.domain.Client;
 
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * The Client repository.
  */
-public class ClientRepository {
+public class ClientRepository implements Serializable{
 
     private ArrayList<Client> clientList = new ArrayList<>();
 
@@ -59,4 +60,31 @@ public class ClientRepository {
     }
 
 
+    public void serialize(String fileName) {
+        try{
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(clientList);
+
+            out.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deserialize(String fileName) {
+        try {
+            FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            clientList = (ArrayList<Client>) in.readObject();
+
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

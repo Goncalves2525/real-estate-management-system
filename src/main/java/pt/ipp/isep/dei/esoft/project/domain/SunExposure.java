@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Sun Exposure, North, South, West, East.
  */
 
-public enum SunExposure {
+public enum SunExposure implements Serializable {
          NORTH,
          SOUTH,
          WEST,

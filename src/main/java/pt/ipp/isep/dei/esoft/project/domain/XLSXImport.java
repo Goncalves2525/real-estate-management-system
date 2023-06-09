@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class XLSXImport implements DataImporter {
+import java.io.Serializable;
+
+public class XLSXImport implements DataImporter, Serializable {
 
 
     @Override

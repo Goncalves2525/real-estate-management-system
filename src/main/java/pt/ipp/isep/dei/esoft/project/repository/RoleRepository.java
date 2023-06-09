@@ -1,18 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 
-
 import pt.ipp.isep.dei.esoft.project.domain.Role;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
     /**
      * This class represents the repository for roles.
      */
 
-public class RoleRepository {
+public class RoleRepository implements Serializable {
 
-    private final ArrayList<Role> roles = new ArrayList<>();
+    private ArrayList<Role> roles = new ArrayList<>();
 
         /**
          * List of roles.
@@ -43,5 +43,4 @@ public class RoleRepository {
         }
         return null;
     }
-
-    }
+}

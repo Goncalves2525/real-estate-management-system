@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Photo class.
  * <p>
@@ -7,7 +9,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * A Photo is composed by a URI and a name.
  */
 
-public class Photo {
+public class Photo implements Serializable {
     private String URI;
     private String name;
 

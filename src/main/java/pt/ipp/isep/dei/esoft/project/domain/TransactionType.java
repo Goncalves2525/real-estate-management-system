@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Transaction Type, Rent, Sale or Buy.
  */
-public enum TransactionType {
+public enum TransactionType implements Serializable {
     RENT,
     SALE,
     BUY;

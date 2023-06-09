@@ -4,11 +4,12 @@ import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class CSVImport implements DataImporter {
+public class CSVImport implements DataImporter, Serializable {
 
     private AnnouncementRepository announcementRepository;
 

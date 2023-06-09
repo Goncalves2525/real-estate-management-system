@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * This class represents an Order made by a Client
  */
-public class Order extends ArrayList<Order> {
+public class Order extends ArrayList<Order> implements Serializable {
     private final int id;
 
     private static int idCounter = 1;

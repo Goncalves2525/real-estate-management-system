@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Enumeration of Order State.
  * Can be PENDING, ACCEPTED or REJECTED.
  */
-public enum OrderState {
+public enum OrderState implements Serializable {
     PENDING,
     ACCEPTED,
     REJECTED;

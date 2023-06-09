@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.security.SecureRandom;
 
 /**
@@ -8,7 +9,7 @@ import java.security.SecureRandom;
  * This class represents a Password Generator.
  * </p>
  */
-public class PasswordGenerator {
+public class PasswordGenerator implements Serializable {
 
     private static final int PASSWORD_LENGTH = 7;
     private static final int NUM_CAPITAL_LETTERS = 3;

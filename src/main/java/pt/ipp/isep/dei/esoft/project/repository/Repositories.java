@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import java.io.*;
+
 /**
  *  Repositories.
  * <p>
@@ -7,7 +9,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
  /**
  *
  */
-public class Repositories {
+public class Repositories implements Serializable{
 
     private static final Repositories instance = new Repositories();
     AuthenticationRepository authenticationRepository = new AuthenticationRepository();
@@ -22,6 +24,8 @@ public class Repositories {
     VisitScheduleRepository visitScheduleRepository = new VisitScheduleRepository();
 
     PropertyRepository propertyDealRepository = new PropertyRepository();
+
+    private static final String SERIALIZATION_FILE_NAME = "RealEstateUSA.ser";
 
     private Repositories() {
     }
@@ -72,6 +76,70 @@ public class Repositories {
 
     public VisitScheduleRepository getVisitScheduleRepository() {
         return visitScheduleRepository;
+    }
+
+    //Implement serialization
+    public void serialize() {
+        try {
+            //authenticationRepository.serialize();
+            FileOutputStream file = new FileOutputStream(SERIALIZATION_FILE_NAME);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            try{
+                out.writeObject(announcementRepository); //erro
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            //out.writeObject(dealRepository); //ver se é preciso, pois se estiver vazio põe o announcementRepository a vazio
+            out.writeObject(agencyRepository);
+            out.writeObject(employeeRepository);
+            out.writeObject(roleRepository);
+            out.writeObject(clientRepository);//erro
+            out.writeObject(orderRepository);//erro
+            out.writeObject(propertyRepository);
+            out.writeObject(visitScheduleRepository);
+            out.writeObject(propertyDealRepository);
+
+            out.close();
+            file.close();
+
+//            announcementRepository.serialize(SERIALIZATION_FILE_NAME);
+//            //dealRepository.serialize(SERIALIZATION_FILE_NAME);
+//            agencyRepository.serialize(SERIALIZATION_FILE_NAME);
+//            employeeRepository.serialize(SERIALIZATION_FILE_NAME);
+//            roleRepository.serialize(SERIALIZATION_FILE_NAME);
+//            clientRepository.serialize(SERIALIZATION_FILE_NAME);
+//            orderRepository.serialize(SERIALIZATION_FILE_NAME);
+//            propertyRepository.serialize(SERIALIZATION_FILE_NAME);
+//            visitScheduleRepository.serialize(SERIALIZATION_FILE_NAME);
+//            propertyDealRepository.serialize(SERIALIZATION_FILE_NAME);
+        } catch (Exception e) {
+            System.out.println("Error serializing");
+        }
+    }
+
+    public void deserialize(){
+        try {
+            FileInputStream file = new FileInputStream(SERIALIZATION_FILE_NAME);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            announcementRepository = (AnnouncementRepository) in.readObject();
+            agencyRepository = (AgencyRepository) in.readObject();
+            employeeRepository = (EmployeeRepository) in.readObject();
+            roleRepository = (RoleRepository) in.readObject();
+            clientRepository = (ClientRepository) in.readObject();
+            orderRepository = (OrderRepository) in.readObject();
+            propertyRepository = (PropertyRepository) in.readObject();
+            visitScheduleRepository = (VisitScheduleRepository) in.readObject();
+            propertyDealRepository = (PropertyRepository) in.readObject();
+
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

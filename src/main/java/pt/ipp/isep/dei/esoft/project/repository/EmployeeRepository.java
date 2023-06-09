@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  * <p>
  * This class will be responsible for managing a list of employees.
  */
-public class EmployeeRepository {
+public class EmployeeRepository implements Serializable {
 
     /**
      * List of employees.
@@ -86,4 +88,6 @@ public class EmployeeRepository {
     public void add(Employee employee) {
         employeeList.add(employee);
     }
+
+
 }

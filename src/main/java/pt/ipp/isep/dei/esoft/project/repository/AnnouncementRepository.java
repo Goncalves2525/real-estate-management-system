@@ -3,8 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.isep.lei.esoft.auth.UserSession;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -14,9 +13,9 @@ import java.util.*;
  * <p>
  * This class ofers the methods to filter and sort the announcements.
  */
-public class AnnouncementRepository {
+public class AnnouncementRepository implements Serializable{
 
-    private final ArrayList<Announcement> announcements = new ArrayList<>();
+    private ArrayList<Announcement> announcements = new ArrayList<>();
 
 
     /**
@@ -26,14 +25,40 @@ public class AnnouncementRepository {
      */
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefualtCriteria() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        resultAnnouncements.sort(defaultCriteria);
+        //resultAnnouncements.sort(defaultCriteria);
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                int id1 = p1.getId();
+                int id2 = p2.getId();
+
+                if (id1 > id2) {
+                    return -1;
+                } else if (id1 < id2) {
+                    return 1;
+                } else return 0;
+            }
+        });
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
 
     public ArrayList<Announcement> getAllAnnouncementsSortedByDefaultCriteriaReverse(){
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        resultAnnouncements.sort(defaultCriteria.reversed());
+        //resultAnnouncements.sort(defaultCriteria.reversed());
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                int id1 = p1.getId();
+                int id2 = p2.getId();
+
+                if (id1 > id2) {
+                    return -1;
+                } else if (id1 < id2) {
+                    return 1;
+                } else return 0;
+            }
+        }.reversed());
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
@@ -85,7 +110,19 @@ public class AnnouncementRepository {
                 }
             }
         }
-        resultAnnouncements.sort(defaultCriteria);
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                int id1 = p1.getId();
+                int id2 = p2.getId();
+
+                if (id1 > id2) {
+                    return -1;
+                } else if (id1 < id2) {
+                    return 1;
+                } else return 0;
+            }
+        });
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
@@ -122,7 +159,19 @@ public class AnnouncementRepository {
                 }
             }
         }
-        resultAnnouncements.sort(defaultCriteria);
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                int id1 = p1.getId();
+                int id2 = p2.getId();
+
+                if (id1 > id2) {
+                    return -1;
+                } else if (id1 < id2) {
+                    return 1;
+                } else return 0;
+            }
+        });
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
@@ -258,6 +307,25 @@ public class AnnouncementRepository {
 
     }
 
+//    @Override
+//    public int compare(Announcement a1, Announcement a2, String criteria) {
+//        switch (criteria) {
+//            case "price":
+//                Property property1 = getPropertyByAnnouncement(a1);
+//                Property property2 = getPropertyByAnnouncement(a2);
+//                return (int) (property1.getPrice() - property2.getPrice());
+//            case "city":
+//                property1 = getPropertyByAnnouncement(a1);
+//                property2 = getPropertyByAnnouncement(a2);
+//                return property1.getAddress().getCity().compareTo(property2.getAddress().getCity());
+//            case "state":
+//                property1 = getPropertyByAnnouncement(a1);
+//                property2 = getPropertyByAnnouncement(a2);
+//                return property1.getAddress().getState().compareTo(property2.getAddress().getState());
+//        }
+//        return 0;
+//    }
+
 
     /**
      * This method prevents the user from seeing an announcement that is not published
@@ -281,7 +349,19 @@ public class AnnouncementRepository {
      */
     public ArrayList<Announcement> getAllAnnouncementsByAgent() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        resultAnnouncements.sort(defaultCriteria);
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                int id1 = p1.getId();
+                int id2 = p2.getId();
+
+                if (id1 > id2) {
+                    return -1;
+                } else if (id1 < id2) {
+                    return 1;
+                } else return 0;
+            }
+        });
         String agentName = getEmployee().getUserName();
         getAnnouncementsByAgent(agentName);
         removePublishedAnnouncements(resultAnnouncements);
@@ -363,19 +443,19 @@ public class AnnouncementRepository {
     }
 
 
-    Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement p1, Announcement p2) {
-            int id1 = p1.getId();
-            int id2 = p2.getId();
-
-            if (id1 > id2) {
-                return -1;
-            } else if (id1 < id2) {
-                return 1;
-            } else return 0;
-        }
-    };
+//    Comparator<Announcement> defaultCriteria = new Comparator<Announcement>() {
+//        @Override
+//        public int compare(Announcement p1, Announcement p2) {
+//            int id1 = p1.getId();
+//            int id2 = p2.getId();
+//
+//            if (id1 > id2) {
+//                return -1;
+//            } else if (id1 < id2) {
+//                return 1;
+//            } else return 0;
+//        }
+//    };
 
 
     public Announcement getAnnouncementById(int id) {
@@ -393,17 +473,23 @@ public class AnnouncementRepository {
 
     public ArrayList<Announcement> getAllAnnouncementsSortedBypropertyAndIdCriteria() {
         ArrayList<Announcement> resultAnnouncements = copyAnnouncements(announcements);
-        resultAnnouncements.sort(propertyAndIdCriteria);
+        //resultAnnouncements.sort(propertyAndIdCriteria);
+        resultAnnouncements.sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement p1, Announcement p2) {
+                return p1.getTypeOfProperty().compareTo(p2.getTypeOfProperty());
+            }
+        });
         removeNonPublishedAnnouncements(resultAnnouncements);
         return resultAnnouncements;
     }
 
-    Comparator<Announcement> propertyAndIdCriteria = new Comparator<Announcement>() {
-        @Override
-        public int compare(Announcement p1, Announcement p2) {
-            return p1.getTypeOfProperty().compareTo(p2.getTypeOfProperty());
-        }
-    };
+//    Comparator<Announcement> propertyAndIdCriteria = new Comparator<Announcement>() {
+//        @Override
+//        public int compare(Announcement p1, Announcement p2) {
+//            return p1.getTypeOfProperty().compareTo(p2.getTypeOfProperty());
+//        }
+//    };
 
     /**
      * Adds an announcement to the repository, imported from a .csv file
@@ -444,5 +530,7 @@ public class AnnouncementRepository {
         Announcement announcement = new Announcement(sid, owner_name, owner_passportNum, owner_TIN, owner_email, owner_phone, property_type, property_area, property_location, property_distanceFromCenter, property_numberBedrooms, property_numberBathrooms, property_pnumParking, property_centralHeating, property_airconditioned, property_basement, property_loft, property_sunExposure, property_requested_sale_rent_price, property_sale_rent_price, commission, contract_duration, property_dateAnnounceRequest, property_dateofSale, type_business, store_ID, store_name, store_location, store_phonenumber, store_emailAddress);
         announcements.add(announcement);
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -7,7 +8,7 @@ import java.time.LocalTime;
 /**
  * The Visit schedule
  */
-public class VisitSchedule {
+public class VisitSchedule implements Serializable {
     private int propertyID;
     private String nameOfClient;
     private long telephoneNumberOfClient;

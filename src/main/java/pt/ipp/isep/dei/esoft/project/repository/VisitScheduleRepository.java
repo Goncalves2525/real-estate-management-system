@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.VisitSchedule;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * The Visit schedule repository.
  */
-public class VisitScheduleRepository {
+public class VisitScheduleRepository implements Serializable {
 
     /**
      * Instantiates a new Visit schedule repository.
@@ -84,7 +85,6 @@ public class VisitScheduleRepository {
         }
         return filteredVisits;
     }
-
 
 
 

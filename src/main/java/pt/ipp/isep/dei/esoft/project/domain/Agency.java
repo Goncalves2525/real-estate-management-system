@@ -1,11 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Agency class that contains all the information about an agency.
  */
-public class Agency {
+public class Agency implements Serializable {
 
     private final int id;
     private String name;

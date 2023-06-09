@@ -7,10 +7,10 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Statistics {
+public class Statistics implements Serializable {
     private static final Statistics instance = new Statistics();
     private boolean isMultipleRegression = false;
     private ArrayList<Announcement> deals;

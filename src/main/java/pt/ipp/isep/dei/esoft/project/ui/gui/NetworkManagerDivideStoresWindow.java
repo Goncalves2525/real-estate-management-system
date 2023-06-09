@@ -29,11 +29,18 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     private Button btImport;
     @FXML
     private Label importOperationLabel;
+    @FXML
+    private Button btnDivideStores;
+    @FXML
+    private Button btnRunTimeTests;
 
+    private int testNNumber = 3;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
     }
+
     public void onBtReturn(ActionEvent actionEvent) {
         Stage mainStage = getMainStage();
         FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/NetworkManagerMenuScene.fxml"));
@@ -64,10 +71,19 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         Stage mainStage = getMainStage();
         String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
         if (!Objects.equals(selectedDirectory, "")) {
+            //mudar para reflection
             ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
             String importResult = importController.importDatatoprperty(dataToImport);
             importOperationLabel.setText(importResult);
-            System.out.println(importResult);
+            //System.out.println(importResult);
+            //acrescentar dados à tabela
+            //apresentar dados da forma:
+                //Loja x -> num propriedades
         }
+    }
+
+    public void onbtnRunTimeTests(ActionEvent actionEvent) {
+
+
     }
 }

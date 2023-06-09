@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Agency;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +10,9 @@ import java.util.Optional;
 /**
  * This class represents the repository for agencies.
  */
-public class AgencyRepository {
+public class AgencyRepository implements Serializable {
 
-    private final List<Agency> agencies = new ArrayList<>();
+    private  List<Agency> agencies = new ArrayList<>();
 
     /**
      * Add an agency to the repository.
@@ -56,4 +57,6 @@ public class AgencyRepository {
         }
         return null;
     }
+
+
 }

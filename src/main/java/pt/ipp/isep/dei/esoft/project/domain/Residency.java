@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Residency class.
  * <p>
@@ -13,7 +15,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * -Has central heating
  * -Has air conditioning
  */
-public abstract class  Residency extends Property{
+public abstract class  Residency extends Property implements Serializable {
 
     private int numberOfBedrooms;
     private int numberOfBathrooms;

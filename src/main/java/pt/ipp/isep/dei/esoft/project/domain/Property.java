@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Property.
  * <p>
@@ -9,7 +11,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * It should be noted that this class's attributes are immutable.
  */
 
-public class Property {
+public class Property implements Serializable {
 
     private final int id;
     private double area;

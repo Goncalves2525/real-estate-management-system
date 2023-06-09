@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.io.Serializable;
+
 /**
  * This class represents a Land.
  */
-public class Land extends Property {
+public class Land extends Property implements Serializable {
 
     /**
      * Instantiates a new Land.

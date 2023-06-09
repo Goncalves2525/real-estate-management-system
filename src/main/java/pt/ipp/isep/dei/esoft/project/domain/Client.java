@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.io.Serializable;
+
 /**
  * This class represents a Client and its characteristics.
  * Class Client extends EndUser.
  */
-public class Client extends Person {
+public class Client extends Person implements Serializable {
 
     /**
      * @param name name

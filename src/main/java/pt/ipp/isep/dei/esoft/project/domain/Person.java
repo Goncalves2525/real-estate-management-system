@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class represents a User and its characteristics.
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
     private String name;
     private final String email;
     private int passportCardNumber;

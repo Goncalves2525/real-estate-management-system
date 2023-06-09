@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Apartment class.
  * <p>
@@ -10,7 +12,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * <p>
  * It should also be noted that the number of bathrooms and equipment are not mandatory.
  */
-public class Apartment extends Residency{
+public class Apartment extends Residency implements Serializable {
     /**
      * Builds an instance of Apartment receiving all attributes as parameters.
      *

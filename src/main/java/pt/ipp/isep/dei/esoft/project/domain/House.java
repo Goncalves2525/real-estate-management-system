@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * This class represents a House extends Residency.
  */
-public class House extends Residency{
+public class House extends Residency implements Serializable {
     private boolean hasBasement;
     private boolean hasInhabitableLoft;
     private SunExposure sunExposure;

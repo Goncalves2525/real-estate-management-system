@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  * Announcement class that contains all the information about an announcement.
  */
 
-public class Announcement {
+public class Announcement implements Serializable {
     private int propertyID;
     private Property property;
     private TypeOfProperty typeOfProperty;
@@ -16,7 +17,7 @@ public class Announcement {
     private Commission commission;
     private ArrayList<Photo> photos = new ArrayList<>();
     private Employee agent;
-    private final int id;
+    private int id;
     private boolean isPublished;
 
     public static int idCounter = 0;

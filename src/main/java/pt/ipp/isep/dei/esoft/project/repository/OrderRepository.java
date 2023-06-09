@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Order;
 import pt.ipp.isep.dei.esoft.project.domain.OrderState;
-import pt.ipp.isep.dei.esoft.project.domain.Property;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * This class represents an Order Repository.
  */
-public class OrderRepository {
+public class OrderRepository implements Serializable{
     private ArrayList<Order> orders = new ArrayList<>();
 
     public ArrayList<Order> getOrders() {
@@ -196,5 +196,33 @@ public class OrderRepository {
             }
         }
         return null;
+    }
+
+    public void serialize(String fileName) {
+        try{
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(orders);
+
+            out.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deserialize(String fileName) {
+        try {
+            FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            orders = (ArrayList<Order>) in.readObject();
+
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

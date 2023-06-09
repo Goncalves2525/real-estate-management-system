@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BubbleSortVisitSchedule implements SortVisitSchedule {
+public class BubbleSortVisitSchedule implements SortVisitSchedule, Serializable {
     @Override
     public List<VisitSchedule> sort(List<VisitSchedule> list) {
         int n = list.size();

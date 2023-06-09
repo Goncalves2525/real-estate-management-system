@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Address class that represents an address.
  * <p>
  * An address is characterized by a street, city, district, state and zipcode.
  */
-public class Address {
+public class Address implements Serializable {
     private String street, city, district, state;
     private int zipcode;
 

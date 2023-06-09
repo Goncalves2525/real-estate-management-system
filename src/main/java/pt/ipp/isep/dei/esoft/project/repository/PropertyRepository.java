@@ -2,9 +2,10 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
+import java.io.*;
 import java.util.ArrayList;
 
-public class PropertyRepository {
+public class PropertyRepository implements Serializable{
     private ArrayList<Property> properties = new ArrayList<>();
 
 

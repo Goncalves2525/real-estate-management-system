@@ -1,9 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 
-public class QuickSortVisitSchedule implements SortVisitSchedule {
+public class QuickSortVisitSchedule implements SortVisitSchedule, Serializable {
     @Override
     public List<VisitSchedule> sort(List<VisitSchedule> list) {
         if (list == null || list.size() == 0) {

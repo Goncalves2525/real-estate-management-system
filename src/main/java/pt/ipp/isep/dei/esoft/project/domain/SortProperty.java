@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SortProperty {
+public class SortProperty implements Serializable {
 
     public static ArrayList<Property> sortPropertiesInsertionSortByAreaDescending(ArrayList<Property> properties) {
         ArrayList<Property> propertiesSorted = new ArrayList<>();

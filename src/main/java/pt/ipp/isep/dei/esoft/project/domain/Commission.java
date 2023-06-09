@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * This class represents a Commission.
  * A commission is a value and a percentage.
  */
-public class Commission {
+public class Commission implements Serializable {
     private float value;
     private double percentage;
     private final float DEFAULT_VALUE = 0;

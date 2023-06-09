@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * This class represents an employee.
  * </p>
  */
-public class Employee extends Person {
+public class Employee extends Person implements Serializable {
 
     private int agencyID;
 

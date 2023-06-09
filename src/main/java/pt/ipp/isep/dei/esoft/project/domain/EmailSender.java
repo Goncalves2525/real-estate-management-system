@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A class for sending emails.
  */
-public class EmailSender {
+public class EmailSender implements Serializable {
 
     /**
      * Send a email to the agent.

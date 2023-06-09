@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public enum TypeOfProperty {
+import java.io.Serializable;
+
+public enum TypeOfProperty implements Serializable {
     HOUSE,
     APARTMENT,
     LAND;
