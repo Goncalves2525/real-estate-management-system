@@ -85,13 +85,8 @@ public class Repositories implements Serializable{
             FileOutputStream file = new FileOutputStream(SERIALIZATION_FILE_NAME);
             ObjectOutputStream out = new ObjectOutputStream(file);
 
-            try{
-                out.writeObject(announcementRepository); //erro
-            }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
+            //out.writeObject(authenticationRepository.getUsers());
+            out.writeObject(announcementRepository);
             //out.writeObject(dealRepository); //ver se é preciso, pois se estiver vazio põe o announcementRepository a vazio
             out.writeObject(agencyRepository);
             out.writeObject(employeeRepository);
@@ -104,17 +99,6 @@ public class Repositories implements Serializable{
 
             out.close();
             file.close();
-
-//            announcementRepository.serialize(SERIALIZATION_FILE_NAME);
-//            //dealRepository.serialize(SERIALIZATION_FILE_NAME);
-//            agencyRepository.serialize(SERIALIZATION_FILE_NAME);
-//            employeeRepository.serialize(SERIALIZATION_FILE_NAME);
-//            roleRepository.serialize(SERIALIZATION_FILE_NAME);
-//            clientRepository.serialize(SERIALIZATION_FILE_NAME);
-//            orderRepository.serialize(SERIALIZATION_FILE_NAME);
-//            propertyRepository.serialize(SERIALIZATION_FILE_NAME);
-//            visitScheduleRepository.serialize(SERIALIZATION_FILE_NAME);
-//            propertyDealRepository.serialize(SERIALIZATION_FILE_NAME);
         } catch (Exception e) {
             System.out.println("Error serializing");
         }
@@ -125,6 +109,13 @@ public class Repositories implements Serializable{
             FileInputStream file = new FileInputStream(SERIALIZATION_FILE_NAME);
             ObjectInputStream in = new ObjectInputStream(file);
 
+//            List<UserDTO> users = (List<UserDTO>) in.readObject();
+//
+//            for(UserDTO user : users) {
+//                String name = user.getName();
+//                authenticationRepository.addUserWithRole(user.getName(),"","","");
+//            }
+            authenticationRepository = (AuthenticationRepository) in.readObject();
             announcementRepository = (AnnouncementRepository) in.readObject();
             agencyRepository = (AgencyRepository) in.readObject();
             employeeRepository = (EmployeeRepository) in.readObject();

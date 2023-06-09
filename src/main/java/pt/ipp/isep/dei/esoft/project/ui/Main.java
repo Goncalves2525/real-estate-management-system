@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 public class Main {
@@ -26,5 +27,13 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> Repositories.getInstance().serialize()));
+    }
+
+    void windowClosing(WindowEvent e) {
+        Repositories.getInstance().serialize();
     }
 }

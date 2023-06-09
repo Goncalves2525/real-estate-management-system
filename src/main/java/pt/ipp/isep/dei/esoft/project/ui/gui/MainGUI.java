@@ -4,8 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -22,10 +24,32 @@ public class MainGUI extends javafx.application.Application {
         stage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        Repositories.getInstance().serialize();
+        super.stop();
+    }
 
     public static void main(String[] args) {
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.run();
-        launch();
+        File f = new File("RealEstateUSA.ser");
+        if(f.exists() && !f.isDirectory()) {
+            Repositories.getInstance().deserialize();
+        }
+        else{
+            Bootstrap bootstrap = new Bootstrap();
+            bootstrap.run();
+            Repositories.getInstance().serialize();
+        }
+
+        try {
+            launch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+//        Bootstrap bootstrap = new Bootstrap();
+//        bootstrap.run();
+//        launch();
     }
 }

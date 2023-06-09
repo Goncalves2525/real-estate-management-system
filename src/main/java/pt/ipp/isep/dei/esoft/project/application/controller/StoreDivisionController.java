@@ -70,7 +70,7 @@ public class StoreDivisionController {
 
         long startTime = System.nanoTime(); // Record start time
 
-        for (int i = 0; i < numPartitions; i++) {
+        for (int i = 0; i < numPartitions - 1; i++) {
             List<Integer> L1 = new ArrayList<>();
             List<Integer> L2 = new ArrayList<>();
 

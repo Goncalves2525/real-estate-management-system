@@ -34,4 +34,21 @@ public enum Role implements Serializable {
         }
     }
 
+    public Role getRoleByID(String id) {
+        switch (id) {
+            case "0":
+                return ADMIN;
+            case "1":
+                return AGENT;
+            case "2":
+                return STORE_NETWORK_MANAGER;
+            case "3":
+                return STORE_MANAGER;
+            case "4":
+                return CLIENT;
+            default:
+                return null;
+        }
+    }
+
 }

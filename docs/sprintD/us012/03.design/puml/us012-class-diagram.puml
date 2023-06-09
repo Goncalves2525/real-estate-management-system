@@ -12,6 +12,10 @@ class SystemAdministrator {
     - email
 }
 
+class CSVImport{
+    + importData()
+}
+
 class ImportController {
     - AnnouncementRepository
     + importData()
@@ -27,7 +31,7 @@ class AnnouncementRepository {
     - addAnnouncementFromImportedFile()
 }
 
-class DataImporter{
+interface DataImporter{
     + importData()
 }
 
@@ -40,6 +44,8 @@ SystemAdministrator -- ImportUI : interacts
 
 ImportController ..> AnnouncementRepository : uses
 
-ImportController ..> DataImporter : instantiates
+ImportController ..> CSVImport : instantiates
+
+CSVImport ..> DataImporter : implements
 
 @enduml

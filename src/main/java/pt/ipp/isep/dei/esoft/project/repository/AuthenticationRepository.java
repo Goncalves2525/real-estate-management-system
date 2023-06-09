@@ -2,14 +2,17 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.mappers.dto.UserDTO;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
      * This class represents the repository for authentication.
      */
 public class AuthenticationRepository implements Serializable {
     private final AuthFacade authenticationFacade = new AuthFacade();
+
 
     /**
      * Login
@@ -58,6 +61,13 @@ public class AuthenticationRepository implements Serializable {
         return authenticationFacade.addUserWithRole(name, email, pwd, roleId);
     }
 
+    /**
+     * Gets Users
+     * @return List<UserDTO> - list of users
+     */
+    public List<UserDTO> getUsers() {
+        return authenticationFacade.getUsers();
+    }
 
 
 }
