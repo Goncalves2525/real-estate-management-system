@@ -11,14 +11,18 @@ title Use Case Diagram
 
 left to right direction
 
-rectangle "System Actors" as actors {
+rectangle "System Actors" as actors_1 {
     actor "Unregistered User"
     actor "Client"
     actor "Agent"
-    actor "System Administrator"
-    actor "Owner"
 }
 
+rectangle "System Actors" as actors_2 {
+    actor "System Administrator"
+    actor "Owner"
+    actor "Network Manager"
+    actor "Store Manager"
+}
 
 rectangle "Use Cases" as usecases{
     usecase "UC1 - Display listed properties" as UC1
@@ -29,6 +33,10 @@ rectangle "Use Cases" as usecases{
             "System Administrator" --> UC3
     usecase "UC4 - Submit Sale or Rent" as UC4
             "Owner" --> UC4
+    usecase "UC5 - As a system administrator, I want to register a store." as UC5
+            "System Administrator" --> UC5
+    usecase "UC6 - As a system administrator, I want to specify states, districts and cities in the system." as UC6
+            "System Administrator" --> UC6
     usecase "UC7 - Register in the system to buy, sell or rent properties" as UC7
             "Client" --> UC7
     usecase "UC8 - See the list of property announcement requests made to himself" as UC8
@@ -41,6 +49,24 @@ rectangle "Use Cases" as usecases{
             "Agent" --> UC11
     usecase "UC12 - Import information from a legacy system that has been in use in several agencies" as UC12
             "System Administrator" --> UC12
+    usecase "UC13 - As a network manager, I want to list all employees working in every store of the network." as UC13
+            "Network Manager" --> UC13
+    usecase "UC14 - As a client, I want to read the response for the appointment requests, to accept or reject it." as UC14
+            "Client" --> UC14
+    usecase "US15 - As an agent, I intend to list all booking requests for properties managed by me." as UC15
+            "Agent" --> UC15
+    usecase "US16 - As an agent, when viewing a booking request, I want to respond to the user that scheduled the visit." as UC16
+            "Agent" --> UC16
+    usecase "US17 - As a network manager, I want to list all deals made." as UC17
+            "Network Manager" --> UC17
+    usecase "US18 - As a store manager, I intend to analyse the deals (only sale of houses and apartments) made. In particular, I intend to compare property sale values with the forecast values.\nThe prediction of the value of the business/property must be estimated based on the characteristics of the property and using linear and multilinear regression algorithms." as UC18
+            "Store Manager" --> UC18
+    usecase "US19 - As a network manager, I want to divide the set of all stores in to two subsets,\nso that the total number of properties of the stores between the two subsets is the closest possible." as UC19
+            "Network Manager" --> UC19
+    usecase "US20 - As a client, I want to read the response for the appointment request, to accept or reject it." as UC20
+            "Client" --> UC20
+    usecase "US21 - As an agent, at the end of the visit, I want to register the visit and the opinion about the business." as UC21
+            "Agent" --> UC21
 }
 
 @enduml

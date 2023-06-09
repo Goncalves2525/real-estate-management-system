@@ -1,85 +1,39 @@
-# Supplementary Specification (FURPS+)
+ # Supplementary Specification (FURPS+)
 
 ## Functionality
-
-The system should support authentication and authorization for different person roles (System Administrator, Store Manager, Store Network Manager, Agent, and Client).
-
-The system must provide reporting functionality for monitoring business performance and sales activities.
-
-The system must log person activities for auditing purposes.
-
+- The application must support user authentication with a password of seven alphanumeric characters, including three capital letters and two digits.
+- The application should use object serialization to ensure data persistence between two runs of the application.
+- Users should use a graphical user interface to access the features introduced in Sprint D.
 
 ## Usability 
-
-The person interface should follow a consistent design throughout the system.
-
-Error messages should be clear and informative, helping users to recover from errors.
-
-The system should provide tooltips and context-sensitive help to guide users.
-
-Navigation should be intuitive, allowing users to find and access features easily.
-
-The system should provide a search feature to help users find information quickly.
+- The application must support the English language.
+- The application should be developed with a graphical interface in JavaFX 11.
 
 ## Reliability
-The system should be able to recover from failures without data loss.
-
-The system should have a low failure rate, aiming for a high Mean Time Between Failures (MTBF).
-
-The system should maintain data integrity and comply with relevant industry standards and regulations.
+- The development team must implement unit tests for all methods, except for methods that implement Input/Output operations.
 
 ## Performance
-The system should have a fast response time to person actions, aiming for sub-second response times.
-
-The system should start up quickly and be available for use within a reasonable time.
-
-The system should have a fast recovery time in case of failures.
-
-The system should optimize memory consumption and CPU usage.
-
-The system should be able to handle a large number of simultaneous users and transactions.
-
+- No specific performance requirements were provided based on the information given.
 
 ## Supportability
-The system should be easy to test and maintain, with well-documented and modular code.
-
-The system should be adaptable to future changes in business requirements.
-
-The system should be compatible with common browsers and operating systems.
-
-The system should be easily configurable and installable on a variety of platforms.
-
-The system should be scalable to handle an increasing number of users and transactions.
+- The application should be developed in the Java language, using IntelliJ or NetBeans IDE.
+- The development team should adopt best practices for identifying requirements, and for OO software analysis and design.
+- The team should adopt recognized coding conventions and standards (e.g., CamelCase).
+- Javadoc should be used to generate useful documentation for the Java code.
+- The JaCoCo plugin should be used to generate the coverage report.
 
 
 ## +
-
 ### Design Constraints
-
-The system will be developed using Java as programming language.
-
-The development process should follow agile methodologies, such as Scrum or Kanban.
-
-The system should adhere to industry-standard design patterns and best practices.
-
-The system should be designed to be extensible and adaptable to future changes in business requirements.
+- All images/figures produced during the software development process should be recorded in SVG format.
 
 ### Implementation Constraints
-
-The system must follow coding standards and guidelines for the chosen programming language.
-
-The system must maintain database integrity through proper use of transactions and constraints.
-
-The system should be optimized for resource usage, including memory and CPU.
-
+- Serialization should be applied to all classes developed in all sprints.
+- The application should be developed in the Java language using IntelliJ or NetBeans.
+- The application's graphical interface should be developed in JavaFX 11.
 
 ### Interface Constraints
-The system should provide an intuitive and person-friendly interface for interacting with external systems, minimizing the need for manual intervention.
+- The application should have a graphical interface developed in JavaFX 11 to access the features introduced in Sprint D.
 
 ### Physical Constraints
-
-The system should be designed to run on common server hardware with standard specifications, such as x86-based processors and sufficient memory and storage capacity
-
-The system should be able to run on both Windows and Linux-based operating systems, allowing for flexibility in choosing the hosting environment.
-
-
+- No specific physical requirements were provided based on the information given.

@@ -19,7 +19,7 @@ activate Client
         System --> Client : Show all announcements sorted by newest to oldest and \nrequests to select the announcement ID to schedule a visit
     deactivate System
 
-    Client -> System : Types the announcement ID
+    Client -> System : Select the announcement through the ID of the announcement
         activate System
 
         System --> Client : Requests data (date of visit, time of visit start and time of visit end))
@@ -31,7 +31,7 @@ activate Client
         System --> Client : Confirm there is not a visit request from the same client at the same time and\n display the data typed by the client for confirmation
     deactivate System
 
-    Client -> System : Confirms that the information is correct and asks to send the message to the agent
+    Client -> System : Confirms that the information is correct
         activate System
 
         System --> Client : Send a message to the agent and show a confirmation message to the client
