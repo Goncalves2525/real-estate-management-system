@@ -15,7 +15,7 @@ activate Client
     Client -> System : requests to make an order to purchase a property
     activate System
 
-    System --> Client : requests announcement id
+    System --> Client : requests announcement
     deactivate System
 
     Client -> System : inserts announcement id

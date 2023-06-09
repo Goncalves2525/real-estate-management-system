@@ -251,4 +251,24 @@ public class StatisticsController {
     public ArrayList<Double> getPredictionsUpperBound() {
         return statistics.getPredictionsUpperBound();
     }
+
+    public double getStandardError() {
+        return statistics.getStandardError();
+    }
+
+    public double[] getTestStatistics() {
+        return statistics.getTestStatistics();
+    }
+
+    public double getMultipleTestCriticalValue() {
+        return statistics.getMultipleTestCriticalValue();
+    }
+
+    public double getAdjustedDeterminationCoefficient() {
+        return statistics.getAdjustedDeterminationCoefficient();
+    }
+
+    public double[][] getSimplePredictionInterval() {
+        return statistics.getSimplePredictionIntervals();
+    }
 }

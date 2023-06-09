@@ -51,7 +51,6 @@ public class Statistics implements Serializable {
     private double[] standardErrors;
     private double[] tValues;
     private double[] pValues;
-
     private double meanSquareRegression;
     private double meanSquareResidual;
     private double interceptCriticalValue;
@@ -63,10 +62,12 @@ public class Statistics implements Serializable {
     private double multipleCriticalValue;
     private double[][] covarianceMatrix;
     private double[] estimatedCoefficient;
-
     private ArrayList<Double> predictionsLowerBound;
     private ArrayList<Double> predictionsUpperBound;
-
+    private double standardError;
+    private double[] testStatistics;
+    private double multipleTestCriticalValue;
+    private double[][] simplePredictionIntervals = new double[499][2];
 
     private Statistics() {
         alfa = 1 - confidenceLevel;
@@ -116,6 +117,58 @@ public class Statistics implements Serializable {
         confidenceIntervals[2][1] = slopeUpperBound;
 
 
+
+        double residualsSumSquared = regression.getSumSquaredErrors();
+        double[] independentVariables = new double[deals.size()];
+        double[] dependentVariables = new double[deals.size()];
+        double lowerBound;
+        double upperBound;
+        double xSum = 0.0;
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            double parkingSpaces = 0.0; // Default value
+            parkingSpaces = deal.getProperty().getArea();
+
+            // Assign the number of parking spaces as the independent variable
+            independentVariables[i] = parkingSpaces;
+
+            // Assign the price as the dependent variable
+            dependentVariables[i] = deal.getProperty().getPrice();
+        }
+
+        for (int i = 0; i < independentVariables.length; i++) {
+            double xValue = independentVariables[i];
+            double prediction = regression.predict(xValue);
+            n = independentVariables.length;
+            xSum = 0.0;
+            residualsSumSquared = 0.0;
+            double x;
+            double y;
+
+            for (int j = 0; j < n; j++) {
+                x = independentVariables[j];
+                y = dependentVariables[j];
+                xSum += x;
+                double yHat = regression.predict(x);
+                residualsSumSquared += Math.pow(y - yHat, 2);
+            }
+
+            int degreesOfFreedom = n - 2;
+            tDistribution = new TDistribution(degreesOfFreedom);
+            double tCritical = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+            double xMean = xSum / n;
+            double sxx = calculateSumOfSquares(independentVariables, xMean);
+            double s = Math.sqrt(1.0 / (n - 2) * residualsSumSquared);
+            double standardError = s * Math.sqrt(1 + (1.0 / n) + Math.pow(xValue - xMean, 2) / sxx);
+            lowerBound = prediction - tCritical * standardError;
+            upperBound = prediction + tCritical * standardError;
+
+            simplePredictionIntervals[i][0] = lowerBound;
+            simplePredictionIntervals[i][1] = upperBound;
+        }
+
+
         //Hypothesis Test
         double a0 = 0;
         double b0 = 0;
@@ -133,7 +186,7 @@ public class Statistics implements Serializable {
         }
 
         slope = regression.getSlope();
-        double slopeTValue = (slope - b0) / slopeStandardError;
+        slopeTValue = (slope - b0) / slopeStandardError;
         slopePValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(slopeTValue)));
         slopeCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
@@ -201,6 +254,59 @@ public class Statistics implements Serializable {
         double slopeUpperBound = regression.getSlope() + tDistribution.inverseCumulativeProbability(1 - alfa / 2) * slopeStandardError;
         confidenceIntervals[2][0] = slopeLowerBound;
         confidenceIntervals[2][1] = slopeUpperBound;
+
+
+
+
+        double residualsSumSquared = regression.getSumSquaredErrors();
+        double[] independentVariables = new double[deals.size()];
+        double[] dependentVariables = new double[deals.size()];
+        double lowerBound;
+        double upperBound;
+        double xSum = 0.0;
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            double parkingSpaces = 0.0; // Default value
+            parkingSpaces = deal.getProperty().getDistanceFromCenter();
+
+            // Assign the number of parking spaces as the independent variable
+            independentVariables[i] = parkingSpaces;
+
+            // Assign the price as the dependent variable
+            dependentVariables[i] = deal.getProperty().getPrice();
+        }
+
+        for (int i = 0; i < independentVariables.length; i++) {
+            double xValue = independentVariables[i];
+            double prediction = regression.predict(xValue);
+            n = independentVariables.length;
+            xSum = 0.0;
+            residualsSumSquared = 0.0;
+            double x;
+            double y;
+
+            for (int j = 0; j < n; j++) {
+                x = independentVariables[j];
+                y = dependentVariables[j];
+                xSum += x;
+                double yHat = regression.predict(x);
+                residualsSumSquared += Math.pow(y - yHat, 2);
+            }
+
+            int degreesOfFreedom = n - 2;
+            tDistribution = new TDistribution(degreesOfFreedom);
+            double tCritical = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+            double xMean = xSum / n;
+            double sxx = calculateSumOfSquares(independentVariables, xMean);
+            double s = Math.sqrt(1.0 / (n - 2) * residualsSumSquared);
+            double standardError = s * Math.sqrt(1 + (1.0 / n) + Math.pow(xValue - xMean, 2) / sxx);
+            lowerBound = prediction - tCritical * standardError;
+            upperBound = prediction + tCritical * standardError;
+
+            simplePredictionIntervals[i][0] = lowerBound;
+            simplePredictionIntervals[i][1] = upperBound;
+        }
 
 
         //Hyphotesis Test
@@ -299,6 +405,69 @@ public class Statistics implements Serializable {
         confidenceIntervals[2][1] = slopeUpperBound;
 
 
+
+
+        double residualsSumSquared = regression.getSumSquaredErrors();
+        double[] independentVariables = new double[deals.size()];
+        double[] dependentVariables = new double[deals.size()];
+        double lowerBound;
+        double upperBound;
+        double xSum = 0.0;
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            double parkingSpaces = 0.0; // Default value
+
+            // Check if the property is an instance of House or Apartment
+            if (deal.getProperty() instanceof House) {
+                House house = (House) deal.getProperty();
+                // Assign the number of parking spaces for a House
+                parkingSpaces = house.getNumberOfBedrooms();
+            } else if (deal.getProperty() instanceof Apartment) {
+                Apartment apartment = (Apartment) deal.getProperty();
+                // Assign the number of parking spaces for an Apartment
+                parkingSpaces = apartment.getNumberOfBedrooms();
+            }
+
+            // Assign the number of parking spaces as the independent variable
+            independentVariables[i] = parkingSpaces;
+
+            // Assign the price as the dependent variable
+            dependentVariables[i] = deal.getProperty().getPrice();
+        }
+
+        for (int i = 0; i < independentVariables.length; i++) {
+            double xValue = independentVariables[i];
+            double prediction = regression.predict(xValue);
+            n = independentVariables.length;
+            xSum = 0.0;
+            residualsSumSquared = 0.0;
+            double x;
+            double y;
+
+            for (int j = 0; j < n; j++) {
+                x = independentVariables[j];
+                y = dependentVariables[j];
+                xSum += x;
+                double yHat = regression.predict(x);
+                residualsSumSquared += Math.pow(y - yHat, 2);
+            }
+
+            int degreesOfFreedom = n - 2;
+            tDistribution = new TDistribution(degreesOfFreedom);
+            double tCritical = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+            double xMean = xSum / n;
+            double sxx = calculateSumOfSquares(independentVariables, xMean);
+            double s = Math.sqrt(1.0 / (n - 2) * residualsSumSquared);
+            double standardError = s * Math.sqrt(1 + (1.0 / n) + Math.pow(xValue - xMean, 2) / sxx);
+            lowerBound = prediction - tCritical * standardError;
+            upperBound = prediction + tCritical * standardError;
+
+            simplePredictionIntervals[i][0] = lowerBound;
+            simplePredictionIntervals[i][1] = upperBound;
+        }
+
+
         //Hyphotesis Test
         double a0 = 0;
         double b0 = 0;
@@ -392,6 +561,66 @@ public class Statistics implements Serializable {
         confidenceIntervals[2][0] = slopeLowerBound;
         confidenceIntervals[2][1] = slopeUpperBound;
 
+
+        double residualsSumSquared = regression.getSumSquaredErrors();
+        double[] independentVariables = new double[deals.size()];
+        double[] dependentVariables = new double[deals.size()];
+        double lowerBound;
+        double upperBound;
+        double xSum = 0.0;
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            double parkingSpaces = 0.0; // Default value
+
+            // Check if the property is an instance of House or Apartment
+            if (deal.getProperty() instanceof House) {
+                House house = (House) deal.getProperty();
+                // Assign the number of parking spaces for a House
+                parkingSpaces = house.getNumberOfBathrooms();
+            } else if (deal.getProperty() instanceof Apartment) {
+                Apartment apartment = (Apartment) deal.getProperty();
+                // Assign the number of parking spaces for an Apartment
+                parkingSpaces = apartment.getNumberOfBathrooms();
+            }
+
+            // Assign the number of parking spaces as the independent variable
+            independentVariables[i] = parkingSpaces;
+
+            // Assign the price as the dependent variable
+            dependentVariables[i] = deal.getProperty().getPrice();
+        }
+
+        for (int i = 0; i < independentVariables.length; i++) {
+            double xValue = independentVariables[i];
+            double prediction = regression.predict(xValue);
+            n = independentVariables.length;
+            xSum = 0.0;
+            residualsSumSquared = 0.0;
+            double x;
+            double y;
+
+            for (int j = 0; j < n; j++) {
+                x = independentVariables[j];
+                y = dependentVariables[j];
+                xSum += x;
+                double yHat = regression.predict(x);
+                residualsSumSquared += Math.pow(y - yHat, 2);
+            }
+
+            int degreesOfFreedom = n - 2;
+            tDistribution = new TDistribution(degreesOfFreedom);
+            double tCritical = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+            double xMean = xSum / n;
+            double sxx = calculateSumOfSquares(independentVariables, xMean);
+            double s = Math.sqrt(1.0 / (n - 2) * residualsSumSquared);
+            double standardError = s * Math.sqrt(1 + (1.0 / n) + Math.pow(xValue - xMean, 2) / sxx);
+            lowerBound = prediction - tCritical * standardError;
+            upperBound = prediction + tCritical * standardError;
+
+            simplePredictionIntervals[i][0] = lowerBound;
+            simplePredictionIntervals[i][1] = upperBound;
+        }
 
         //Hyphotesis Test
         double a0 = 0;
@@ -487,6 +716,68 @@ public class Statistics implements Serializable {
         confidenceIntervals[2][1] = slopeUpperBound;
 
 
+        double residualsSumSquared = regression.getSumSquaredErrors();
+        double[] independentVariables = new double[deals.size()];
+        double[] dependentVariables = new double[deals.size()];
+        double lowerBound;
+        double upperBound;
+        double xSum = 0.0;
+
+        for (int i = 0; i < deals.size(); i++) {
+            Announcement deal = deals.get(i);
+            double parkingSpaces = 0.0; // Default value
+
+            // Check if the property is an instance of House or Apartment
+            if (deal.getProperty() instanceof House) {
+                House house = (House) deal.getProperty();
+                // Assign the number of parking spaces for a House
+                parkingSpaces = house.getNumberOfParkingSpaces();
+            } else if (deal.getProperty() instanceof Apartment) {
+                Apartment apartment = (Apartment) deal.getProperty();
+                // Assign the number of parking spaces for an Apartment
+                parkingSpaces = apartment.getNumberOfParkingSpaces();
+            }
+
+            // Assign the number of parking spaces as the independent variable
+            independentVariables[i] = parkingSpaces;
+
+            // Assign the price as the dependent variable
+            dependentVariables[i] = deal.getProperty().getPrice();
+        }
+
+        for (int i = 0; i < independentVariables.length; i++) {
+            double xValue = independentVariables[i];
+            double prediction = regression.predict(xValue);
+            n = independentVariables.length;
+            xSum = 0.0;
+            residualsSumSquared = 0.0;
+            double x;
+            double y;
+
+            for (int j = 0; j < n; j++) {
+                x = independentVariables[j];
+                y = dependentVariables[j];
+                xSum += x;
+                double yHat = regression.predict(x);
+                residualsSumSquared += Math.pow(y - yHat, 2);
+            }
+
+            int degreesOfFreedom = n - 2;
+            tDistribution = new TDistribution(degreesOfFreedom);
+            double tCritical = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+            double xMean = xSum / n;
+            double sxx = calculateSumOfSquares(independentVariables, xMean);
+            double s = Math.sqrt(1.0 / (n - 2) * residualsSumSquared);
+            double standardError = s * Math.sqrt(1 + (1.0 / n) + Math.pow(xValue - xMean, 2) / sxx);
+            lowerBound = prediction - tCritical * standardError;
+            upperBound = prediction + tCritical * standardError;
+
+            simplePredictionIntervals[i][0] = lowerBound;
+            simplePredictionIntervals[i][1] = upperBound;
+
+        }
+
+
         //Hyphotesis Test
         double a0 = 0;
         double b0 = 0;
@@ -534,9 +825,16 @@ public class Statistics implements Serializable {
         pValue = 1 - fDistribution.cumulativeProbability(fValue);
         criticalValue = fDistribution.inverseCumulativeProbability(1 - alfa);
         isSignificant = fValue > criticalValue;
-
-
     }
+
+    private double calculateSumOfSquares(double[] independentVariables, double xMean) {
+        double sum = 0.0;
+        for (int p = 0; p < n; p++) {
+            sum += Math.pow(independentVariables[p] - xMean, 2);
+        }
+        return sum;
+    }
+
 
     public void calcMultipleRegression() {
 
@@ -560,21 +858,31 @@ public class Statistics implements Serializable {
                 independentVariables[i][3] = ((Apartment) deal.getProperty()).getNumberOfBathrooms();
                 independentVariables[i][4] = ((Apartment) deal.getProperty()).getNumberOfParkingSpaces();
             }
-
             dependentVariable[i] = deal.getProperty().getPrice();
         }
 
+        //show independent variables
+        for (int i = 0; i < independentVariables.length; i++) {
+            for (int j = 0; j < independentVariables[i].length; j++) {
+                System.out.print(independentVariables[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+
         regression.newSampleData(dependentVariable, independentVariables);
+        System.out.println(regression.calculateRSquared());
 
 
         // General Data
         double[] coefficients = regression.estimateRegressionParameters();
-        determinationCoefficient = regression.calculateAdjustedRSquared();
+        determinationCoefficient = regression.calculateRSquared();
         adjustedDeterminationCoefficient = regression.calculateAdjustedRSquared();
         standardErrors = regression.estimateRegressionParametersStandardErrors();
         estimatedCoefficient = regression.estimateRegressionParameters();
         covarianceMatrix = regression.estimateRegressionParametersVariance();
         alfa = 1 - confidenceLevel;
+        standardError = regression.estimateRegressionStandardError();
         int numIndependentVariables = 5;
 
         //Forecasted Prices
@@ -603,7 +911,7 @@ public class Statistics implements Serializable {
         int numPredictors = 5; // Number of independent variables
         int degreesOfFreedom = n - numPredictors - 1;
         TDistribution tDistribution = new TDistribution(degreesOfFreedom);
-        double criticalValue = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
+        criticalValue = tDistribution.inverseCumulativeProbability(1 - (1 - confidenceLevel) / 2);
 
         double[] lowerBounds = new double[coefficients.length];
         double[] upperBounds = new double[coefficients.length];
@@ -613,7 +921,6 @@ public class Statistics implements Serializable {
             coefficientLowerBounds[i] = coefficient - criticalValue * standardError;
             coefficientUpperBounds[i] = coefficient + criticalValue * standardError;
         }
-
 
         // Prediction Intervals
         predictionsLowerBound = new ArrayList<>();
@@ -677,7 +984,6 @@ public class Statistics implements Serializable {
 
             predictionsLowerBound.add(predictedSaleValue - delta);
             predictionsUpperBound.add(predictedSaleValue + delta);
-            System.out.println(delta);
 
         }
 
@@ -701,12 +1007,15 @@ public class Statistics implements Serializable {
         }
 
         //Hyphotesis Testing
-        double testStatistic;
+        testStatistics = new double[estimatedCoefficient.length];
         tDistribution = new TDistribution(degreesOfFreedomRSS);
-        criticalValue = tDistribution.inverseCumulativeProbability(1 - alfa / 2);
-
+        multipleTestCriticalValue = tDistribution.inverseCumulativeProbability(1 - alfa / 2);
+        for (int i = 1; i < estimatedCoefficient.length; i++) {
+            testStatistics[i] = estimatedCoefficient[i] / Math.sqrt(meanSquaredError * covarianceMatrix[i][i]);
+        }
 
     }
+
 
     public void setDeals(ArrayList<Announcement> deals) {
         this.deals = deals;
@@ -929,5 +1238,21 @@ public class Statistics implements Serializable {
 
     public ArrayList<Double> getPredictionsUpperBound() {
         return predictionsUpperBound;
+    }
+
+    public double getStandardError() {
+        return standardError;
+    }
+
+    public double[] getTestStatistics() {
+        return testStatistics;
+    }
+
+    public double getMultipleTestCriticalValue() {
+        return multipleTestCriticalValue;
+    }
+
+    public double[][] getSimplePredictionIntervals() {
+        return simplePredictionIntervals;
     }
 }

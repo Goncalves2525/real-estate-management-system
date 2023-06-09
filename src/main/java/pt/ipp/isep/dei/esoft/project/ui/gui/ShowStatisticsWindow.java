@@ -72,20 +72,23 @@ public class ShowStatisticsWindow implements Initializable {
     @FXML
     private void onBtR(ActionEvent event) {
         double[] coefficients = controller.getCoefficients();
+        double determinationCoefficient = controller.getDeterminationCoefficient();
+        double adjustedDeterminationCoefficient = controller.getAdjustedDeterminationCoefficient();
 
-        if (!controller.getIsMultipleRegression()){
+        if (!controller.getIsMultipleRegression()) {
             txtArea.clear();
             txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
             txtArea.setText("Coefficients:\n");
             txtArea.appendText("R: " + coefficients[0] + "\n");
             txtArea.appendText("R2: " + coefficients[1] + "\n");
             txtArea.appendText("Adjusted R2: " + coefficients[2] + "\n");
-        }else{
+        } else {
             txtArea.clear();
             txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
             txtArea.setText("Coefficients:\n");
-            txtArea.appendText("R2: " + coefficients[1] + "\n");
-            txtArea.appendText("Adjusted R2: " + coefficients[2] + "\n");
+            txtArea.appendText("\nMultiple R: " + Math.sqrt(coefficients[1]));
+            txtArea.appendText("\nR2: " + determinationCoefficient + "\n");
+            txtArea.appendText("Adjusted R2: " + adjustedDeterminationCoefficient + "\n");
         }
 
 
@@ -101,13 +104,14 @@ public class ShowStatisticsWindow implements Initializable {
         boolean isInterceptSignificant = interceptTValue > interceptCriticalValue;
         double[][] covarianceMatrix = controller.getCovarianceMatrix();
         double[] estimatedCoefficient = controller.getEstimatedCoefficient();
-        double testStatistic;
+        double[] testStatistics = controller.getTestStatistics();
         double meanSquaredError = controller.getMeanSquaredError();
         double multipleCriticalValue = controller.getMultipleCriticalValue();
+        double multipleTestCriticalValue = controller.getMultipleTestCriticalValue();
         String interceptResult;
-        String[] coefficientNames = {"Intercept","Area", "Distance from center", "Number of bedrooms", "Number of bathrooms", "Number of parking spaces"};
+        String[] coefficientNames = {"Intercept", "Area", "Distance from center", "Number of bedrooms", "Number of bathrooms", "Number of parking spaces"};
 
-        if (!controller.getIsMultipleRegression()){
+        if (!controller.getIsMultipleRegression()) {
             if (isInterceptSignificant) {
                 interceptResult = "The intercept T-Value is higher than the critical Value. There is significant evidence to reject the null hypothesis for the intercept.";
             } else {
@@ -124,40 +128,42 @@ public class ShowStatisticsWindow implements Initializable {
 
             txtArea.clear();
             txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
-            String explanation = "Explanation of Hypothesis Test Results using Critical Value:\n" +
+            String explanation =
                     "-------------------------------------------------\n" +
-                    "The hypothesis tests are conducted to evaluate the statistical significance of the intercept and slope coefficients in the regression model.\n" +
-                    "For each hypothesis test, the test statistic is calculated and compared with the critical value to make a decision.\n" +
-                    "The critical value is determined based on the chosen significance level (alpha), which represents the threshold for accepting or rejecting the null hypothesis.\n" +
-                    "If the test statistic exceeds the critical value, it indicates significant evidence to reject the null hypothesis.\n" +
-                    "Conversely, if the test statistic is below the critical value, there is not enough evidence to reject the null hypothesis.\n" +
-                    "The interpretation of the hypothesis test results depends on the specific context and research question.\n\n\n" +
-                    "-------------------------------------------------\n" +
-                    "Intercept Hypothesis Test Result:\n" +
-                    "-------------------------------------------------\n" +
-                    "T-Value: " + interceptTValue + "\n" +
-                    "Critical Value: " + interceptCriticalValue + "\n" +
-                    interceptResult + "\n" +
-                    "-------------------------------------------------\n" +
-                    "Slope Hypothesis Test Result:\n" +
-                    "-------------------------------------------------\n" +
-                    "T-Value: " + slopeTValue + "\n" +
-                    "Critical Value: " + slopeCriticalValue + "\n" +
-                    slopeResult;
+                            "Intercept Hypothesis Test Result:\n" +
+                            "-------------------------------------------------\n" +
+                            "T-Value: " + interceptTValue + "\n" +
+                            "Critical Value: " + interceptCriticalValue + "\n" +
+                            interceptResult + "\n" +
+                            "-------------------------------------------------\n" +
+                            "Slope Hypothesis Test Result:\n" +
+                            "-------------------------------------------------\n" +
+                            "T-Value: " + slopeTValue + "\n" +
+                            "Critical Value: " + slopeCriticalValue + "\n" +
+                            slopeResult;
 
             txtArea.setText(explanation);
-        }else {
+        } else {
             txtArea.clear();
+            StringBuilder sb = new StringBuilder();
             for (int i = 1; i < estimatedCoefficient.length; i++) {
-                testStatistic = estimatedCoefficient[i] / Math.sqrt(meanSquaredError * covarianceMatrix[i][i]);
-                if (testStatistic > multipleCriticalValue) {
-                    txtArea.appendText("Since Test Statistic > Critical Value, we reject the null hypothesis for the " + coefficientNames[i] + "\n");
+                testStatistics[i] = estimatedCoefficient[i] / Math.sqrt(meanSquaredError * covarianceMatrix[i][i]);
+                sb.append("Hypothesis Test Result for " + coefficientNames[i] + ":\n");
+                sb.append("-------------------------------------------------\n");
+                sb.append("T-Value: " + testStatistics[i] + "\n");
+                sb.append("Critical Value: " + multipleTestCriticalValue + "\n");
+                sb.append("-------------------------------------------------\n");
+                if (testStatistics[i] > multipleTestCriticalValue) {
+                    sb.append("Since Test Statistic > Critical Value, we reject the null hypothesis.\n");
                 } else {
-                    txtArea.appendText("Since Test Statistic < Critical Value, we do not reject the null hypothesis for the " + coefficientNames[i] + "\n");
+                    sb.append("Since Test Statistic < Critical Value, we do not reject the null hypothesis.\n");
                 }
+                sb.append("\n\n\n");
             }
-        }
 
+            txtArea.appendText(sb.toString());
+
+        }
 
 
     }
@@ -167,66 +173,55 @@ public class ShowStatisticsWindow implements Initializable {
         double[][] interval = controller.getConfidenceIntervals();
         double[] coefficientLowerBound = controller.getCoefficientLowerBounds();
         double[] coefficientUpperBound = controller.getCoefficientUpperBounds();
-        double predictionLowerBound = controller.getPredictionLowerBound();
-        double predictionUpperBound = controller.getPredictionUpperBound();
+        double[][] predictionsInterval = controller.getSimplePredictionInterval();
+
         ArrayList<Double> predictionsUpperBound = controller.getPredictionsUpperBound();
         ArrayList<Double> predictionsLowerBound = controller.getPredictionsLowerBound();
         ArrayList<Announcement> deals = controller.getDeals();
 
-        if (!controller.getIsMultipleRegression()){
+        if (!controller.getIsMultipleRegression()) {
             txtArea.clear();
             txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
             txtArea.setText("Confidence Intervals:\n");
-            txtArea.appendText("Prediction Confidence Interval: ]" + interval[0][0] + " ; " + interval[0][1] + "[\n");
             txtArea.appendText("Intercept Confidence Interval: ]" + interval[1][0] + " ; " + interval[1][1] + "[\n");
             txtArea.appendText("Slope Confidence Interval: ]" + interval[2][0] + " ; " + interval[2][1] + "[\n");
 
-            String explanation = "\n\n\nExplanation of Confidence Interval:\n" +
-                    "-------------------------------------------------\n" +
-                    "A confidence interval provides a range of values within which the true population parameter is likely to fall with a certain level of confidence.\n" +
-                    "In the context of a regression analysis, a confidence interval for the regression coefficients can be calculated.\n" +
-                    "These coefficients represent the effect of each predictor variable on the response variable.\n" +
-                    "The confidence interval gives an estimate of the range of values for these coefficients that is likely to contain the true population value.\n" +
-                    "The level of confidence, often expressed as a percentage (e.g., 95%), indicates the probability that the true parameter value falls within the interval.\n" +
-                    "A wider confidence interval indicates greater uncertainty, while a narrower interval suggests more precise estimation.\n" +
-                    "For example, a 95% confidence interval means that if we were to repeat the study many times and calculate the confidence interval each time, approximately 95% of those intervals would contain the true population parameter.\n" +
-                    "The confidence interval can be interpreted as a measure of the precision and reliability of the estimated regression coefficients.\n" +
-                    "If the confidence interval for a coefficient includes zero, it suggests that the coefficient may not be statistically significant and may not have a meaningful effect on the response variable.\n" +
-                    "On the other hand, if the confidence interval does not include zero, it indicates that the coefficient is likely to be statistically significant and has a meaningful effect on the response variable.\n" +
-                    "It's important to note that the interpretation of the confidence interval should be considered alongside other statistical measures and the context of the specific analysis.\n" +
-                    "-------------------------------------------------\n";
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n\nPredicted Value Confidence Intervals:\n");
+            for (int i = 0; i < predictionsInterval.length; i++) {
+                double[] propertyInterval = predictionsInterval[i];
+                sb.append("Property ").append(i).append(" Confidence Interval:");
+                sb.append(String.format("]%.2f, %.2f[", propertyInterval[0], propertyInterval[1])).append("\n");
+            }
+            txtArea.appendText(sb.toString());
 
-            txtArea.appendText(explanation);
 
-        }else{
+        } else {
             StringBuilder sb2 = new StringBuilder();
             sb2.append("Coefficient Intervals:\n");
             for (int i = 0; i < coefficientLowerBound.length; i++) {
                 double lowerBound = coefficientLowerBound[i];
                 double upperBound = coefficientUpperBound[i];
-                String coefficientInterval = "Coefficient " + i + ": [" + lowerBound + ", " + upperBound + "]\n";
+                String coefficientInterval = "Coefficient " + i + ": " + String.format("]%.2f, %.2f[", lowerBound, upperBound) + "\n";
                 sb2.append(coefficientInterval);
-                txtArea.clear();
-                txtArea.appendText(sb2.toString());
             }
-
+            txtArea.clear();
+            txtArea.appendText(sb2.toString());
 
             StringBuilder sb = new StringBuilder();
-
             sb.append("\n\n\nPredicted Value Confidence Intervals:\n");
             for (int i = 0; i < deals.size(); i++) {
                 Announcement deal = deals.get(i);
                 double lowerBound = predictionsLowerBound.get(i);
                 double upperBound = predictionsUpperBound.get(i);
                 sb.append("Property-").append(i)
-                        .append(", Lower Bound: ").append(lowerBound)
-                        .append(", Upper Bound: ").append(upperBound)
+                        .append(": ").append(String.format("]%.2f, %.2f[", lowerBound, upperBound))
                         .append("\n");
             }
 
             String result = sb.toString();
-
             txtArea.appendText(result);
+
         }
 
 
@@ -245,6 +240,7 @@ public class ShowStatisticsWindow implements Initializable {
         double fValue = controller.getFValue();
         double pValue = controller.getPValue();
         double criticalValue = controller.getCriticalValue();
+        double multipleTestCriticalValue = controller.getMultipleTestCriticalValue();
         double[] correlationCoefficient = controller.getCoefficients();
         boolean isSignificant = fValue > criticalValue;
         double meanSquareRegression = controller.getMeanSquareRegression();
@@ -259,7 +255,7 @@ public class ShowStatisticsWindow implements Initializable {
         int numIndependentVariables = 5;
 
 
-        if (!controller.getIsMultipleRegression()){
+        if (!controller.getIsMultipleRegression()) {
             String analysisResult;
             isSignificant = controller.getIsSignificant();
             if (isSignificant) {
@@ -283,19 +279,8 @@ public class ShowStatisticsWindow implements Initializable {
                     "Total", totalSumOfSquares, totalDegreesOfFreedom);
 
             String explanation = anovaTable +
-                    "\n\n\nExplanation of ANOVA Table and F-test:\n" +
-                    "-------------------------------------------------\n" +
-                    "The ANOVA (Analysis of Variance) table provides a statistical summary of the regression model's performance.\n" +
-                    "In the context of a linear regression analysis, the F-test assesses the overall significance of the regression model.\n" +
-                    "The F-statistic is calculated as the ratio of the regression mean square to the residual mean square.\n" +
-                    "The F-statistic follows an F-distribution, which is used to determine the statistical significance of the model.\n" +
-                    "To make a decision about the null hypothesis, we compare the calculated F-value with the critical value.\n" +
-                    "If the F-value exceeds the critical value, it suggests that the model as a whole is statistically significant.\n" +
-                    "Conversely, if the F-value is below the critical value, there is not enough evidence to reject the null hypothesis.\n" +
-                    "The choice of the critical value depends on the chosen significance level (alpha) and the degrees of freedom.\n" +
-                    "The p-value associated with the F-statistic is also calculated, which represents the probability of obtaining the observed F-value or a more extreme value under the null hypothesis.\n" +
-                    "If the p-value is less than the significance level, it indicates significant evidence to reject the null hypothesis.\n" +
-                    "-------------------------------------------------\n" +
+
+                    "\n\n\n-------------------------------------------------\n" +
                     "Correlation Coefficient:\n" +
                     "-------------------------------------------------\n" +
                     "The correlation coefficient measures the strength and direction of the linear relationship between two variables.\n" +
@@ -313,23 +298,13 @@ public class ShowStatisticsWindow implements Initializable {
 
             txtArea.appendText(explanation);
 
-        }else{
+        } else {
             StringBuilder sb = new StringBuilder();
             sb.append("ANOVA Table:\n");
             sb.append(String.format("%-20s %20s %10s %10s %10s\n", "Source", "SS", "DF", "MS", "F"));
             sb.append(String.format("%-20s %20.2f %10d %10.2f %10.2f\n", "Regression", explainedSumOfSquares, numIndependentVariables, meanSquareRegression, fValue));
             sb.append(String.format("%-20s %20.2f %10f %10.2f\n", "Residual", residualSumOfSquares, degreesOfFreedomRSS, meanSquaredError));
             sb.append(String.format("%-20s %20.2f %10f\n", "Total", totalSumOfSquares, degreesOfFreedomTSS));
-            sb.append("\n\n");
-
-
-            sb.append("Explanation:\n");
-            sb.append("The ANOVA table provides information about the variance and significance of the regression model.\n");
-            sb.append("The 'Regression' row shows the sum of squares (SS), degrees of freedom (DF), mean square (MS), and F-value.\n");
-            sb.append("The 'Residual' row shows the sum of squares (SS), degrees of freedom (DF), and mean square (MS).\n");
-            sb.append("The 'Total' row shows the total sum of squares (SS) and degrees of freedom (DF).\n");
-            sb.append("The F-value compares the variation explained by the regression model to the unexplained variation.\n");
-            sb.append("A higher F-value indicates a more significant relationship between the independent variables and the dependent variable.\n");
             sb.append("\n\n");
 
 
@@ -372,18 +347,45 @@ public class ShowStatisticsWindow implements Initializable {
         double slope = stats.getSlope();
         double confidenceLevel = stats.getConfidenceLevel();
         double alfa = stats.getAlfa();
+        double standardError = controller.getStandardError();
+        double[] estimatedCoefficients = controller.getEstimatedCoefficient();
+        String[] independentVariableNames = {"x1", "x2", "x3", "x4", "x5"};
 
-        txtArea.clear();
-        txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
-        txtArea.setText("Values:\n");
-        txtArea.appendText("n: " + n + "\n");
-        txtArea.appendText("Intercept: " + intercept + "\n");
-        txtArea.appendText("Slope: " + slope + "\n");
-        txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
-        txtArea.appendText("Alfa: " + alfa + "\n");
-        txtArea.appendText("\n");
-        txtArea.appendText("Regression line: y = " + slope + "x + (" + intercept + ")");
+        if (!controller.getIsMultipleRegression()) {
+            txtArea.clear();
+            txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
+            txtArea.setText("Values:\n");
+            txtArea.appendText("n: " + n + "\n");
+            txtArea.appendText("Intercept: " + String.format("%.2f", intercept) + "\n");
+            txtArea.appendText("Slope: " + String.format("%.2f", slope) + "\n");
+            txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
+            txtArea.appendText("Alfa: " + String.format("%.2f", alfa) + "\n");
+            txtArea.appendText("\n");
+            txtArea.appendText("Regression line: y = " + String.format("%.2f", slope) + "x + (" + String.format("%.2f", intercept) + ")");
 
+        } else {
+            txtArea.clear();
+            txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
+            txtArea.setText("Values:\n");
+            txtArea.appendText("n: " + n + "\n");
+            txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
+            txtArea.appendText("Alfa: " + String.format("%.2f", alfa) + "\n");
+            txtArea.appendText("\n\n");
+
+            StringBuilder equationBuilder = new StringBuilder("Multiple Regression Equation:\n");
+            equationBuilder.append("y = ");
+            equationBuilder.append(String.format("%.2f", estimatedCoefficients[0]));
+
+            for (int i = 1; i < estimatedCoefficients.length; i++) {
+                equationBuilder.append(" + ");
+                equationBuilder.append(String.format("%.2f", estimatedCoefficients[i]));
+                equationBuilder.append(independentVariableNames[i - 1]);
+            }
+
+            String equation = equationBuilder.toString();
+            txtArea.appendText(equation);
+
+        }
     }
 
 

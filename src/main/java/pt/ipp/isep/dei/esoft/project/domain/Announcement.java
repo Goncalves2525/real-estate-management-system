@@ -207,7 +207,7 @@ public class Announcement implements Serializable {
             //Apartment propertyForAnnouncement = (Apartment) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
             //Residency propertyForAnnouncement = (Residency) new Property(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress);
 
-            property =  new Apartment(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfParking);
+            property =  new Apartment(property_area,property_distanceFromCenter,property_sale_rent_price, propertyAddress,noOfBedrooms,noOfBathrooms, noOfParking, centralHeating, airconditioned);
             propertyID = ((Residency) property).getId();
 
         } else if (TypeOfProperty.valueOf(property_type.toUpperCase()) == TypeOfProperty.LAND) {
