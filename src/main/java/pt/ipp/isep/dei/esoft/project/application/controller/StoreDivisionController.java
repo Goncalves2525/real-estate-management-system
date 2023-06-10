@@ -65,11 +65,12 @@ public class StoreDivisionController {
         return getAnnouncementRepository().getAllAnnouncementsSortedBypropertyAndIdCriteria();
     }
 
-    public static void dividePartitions(List<Integer> L) {
+    public static String dividePartitions(List<Integer> L) {
+        String result = "";
         int n = L.size();
         int numPartitions = (int) Math.pow(2, n);
 
-        long startTime = System.nanoTime(); // Record start time
+        long startTime = System.currentTimeMillis(); // Record start time
 
         for (int i = 0; i < numPartitions - 1; i++) {
             List<Integer> L1 = new ArrayList<>();
@@ -82,53 +83,81 @@ public class StoreDivisionController {
                     L2.add(L.get(j));
                 }
             }
-
-            System.out.println("Partition " + (i + 1) + ": " + L1 + ", " + L2);
+            result += "Partition " + (i + 1) + ": " + L1 + ", " + L2 + "\n";
+            //System.out.println("Partition " + (i + 1) + ": " + L1 + ", " + L2);
         }
 
-        long endTime = System.nanoTime(); // Record end time
+        long endTime = System.currentTimeMillis(); // Record end time
         long executionTime = endTime - startTime;
-        System.out.println("Execution time: " + executionTime + " nanoseconds");
+        //System.out.println("Execution time: " + executionTime + " milliseconds");
+        result += "Execution time: " + executionTime + " milliseconds";
+        return result;
     }
 
-    public static void partitionTest2(int testNumber){
-        //int[] inputSizes = {3, 6, 9, 12, 15, 18, 21, 24, 27, 30}; // Input sizes to test
-        long executionTimes = 0; // Array to store execution times
+//    public static String partitionTest2(int testNumber){
+//        String result = "";
+//        //int[] inputSizes = {3, 6, 9, 12, 15, 18, 21, 24, 27, 30}; // Input sizes to test
+//        long executionTimes = 0; // Array to store execution times
+//
+//        //for (int i = 0; i < inputSizes.length; i++) {
+//            int n = testNumber;
+//
+//            // Generate input list
+//            List<Agency> stores = generateInputList(n);
+//
+//            // Measure execution time
+//            long startTime = System.currentTimeMillis();
+//            List<List<Agency>> balancedPartition = findBalancedPartition(stores);
+//            long endTime = System.currentTimeMillis();
+//            long executionTime = endTime - startTime;
+//            executionTimes = executionTime;
+//
+//                result += "Input size: " + n + "\n";
+//                result += "Input list: " + stores + "\n";
+//                result += "Balanced partition: " + balancedPartition + "\n";
+//                result += "Difference of sums: " + calculateDifferenceOfSums(balancedPartition) + "\n";
+//
+//
+//        result += "Input size: " + n + ", Execution time: " + executionTimes + " milliseconds";
+//        return result;
+//
+//    }
 
-        //for (int i = 0; i < inputSizes.length; i++) {
-            int n = testNumber;
+    public static String partitionTest2(int testNumber){
+        String result = "";
+        List<Agency> L = generateInputList(testNumber);
+        int n = L.size();
+        int numPartitions = (int) Math.pow(2, n);
 
-            // Generate input list
-            List<Agency> stores = generateInputList(n);
+        long startTime = System.currentTimeMillis(); // Record start time
 
-            // Measure execution time
-            long startTime = System.currentTimeMillis();
-            List<List<Agency>> balancedPartition = findBalancedPartition(stores);
-            long endTime = System.currentTimeMillis();
-            long executionTime = endTime - startTime;
-            executionTimes = executionTime;
+        for (int i = 0; i < numPartitions - 1; i++) {
+            List<Agency> L1 = new ArrayList<>();
+            List<Agency> L2 = new ArrayList<>();
 
-            // Print results for one example of each input size
-            //if (i == 0 || i == inputSizes.length - 1) {
-                System.out.println("Input size: " + n);
-                System.out.println("Input list: " + stores);
-                System.out.println("Balanced partition: " + balancedPartition);
-                System.out.println("Difference of sums: " + calculateDifferenceOfSums(balancedPartition));
-                System.out.println();
-            //}
-        //}
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) != 0) {
+                    L1.add(L.get(j));
+                } else {
+                    L2.add(L.get(j));
+                }
+            }
+            result += "Partition " + (i + 1) + ": " + L1 + ", " + L2 + "\n";
+            //System.out.println("Partition " + (i + 1) + ": " + L1 + ", " + L2);
+        }
 
-        // Print execution times
-        //for (int i = 0; i < inputSizes.length; i++) {
-            System.out.println("Input size: " + n + ", Execution time: " + executionTimes + " milliseconds");
-        //}
-
+        long endTime = System.currentTimeMillis(); // Record end time
+        long executionTime = endTime - startTime;
+        //System.out.println("Execution time: " + executionTime + " milliseconds");
+        result += "Execution time: " + executionTime + " milliseconds";
+        return result;
     }
 
     public static List<Agency> generateInputList(int n) {
         List<Agency> stores = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
-            stores.add(new Agency(i, i * 10)); // Assuming storeID is sequential and properties are multiples of 10
+            stores.add(new Agency(i, i * 10));
+            //stores.add(new Agency(i,(int) Math.random() * 10));
         }
         return stores;
     }
@@ -149,11 +178,11 @@ public class StoreDivisionController {
         int sum2 = 0;
 
         for (Agency store : balancedPartition.get(0)) {
-            //sum1 += store.getNoOfProperties();
+            sum1 += store.getNoOfProperties();
         }
 
         for (Agency store : balancedPartition.get(1)) {
-            //sum2 += store.getNoOfProperties();
+            sum2 += store.getNoOfProperties();
         }
 
         return Math.abs(sum1 - sum2);

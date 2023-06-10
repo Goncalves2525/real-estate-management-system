@@ -113,5 +113,7 @@ public class PropertyRepository implements Serializable{
     }
 
 
-
+    public void addProperty(Property property) {
+        properties.add(property);
+    }
 }

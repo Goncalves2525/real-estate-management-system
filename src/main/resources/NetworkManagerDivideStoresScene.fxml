@@ -4,20 +4,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="402.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerDivideStoresWindow">
+<AnchorPane prefHeight="677.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerDivideStoresWindow">
    <children>
-      <Button fx:id="btReturn" layoutX="584.0" layoutY="340.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
-      <Button fx:id="btImport" layoutX="584.0" layoutY="250.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
+      <Button fx:id="btReturn" layoutX="918.0" layoutY="341.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
+      <Button fx:id="btImport" layoutX="918.0" layoutY="251.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
       <Label fx:id="importOperationLabel" layoutX="593.0" layoutY="295.0" />
-      <Button fx:id="btnDivideStores" layoutX="584.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
-      <Button fx:id="btnRunTimeTests" layoutX="584.0" layoutY="66.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
-      <TableView fx:id="tblDivideStores" layoutY="14.0" prefHeight="363.0" prefWidth="580.0">
+      <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="15.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
+      <Button fx:id="btnRunTimeTests" layoutX="918.0" layoutY="421.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
+      <TableView fx:id="tblDivideStores" layoutY="14.0" prefHeight="363.0" prefWidth="906.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Store ID" fx:id="storeID" />
-          <TableColumn prefWidth="501.0" text="No. of Properties" fx:id="noOfProperties" />
+          <TableColumn fx:id="storeID" prefWidth="75.0" text="Store ID" />
+          <TableColumn fx:id="noOfProperties" prefWidth="501.0" text="No. of Properties" />
         </columns>
       </TableView>
+      <Label layoutX="23.0" layoutY="392.0" text="Divide Operation Results" />
+      <TextArea fx:id="txtAreaResults" layoutX="23.0" layoutY="421.0" prefHeight="200.0" prefWidth="882.0" />
    </children>
 </AnchorPane>

@@ -27,6 +27,58 @@ public class Bootstrap implements Runnable {
         addVisitSchedule();
         addEmailProperties();
         addSMSProperties();
+        addProperties();
+    }
+
+    private void addProperties() {
+        //double area, double distanceFromCenter, double price, Address address, int storeID, String storeName
+        PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();
+        Address a1 = new Address("Rua 1", "Braga", "Braga", "Minho", 12345);
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 1, "Store 1"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 2, "Store 2"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 3, "Store 3"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
+        propertyRepository.addProperty(new Property(12, 12, 12, a1, 4, "Store 4"));
     }
 
     private void addVisitSchedule() {

@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,10 +20,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Tuple;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class NetworkManagerDivideStoresWindow implements Initializable {
     private final StoreDivisionController storeDivisionController = new StoreDivisionController();
@@ -49,6 +43,8 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
     @FXML
     private TableColumn<Property, Integer> noOfProperties;
+    @FXML
+    private TextArea txtAreaResults;
 
     private int testNNumber = 3;
 
@@ -63,21 +59,34 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     public ObservableList<Tuple<String, Integer>> getProperties() {
         ObservableList<Tuple<String, Integer>> properties = FXCollections.observableArrayList();
         ArrayList<Property> propertiesList = storeDivisionController.getProperties();
-        Tuple<String, Integer> tuple = new Tuple<>("", 0);
+        System.out.println(propertiesList.size());
         for (Property property : propertiesList) {
-            tuple = new Tuple<>(""+property.getAgencyID(), 1);
+            Tuple<String, Integer> tuple = new Tuple<>(""+property.getAgencyID(), 1);
+            //tuple = new Tuple<>("" + property.getAgencyID(), 1);
             //properties.add(new Tuple<>(""+property.getAgencyID(), 1));
+
+            if (agencyPropertySum.containsKey(tuple.getFirst())) {
+                int currentSum = agencyPropertySum.get(tuple.getFirst());
+                agencyPropertySum.put(tuple.getFirst(), currentSum + tuple.getSecond());
+            } else {
+                agencyPropertySum.put(tuple.getFirst(), tuple.getSecond());
+            }
         }
-        if (agencyPropertySum.containsKey(tuple.getFirst())) {
-            int currentSum = agencyPropertySum.get(tuple.getFirst());
-            agencyPropertySum.put(tuple.getFirst(), currentSum + tuple.getSecond());
-        } else {
-            agencyPropertySum.put(tuple.getFirst(), tuple.getSecond());
-        }
+        ObservableList<Tuple<String, Integer>> tupleList = FXCollections.observableArrayList();
         for (String key : agencyPropertySum.keySet()) {
-            properties.add(new Tuple<>(key, agencyPropertySum.get(key)));
+            boolean exists = false;
+            for (Tuple<String, Integer> tuple2 : tupleList) {
+                if (tuple2.getFirst().equals(key)) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                tupleList.add(new Tuple<>(key, agencyPropertySum.get(key)));
+            }
         }
-        return properties;
+        System.out.println("2 - " + tupleList.size());
+        return tupleList;
     }
 
     public void onBtReturn(ActionEvent actionEvent) {
@@ -152,11 +161,20 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
         //storeDivisionController.dividePartitions(testNNumber);
-        if(testNNumber < 30){
-            storeDivisionController.partitionTest2(testNNumber);
+        if(testNNumber <= 30){
+            txtAreaResults.setText(storeDivisionController.partitionTest2(testNNumber));
             testNNumber = testNNumber +3;
         }
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
 
+    }
+
+    public void onBtnDivideStores(ActionEvent actionEvent) {
+        List<Integer> list = new ArrayList<>();
+        for (Object tuple : tblDivideStores.getItems()) {
+            list.add(((Tuple<String, Integer>) tuple).getSecond());
+        }
+
+        txtAreaResults.setText(storeDivisionController.dividePartitions(list));
     }
 }
