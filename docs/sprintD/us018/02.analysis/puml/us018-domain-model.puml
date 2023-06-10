@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+class StoreManager extends Employee{
+
+}
+
+class Employee extends Person{
+
+}
+
+class Owner extends Person{}
+
+class Client extends Person{}
+
+class Agency{
+    ID
+    name
+    email
+    phoneNumber
+}
+
+class Agent extends Employee{
+}
+
+class Person{
+    name
+    email
+    passportCardNumber
+    taxNumber
+    telephoneNumber
+}
+
+class Deal{
+    Price
+    RequestedPrice
+    Area
+    distanceFromCenter
+    numberOfBedrooms
+    numberOfBathrooms
+    numberOfParkingSpaces
+}
+
+StoreManager "1" -- "*" Deal : analyses >
+Agent "*" -- "1" Agency : has <
+Deal "1" -- "1" Agent : responsible for <
+Deal "1" -- "1" Client : participated in <
+Deal "*" -- "1" Agency : belongs to >
+Deal "1" -- "1" Owner : participated in <
+
+@enduml

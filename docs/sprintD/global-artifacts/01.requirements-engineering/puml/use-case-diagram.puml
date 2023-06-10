@@ -59,7 +59,7 @@ rectangle "Use Cases" as usecases{
             "Agent" --> UC16
     usecase "US17 - As a network manager, I want to list all deals made." as UC17
             "Network Manager" --> UC17
-    usecase "US18 - As a store manager, I intend to analyse the deals (only sale of houses and apartments) made. In particular, I intend to compare property sale values with the forecast values.\nThe prediction of the value of the business/property must be estimated based on the characteristics of the property and using linear and multilinear regression algorithms." as UC18
+    usecase "US18 - As a store manager, I intend to analyse the deals made." as UC18
             "Store Manager" --> UC18
     usecase "US19 - As a network manager, I want to divide the set of all stores in to two subsets,\nso that the total number of properties of the stores between the two subsets is the closest possible." as UC19
             "Network Manager" --> UC19
