@@ -10,9 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
-import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SaleForecastWindow implements Initializable {
+public class AnalyseDealsWindow implements Initializable {
 
     private final ImportController controller;
     private Scene selectRegressionModelScene;
@@ -35,7 +33,7 @@ public class SaleForecastWindow implements Initializable {
     @FXML
     private TextField txtField;
 
-    public SaleForecastWindow() {
+    public AnalyseDealsWindow() {
         controller = new ImportController();
     }
 

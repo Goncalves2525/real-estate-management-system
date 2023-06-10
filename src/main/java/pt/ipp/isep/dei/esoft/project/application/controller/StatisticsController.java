@@ -28,6 +28,68 @@ public class StatisticsController {
         return dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse();
     }
 
+    public StatisticsDTO getStats() {
+        StatisticsDTO statsDTO = new StatisticsDTO(
+                statistics.getN(),
+                statistics.getConfidenceLevel(),
+                statistics.getIntercept(),
+                statistics.getSlope(),
+                statistics.getIsMultipleRegression(),
+                statistics.getDeals(),
+                statistics.getForecastedPrices(),
+                statistics.getInterceptPValue(),
+                statistics.getSlopePValue(),
+                statistics.getCorrelationCoefficient(),
+                statistics.getDeterminationCoefficient(),
+                statistics.getAdjustedDeterminationCoefficient(),
+                statistics.getSlopeStandardError(),
+                statistics.getInterceptStandardError(),
+                statistics.getAlfa(),
+                statistics.getConfidenceIntervals(),
+                statistics.getRejects(),
+                statistics.getTotalSumOfSquares(),
+                statistics.getResidualSumOfSquares(),
+                statistics.getRegressionSumOfSquares(),
+                statistics.getTotalDegreesOfFreedom(),
+                statistics.getRegressionMeanSquare(),
+                statistics.getResidualMeanSquare(),
+                statistics.getRegressionDegreesOfFreedom(),
+                statistics.getResidualDegreesOfFreedom(),
+                statistics.getfValue(),
+                statistics.getpValue(),
+                statistics.getCriticalValue(),
+                statistics.getIsSignificant(),
+                statistics.getInterceptTValue(),
+                statistics.getSlopeTValue(),
+                statistics.getCoefficientLowerBounds(),
+                statistics.getCoefficientUpperBounds(),
+                statistics.getPredictionLowerBound(),
+                statistics.getPredictionUpperBound(),
+                statistics.getStandardErrors(),
+                statistics.getTValues(),
+                statistics.getPValues(),
+                statistics.getMeanSquareRegression(),
+                statistics.getMeanSquareResidual(),
+                statistics.getInterceptCriticalValue(),
+                statistics.getSlopeCriticalValue(),
+                statistics.getExplainedSumOfSquares(),
+                statistics.getDegreesOfFreedomRSS(),
+                statistics.getDegreesOfFreedomTSS(),
+                statistics.getMeanSquaredError(),
+                statistics.getMultipleCriticalValue(),
+                statistics.getCovarianceMatrix(),
+                statistics.getEstimatedCoefficient(),
+                statistics.getPredictionsLowerBound(),
+                statistics.getPredictionsUpperBound(),
+                statistics.getStandardError(),
+                statistics.getTestStatistics(),
+                statistics.getMultipleTestCriticalValue(),
+                statistics.getSimplePredictionIntervals()
+        );
+        return statsDTO;
+    }
+
+
     public void calcSimpleRegressionArea(ArrayList<Announcement> deals) {
         statistics.setDeals(deals);
         statistics.calcSimpleRegressionArea();
@@ -145,11 +207,6 @@ public class StatisticsController {
 
     public boolean getIsSignificant() {
         return statistics.getIsSignificant();
-    }
-
-    public StatisticsDTO getStats() {
-        StatisticsDTO statsDTO = new StatisticsDTO(statistics.getN(), statistics.getConfidenceLevel(), statistics.getIntercept(), statistics.getSlope());
-        return statsDTO;
     }
 
     public double getInterceptTValue() {

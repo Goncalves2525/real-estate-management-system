@@ -1,0 +1,170 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+
+
+
+class ImportController {
+    + importData(location) : importResult
+}
+
+class StatisticsController {
+    -dealRepository : AnnouncementRepository
+    +getStats() : StatisticsDTO
+}
+
+class StatisticsDTO{
+}
+
+class CSVImport{
+    -announcementRepository : AnnouncementRepository
+    +importData()
+}
+
+
+class Repositories {
+    +Repositories()
+    +getInstance() : Repositories
+    +getDealRepository() : AnnouncementRepository
+}
+
+class AnnouncementRepository{
+    +getAllAnnouncementsSortedByDefualtCriteriaReverse() : ArrayList<Announcement>
+}
+
+class StoreManagerMenuWindow{
+    -saleForecastScene : Scene
+    -bt : Button
+    +onBtAction() : void
+}
+
+class Statistics{
+    - isMultipleRegression : boolean
+        - deals : ArrayList<Announcement>
+        - forecastedPrices : ArrayList<Double>
+        - intercept : double
+        - interceptPValue : double
+        - slope : double
+        - slopePValue : double
+        - correlationCoefficient : double
+        - determinationCoefficient : double
+        - adjustedDeterminationCoefficient : double
+        - slopeStandardError : double
+        - interceptStandardError : double
+        - alfa : double
+        - n : int
+        - confidenceLevel : double
+        - confidenceIntervals : double[][]
+        - rejects : boolean[]
+        - totalSumOfSquares : double
+        - residualSumOfSquares : double
+        - regressionSumOfSquares : double
+        - totalDegreesOfFreedom : int
+        - regressionMeanSquare : double
+        - residualMeanSquare : double
+        - regressionDegreesOfFreedom : int
+        - residualDegreesOfFreedom : int
+        - fValue : double
+        - pValue : double
+        - criticalValue : double
+        - isSignificant : boolean
+        - interceptTValue : double
+        - slopeTValue : double
+        - coefficientLowerBounds : double[]
+        - coefficientUpperBounds : double[]
+        - predictionLowerBound : double
+        - predictionUpperBound : double
+        - standardErrors : double[]
+        - tValues : double[]
+        - pValues : double[]
+        - meanSquareRegression : double
+        - meanSquareResidual : double
+        - interceptCriticalValue : double
+        - slopeCriticalValue : double
+        - explainedSumOfSquares : double
+        - degreesOfFreedomRSS : double
+        - degreesOfFreedomTSS : double
+        - meanSquaredError : double
+        - multipleCriticalValue : double
+        - covarianceMatrix : double[][]
+        - estimatedCoefficient : double[]
+        - predictionsLowerBound : ArrayList<Double>
+        - predictionsUpperBound : ArrayList<Double>
+        - standardError : double
+        - testStatistics : double[]
+        - multipleTestCriticalValue : double
+        - simplePredictionIntervals : double[][]
+
+        +calcSimpleRegressionArea() : void
+        +calcSimpleRegressionBathrooms() : void
+        +calcSimpleRegressionBedrooms() : void
+        +calcSimpleRegressionDistance() : void
+        +calcSimpleRegressionParking() : void
+        +calcMultipleRegression() : void
+}
+
+class AnalyseDealsWindow{
+        -controller : ImportController
+        -selectRegressionModelScene : Scene
+        -btImport : Button
+        -btDeals : Button
+        +onBtImport() : void
+        +onBtDeals() : void
+}
+
+class SelectRegressionModelWindow{
+    -controller : StatisticsController
+    -showStatisticsScene : Scene
+    -btSimpleArea : Button
+    -btSimpleBathrooms : Button
+    -btSimpleBedrooms : Button
+    -btSimpleDistance : Button
+    -btSimpleParking : Button
+    -btMultiple : Button
+    -btConfidence : Button
+    +onBtSimpleArea() : void
+    +onBtSimpleBathrooms() : void
+    +onBtSimpleBedrooms() : void
+    +onBtSimpleDistance() : void
+    +onBtSimpleParking() : void
+    +onBtMultiple() : void
+    +onBtConfidence() : void
+}
+
+class ShowStatisticsWindow{
+    -controller : StatisticsController
+    -btPrices : Button
+    -btR : Button
+    -btTest : Button
+    -btInterval : Button
+    -btAnova : Button
+    -btValues
+    +onBtPrices() : void
+    +onBtR() : void
+    +onBtTest() : void
+    +onBtInterval() : void
+    +onBtAnova() : void
+    +onBtValues() : void
+
+}
+
+StoreManagerMenuWindow ..> AnalyseDealsWindow
+
+AnalyseDealsWindow ..> SelectRegressionModelWindow
+
+SelectRegressionModelWindow ..> ShowStatisticsWindow
+SelectRegressionModelWindow ..> StatisticsController
+AnalyseDealsWindow ..> ImportController
+
+ImportController ..> CSVImport
+ImportController ..> Repositories
+StatisticsController ..> Statistics
+Repositories --> Repositories : instances
+Repositories --> AnnouncementRepository : has
+ShowStatisticsWindow ..> StatisticsController
+StatisticsDTO ..> Statistics
+StatisticsDTO ..> StatisticsController
+
+@enduml

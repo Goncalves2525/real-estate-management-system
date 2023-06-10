@@ -1,0 +1,173 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Store Manager" as StoreManager
+participant ":StoreManagerWindow" as StoreManagerWindow
+participant ":AnalyseDealsWindow" as AnalyseDealsWindow
+participant ":SelectRegressionModelWindow" as SelectRegressionModelWindow
+participant ":ShowStatisticsWindow" as ShowStatisticsWindow
+participant ":ImportController" as ImportController
+participant ":CSVImport" as CSVImport
+participant "repositories\n:Repositories" as repositories
+participant ":dealRepository\nAnnouncementRepository" as DealRepository
+participant ":StatisticsController" as StatisticsController
+participant ":StatisticsDTO" as StatisticsDTO
+participant ":Statistics" as Statistics
+
+
+
+
+activate StoreManager
+
+StoreManager -> StoreManagerWindow : requests to analyse deals
+activate StoreManagerWindow
+
+StoreManagerWindow -> AnalyseDealsWindow : displays AnalyseDealsWindow
+deactivate StoreManagerWindow
+
+activate AnalyseDealsWindow
+
+AnalyseDealsWindow -> StoreManager : displays options (import file, use existing deals
+deactivate AnalyseDealsWindow
+
+alt import file
+    StoreManager -> AnalyseDealsWindow : requests to import file
+    activate AnalyseDealsWindow
+
+    AnalyseDealsWindow -> StoreManager : displays file chooser
+    deactivate AnalyseDealsWindow
+
+    StoreManager -> AnalyseDealsWindow : Selects file to import
+    activate AnalyseDealsWindow
+
+    AnalyseDealsWindow -> ImportController : onBtImport
+    activate ImportController
+
+    ImportController -> CSVImport : importData()
+    activate CSVImport
+
+    note right
+           Always creates instance of repositories
+    end note
+
+    CSVImport -> repositories : getInstance()
+    activate repositories
+
+    repositories -> DealRepository : getDealRepository()
+    activate DealRepository
+
+    DealRepository -> repositories : dealRepository
+    deactivate DealRepository
+
+    repositories -> CSVImport : dealRepository
+    deactivate repositories
+
+    CSVImport -> DealRepository : importCSV()
+    activate DealRepository
+
+    DealRepository -> CSVImport: success
+    deactivate DealRepository
+
+    CSVImport -> ImportController : success
+    deactivate CSVImport
+
+    ImportController -> AnalyseDealsWindow : success
+    deactivate ImportController
+
+else use existing deals
+    StoreManager -> AnalyseDealsWindow : requests to use existing deals
+end
+
+AnalyseDealsWindow -> SelectRegressionModelWindow : displays SelectRegressionModelWindow
+deactivate AnalyseDealsWindow
+
+activate SelectRegressionModelWindow
+
+SelectRegressionModelWindow -> StoreManager : requests to select regression model
+deactivate SelectRegressionModelWindow
+
+opt set confidence level
+    StoreManager -> SelectRegressionModelWindow : requests to set confidence level
+    activate SelectRegressionModelWindow
+
+    SelectRegressionModelWindow -> StatisticsController : OnBtConfidence()
+    activate StatisticsController
+
+    note right
+               Always creates instance of Statistics
+    end note
+
+
+    StatisticsController -> Statistics : getInstance()
+    activate Statistics
+
+    Statistics -> StatisticsController : statistics
+    deactivate Statistics
+
+    StatisticsController -> Statistics : setConfidenceLevel()
+    activate Statistics
+
+
+    Statistics -> Statistics : setConfidenceLevel()
+
+    Statistics -> StatisticsController : success
+    deactivate Statistics
+
+    StatisticsController -> SelectRegressionModelWindow : success
+    deactivate StatisticsController
+    deactivate SelectRegressionModelWindow
+
+end
+
+alt simple regression model (area)
+    StoreManager -> SelectRegressionModelWindow : selects simple regression model (area)
+    activate SelectRegressionModelWindow
+else simple regression model (distance from center)
+    StoreManager -> SelectRegressionModelWindow : selects simple regression model (distance from center)
+else simple regression model (number of bedrooms)
+    StoreManager -> SelectRegressionModelWindow : selects simple regression model (number of bedrooms)
+else simple regression model (number of bathrooms)
+    StoreManager -> SelectRegressionModelWindow : selects simple regression model (number of bathrooms)
+else simple regression model (number of parking spaces)
+    StoreManager -> SelectRegressionModelWindow : selects simple regression model (number of parking spaces)
+else multiple regression model
+    StoreManager -> SelectRegressionModelWindow : selects multiple regression model
+end
+
+SelectRegressionModelWindow -> ShowStatisticsWindow : displays ShowStatisticsWindow
+deactivate SelectRegressionModelWindow
+
+activate ShowStatisticsWindow
+
+ShowStatisticsWindow -> StoreManager : requests to select type of statistic analysis
+deactivate ShowStatisticsWindow
+
+StoreManager -> ShowStatisticsWindow : selects type of statistic analysis (coefficients, forecasted prices, hypothesis test, confidence intervals, anova table)
+activate ShowStatisticsWindow
+
+ShowStatisticsWindow -> StatisticsController : getStatistics()
+activate StatisticsController
+
+StatisticsController -> StatisticsDTO : getStats()
+activate StatisticsDTO
+
+StatisticsDTO -> Statistics : getStats()
+activate Statistics
+
+Statistics -> StatisticsDTO : stats
+deactivate Statistics
+
+StatisticsDTO -> StatisticsController : statsDTO
+deactivate StatisticsDTO
+
+StatisticsController -> ShowStatisticsWindow : statsDTO
+deactivate StatisticsController
+
+ShowStatisticsWindow -> StoreManager : show selected type of statistic results
+deactivate ShowStatisticsWindow
+
+@enduml

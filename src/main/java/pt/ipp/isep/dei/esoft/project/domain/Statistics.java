@@ -45,7 +45,6 @@ public class Statistics implements Serializable {
     private double slopeTValue;
     private double[] coefficientLowerBounds = new double[6];
     private double[] coefficientUpperBounds = new double[6];
-
     private double predictionLowerBound;
     private double predictionUpperBound;
     private double[] standardErrors;
@@ -1162,10 +1161,6 @@ public class Statistics implements Serializable {
 
     public double[] getCoefficientUpperBounds() {
         return coefficientUpperBounds;
-    }
-
-    public boolean isMultipleRegression() {
-        return isMultipleRegression;
     }
 
     public double getPredictionLowerBound() {

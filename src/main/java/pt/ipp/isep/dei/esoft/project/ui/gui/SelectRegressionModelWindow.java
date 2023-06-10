@@ -75,7 +75,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();
-        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/SaleForecastScene.fxml"));
+        FXMLLoader mainMenuLoader = new FXMLLoader(getClass().getResource("/AnalyseDealsScene.fxml"));
         Parent mainMenuRoot = null;
         try {
             mainMenuRoot = mainMenuLoader.load();

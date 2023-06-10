@@ -26,7 +26,7 @@ public class StoreManagerMenuWindow implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             FXMLLoader saleForecastLoader = new FXMLLoader();
-            saleForecastLoader.setLocation(getClass().getResource("/SaleForecastScene.fxml"));
+            saleForecastLoader.setLocation(getClass().getResource("/AnalyseDealsScene.fxml"));
             Parent saleForecastRoot = saleForecastLoader.load();
             saleForecastScene = new Scene(saleForecastRoot);
         } catch (IOException e) {
