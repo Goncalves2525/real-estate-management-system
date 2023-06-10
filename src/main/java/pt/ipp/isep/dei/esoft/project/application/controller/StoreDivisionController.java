@@ -126,20 +126,21 @@ public class StoreDivisionController {
     public static String partitionTest2(int testNumber){
         String result = "";
         List<Agency> L = generateInputList(testNumber);
-        int n = L.size();
+        //int n = L.size();
+        int n = testNumber;
         int numPartitions = (int) Math.pow(2, n);
 
         long startTime = System.currentTimeMillis(); // Record start time
 
         for (int i = 0; i < numPartitions - 1; i++) {
-            List<Agency> L1 = new ArrayList<>();
-            List<Agency> L2 = new ArrayList<>();
+            List<Integer> L1 = new ArrayList<>();
+            List<Integer> L2 = new ArrayList<>();
 
             for (int j = 0; j < n; j++) {
                 if ((i & (1 << j)) != 0) {
-                    L1.add(L.get(j));
+                    L1.add(L.get(j).getNoOfProperties());
                 } else {
-                    L2.add(L.get(j));
+                    L2.add(L.get(j).getNoOfProperties());
                 }
             }
             result += "Partition " + (i + 1) + ": " + L1 + ", " + L2 + "\n";
