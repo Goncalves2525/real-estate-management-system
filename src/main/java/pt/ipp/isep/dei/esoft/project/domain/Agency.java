@@ -17,6 +17,7 @@ public class Agency implements Serializable {
 
     private static int idCounter = 1;
 
+
     ArrayList<Employee> agents = new ArrayList<>();
 
     /**
@@ -52,6 +53,11 @@ public class Agency implements Serializable {
     public Agency(int id, String name) {
         this.name = name;
         this.id = id;
+    }
+
+    public Agency(int id, int noOfProperties){
+        this.id = id;
+        //this.noOfProperties = noOfProperties;
     }
 
     /**
@@ -120,6 +126,11 @@ public class Agency implements Serializable {
         return "Agency: " + this.name + " - " + this.emailAddress + " - " + this.phoneNumber + " - " + this.id + ".";
     }
 
+//    @Override
+//    public String toString(){
+//        return "Agency: " + this.id + " - " + this.noOfProperties;
+//    }
+
     //Clone agency
     /**
      * Clone agency.
@@ -136,4 +147,8 @@ public class Agency implements Serializable {
 
         return clone;
     }
+
+//    public int getNoOfProperties() {
+//        return noOfProperties;
+//    }
 }

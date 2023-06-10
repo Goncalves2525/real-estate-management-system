@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
-import java.io.File;
 import java.io.IOException;
 
 
@@ -31,16 +30,18 @@ public class MainGUI extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        File f = new File("RealEstateUSA.ser");
-        if(f.exists() && !f.isDirectory()) {
-            Repositories.getInstance().deserialize();
-        }
-        else{
-            Bootstrap bootstrap = new Bootstrap();
-            bootstrap.run();
-            Repositories.getInstance().serialize();
-        }
+//        File f = new File("RealEstateUSA.ser");
+//        if(f.exists() && !f.isDirectory()) {
+//            Repositories.getInstance().deserialize();
+//        }
+//        else{
+//            Bootstrap bootstrap = new Bootstrap();
+//            bootstrap.run();
+//            Repositories.getInstance().serialize();
+//        }
 
+        Bootstrap bootstrap = new Bootstrap();
+        bootstrap.run();
         try {
             launch();
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Announcement;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
@@ -64,7 +65,7 @@ public class StoreDivisionController {
         return getAnnouncementRepository().getAllAnnouncementsSortedBypropertyAndIdCriteria();
     }
 
-    public static void generatePartitions(List<Integer> L) {
+    public static void dividePartitions(List<Integer> L) {
         int n = L.size();
         int numPartitions = (int) Math.pow(2, n);
 
@@ -90,6 +91,76 @@ public class StoreDivisionController {
         System.out.println("Execution time: " + executionTime + " nanoseconds");
     }
 
+    public static void partitionTest2(int testNumber){
+        //int[] inputSizes = {3, 6, 9, 12, 15, 18, 21, 24, 27, 30}; // Input sizes to test
+        long executionTimes = 0; // Array to store execution times
 
+        //for (int i = 0; i < inputSizes.length; i++) {
+            int n = testNumber;
+
+            // Generate input list
+            List<Agency> stores = generateInputList(n);
+
+            // Measure execution time
+            long startTime = System.currentTimeMillis();
+            List<List<Agency>> balancedPartition = findBalancedPartition(stores);
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            executionTimes = executionTime;
+
+            // Print results for one example of each input size
+            //if (i == 0 || i == inputSizes.length - 1) {
+                System.out.println("Input size: " + n);
+                System.out.println("Input list: " + stores);
+                System.out.println("Balanced partition: " + balancedPartition);
+                System.out.println("Difference of sums: " + calculateDifferenceOfSums(balancedPartition));
+                System.out.println();
+            //}
+        //}
+
+        // Print execution times
+        //for (int i = 0; i < inputSizes.length; i++) {
+            System.out.println("Input size: " + n + ", Execution time: " + executionTimes + " milliseconds");
+        //}
+
+    }
+
+    public static List<Agency> generateInputList(int n) {
+        List<Agency> stores = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            stores.add(new Agency(i, i * 10)); // Assuming storeID is sequential and properties are multiples of 10
+        }
+        return stores;
+    }
+
+    public static List<List<Agency>> findBalancedPartition(List<Agency> stores) {
+        // Implementation of the findBalancedPartition algorithm goes here
+        // ...
+
+        // Returning a dummy balanced partition for demonstration purposes
+        List<List<Agency>> balancedPartition = new ArrayList<>();
+        balancedPartition.add(stores.subList(0, stores.size() / 2));
+        balancedPartition.add(stores.subList(stores.size() / 2, stores.size()));
+        return balancedPartition;
+    }
+
+    public static int calculateDifferenceOfSums(List<List<Agency>> balancedPartition) {
+        int sum1 = 0;
+        int sum2 = 0;
+
+        for (Agency store : balancedPartition.get(0)) {
+            //sum1 += store.getNoOfProperties();
+        }
+
+        for (Agency store : balancedPartition.get(1)) {
+            //sum2 += store.getNoOfProperties();
+        }
+
+        return Math.abs(sum1 - sum2);
+    }
+
+    public ArrayList<Property> getProperties() {
+        return propertyRepository.getAllProperties();
+    }
 }
 

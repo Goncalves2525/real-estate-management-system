@@ -2,7 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="402.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerDivideStoresWindow">
@@ -10,8 +11,13 @@
       <Button fx:id="btReturn" layoutX="584.0" layoutY="340.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
       <Button fx:id="btImport" layoutX="584.0" layoutY="250.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
       <Label fx:id="importOperationLabel" layoutX="593.0" layoutY="295.0" />
-      <ListView layoutX="14.0" layoutY="14.0" prefHeight="362.0" prefWidth="534.0" />
       <Button fx:id="btnDivideStores" layoutX="584.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
-      <Button fx:id="btnRunTimeTests" layoutX="584.0" layoutY="66.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" onAction="#onbtnRunTimeTests" />
+      <Button fx:id="btnRunTimeTests" layoutX="584.0" layoutY="66.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
+      <TableView fx:id="tblDivideStores" layoutY="14.0" prefHeight="363.0" prefWidth="580.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Store ID" fx:id="storeID" />
+          <TableColumn prefWidth="501.0" text="No. of Properties" fx:id="noOfProperties" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

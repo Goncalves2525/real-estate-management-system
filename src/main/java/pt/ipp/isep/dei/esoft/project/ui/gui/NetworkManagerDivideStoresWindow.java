@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,20 +11,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
 import pt.ipp.isep.dei.esoft.project.application.controller.StoreDivisionController;
+import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.Tuple;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class NetworkManagerDivideStoresWindow implements Initializable {
     private final StoreDivisionController storeDivisionController = new StoreDivisionController();
     private final ImportController importController = new ImportController();
+    @FXML
+    public TableView tblDivideStores;
     @FXML
     private Button btReturn;
     @FXML
@@ -34,11 +44,40 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     @FXML
     private Button btnRunTimeTests;
 
+    @FXML
+    private TableColumn<Property, String> storeID;
+
+    @FXML
+    private TableColumn<Property, Integer> noOfProperties;
+
     private int testNNumber = 3;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        storeID.setCellValueFactory(new PropertyValueFactory<>("first"));
+        noOfProperties.setCellValueFactory(new PropertyValueFactory<>("second"));
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
+        tblDivideStores.setItems(getProperties());
+    }
+
+    public ObservableList<Tuple<String, Integer>> getProperties() {
+        ObservableList<Tuple<String, Integer>> properties = FXCollections.observableArrayList();
+        ArrayList<Property> propertiesList = storeDivisionController.getProperties();
+        Tuple<String, Integer> tuple = new Tuple<>("", 0);
+        for (Property property : propertiesList) {
+            tuple = new Tuple<>(""+property.getAgencyID(), 1);
+            //properties.add(new Tuple<>(""+property.getAgencyID(), 1));
+        }
+        if (agencyPropertySum.containsKey(tuple.getFirst())) {
+            int currentSum = agencyPropertySum.get(tuple.getFirst());
+            agencyPropertySum.put(tuple.getFirst(), currentSum + tuple.getSecond());
+        } else {
+            agencyPropertySum.put(tuple.getFirst(), tuple.getSecond());
+        }
+        for (String key : agencyPropertySum.keySet()) {
+            properties.add(new Tuple<>(key, agencyPropertySum.get(key)));
+        }
+        return properties;
     }
 
     public void onBtReturn(ActionEvent actionEvent) {
@@ -60,6 +99,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         return (Stage) this.btReturn.getScene().getWindow();
     }
 
+    HashMap<String, Integer> agencyPropertySum = new HashMap<>();
 
     public void onBtImport(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -75,15 +115,48 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
             ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
             String importResult = importController.importDatatoprperty(dataToImport);
             importOperationLabel.setText(importResult);
-            //System.out.println(importResult);
             //acrescentar dados à tabela
             //apresentar dados da forma:
-                //Loja x -> num propriedades
+            //Loja x -> num propriedades
+            ObservableList<Tuple<String, Integer>> tupleList = FXCollections.observableArrayList();
+            for (String[] data: dataToImport) {
+                String agencyID = data[25];
+                int amountOfProperties = 1;
+
+                Tuple<String, Integer> tuple = new Tuple<>(agencyID, amountOfProperties);
+
+                if (agencyPropertySum.containsKey(tuple.getFirst())) {
+                    int currentSum = agencyPropertySum.get(tuple.getFirst());
+                    agencyPropertySum.put(tuple.getFirst(), currentSum + tuple.getSecond());
+                } else {
+                    agencyPropertySum.put(tuple.getFirst(), tuple.getSecond());
+                }
+
+
+            }
+            for (String key : agencyPropertySum.keySet()) {
+                boolean exists = false;
+                for (Tuple<String, Integer> tuple : tupleList) {
+                    if (tuple.getFirst().equals(key)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    tupleList.add(new Tuple<>(key, agencyPropertySum.get(key)));
+                }
+            }
+            tblDivideStores.setItems(tupleList);
         }
     }
 
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
-
+        //storeDivisionController.dividePartitions(testNNumber);
+        if(testNNumber < 30){
+            storeDivisionController.partitionTest2(testNNumber);
+            testNNumber = testNNumber +3;
+        }
+        btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
 
     }
 }
