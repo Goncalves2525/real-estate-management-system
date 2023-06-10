@@ -10,7 +10,7 @@
    <children>
       <VBox prefHeight="302.0" prefWidth="307.0">
          <children>
-            <Button fx:id="bt" mnemonicParsing="false" onAction="#onBtAction" prefHeight="141.0" prefWidth="318.0" text="Forecast Property Sales">
+            <Button fx:id="bt" mnemonicParsing="false" onAction="#onBtAction" prefHeight="141.0" prefWidth="318.0" text="Analyse Deals">
                <VBox.margin>
                   <Insets top="80.0" />
                </VBox.margin>

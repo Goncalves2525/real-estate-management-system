@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Store Manager" as StoreManager
+participant ":System" as System
+activate StoreManager
+
+StoreManager -> System: Requests to analyse deals
+activate System
+
+System -> StoreManager: Shows option to either import file or analyse existing deals
+deactivate System
+
+
+alt Analyse deals from imported file
+    StoreManager -> System: Requests to import file
+    activate System
+
+
+else Analyse existing deals
+    StoreManager -> System: Requests to analyse deals
+end
+
+System -> StoreManager: Shows option to choose simple regression model (area or distance from center or bedrooms\n or bathrooms or parking spaces) or multiple regression model
+deactivate System
+
+StoreManager -> System: Selects regression model
+activate System
+
+System -> StoreManager: Shows type of analysis options (calculate coefficients, hypothesis testing,\n confidence intervals, forecasted prices, etc.)
+deactivate System
+
+StoreManager -> System: Selects type of analysis
+activate System
+
+System -> StoreManager: Shows results of analysis
+deactivate System
+
+
+
+@enduml

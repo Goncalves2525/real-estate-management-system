@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US 018 - As a store manager, I intend to analyse the deals made.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
