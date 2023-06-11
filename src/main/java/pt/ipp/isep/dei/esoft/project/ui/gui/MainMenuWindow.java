@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,7 @@ public class MainMenuWindow implements Runnable, Initializable {
     @FXML
     private Button btListAnnouncements;
     @FXML
+    private Button btDevTeam;
     private TextField txtEmail;
     @FXML
     private PasswordField txtPass;
@@ -231,7 +233,19 @@ public class MainMenuWindow implements Runnable, Initializable {
     }
 
 
+    public void onbtDevTeam(ActionEvent actionEvent) {
+        Stage mainStage = getMainStage();
+        FXMLLoader devTeamLoader = new FXMLLoader(getClass().getResource("/DevTeamScene.fxml"));
+        Parent devTeamRoot = null;
+        try {
+            devTeamRoot = devTeamLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene devTeamScene = new Scene(devTeamRoot);
+        mainStage.setScene(devTeamScene);
+        mainStage.setTitle("Real Estate USA - Dev Team");
+        mainStage.show();
 
-
-
+    }
 }
