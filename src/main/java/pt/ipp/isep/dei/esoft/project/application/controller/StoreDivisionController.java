@@ -68,11 +68,11 @@ public class StoreDivisionController {
     public static String dividePartitions(List<Integer> L) {
         String result = "";
         int n = L.size();
-        int numPartitions = (int) Math.pow(2, n);
+        int numPartitions = (int) Math.pow(2, n-1);
 
         long startTime = System.currentTimeMillis(); // Record start time
 
-        for (int i = 0; i < numPartitions - 1; i++) {
+        for (int i = 1; i < numPartitions; i++) {
             List<Integer> L1 = new ArrayList<>();
             List<Integer> L2 = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class StoreDivisionController {
                     L2.add(L.get(j));
                 }
             }
-            result += "Partition " + (i + 1) + ": " + L1 + ", " + L2 + "\n";
+            result += "Partition " + (i) + ": " + L1 + ", " + L2 + "\n";
             //System.out.println("Partition " + (i + 1) + ": " + L1 + ", " + L2);
         }
 
@@ -128,11 +128,11 @@ public class StoreDivisionController {
         List<Agency> L = generateInputList(testNumber);
         //int n = L.size();
         int n = testNumber;
-        int numPartitions = (int) Math.pow(2, n);
+        int numPartitions = (int) Math.pow(2, n-1);
 
         long startTime = System.currentTimeMillis(); // Record start time
 
-        for (int i = 0; i < numPartitions - 1; i++) {
+        for (int i = 1; i < numPartitions ; i++) {
             List<Integer> L1 = new ArrayList<>();
             List<Integer> L2 = new ArrayList<>();
 
@@ -143,7 +143,7 @@ public class StoreDivisionController {
                     L2.add(L.get(j).getNoOfProperties());
                 }
             }
-            result += "Partition " + (i + 1) + ": " + L1 + ", " + L2 + "\n";
+            result += "Partition " + (i) + ": " + L1 + ", " + L2 + "\n";
             //System.out.println("Partition " + (i + 1) + ": " + L1 + ", " + L2);
         }
 

@@ -59,8 +59,11 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     public ObservableList<Tuple<String, Integer>> getProperties() {
         ObservableList<Tuple<String, Integer>> properties = FXCollections.observableArrayList();
         ArrayList<Property> propertiesList = storeDivisionController.getProperties();
-        System.out.println(propertiesList.size());
+        //System.out.println(propertiesList.size());
         for (Property property : propertiesList) {
+            if(property.getAgencyID() == 0){
+                continue;
+            }
             Tuple<String, Integer> tuple = new Tuple<>(""+property.getAgencyID(), 1);
             //tuple = new Tuple<>("" + property.getAgencyID(), 1);
             //properties.add(new Tuple<>(""+property.getAgencyID(), 1));
@@ -85,7 +88,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
                 tupleList.add(new Tuple<>(key, agencyPropertySum.get(key)));
             }
         }
-        System.out.println("2 - " + tupleList.size());
+        //System.out.println("2 - " + tupleList.size());
         return tupleList;
     }
 

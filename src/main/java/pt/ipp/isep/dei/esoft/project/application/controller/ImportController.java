@@ -212,12 +212,12 @@ public class ImportController {
     }
     private Address createAddress(String addressDetails) {
         String[] parts = addressDetails.split(",");
-        if (parts.length == 4) {
+        if (parts.length > 3) {
             String street = parts[0].trim();
             String city = parts[1].trim();
             String state = parts[2].trim();
             String country = "USA";
-            int zipCode = Integer.parseInt(parts[3].trim());
+            int zipCode = Integer.parseInt(parts[parts.length-1].trim());
             return new Address(street, city, state, country, zipCode);
         } else {
             throw new IllegalArgumentException("Invalid address format: " + addressDetails);
