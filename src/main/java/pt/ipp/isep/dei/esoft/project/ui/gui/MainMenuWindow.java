@@ -33,6 +33,8 @@ public class MainMenuWindow implements Runnable, Initializable {
     private Button btListAnnouncements;
     @FXML
     private Button btDevTeam;
+    @FXML
+
     private TextField txtEmail;
     @FXML
     private PasswordField txtPass;
