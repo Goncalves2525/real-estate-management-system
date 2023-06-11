@@ -96,18 +96,18 @@ public class ShowStatisticsWindow implements Initializable {
 
     @FXML
     private void onBtTest(ActionEvent event) {
-
-        double interceptTValue = controller.getInterceptTValue();
-        double slopeTValue = controller.getSlopeTValue();
-        double interceptCriticalValue = controller.getInterceptCriticalValue();
-        double slopeCriticalValue = controller.getSlopeCriticalValue();
+        StatisticsDTO stats = controller.getStats();
+        double interceptTValue = stats.getInterceptTValue();
+        double slopeTValue = stats.getSlopeTValue();
+        double interceptCriticalValue = stats.getInterceptCriticalValue();
+        double slopeCriticalValue = stats.getSlopeCriticalValue();
         boolean isInterceptSignificant = interceptTValue > interceptCriticalValue;
-        double[][] covarianceMatrix = controller.getCovarianceMatrix();
-        double[] estimatedCoefficient = controller.getEstimatedCoefficient();
-        double[] testStatistics = controller.getTestStatistics();
-        double meanSquaredError = controller.getMeanSquaredError();
-        double multipleCriticalValue = controller.getMultipleCriticalValue();
-        double multipleTestCriticalValue = controller.getMultipleTestCriticalValue();
+        double[][] covarianceMatrix = stats.getCovarianceMatrix();
+        double[] estimatedCoefficient = stats.getEstimatedCoefficient();
+        double[] testStatistics = stats.getTestStatistics();
+        double meanSquaredError = stats.getMeanSquaredError();
+        double multipleCriticalValue = stats.getMultipleCriticalValue();
+        double multipleTestCriticalValue = stats.getMultipleTestCriticalValue();
         String interceptResult;
         String[] coefficientNames = {"Intercept", "Area", "Distance from center", "Number of bedrooms", "Number of bathrooms", "Number of parking spaces"};
 
@@ -170,14 +170,16 @@ public class ShowStatisticsWindow implements Initializable {
 
     @FXML
     private void onBtInterval(ActionEvent event) {
-        double[][] interval = controller.getConfidenceIntervals();
-        double[] coefficientLowerBound = controller.getCoefficientLowerBounds();
-        double[] coefficientUpperBound = controller.getCoefficientUpperBounds();
-        double[][] predictionsInterval = controller.getSimplePredictionInterval();
-
-        ArrayList<Double> predictionsUpperBound = controller.getPredictionsUpperBound();
-        ArrayList<Double> predictionsLowerBound = controller.getPredictionsLowerBound();
+        StatisticsDTO stats = controller.getStats();
         ArrayList<Announcement> deals = controller.getDeals();
+        double[][] interval = stats.getConfidenceIntervals();
+        double[][] predictionsInterval = stats.getSimplePredictionIntervals();
+        double[] coefficientLowerBound = stats.getCoefficientLowerBounds();
+        double[] coefficientUpperBound = stats.getCoefficientUpperBounds();
+        ArrayList<Double> predictionsUpperBound = stats.getPredictionsUpperBound();
+        ArrayList<Double> predictionsLowerBound = stats.getPredictionsLowerBound();
+
+
 
         if (!controller.getIsMultipleRegression()) {
             txtArea.clear();
@@ -229,29 +231,28 @@ public class ShowStatisticsWindow implements Initializable {
 
     @FXML
     private void onBtAnova(ActionEvent event) {
-        double regressionSumOfSquares = controller.getRegressionSumOfSquares();
-        int regressionDegreesOfFreedom = controller.getRegressionDegreesOfFreedom();
-        double regressionMeanSquare = controller.getRegressionMeanSquare();
-        double residualSumOfSquares = controller.getResidualSumOfSquares();
-        int residualDegreesOfFreedom = controller.getResidualDegreesOfFreedom();
-        double residualMeanSquare = controller.getResidualMeanSquare();
-        double totalSumOfSquares = controller.getTotalSumOfSquares();
-        int totalDegreesOfFreedom = controller.getTotalDegreesOfFreedom();
+        StatisticsDTO stats = controller.getStats();
+
         double fValue = controller.getFValue();
         double pValue = controller.getPValue();
-        double criticalValue = controller.getCriticalValue();
-        double multipleTestCriticalValue = controller.getMultipleTestCriticalValue();
-        double[] correlationCoefficient = controller.getCoefficients();
+        double regressionSumOfSquares = stats.getRegressionSumOfSquares();
+        double residualSumOfSquares = stats.getResidualSumOfSquares();
+        double totalSumOfSquares = stats.getTotalSumOfSquares();
+        int regressionDegreesOfFreedom = stats.getRegressionDegreesOfFreedom();
+        int residualDegreesOfFreedom = stats.getResidualDegreesOfFreedom();
+        int totalDegreesOfFreedom = stats.getTotalDegreesOfFreedom();
+        double regressionMeanSquare = stats.getRegressionMeanSquare();
+        double residualMeanSquare = stats.getResidualMeanSquare();
+        double criticalValue = stats.getCriticalValue();
+        double meanSquareRegression = stats.getMeanSquareRegression();
+        double explainedSumOfSquares = stats.getExplainedSumOfSquares();
+        double degreesOfFreedomRSS = stats.getDegreesOfFreedomRSS();
+        double degreesOfFreedomTSS = stats.getDegreesOfFreedomTSS();
+        double meanSquaredError = stats.getMeanSquaredError();
+        double alfa = stats.getAlfa();
+        double multipleCriticalValue = stats.getMultipleCriticalValue();
+        double determinationCoefficient = stats.getDeterminationCoefficient();
         boolean isSignificant = fValue > criticalValue;
-        double meanSquareRegression = controller.getMeanSquareRegression();
-        double meanSquareResidual = controller.getMeanSquareResidual();
-        double explainedSumOfSquares = controller.getExplainedSumOfSquares();
-        double degreesOfFreedomRSS = controller.getDegreesOfFreedomRSS();
-        double degreesOfFreedomTSS = controller.getDegreesOfFreedomTSS();
-        double meanSquaredError = controller.getMeanSquaredError();
-        double alfa = controller.getAlfa();
-        double multipleCriticalValue = controller.getMultipleCriticalValue();
-        double determinationCoefficient = controller.getDeterminationCoefficient();
         int numIndependentVariables = 5;
 
 
@@ -347,8 +348,7 @@ public class ShowStatisticsWindow implements Initializable {
         double slope = stats.getSlope();
         double confidenceLevel = stats.getConfidenceLevel();
         double alfa = stats.getAlfa();
-        double standardError = controller.getStandardError();
-        double[] estimatedCoefficients = controller.getEstimatedCoefficient();
+        double[] estimatedCoefficients = stats.getEstimatedCoefficient();
         String[] independentVariableNames = {"x1", "x2", "x3", "x4", "x5"};
 
         if (!controller.getIsMultipleRegression()) {

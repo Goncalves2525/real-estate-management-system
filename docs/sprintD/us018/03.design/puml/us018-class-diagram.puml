@@ -161,10 +161,11 @@ AnalyseDealsWindow ..> ImportController
 ImportController ..> CSVImport
 ImportController ..> Repositories
 StatisticsController ..> Statistics
-Repositories --> Repositories : instances
-Repositories --> AnnouncementRepository : has
+
 ShowStatisticsWindow ..> StatisticsController
 StatisticsDTO ..> Statistics
 StatisticsDTO ..> StatisticsController
+Repositories --> Repositories : instances
+Repositories --> AnnouncementRepository : has
 
 @enduml
