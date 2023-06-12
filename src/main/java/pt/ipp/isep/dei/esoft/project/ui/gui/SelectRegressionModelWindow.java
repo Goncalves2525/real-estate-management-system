@@ -58,6 +58,7 @@ public class SelectRegressionModelWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            controller.setConfidenceLevel(0.95);
             FXMLLoader showStatisticsLoader = new FXMLLoader();
             showStatisticsLoader.setLocation(getClass().getResource("/ShowStatisticsScene.fxml"));
             Parent showStatisticsRoot = showStatisticsLoader.load();

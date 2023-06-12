@@ -132,200 +132,34 @@ public class StatisticsController {
 
         return coefficients;
     }
-
-    public double[][] getConfidenceIntervals() {
-        return statistics.getConfidenceIntervals();
-    }
-
-    public boolean[] getRejects() {
-        return statistics.getRejects();
-    }
-
-    public double getAlfa() {
-        return statistics.getAlfa();
-    }
-
-    public double getInterceptPValue() {
-        return statistics.getInterceptPValue();
-    }
-
-    public double getSlopePValue() {
-        return statistics.getSlopePValue();
-    }
-
-    public double getTotalSumOfSquares() {
-        return statistics.getTotalSumOfSquares();
-    }
-
-    public double getRegressionSumOfSquares() {
-        return statistics.getRegressionSumOfSquares();
-    }
-
-    public double getResidualSumOfSquares() {
-        return statistics.getResidualSumOfSquares();
-    }
-
     public double getPValue() {
         return statistics.getpValue();
     }
-
     public double getFValue() {
         return statistics.getfValue();
     }
-
-    public int getTotalDegreesOfFreedom() {
-        return statistics.getTotalDegreesOfFreedom();
-    }
-
-    public int getRegressionDegreesOfFreedom() {
-        return statistics.getRegressionDegreesOfFreedom();
-    }
-
-    public int getResidualDegreesOfFreedom() {
-        return statistics.getResidualDegreesOfFreedom();
-    }
-
-    public double getRegressionMeanSquare() {
-        return statistics.getRegressionMeanSquare();
-    }
-
-    public double getResidualMeanSquare() {
-        return statistics.getResidualMeanSquare();
-    }
-
     public double getConfidenceLevel() {
         return statistics.getConfidenceLevel();
     }
-
     public void setConfidenceLevel(double confidenceLevel) {
         statistics.setConfidenceLevel(confidenceLevel);
     }
-
-    public double getCriticalValue() {
-        return statistics.getCriticalValue();
-    }
-
     public boolean getIsSignificant() {
         return statistics.getIsSignificant();
     }
-
-    public double getInterceptTValue() {
-        return statistics.getInterceptTValue();
-    }
-
-    public double getSlopeTValue() {
-        return statistics.getSlopeTValue();
-    }
-
     public void setIsMultipleRegression(boolean isMultipleRegression) {
         statistics.setIsMultipleRegression(isMultipleRegression);
     }
-
     public boolean getIsMultipleRegression() {
         return statistics.getIsMultipleRegression();
-    }
-
-    public double[] getCoefficientLowerBounds() {
-        return statistics.getCoefficientLowerBounds();
-    }
-
-    public double[] getCoefficientUpperBounds() {
-        return statistics.getCoefficientUpperBounds();
-    }
-
-    public double getPredictionLowerBound() {
-        return statistics.getPredictionLowerBound();
-    }
-
-    public double getPredictionUpperBound() {
-        return statistics.getPredictionUpperBound();
-    }
-
-    public double[] getTValues() {
-        return statistics.getTValues();
-    }
-
-    public double[] getPValues() {
-        return statistics.getPValues();
-    }
-
-    public double[] getStandardErrors() {
-        return statistics.getStandardErrors();
-    }
-
-    public double getMeanSquareResidual() {
-        return statistics.getMeanSquareResidual();
-    }
-
-    public double getMeanSquareRegression() {
-        return statistics.getMeanSquareRegression();
-    }
-
-    public double getInterceptCriticalValue() {
-        return statistics.getInterceptCriticalValue();
-    }
-
-    public double getSlopeCriticalValue() {
-        return statistics.getSlopeCriticalValue();
-    }
-
-    public double getExplainedSumOfSquares() {
-        return statistics.getExplainedSumOfSquares();
-    }
-
-    public double getDegreesOfFreedomRSS() {
-        return statistics.getDegreesOfFreedomRSS();
-    }
-
-    public double getDegreesOfFreedomTSS() {
-        return statistics.getDegreesOfFreedomTSS();
-    }
-
-    public double getMeanSquaredError() {
-        return statistics.getMeanSquaredError();
-    }
-
-    public double getMultipleCriticalValue() {
-        return statistics.getMultipleCriticalValue();
     }
 
     public double getDeterminationCoefficient() {
         return statistics.getDeterminationCoefficient();
     }
 
-    public double[][] getCovarianceMatrix() {
-        return statistics.getCovarianceMatrix();
-    }
-
-    public double[] getEstimatedCoefficient() {
-        return statistics.getEstimatedCoefficient();
-    }
-
-    public ArrayList<Double> getPredictionsLowerBound() {
-        return statistics.getPredictionsLowerBound();
-    }
-
-    public ArrayList<Double> getPredictionsUpperBound() {
-        return statistics.getPredictionsUpperBound();
-    }
-
-    public double getStandardError() {
-        return statistics.getStandardError();
-    }
-
-    public double[] getTestStatistics() {
-        return statistics.getTestStatistics();
-    }
-
-    public double getMultipleTestCriticalValue() {
-        return statistics.getMultipleTestCriticalValue();
-    }
-
     public double getAdjustedDeterminationCoefficient() {
         return statistics.getAdjustedDeterminationCoefficient();
     }
 
-    public double[][] getSimplePredictionInterval() {
-        return statistics.getSimplePredictionIntervals();
-    }
 }

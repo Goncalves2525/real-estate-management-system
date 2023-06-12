@@ -102,6 +102,7 @@ public class Statistics implements Serializable {
         alfa = 1 - confidenceLevel;
         n = deals.size();
         residualDegreesOfFreedom = n - 2;
+        intercept = regression.getIntercept();
         TDistribution tDistribution = new TDistribution(residualDegreesOfFreedom);
 
         interceptStandardError = regression.getInterceptStdErr();
@@ -860,17 +861,9 @@ public class Statistics implements Serializable {
             dependentVariable[i] = deal.getProperty().getPrice();
         }
 
-        //show independent variables
-        for (int i = 0; i < independentVariables.length; i++) {
-            for (int j = 0; j < independentVariables[i].length; j++) {
-                System.out.print(independentVariables[i][j] + " ");
-            }
-            System.out.println();
-        }
-
 
         regression.newSampleData(dependentVariable, independentVariables);
-        System.out.println(regression.calculateRSquared());
+
 
 
         // General Data

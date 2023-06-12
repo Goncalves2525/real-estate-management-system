@@ -1,8 +1,34 @@
-# US 018 - As a store manager, I intend to analyse the deals made.
+package pt.ipp.isep.dei.esoft.project.application.controller;
 
-# 4. Tests 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.esoft.project.domain.Announcement;
+import pt.ipp.isep.dei.esoft.project.domain.Statistics;
+import pt.ipp.isep.dei.esoft.project.dto.StatisticsDTO;
+import pt.ipp.isep.dei.esoft.project.repository.AnnouncementRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
-**Test 1:** Checks if the confidence interval prediction of the first property for a simple linear regression (area) is correct.
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class StatisticsControllerTest {
+
+    StatisticsController statsController = new StatisticsController();
+
+    ImportController importController = new ImportController();
+
+    Repositories repos = Repositories.getInstance();
+
+    AnnouncementRepository dealRepository = repos.getAnnouncementRepository();
+
+
+    @BeforeEach
+    void setUp() {
+        if (dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse().isEmpty()){
+            importController.importData("/Users/ricardo/IdeaProjects/2ºSemestre/Projeto LAPR2/legacyRealStateUSAMoodle_MATCP_MDISC.csv");
+        }
+    }
 
     @Test
     public void ensure_calcSimpleRegressionArea_calculatesPredictedInterval() {
@@ -25,8 +51,6 @@
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
 
-**Test 2:** Checks if the confidence interval prediction of the first property for a simple linear regression (distance from center) is correct.
-
     @Test
     public void ensure_calcSimpleRegressionDistance_calculatesPredictedInterval(){
         //Arrange
@@ -48,8 +72,6 @@
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
 
-**Test 3:** Checks if the confidence interval prediction of the first property for a simple linear regression (number of parking spaces) is correct.
-    
     @Test
     public void ensure_calcSimpleRegressionParkingSpaces_calculatesPredictedInterval(){
         //Arrange
@@ -70,8 +92,6 @@
         assertEquals(expectedLowerBoundFirstProperty, resultLowerBoundFirstProperty);
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
-
-**Test 4:** Checks if the confidence interval prediction of the first property for a simple linear regression (number of bedrooms) is correct.
 
     @Test
     public void ensure_calcSimpleRegressionBedrooms_calculatesPredictedInterval(){
@@ -94,8 +114,6 @@
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
 
-**Test 5:** Checks if the confidence interval prediction of the first property for a simple linear regression (number of bathrooms) is correct.
-
     @Test
     public void ensure_calcSimpleRegressionBathrooms_calculatesPredictedInterval(){
         //Arrange
@@ -117,8 +135,6 @@
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
 
-**Test 6:** Checks if the confidence interval prediction of the first property for a multiple linear regression is correct.
-
     @Test
     public void ensure_calcMultipleRegression_calculatesPredictedInterval(){
         //Arrange
@@ -139,69 +155,5 @@
         assertEquals(expectedUpperBoundFirstProperty, resultUpperBoundFirstProperty);
     }
 
-*It is also recommended to organize this content by subsections.* 
 
-# 5. Construction (Implementation)
-
-## Class StatisticsController
-
-```java
-public void calcSimpleRegressionArea(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcSimpleRegressionArea();
-        }
-
-public void calcSimpleRegressionDistance(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcSimpleRegressionDistance();
-        }
-
-public void calcSimpleRegressionParkingSpaces(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcSimpleRegressionParkingSpaces();
-        }
-
-public void calcSimpleRegressionBedrooms(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcSimpleRegressionBedrooms();
-        }
-
-public void calcSimpleRegressionBathrooms(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcSimpleRegressionBathrooms();
-        }
-
-public void calcMultipleRegression(ArrayList<Announcement> deals) {
-        statistics.setDeals(deals);
-        statistics.calcMultipleRegression();
-        }
-```     
-
-
-
-# 6. Integration and Demo 
-
-* Ensure that the StatisticsController class is imported into the appropriate module or package of your application.
-
-* Instantiate an object of the StatisticsController class in the relevant part of your application.
-
-* Invoke the appropriate methods of the StatisticsController class to perform the desired statistical calculations. The methods available are:
-
-* calcSimpleRegressionArea(deals): Calculates the confidence interval prediction for the first property using simple linear regression based on the area.
-* calcSimpleRegressionDistance(deals): Calculates the confidence interval prediction for the first property using simple linear regression based on the distance from the center.
-* calcSimpleRegressionParkingSpaces(deals): Calculates the confidence interval prediction for the first property using simple linear regression based on the number of parking spaces.
-* calcSimpleRegressionBedrooms(deals): Calculates the confidence interval prediction for the first property using simple linear regression based on the number of bedrooms.
-* calcSimpleRegressionBathrooms(deals): Calculates the confidence interval prediction for the first property using simple linear regression based on the number of bathrooms.
-* calcMultipleRegression(deals): Calculates the confidence interval prediction for the first property using multiple linear regression.
-* Note: Replace deals with the actual list of Announcement objects that you want to analyze.
-
-* Retrieve the calculated statistics by accessing the relevant fields or methods of the StatisticsController class. For example, you can use getStats() method to obtain a StatisticsDTO object that contains the calculated prediction intervals.
-
-
-# 7. Observations
-
-
-
-
-
-
+}
