@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
 import pt.ipp.isep.dei.esoft.project.application.controller.StoreDivisionController;
+import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.Tuple;
 
@@ -165,7 +166,11 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
         //storeDivisionController.dividePartitions(testNNumber);
         if(testNNumber <= 30){
-            txtAreaResults.setText(storeDivisionController.partitionTest2(testNNumber));
+            List<Agency> agencyList = new ArrayList<>();
+            for(int i = 0; i<testNNumber; i++){
+                agencyList.add(new Agency(i,i *3 ));
+            }
+            txtAreaResults.setText(txtAreaResults.getText() + "\n" + storeDivisionController.partitionTest2(agencyList));
             testNNumber = testNNumber +3;
         }
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
@@ -173,11 +178,14 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     }
 
     public void onBtnDivideStores(ActionEvent actionEvent) {
-        List<Integer> list = new ArrayList<>();
+        List<Agency> list = new ArrayList<>();
         for (Object tuple : tblDivideStores.getItems()) {
-            list.add(((Tuple<String, Integer>) tuple).getSecond());
+
+            int i = Integer.parseInt(((Tuple<String, Integer>) tuple).getFirst());
+            int j = ((Tuple<String, Integer>) tuple).getSecond();
+            list.add(new Agency(i,j ));
         }
 
-        txtAreaResults.setText(storeDivisionController.dividePartitions(list));
+        txtAreaResults.setText(txtAreaResults.getText() + "\n" + storeDivisionController.partitionTest2(list));
     }
 }
