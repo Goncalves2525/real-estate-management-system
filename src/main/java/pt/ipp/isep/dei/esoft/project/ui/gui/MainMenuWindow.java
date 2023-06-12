@@ -34,7 +34,6 @@ public class MainMenuWindow implements Runnable, Initializable {
     @FXML
     private Button btDevTeam;
     @FXML
-
     private TextField txtEmail;
     @FXML
     private PasswordField txtPass;
@@ -103,6 +102,7 @@ public class MainMenuWindow implements Runnable, Initializable {
         mainStage.setScene(listScene);
         mainStage.setTitle("List Announcements");
         mainStage.show();
+        mainStage.setX(0);
     }
 
     @FXML
