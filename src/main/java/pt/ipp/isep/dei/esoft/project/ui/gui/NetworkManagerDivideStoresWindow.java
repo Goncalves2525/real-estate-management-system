@@ -124,40 +124,24 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         Stage mainStage = getMainStage();
         String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
         if (!Objects.equals(selectedDirectory, "")) {
-            //mudar para reflection
             ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
             String importResult = importController.importDatatoprperty(dataToImport);
             importOperationLabel.setText(importResult);
-            //acrescentar dados à tabela
-            //apresentar dados da forma:
-            //Loja x -> num propriedades
-            ObservableList<Tuple<String, Integer>> tupleList = FXCollections.observableArrayList();
+
+            // Clear the agencyPropertySum hashmap
+            agencyPropertySum.clear();
+
             for (String[] data: dataToImport) {
                 String agencyID = data[25];
-                int amountOfProperties = 1;
 
-                Tuple<String, Integer> tuple = new Tuple<>(agencyID, amountOfProperties);
-
-                if (agencyPropertySum.containsKey(tuple.getFirst())) {
-                    int currentSum = agencyPropertySum.get(tuple.getFirst());
-                    agencyPropertySum.put(tuple.getFirst(), currentSum + tuple.getSecond());
-                } else {
-                    agencyPropertySum.put(tuple.getFirst(), tuple.getSecond());
-                }
-
-
+                // Update the property count
+                agencyPropertySum.put(agencyID, agencyPropertySum.getOrDefault(agencyID, 0) + 1);
             }
-            for (String key : agencyPropertySum.keySet()) {
-                boolean exists = false;
-                for (Tuple<String, Integer> tuple : tupleList) {
-                    if (tuple.getFirst().equals(key)) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    tupleList.add(new Tuple<>(key, agencyPropertySum.get(key)));
-                }
+
+            // Update table items
+            ObservableList<Tuple<String, Integer>> tupleList = FXCollections.observableArrayList();
+            for (Map.Entry<String, Integer> entry : agencyPropertySum.entrySet()) {
+                tupleList.add(new Tuple<>(entry.getKey(), entry.getValue()));
             }
             tblDivideStores.setItems(tupleList);
         }
