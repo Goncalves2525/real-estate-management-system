@@ -5,7 +5,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StoreDivisionController {
 
@@ -21,8 +23,7 @@ public class StoreDivisionController {
         return stores;
     }
 
-    public String partitionTest2(List<Agency> inputStores) {
-        StringBuilder result = new StringBuilder();
+    public Map<String, Object> partitionTest2(List<Agency> inputStores) {
         List<Agency> L = prepareStoreList(inputStores);
 
         long startTime = System.currentTimeMillis(); // Record start time
@@ -30,13 +31,15 @@ public class StoreDivisionController {
         long endTime = System.currentTimeMillis(); // Record end time
 
         long executionTime = endTime - startTime;
+        int differenceOfSums = calculateDifferenceOfSums(balancedPartition);
 
-        result.append("Input size: ").append(inputStores.size()).append("\n")
-                .append("Execution time: ").append(executionTime).append(" milliseconds\n")
-                .append("Balanced partition: ").append(balancedPartition).append("\n")
-                .append("Difference of sums: ").append(calculateDifferenceOfSums(balancedPartition)).append("\n\n");
+        Map<String, Object> result = new HashMap<>();
+        result.put("executionTime", executionTime);
+        result.put("differenceOfSums", differenceOfSums);
+        result.put("group1", balancedPartition.get(0));
+        result.put("group2", balancedPartition.get(1));
 
-        return result.toString();
+        return result;
     }
 
     public static List<List<Agency>> findBalancedPartition(List<Agency> stores) {

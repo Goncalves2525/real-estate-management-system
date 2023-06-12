@@ -154,12 +154,31 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
             for(int i = 0; i<testNNumber; i++){
                 agencyList.add(new Agency(i,i *3 ));
             }
-            txtAreaResults.setText(txtAreaResults.getText() + "\n" + storeDivisionController.partitionTest2(agencyList));
+
+            Map<String, Object> partitionResult = storeDivisionController.partitionTest2(agencyList);
+
+
+            // Display the groups
+            for (int i = 1; i <= 2; i++) {
+                List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
+                txtAreaResults.appendText("Group " + i + ":\n");
+                for (Agency agency : group) {
+                    txtAreaResults.appendText("\tStore ID: " + agency.getId() + ", Properties: " + agency.getNoOfProperties() + "\n");
+                }
+                txtAreaResults.appendText("\n");
+            }
+
+            // Display execution time, input size, and difference of sums
+            txtAreaResults.appendText("Input size: " + agencyList.size() + "\n");
+            txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
+            txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
+
+
             testNNumber = testNNumber +3;
         }
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
-
     }
+
 
     public void onBtnDivideStores(ActionEvent actionEvent) {
         List<Agency> list = new ArrayList<>();
@@ -170,6 +189,23 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
             list.add(new Agency(i,j ));
         }
 
-        txtAreaResults.setText(txtAreaResults.getText() + "\n" + storeDivisionController.partitionTest2(list));
+        Map<String, Object> partitionResult = storeDivisionController.partitionTest2(list);
+
+
+        // Display the groups
+        for (int i = 1; i <= 2; i++) {
+            List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
+            txtAreaResults.appendText("Group " + i + ":\n");
+            for (Agency agency : group) {
+                txtAreaResults.appendText("\tStore ID: " + agency.getId() + ", Properties: " + agency.getNoOfProperties() + "\n");
+            }
+            txtAreaResults.appendText("\n");
+        }
+
+        // Display execution time, input size, and difference of sums
+        txtAreaResults.appendText("Input size: " + list.size() + "\n");
+        txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
+        txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
+
     }
 }
