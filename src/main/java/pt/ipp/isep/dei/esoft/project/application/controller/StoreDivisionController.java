@@ -44,11 +44,11 @@ public class StoreDivisionController {
 
     public static List<List<Agency>> findBalancedPartition(List<Agency> stores) {
         int n = stores.size();
-        int numPartitions = (int) Math.pow(2, n);
+        int numPartitions = (int) Math.pow(2, n-1);
         List<List<Agency>> bestPartition = null;
         int minDifference = Integer.MAX_VALUE;
 
-        for (int i = 1; i < numPartitions; i++) {
+        for (int i = 0; i < numPartitions; i++) {
             List<Agency> L1 = new ArrayList<>();
             List<Agency> L2 = new ArrayList<>();
 
