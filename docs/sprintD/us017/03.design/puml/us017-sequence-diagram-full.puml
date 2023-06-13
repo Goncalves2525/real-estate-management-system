@@ -5,67 +5,87 @@ skinparam shadowing false
 
 autonumber
 
-actor "Network Manager" as Admin
-participant ":ImportUI" as UI
+'hide footbox
+actor "Network Manager" as NM
+participant ":NetworkManagerSortWindow" as UI
 participant ":PropertyOrderManagementController" as CTRL
-participant "repositories\n:Repositories" as Repositories
-participant ":PropertyRepository" as PropertyRepository
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "PropertyDealRepository:\nPropertyRepository" as PropertyRepository
+'participant "SortProperty" as SortProperty
 
 
-    activate Admin
+activate NM
 
-    Admin -> UI : Ask to list all deals made
-    activate UI
+NM -> UI : Ask to list all deals made
+activate UI
 
-    UI -> CTRL: getInstance()
-    activate CTRL
+UI -> CTRL : getPropertiesDealSortByID()
+activate CTRL
 
-'    CTRL -> UI : importController
-'    activate REPO
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-'    UI -> CTRL : selectFile()
-'    activate CTRL
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
 
-    CTRL --> UI : selectFile()
-    deactivate CTRL
+ CTRL -> PLAT : getPropertyDealRepository()
+activate PLAT
 
-    UI --> Admin : Request to select the sort type
-    deactivate UI
+PLAT --> CTRL: getPropertyDealRepository
+deactivate PLAT
 
-    Admin -> UI : Selects sort type
-    activate UI
+CTRL --> PropertyRepository : getPropertiesDealSortByID()
+activate PropertyRepository
 
-    UI -> CTRL : checkFile()
-    activate CTRL
+ PropertyRepository --> CTRL : getPropertiesDealSortByID
+deactivate PropertyRepository
 
-    CTRL -> REPO : getInstance()
-    activate REPO
+CTRL--> UI : getPropertiesDealSortByID
+deactivate
 
-    REPO --> CTRL: repositories
-    deactivate REPO
+ UI -> NM: Display list of all properties with deal made\n sorted by ID
+ deactivate
 
-    CTRL -> REPO : getAnnouncementRepository()
-    activate REPO
 
-    REPO -> ANNREPO : getAuthenticationRepository()
-    activate ANNREPO
 
-    ANNREPO --> REPO: authenticationRepository
-    deactivate ANNREPO
+alt Selection Sort
 
-    REPO --> CTRL: announcementRepository
-    deactivate REPO
+ NM -> UI : Select Selection sort descending/ascending order
+ activate UI
+UI -> CTRL : getPropertiesDealSelectionSort()
+activate CTRL
 
-    CTRL --> ANNREPO: addAnnouncementFromImportedFile()
-    activate ANNREPO
+CTRL -> PropertyRepository : getPropertiesDealSelectionSort()
+activate PropertyRepository
 
-    ANNREPO -> CTRL : returns importResult
-    deactivate ANNREPO
+PropertyRepository --> CTRL : PropertiesDealSelectionSort
+deactivate PropertyRepository
 
-    CTRL -> UI : displayImportResult(importResult)
-    deactivate CTRL
+CTRL--> UI : PropertiesDealSelectionSort
+deactivate
 
-    UI --> Admin : Display the list of deals sorted by property area
-    deactivate UI
+UI -> NM: Displays the list of all properties sorted by area \n using Selection algorithm
+deactivate
 
+else Insertion Sort
+
+ NM -> UI : Select Insertion sort descending/ascending order
+ activate UI
+UI -> CTRL : getPropertiesDealInsertionSort()
+activate CTRL
+
+CTRL -> PropertyRepository : getPropertiesDealInsertionSort()
+activate PropertyRepository
+
+PropertyRepository --> CTRL : PropertiesDealInsertionSort
+deactivate PropertyRepository
+
+CTRL--> UI : PropertiesDealInsertionSort
+deactivate
+
+UI -> NM: Displays the list of all properties sorted by area \n using Insertion algorithm
+deactivate
+
+end
 @enduml
