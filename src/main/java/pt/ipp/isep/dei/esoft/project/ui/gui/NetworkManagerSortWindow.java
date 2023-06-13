@@ -110,7 +110,7 @@ public class NetworkManagerSortWindow implements Initializable {
         if (!Objects.equals(selectedDirectory, "")) {
             ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
             //String importResult = importController.importData(dataToImport);
-            String importResult = importController.importDatatoprperty(dataToImport);
+             String importResult = importController.importDatatoprperty(dataToImport);
             System.out.println(importResult);
         }
         PropertyTableView.setItems(FXCollections.observableArrayList(controller.getPropertiesSelectionSortByID()));
