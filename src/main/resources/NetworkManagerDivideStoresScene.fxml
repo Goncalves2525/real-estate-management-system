@@ -13,7 +13,7 @@
    <children>
       <Button fx:id="btReturn" layoutX="918.0" layoutY="592.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
       <Button fx:id="btImport" layoutX="918.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
-      <Label fx:id="importOperationLabel" layoutX="593.0" layoutY="295.0" />
+      <Label fx:id="importOperationLabel" layoutX="918.0" layoutY="150.0" prefHeight="36.0" prefWidth="189.0" wrapText="true" />
       <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="101.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
       <Button fx:id="btnRunTimeTests" layoutX="918.0" layoutY="393.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
       <TableView fx:id="tblDivideStores" layoutX="23.0" layoutY="13.0" prefHeight="416.0" prefWidth="418.0">
@@ -23,7 +23,7 @@
         </columns>
       </TableView>
       <Label layoutX="464.0" layoutY="24.0" text="Divide Operation Results:" />
-      <TextArea fx:id="txtAreaResults" layoutX="461.0" layoutY="41.0" prefHeight="388.0" prefWidth="444.0" />
+      <TextArea fx:id="txtAreaResults" editable="false" layoutX="461.0" layoutY="41.0" prefHeight="388.0" prefWidth="444.0" />
        <LineChart fx:id="lineChart" layoutX="23.0" layoutY="440.0" legendVisible="false" prefHeight="260.0" prefWidth="882.0" title="Results">
            <xAxis>
                <NumberAxis label="Number of Variables" side="BOTTOM" />

@@ -83,15 +83,16 @@ public class ImportController {
                 try {
                     dealRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24], Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
                     totalImported++;
-                    importResult += "\nAnnouncement imported: " + data[0];
+                    //importResult += "\nAnnouncement imported: " + data[0];
                 } catch (Exception e) {
-                    importResult += "\nError importing Announcement: " + data[0] + " - " + e.getMessage();
+                    importResult += "\nError importing Announcement (line " + (totalImported + 1) + "): " + data[0] + " - " + e.getMessage();
                 }
             }
         } catch (Exception e) {
             importResult += "Error importing data";
         }
-        return importResult;
+        //return importResult;
+        return "Imported " + totalImported + " out of " + totalItemsToImport + " announcements.";
     }
 
     /**

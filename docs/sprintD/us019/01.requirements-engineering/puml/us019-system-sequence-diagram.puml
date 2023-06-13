@@ -7,39 +7,21 @@ title System Sequence Diagram (SSD)
 
 autonumber
 
-actor "System Administrator" as Admin
+actor "Network Manager" as Manager
 participant ":System" as System
 
-activate Admin
+activate Manager
 
-    Admin -> System : requests to import a csv file
+    Manager -> System : accesses the menu to divide the stores
     activate System
 
-'    System --> Admin : lists types of data to import (Agents, Agencies, Orders)\n and asks to select one
-'    deactivate System
-'
-'    Admin -> System : selects a type of data to import
-'    activate System
-
-    System --> Admin : requests to insert csv file location
+    System --> Manager : displays the list of stores and the number of properties of each store
     deactivate System
 
-    Admin -> System: selects csv file location
+    Manager -> System : selects the option to divide the stores into two subsets
     activate System
 
-    System --> Admin: checks if the file is valid and displays the amount of \ndata found to import
-    deactivate System
-
-'    Admin -> System: selects the delimiter
-'    activate System
-
-'    System --> Admin: displays the data that it found in the csv file
-'    deactivate System
-
-    Admin -> System : confirms the displayed data is the one to import
-    activate System
-
-    System --> Admin : displays success message
+    System --> Manager : displays algorithm response
     deactivate System
 
 

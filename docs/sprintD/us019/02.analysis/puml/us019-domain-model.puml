@@ -3,8 +3,6 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-'left to right direction
-
 skinparam classAttributeIconSize 0
 
 hide circle
@@ -12,14 +10,18 @@ hide methods
 
 title Domain Model
 
-class Order{
-    id
-    announcementId
-    orderAmount
-    clientEmail
-    date
-    orderState
+class NetworkManager {
+
 }
-SystemAdministrator "1" -- "1" Order : creates from imported data >
+
+class Agency{
+    id
+}
+
+class Property{
+
+}
+
+NetworkManager "1" -- Property : divides into two subsets >
 
 @enduml

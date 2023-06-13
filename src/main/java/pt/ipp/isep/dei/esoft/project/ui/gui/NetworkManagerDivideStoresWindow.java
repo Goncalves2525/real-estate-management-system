@@ -132,7 +132,9 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
         if (!Objects.equals(selectedDirectory, "")) {
             ArrayList<String[]> dataToImport = importController.readFile(selectedDirectory, ";");
-            String importResult = importController.importDatatoprperty(dataToImport);
+            //String importResult = importController.importDatatoprperty(dataToImport);
+            String importResult = importController.importData(dataToImport);
+
             importOperationLabel.setText(importResult);
 
             // Clear the agencyPropertySum hashmap
