@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
@@ -29,6 +31,8 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     @FXML
     public TableView tblDivideStores;
     @FXML
+    public LineChart lineChart;
+    @FXML
     private Button btReturn;
     @FXML
     private Button btImport;
@@ -48,6 +52,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     private TextArea txtAreaResults;
 
     private int testNNumber = 3;
+    private XYChart.Series<Number, Number> series;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +60,8 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         noOfProperties.setCellValueFactory(new PropertyValueFactory<>("second"));
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
         tblDivideStores.setItems(getProperties());
+        series = new XYChart.Series<>();
+        lineChart.getData().add(series);
     }
 
     public ObservableList<Tuple<String, Integer>> getProperties() {
@@ -148,10 +155,13 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     }
 
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
-        //storeDivisionController.dividePartitions(testNNumber);
+        int numVariablesInitial = 0;
+        Long executionTimeInitial = 0L;
+
+        series.getData().add(new XYChart.Data<>(numVariablesInitial, executionTimeInitial));
         if(testNNumber <= 30){
             List<Agency> agencyList = new ArrayList<>();
-            for(int i = 0; i<testNNumber; i++){
+            for(int i = 1; i<=testNNumber; i++){
                 agencyList.add(new Agency(i,i *3 ));
             }
 
@@ -172,7 +182,12 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
             txtAreaResults.appendText("Input size: " + agencyList.size() + "\n");
             txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
             txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
+            txtAreaResults.appendText("----------------------------------||----------------------------------\n\n");
 
+            int numVariables = testNNumber;
+            Long executionTime = (Long) partitionResult.get("executionTime");
+
+            series.getData().add(new XYChart.Data<>(numVariables, executionTime));
 
             testNNumber = testNNumber +3;
         }
@@ -181,6 +196,10 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
 
     public void onBtnDivideStores(ActionEvent actionEvent) {
+        int numVariablesInitial = 0;
+        Long executionTimeInitial = 0L;
+
+        series.getData().add(new XYChart.Data<>(numVariablesInitial, executionTimeInitial));
         List<Agency> list = new ArrayList<>();
         for (Object tuple : tblDivideStores.getItems()) {
 
@@ -206,6 +225,11 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         txtAreaResults.appendText("Input size: " + list.size() + "\n");
         txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
         txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
+
+        int numVariables = testNNumber;
+        Long executionTime = (Long) partitionResult.get("executionTime");
+
+        series.getData().add(new XYChart.Data<>(numVariables, executionTime));
 
     }
 }

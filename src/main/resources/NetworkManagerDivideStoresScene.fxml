@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,18 +11,27 @@
 
 <AnchorPane prefHeight="677.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.NetworkManagerDivideStoresWindow">
    <children>
-      <Button fx:id="btReturn" layoutX="918.0" layoutY="341.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
-      <Button fx:id="btImport" layoutX="918.0" layoutY="251.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
+      <Button fx:id="btReturn" layoutX="918.0" layoutY="592.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
+      <Button fx:id="btImport" layoutX="918.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
       <Label fx:id="importOperationLabel" layoutX="593.0" layoutY="295.0" />
-      <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="15.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
-      <Button fx:id="btnRunTimeTests" layoutX="918.0" layoutY="421.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
-      <TableView fx:id="tblDivideStores" layoutY="14.0" prefHeight="363.0" prefWidth="906.0">
+      <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="101.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
+      <Button fx:id="btnRunTimeTests" layoutX="918.0" layoutY="393.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
+      <TableView fx:id="tblDivideStores" layoutX="23.0" layoutY="13.0" prefHeight="416.0" prefWidth="418.0">
         <columns>
-          <TableColumn fx:id="storeID" prefWidth="75.0" text="Store ID" />
-          <TableColumn fx:id="noOfProperties" prefWidth="501.0" text="No. of Properties" />
+          <TableColumn fx:id="storeID" prefWidth="207.0" text="Store ID" />
+          <TableColumn fx:id="noOfProperties" prefWidth="208.0" text="No. of Properties" />
         </columns>
       </TableView>
-      <Label layoutX="23.0" layoutY="392.0" text="Divide Operation Results" />
-      <TextArea fx:id="txtAreaResults" layoutX="23.0" layoutY="421.0" prefHeight="200.0" prefWidth="882.0" />
+      <Label layoutX="464.0" layoutY="24.0" text="Divide Operation Results:" />
+      <TextArea fx:id="txtAreaResults" layoutX="461.0" layoutY="41.0" prefHeight="388.0" prefWidth="444.0" />
+       <LineChart fx:id="lineChart" layoutX="23.0" layoutY="440.0" legendVisible="false" prefHeight="260.0" prefWidth="882.0" title="Results">
+           <xAxis>
+               <NumberAxis label="Number of Variables" side="BOTTOM" />
+           </xAxis>
+           <yAxis>
+               <NumberAxis label="Execution Time" side="LEFT" />
+           </yAxis>
+       </LineChart>
+
    </children>
 </AnchorPane>
