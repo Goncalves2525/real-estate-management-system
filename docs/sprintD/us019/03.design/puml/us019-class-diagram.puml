@@ -5,39 +5,52 @@ skinparam shadowing false
 skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
-'left to right direction
+title Class Diagram - US19
 
-'class LegacySystem {
-'    + loadData(location) : importResult
-'}
-
-class SystemAdministrator {
-    - name
-    - email
+class StoreDivisionController {
+    - Repositories
+    - storeList: List<Store>
+    - agencyList: List<Agency>
+    - sumOfAllStores: double
+    - sumOfEachAgency: List<Double>
+    + prepareStoreList(): List<Store>
+    + partitionTest2(): void
+    + findBalancedPartition(): List<Agency>
+    + calculateDifferenceOfSums(): double
+    + getProperties(): void
 }
 
-class ImportController {
-    - AnnouncementRepository
-    + importData()
-    + checkFile()
+class Property {
+    - agencyID: int
 }
 
-class ImportUI {
-    - ImportController
-    + selectFile()
+class Agency {
+    - id: int
+    - noOfProperties: int
+    - stores: List<Store>
 }
 
-class AnnouncementRepository {
-    - addAnnouncementFromImportedFile()
+class NetworkManagerDivideStoresWindow {
+    - StoreDivisionController: StoreDivisionController
+    - btnImport: Button
+    - btnRunTimeTests: Button
+    - btnDivideStores: Button
+    - btReturn: Button
+    + getProperties(): void
+    + onBtReturn(): void
+    + onBtImport(): void
+    + onbtnRunTimeTests(): void
+    + onBtnDivideStores(): void
 }
 
+class Store {
+    - id: int
+    - size: double
+}
 
-ImportUI ..> ImportController : calls
-
-'ImportInformationController --> LegacySystem : uses
-
-SystemAdministrator -- ImportUI : interacts
-
-ImportController ..> AnnouncementRepository : uses
+StoreDivisionController ..> Property
+StoreDivisionController ..> Agency
+StoreDivisionController ..> Store
+NetworkManagerDivideStoresWindow ..> StoreDivisionController
 
 @enduml

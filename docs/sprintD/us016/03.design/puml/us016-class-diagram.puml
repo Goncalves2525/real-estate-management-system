@@ -87,16 +87,16 @@ class EmailSender {
     +respondToBookingRequestEmail()
 }
 
-UserSession <-- AuthenticationRepository
+UserSession <.. AuthenticationRepository
 AuthenticationController ..> AuthenticationRepository
 VisitScheduleRequestsWindow ..> AuthenticationController
-VisitScheduleRequestsWindow --> VisitScheduleController
-Repositories <-- VisitScheduleController
-VisitScheduleRepository <-- Repositories
-EmployeeRepository <-- Repositories
-VisitSchedule <-- VisitScheduleRepository
-Employee <-- EmployeeRepository
-VisitScheduleController --> EmailSender
-EmailSender --> Utils
+VisitScheduleRequestsWindow ..> VisitScheduleController
+Repositories <.. VisitScheduleController
+VisitScheduleRepository <-- Repositories : has
+EmployeeRepository <-- Repositories : has
+VisitSchedule <-- VisitScheduleRepository : has
+Employee <-- EmployeeRepository : has
+VisitScheduleController ..> EmailSender
+EmailSender ..> Utils
 
 @enduml

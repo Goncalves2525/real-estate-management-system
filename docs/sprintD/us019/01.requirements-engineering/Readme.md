@@ -1,4 +1,4 @@
-# US 019 -  I want to divide the set of all stores into two subsets
+# US 019 -  As a network manager, I want to divide the set of all stores into two subsets
 
 ## 1. Requirements Engineering
 
@@ -11,18 +11,13 @@ so that the total number of properties of the stores between the two subsets is
 the closest possible.
 
 
-
 ### 1.2. Customer Specifications and Clarifications 
 
 
-[//]: # (**From the specifications document:**)
+**From the specifications document:**
 
-[//]: # ()
-[//]: # (>	)
-
-[//]: # ()
-[//]: # ()
-[//]: # (>	)
+- All algorithms implemented to MDISC component must only use primitive operations, and not existing
+  functions in JAVA libraries.
 
 
 
@@ -81,19 +76,18 @@ To develop the work required by MATCP and MDISC courses, you should have a clean
 
 **Input Data:**
 
-* Typed data:
+* Selected data:
   * set of stores
 
 
 **Output Data:**
 
-* (In)Success of the operation
+* Success of the operation
+
+- The two sublists that make up the partition and difference of sums
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Other alternatives might exist.**
-
-#### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us019-system-sequence-diagram.svg)
 

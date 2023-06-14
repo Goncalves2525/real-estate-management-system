@@ -3,69 +3,81 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+title Sequence Diagram - US19
+
+
 autonumber
 
-actor "System Administrator" as Admin
-participant ":ImportUI" as UI
-participant ":ImportController" as CTRL
-participant "repositories\n:Repositories" as REPO
-participant ":AnnouncementRepository" as ANNREPO
+actor "NetworkManager" as NetworkManager
+participant "NetworkManagerDivideStoresWindow: UI" as UI
+participant "StoreDivisionController: Controller" as Controller
+participant "Agency: Domain" as Agency
 
+activate NetworkManager
 
-    activate Admin
+NetworkManager -> UI : asks to divide stores
+activate UI
 
-    Admin -> UI : asks to import a csv file
-    activate UI
+UI -> Controller: getInstance()
+activate Controller
 
-    UI -> CTRL: getInstance()
-    activate CTRL
+Controller --> UI : storeDivisionController
+deactivate Controller
 
-'    CTRL -> UI : importController
-'    activate REPO
+UI -> Controller : prepareStoreList(stores: List<Agency>)
+activate Controller
 
-'    UI -> CTRL : selectFile()
-'    activate CTRL
+Controller -> Agency: new Agency(agency.getId(), agency.getNoOfProperties())
+activate Agency
+Agency --> Controller: Agency
+deactivate Agency
 
-    CTRL --> UI : selectFile()
-    deactivate CTRL
+Controller --> UI: stores: List<Agency>
+deactivate Controller
 
-    UI --> Admin : asks for csv file location
-    deactivate UI
+NetworkManager -> UI : confirms list
+activate UI
 
-    Admin -> UI : provides file location
-    activate UI
+UI -> Controller : partitionTest2(stores: List<Agency>)
+activate Controller
 
-    UI -> CTRL : checkFile()
-    activate CTRL
+Controller -> Controller: prepareStoreList(stores: List<Agency>)
+activate Controller
+Controller -> Agency: new Agency(agency.getId(), agency.getNoOfProperties())
+activate Agency
+Agency --> Controller: Agency
+deactivate Agency
+Controller --> Controller: stores: List<Agency>
+deactivate Controller
 
-    CTRL -> REPO : getInstance()
-    activate REPO
+Controller -> Controller: findBalancedPartition(stores: List<Agency>)
+activate Controller
+loop "for each partition" as l1
+Controller -> Controller: calculateDifferenceOfSums(partition: List<List<Agency>>)
+activate Controller
+Controller -> Agency: getNoOfProperties()
+activate Agency
+Agency --> Controller: noOfProperties: int
+deactivate Agency
+Controller --> Controller: differenceOfSums: int
+deactivate Controller
+end
+Controller --> Controller: bestPartition: List<List<Agency>>
+deactivate Controller
 
-    REPO --> CTRL: repositories
-    deactivate REPO
+Controller -> Controller: calculateDifferenceOfSums(bestPartition: List<List<Agency>>)
+activate Controller
+Controller -> Agency: getNoOfProperties()
+activate Agency
+Agency --> Controller: noOfProperties: int
+deactivate Agency
+Controller --> Controller: differenceOfSums: int
+deactivate Controller
 
-    CTRL -> REPO : getAnnouncementRepository()
-    activate REPO
+Controller --> UI: result: Map<String, Object>
+deactivate Controller
 
-    REPO -> ANNREPO : getAuthenticationRepository()
-    activate ANNREPO
-
-    ANNREPO --> REPO: authenticationRepository
-    deactivate ANNREPO
-
-    REPO --> CTRL: announcementRepository
-    deactivate REPO
-
-    CTRL --> ANNREPO: addAnnouncementFromImportedFile()
-    activate ANNREPO
-
-    ANNREPO -> CTRL : returns importResult
-    deactivate ANNREPO
-
-    CTRL -> UI : displayImportResult(importResult)
-    deactivate CTRL
-
-    UI --> Admin : displays success message or error
-    deactivate UI
+UI --> NetworkManager : displays result
+deactivate UI
 
 @enduml

@@ -1,43 +1,27 @@
-# US 019 -  I want to divide the set of all stores into two subsets
+# US 019 -  As a network manager, I want to divide the set of all stores into two subsets
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
-
-| Interaction ID | Question: Which class is responsible for...                       | Answer                 | Patterns           |
-|:---------------|:------------------------------------------------------------------|:-----------------------|:-------------------|
-| Step 1  		     | 	... interacting with the actor?                                  | ImportUI               | Pure Fabrication   |
-| 			  		        | 	... coordinating the US?                                         | ImportController       | Controller         |
-| 			  		        | 	... requesting the file location?                                | ImportUI               | Pure Fabrication   |
-| Step 2  		     | 	.. providing the file location?	                                 | ImportUI               | Pure Fabrication   |
-| 		             | 	... processing the import request?                               | ImportController       | Controller         |
-| Step 3  		     | 	... loading the data from the file?                              | AnnouncementRepository | Information Expert |
-| Step 4  		     | 	... displaying the success message?                              | ImportUI               | Pure Fabrication   |
-
-
-[//]: # (### Systematization ##)
-
-[//]: # (According to the taken rationale, the conceptual classes promoted to software classes are: )
-
-[//]: # ()
-[//]: # ( * LegacySystem)
-
-
-[//]: # (Other software classes &#40;i.e. Pure Fabrication&#41; identified: )
-
-[//]: # ()
-[//]: # ( * ImportUI  )
+| Interaction ID | Question: Which class is responsible for...    | Answer                 | Patterns           |
+|:---------------|:------------------------------------------------|:-----------------------|:-------------------|
+| Step 1         | ... interacting with the actor?                 | NetworkManagerDivideStoresWindow (UI) | Pure Fabrication   |
+|                | ... coordinating the US?                        | StoreDivisionController (Controller)  | Controller         |
+|                | ... preparing the store list?                   | StoreDivisionController (Controller)  | Controller         |
+| Step 2         | ... confirming the store list?                  | NetworkManagerDivideStoresWindow (UI) | Pure Fabrication   |
+|                | ... partitioning the stores?                    | StoreDivisionController (Controller)  | Controller         |
+| Step 3         | ... calculating the difference of sums?         | StoreDivisionController (Controller)  | Controller         |
+| Step 4         | ... displaying the result?                      | NetworkManagerDivideStoresWindow (UI) | Pure Fabrication   |
 
 
 ## 3.2. Sequence Diagram (SD)
 
-### Alternative 1 - Full Diagram
+### Full Diagram
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
 ![Sequence Diagram - Full](svg/us019-sequence-diagram-full.svg)
-
 
 
 ## 3.3. Class Diagram (CD)

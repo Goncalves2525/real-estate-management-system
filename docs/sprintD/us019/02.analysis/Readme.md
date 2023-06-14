@@ -1,4 +1,4 @@
-# US 019 -  I want to divide the set of all stores into two subsets
+# US 019 -  As a network manager, I want to divide the set of all stores into two subsets
 
 ## 2. Analysis
 

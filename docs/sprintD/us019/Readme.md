@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US 019 -  As a network manager, I want to divide the set of all stores into two subsets
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

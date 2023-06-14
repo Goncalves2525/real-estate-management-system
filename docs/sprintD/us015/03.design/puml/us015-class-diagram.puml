@@ -104,17 +104,18 @@ class QuickSortVisitSchedule implements SortVisitSchedule {
     +sort()
 }
 
-UserSession <-- AuthenticationRepository
+UserSession <.. AuthenticationRepository
 AuthenticationController ..> AuthenticationRepository
 VisitScheduleRequestsWindow ..> AuthenticationController
-VisitScheduleRequestsWindow --> VisitScheduleController
-Repositories <-- VisitScheduleController
-AnnouncementRepository <-- Repositories
-EmployeeRepository <-- Repositories
-VisitScheduleRepository <-- Repositories
+VisitScheduleRequestsWindow ..> VisitScheduleController
+Repositories <.. VisitScheduleController
+AnnouncementRepository <-- Repositories: has
+EmployeeRepository <-- Repositories: has
+VisitScheduleRepository <-- Repositories: has
 SortVisitSchedule <.. VisitScheduleRepository
-Announcement <-- AnnouncementRepository
-Employee <-- EmployeeRepository
-VisitSchedule <-- VisitScheduleRepository
+Announcement <-- AnnouncementRepository: has
+Employee <-- EmployeeRepository: has
+VisitSchedule <-- VisitScheduleRepository: has
+Repositories --> Repositories : Instances
 
 @enduml

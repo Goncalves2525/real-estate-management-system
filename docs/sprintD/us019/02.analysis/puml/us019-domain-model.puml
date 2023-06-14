@@ -16,12 +16,15 @@ class NetworkManager {
 
 class Agency{
     id
+    noOfProperties
 }
 
-class Property{
-
+class Algorithm{
+    name
 }
 
-NetworkManager "1" -- Property : divides into two subsets >
+'NetworkManager "1" -- Property : divides into two subsets >
+Algorithm "1" -- "*" Agency : divides into two subsets >
+NetworkManager "1" -- "1"Algorithm : uses >
 
 @enduml
