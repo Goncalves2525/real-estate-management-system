@@ -62,7 +62,7 @@ public class ShowStatisticsWindow implements Initializable {
         txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
         txtArea.setText("Prices:\n");
         for (int i = 0; i < forecastedPrices.size(); i++) {
-            String string = String.format("Property %-10d Forecasted Price: %-30f Real Price: %f\n", i, forecastedPrices.get(i), deals.get(i).getProperty().getPrice());
+            String string = String.format("Property %-10d Forecasted Price: %-30f Real Price: %f\n", i+1, forecastedPrices.get(i), deals.get(i).getProperty().getPrice());
             txtArea.appendText(string);
         }
     }
@@ -190,8 +190,8 @@ public class ShowStatisticsWindow implements Initializable {
             sb.append("\n\nPredicted Value Confidence Intervals:\n");
             for (int i = 0; i < predictionsInterval.length; i++) {
                 double[] propertyInterval = predictionsInterval[i];
-                sb.append("Property ").append(i).append(" Confidence Interval:");
-                sb.append(String.format("]%.2f, %.2f[", propertyInterval[0], propertyInterval[1])).append("\n");
+                sb.append("Property ").append(i+1).append(" Confidence Interval:");
+                sb.append(String.format("]%.4f, %.4f[", propertyInterval[0], propertyInterval[1])).append("\n");
             }
             txtArea.appendText(sb.toString());
 
@@ -202,7 +202,7 @@ public class ShowStatisticsWindow implements Initializable {
             for (int i = 0; i < coefficientLowerBound.length; i++) {
                 double lowerBound = coefficientLowerBound[i];
                 double upperBound = coefficientUpperBound[i];
-                String coefficientInterval = "Coefficient " + i + ": " + String.format("]%.2f, %.2f[", lowerBound, upperBound) + "\n";
+                String coefficientInterval = "Coefficient " + (i+1) + ": " + String.format("]%.4f, %.4f[", lowerBound, upperBound) + "\n";
                 sb2.append(coefficientInterval);
             }
             txtArea.clear();
@@ -215,7 +215,7 @@ public class ShowStatisticsWindow implements Initializable {
                 double lowerBound = predictionsLowerBound.get(i);
                 double upperBound = predictionsUpperBound.get(i);
                 sb.append("Property-").append(i)
-                        .append(": ").append(String.format("]%.2f, %.2f[", lowerBound, upperBound))
+                        .append(": ").append(String.format("]%.4f, %.4f[", lowerBound, upperBound))
                         .append("\n");
             }
 
@@ -316,8 +316,8 @@ public class ShowStatisticsWindow implements Initializable {
 
 
             sb.append("Significance of the Regression Model:\n");
-            sb.append(String.format("Critical Value (α=%.2f): %.2f\n", alfa, multipleCriticalValue));
-            sb.append(String.format("F-Value: %.2f\n", fValue));
+            sb.append(String.format("Critical Value (α=%.4f): %.4f\n", alfa, multipleCriticalValue));
+            sb.append(String.format("F-Value: %.4f\n", fValue));
             sb.append("Result: ");
             if (isSignificant) {
                 sb.append("Reject Null Hypothesis because F-Value > Critical Value.\n");
@@ -354,12 +354,12 @@ public class ShowStatisticsWindow implements Initializable {
             txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
             txtArea.setText("Values:\n");
             txtArea.appendText("n: " + n + "\n");
-            txtArea.appendText("Intercept: " + String.format("%.2f", intercept) + "\n");
-            txtArea.appendText("Slope: " + String.format("%.2f", slope) + "\n");
+            txtArea.appendText("Intercept: " + String.format("%.4f", intercept) + "\n");
+            txtArea.appendText("Slope: " + String.format("%.4f", slope) + "\n");
             txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
-            txtArea.appendText("Alfa: " + String.format("%.2f", alfa) + "\n");
+            txtArea.appendText("Alfa: " + String.format("%.4f", alfa) + "\n");
             txtArea.appendText("\n");
-            txtArea.appendText("Regression line: y = " + String.format("%.2f", slope) + "x + (" + String.format("%.2f", intercept) + ")");
+            txtArea.appendText("Regression line: y = " + String.format("%.4f", slope) + "x + (" + String.format("%.4f", intercept) + ")");
 
         } else {
             txtArea.clear();
@@ -367,16 +367,16 @@ public class ShowStatisticsWindow implements Initializable {
             txtArea.setText("Values:\n");
             txtArea.appendText("n: " + n + "\n");
             txtArea.appendText("Confidence Level: " + confidenceLevel + "\n");
-            txtArea.appendText("Alfa: " + String.format("%.2f", alfa) + "\n");
+            txtArea.appendText("Alfa: " + String.format("%.4f", alfa) + "\n");
             txtArea.appendText("\n\n");
 
             StringBuilder equationBuilder = new StringBuilder("Multiple Regression Equation:\n");
             equationBuilder.append("y = ");
-            equationBuilder.append(String.format("%.2f", estimatedCoefficients[0]));
+            equationBuilder.append(String.format("%.4f", estimatedCoefficients[0]));
 
             for (int i = 1; i < estimatedCoefficients.length; i++) {
                 equationBuilder.append(" + ");
-                equationBuilder.append(String.format("%.2f", estimatedCoefficients[i]));
+                equationBuilder.append(String.format("%.4f", estimatedCoefficients[i]));
                 equationBuilder.append(independentVariableNames[i - 1]);
             }
 
@@ -399,10 +399,7 @@ public class ShowStatisticsWindow implements Initializable {
         }
 
         SelectRegressionModelWindow controller = selectRegressionModelLoader.getController();
-        double confidenceLevel = this.controller.getConfidenceLevel();
-        String confidence = Double.toString(confidenceLevel);
-        confidence = String.format("Confidence = %s%%", confidence);
-        controller.setLabel(confidence);
+
 
         Scene SelectRegressionModelScene = new Scene(selectRegressionModelRoot);
         mainStage.setScene(SelectRegressionModelScene);

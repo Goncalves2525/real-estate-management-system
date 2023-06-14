@@ -26,7 +26,7 @@ class StatisticsControllerTest {
     @BeforeEach
     void setUp() {
         if (dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse().isEmpty()){
-            importController.importData("/Users/ricardo/IdeaProjects/2ºSemestre/Projeto LAPR2/legacyRealStateUSAMoodle_MATCP_MDISC.csv");
+            importController.importData("legacyRealStateUSAMoodle_MATCP_MDISC.csv");
         }
     }
 
