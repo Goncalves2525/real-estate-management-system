@@ -25,6 +25,10 @@ public class Land extends Property implements Serializable {
         super(area, distanceFromCenter, price, address);
     }
 
+    public Land(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName, int id) {
+        super(area, distanceFromCenter, price, address, id);
+    }
+
     /**
      * To string Land.
      * @return

@@ -183,7 +183,7 @@ public class ImportController {
 
                         propertyId = propertyDealRepository.addHouseWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
                                 numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning,
-                                hasBasement, hasInhabitableLoft, sunExposure, storeID,storeName);
+                                hasBasement, hasInhabitableLoft, sunExposure, storeID,storeName,announcementId);
                     } else if (propertyType.equalsIgnoreCase("Apartment")) {
                         int numberOfBedrooms = propertyNumberBedrooms;
                         int numberOfBathrooms = propertyNumberBathrooms;
@@ -192,10 +192,10 @@ public class ImportController {
                         boolean hasAirConditioning = propertyAirconditioned;
                         Address address = createAddress(data[8]);
                         propertyId = propertyDealRepository.addApartmentWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address,
-                                numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID,storeName);
+                                numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID,storeName,announcementId);
                     } else if (propertyType.equalsIgnoreCase("Land")) {
                         Address address = createAddress(data[8]);
-                        propertyId = propertyDealRepository.addLandWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address, storeID,storeName);
+                        propertyId = propertyDealRepository.addLandWithAgency(propertyArea, propertyDistanceFromCenter, propertySaleRentPrice, address, storeID,storeName, announcementId);
                     } else {
                         throw new IllegalArgumentException("Invalid property type: " + propertyType);
                     }

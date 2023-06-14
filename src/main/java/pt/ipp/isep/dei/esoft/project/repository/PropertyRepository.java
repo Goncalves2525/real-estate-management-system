@@ -33,8 +33,14 @@ public class PropertyRepository implements Serializable{
         return house.getId();
     }
 
-    public int addApartmentWithAgency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, int storeID, String storeName){
-        Apartment apartment = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID, storeName);
+    public int addHouseWithAgency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, boolean hasBasement, boolean hasInhabitableLoft, SunExposure sunExposure, int storeID, String storeName, int id) {
+        House house = new House(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, hasBasement, hasInhabitableLoft, sunExposure, storeID, storeName, id);
+        properties.add(house);
+        return house.getId();
+    }
+
+    public int addApartmentWithAgency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, int storeID, String storeName, int id){
+        Apartment apartment = new Apartment(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID, storeName, id);
         properties.add(apartment);
         return apartment.getId();
     }
@@ -44,6 +50,13 @@ public class PropertyRepository implements Serializable{
         properties.add(land);
         return land.getId();
     }
+
+    public int addLandWithAgency(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName, int id){
+        Land land = new Land(area, distanceFromCenter, price, address, storeID, storeName, id);
+        properties.add(land);
+        return land.getId();
+    }
+
 
 
     public boolean verifyIfPropertyIsEqual(Property property) {

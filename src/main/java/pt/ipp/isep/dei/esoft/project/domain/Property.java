@@ -40,6 +40,14 @@ public class Property implements Serializable {
         id = idCounter++;
     }
 
+    public Property(double area, double distanceFromCenter, double price, Address address, int ID) {
+        this.area = area;
+        this.distanceFromCenter = distanceFromCenter;
+        this.price = price;
+        this.address = address;
+        id = ID;
+    }
+
 
     public Property(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName) {
         this.area = area;
@@ -49,6 +57,16 @@ public class Property implements Serializable {
         this.agencyName = storeName;
         this.agencyID = storeID;
         id = idCounter++;
+    }
+
+    public Property(double area, double distanceFromCenter, double price, Address address, int storeID, String storeName, int id) {
+        this.area = area;
+        this.distanceFromCenter = distanceFromCenter;
+        this.price = price;
+        this.address = address;
+        this.agencyName = storeName;
+        this.agencyID = storeID;
+        this.id = id;
     }
 
     /**

@@ -40,6 +40,13 @@ public class House extends Residency implements Serializable {
         this.sunExposure = sunExposure;
     }
 
+    public House (double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, boolean hasBasement, boolean hasInhabitableLoft, SunExposure sunExposure, int storeID, String storeName, int id) {
+        super(area, distanceFromCenter, price, address, numberOfBedrooms, numberOfBathrooms, numberOfParkingSpaces, hasCentralHeating, hasAirConditioning, storeID, storeName, id);
+        this.hasBasement = hasBasement;
+        this.hasInhabitableLoft = hasInhabitableLoft;
+        this.sunExposure = sunExposure;
+    }
+
     /**
      * Instantiates a new House.
      *

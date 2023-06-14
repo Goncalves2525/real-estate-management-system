@@ -55,6 +55,15 @@ public abstract class  Residency extends Property implements Serializable {
         this.hasAirConditioning = hasAirConditioning;
     }
 
+    public Residency(double area, double distanceFromCenter, double price, Address address, int numberOfBedrooms, int numberOfBathrooms, int numberOfParkingSpaces, boolean hasCentralHeating, boolean hasAirConditioning, int storeID, String storeName, int id) {
+        super(area, distanceFromCenter, price, address, storeID, storeName, id);
+        this.numberOfBedrooms = numberOfBedrooms;
+        this.numberOfBathrooms = numberOfBathrooms;
+        this.numberOfParkingSpaces = numberOfParkingSpaces;
+        this.hasCentralHeating = hasCentralHeating;
+        this.hasAirConditioning = hasAirConditioning;
+    }
+
     /**
      * Instantiates a new Residency.
      *
