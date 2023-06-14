@@ -69,7 +69,7 @@ public class AnalyseDealsWindow implements Initializable {
 
     @FXML
     private void onBtImport(ActionEvent actionEvent) {
-        if (dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse().isEmpty()) {
+
             FileChooser fileChooser = new FileChooser();
 
             // Set the title of the file chooser dialog
@@ -79,6 +79,7 @@ public class AnalyseDealsWindow implements Initializable {
             Stage mainStage = getMainStage();
             String selectedDirectory = fileChooser.showOpenDialog(mainStage).getAbsolutePath();
             if (!Objects.equals(selectedDirectory, "")) {
+                dealRepository.removeAllAnnouncements();
                 ArrayList<String[]> dataToImport = controller.readFile(selectedDirectory, ";");
                 String importResult = controller.importData(dataToImport);
                 System.out.println(importResult);
@@ -88,10 +89,7 @@ public class AnalyseDealsWindow implements Initializable {
             mainStage.setScene(selectRegressionModelScene);
             mainStage.setTitle("Select Regression Model");
             mainStage.show();
-        } else {
-            Alert alert = createAlert(Alert.AlertType.ERROR, "Error", "There are already deals in the system.");
-            alert.show();
-        }
+
 
     }
 

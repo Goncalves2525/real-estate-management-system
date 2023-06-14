@@ -34,8 +34,6 @@ public class ShowStatisticsWindow implements Initializable {
     @FXML
     private Button btR;
     @FXML
-    private Button btR2;
-    @FXML
     private Button btTest;
     @FXML
     private Button btInterval;

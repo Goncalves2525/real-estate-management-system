@@ -1,12 +1,16 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import com.aquafx_project.AquaFx;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
-
+import com.aquafx_project.AquaFx;
 import java.io.IOException;
 
 
@@ -14,6 +18,8 @@ import java.io.IOException;
 public class MainGUI extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+        //Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/MainMenuScene.fxml"));
         Parent root = fxmlLoader.load();
