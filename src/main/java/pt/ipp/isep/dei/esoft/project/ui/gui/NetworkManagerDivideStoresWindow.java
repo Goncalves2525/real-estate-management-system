@@ -157,10 +157,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     }
 
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
-        int numVariablesInitial = 0;
-        Long executionTimeInitial = 0L;
-
-        series.getData().add(new XYChart.Data<>(numVariablesInitial, executionTimeInitial));
+        series.getData().clear();
         if(testNNumber <= 30){
             List<Agency> agencyList = new ArrayList<>();
             for(int i = 1; i<=testNNumber; i++){
@@ -198,10 +195,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
 
     public void onBtnDivideStores(ActionEvent actionEvent) {
-        int numVariablesInitial = 0;
-        Long executionTimeInitial = 0L;
-
-        series.getData().add(new XYChart.Data<>(numVariablesInitial, executionTimeInitial));
+        series.getData().clear();
         List<Agency> list = new ArrayList<>();
         for (Object tuple : tblDivideStores.getItems()) {
 

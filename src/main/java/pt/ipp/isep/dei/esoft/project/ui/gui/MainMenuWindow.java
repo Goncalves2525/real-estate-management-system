@@ -1,15 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
@@ -21,6 +24,8 @@ import java.util.*;
 public class MainMenuWindow implements Runnable, Initializable {
 
     private final AuthenticationController authenticationController;
+    @FXML
+    public ToggleButton btnThemeSwitch;
     private Scene listScene;
     private Scene employeeScene;
     private Scene adminScene;
@@ -249,5 +254,16 @@ public class MainMenuWindow implements Runnable, Initializable {
         mainStage.setTitle("Real Estate USA - Dev Team");
         mainStage.show();
 
+    }
+
+    public void onBtnThemeSwitch(ActionEvent actionEvent) {
+        if (btnThemeSwitch.isSelected()){
+            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+            btnThemeSwitch.setText("Set Dark Theme");
+        }
+        else{
+            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+            btnThemeSwitch.setText("Set Light Theme");
+        }
     }
 }

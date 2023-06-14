@@ -16,4 +16,21 @@ public class Tuple<T1, T2> {
     public T2 getSecond() {
         return second;
     }
+
+    public void setFirst(T1 first) {
+        this.first = first;
+    }
+
+    public void setSecond(T2 second) {
+        this.second = second;
+    }
+
+    //method to add a new tuple
+    public Tuple<T1, T2> add(Tuple<T1, T2> tuple) {
+        T1 first = tuple.getFirst();
+        T2 second = tuple.getSecond();
+        return new Tuple<>(first, second);
+    }
+
+
 }
