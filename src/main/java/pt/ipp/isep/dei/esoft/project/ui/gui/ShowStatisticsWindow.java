@@ -214,7 +214,7 @@ public class ShowStatisticsWindow implements Initializable {
                 Announcement deal = deals.get(i);
                 double lowerBound = predictionsLowerBound.get(i);
                 double upperBound = predictionsUpperBound.get(i);
-                sb.append("Property-").append(i)
+                sb.append("Property-").append(i+1)
                         .append(": ").append(String.format("]%.4f, %.4f[", lowerBound, upperBound))
                         .append("\n");
             }
