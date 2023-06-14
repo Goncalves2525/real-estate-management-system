@@ -157,7 +157,8 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
     }
 
     public void onbtnRunTimeTests(ActionEvent actionEvent) {
-        series.getData().clear();
+        if(testNNumber == 3)
+            series.getData().clear();
         if(testNNumber <= 30){
             List<Agency> agencyList = new ArrayList<>();
             for(int i = 1; i<=testNNumber; i++){
@@ -222,7 +223,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
         txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
 
-        int numVariables = testNNumber;
+        int numVariables = list.size();
         Long executionTime = (Long) partitionResult.get("executionTime");
 
         series.getData().add(new XYChart.Data<>(numVariables, executionTime));
