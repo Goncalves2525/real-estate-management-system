@@ -175,7 +175,7 @@ public class Statistics implements Serializable {
         boolean interceptReject;
         boolean slopeReject;
         intercept = regression.getIntercept();
-        interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptTValue = Math.abs((intercept - a0) / interceptStandardError);
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
@@ -315,7 +315,7 @@ public class Statistics implements Serializable {
         boolean interceptReject;
         boolean slopeReject;
         intercept = regression.getIntercept();
-        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptTValue = Math.abs((intercept - a0) / interceptStandardError);
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
@@ -474,7 +474,7 @@ public class Statistics implements Serializable {
         boolean interceptReject;
         boolean slopeReject;
         intercept = regression.getIntercept();
-        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptTValue = Math.abs((intercept - a0) / interceptStandardError);
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
@@ -628,7 +628,7 @@ public class Statistics implements Serializable {
         boolean interceptReject;
         boolean slopeReject;
         intercept = regression.getIntercept();
-        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptTValue = Math.abs((intercept - a0) / interceptStandardError);
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
@@ -784,7 +784,7 @@ public class Statistics implements Serializable {
         boolean interceptReject;
         boolean slopeReject;
         intercept = regression.getIntercept();
-        double interceptTValue = (intercept - a0) / interceptStandardError;
+        interceptTValue = Math.abs((intercept - a0) / interceptStandardError);
         interceptPValue = 2 * (1 - tDistribution.cumulativeProbability(Math.abs(interceptTValue)));
         interceptCriticalValue = tDistribution.inverseCumulativeProbability(1 - (alfa / 2));
 
