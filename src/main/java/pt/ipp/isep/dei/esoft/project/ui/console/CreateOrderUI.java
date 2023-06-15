@@ -52,6 +52,10 @@ public class CreateOrderUI implements Runnable {
                 sc.nextLine();
                 run();
             }
+
+            if (amount > propertyPrice) {
+                System.out.println("Please insert a number lower or equal to actual price");
+            }
         } while (amount > propertyPrice);
 
         sameAmount = controller.someoneAlreadyMadeOrderWithSameAmountForThisAnnouncement(amount, id);
