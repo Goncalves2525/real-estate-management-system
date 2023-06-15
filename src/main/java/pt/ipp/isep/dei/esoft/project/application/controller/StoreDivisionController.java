@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
+import pt.ipp.isep.dei.esoft.project.domain.Tuple;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.ArrayList;
@@ -15,19 +15,21 @@ public class StoreDivisionController {
 
     public StoreDivisionController() {}
 
-    public List<Agency> prepareStoreList(List<Agency> inputStores) {
-        List<Agency> stores = new ArrayList<>();
-        for (Agency agency : inputStores) {
-            stores.add(new Agency(agency.getId(), agency.getNoOfProperties()));
+    public List<Tuple<String, Integer>> prepareStoreList(List<Tuple<String, Integer>> inputStores) {
+        //List<Agency> stores = new ArrayList<>();
+        List<Tuple<String, Integer>> stores = new ArrayList<>();
+        for (Tuple<String, Integer> agency : inputStores) {
+            //stores.add(new Agency(agency.getId(), agency.getNoOfProperties()));
+            stores.add(new Tuple<>(((Tuple<String, Integer>) agency).getFirst(), ((Tuple<String, Integer>) agency).getSecond()));
         }
         return stores;
     }
 
-    public Map<String, Object> partitionTest2(List<Agency> inputStores) {
-        List<Agency> L = prepareStoreList(inputStores);
+    public Map<String, Object> partitionTest2(List<Tuple<String, Integer>> inputStores) {
+        List<Tuple<String, Integer>> L = prepareStoreList(inputStores);
 
         long startTime = System.currentTimeMillis(); // Record start time
-        List<List<Agency>> balancedPartition = findBalancedPartition(L);
+        List<List<Tuple<String, Integer>>> balancedPartition = findBalancedPartition(L);
         long endTime = System.currentTimeMillis(); // Record end time
 
         long executionTime = endTime - startTime;
@@ -42,15 +44,15 @@ public class StoreDivisionController {
         return result;
     }
 
-    public static List<List<Agency>> findBalancedPartition(List<Agency> stores) {
+    public static List<List<Tuple<String, Integer>>> findBalancedPartition(List<Tuple<String, Integer>> stores) {
         int n = stores.size();
         int numPartitions = (int) Math.pow(2, n-1);
-        List<List<Agency>> bestPartition = null;
+        List<List<Tuple<String, Integer>>> bestPartition = null;
         int minDifference = Integer.MAX_VALUE;
 
         for (int i = 0; i < numPartitions; i++) {
-            List<Agency> L1 = new ArrayList<>();
-            List<Agency> L2 = new ArrayList<>();
+            List<Tuple<String, Integer>> L1 = new ArrayList<>();
+            List<Tuple<String, Integer>> L2 = new ArrayList<>();
 
             for (int j = 0; j < n; j++) {
                 if ((i & (1 << j)) != 0) {
@@ -60,7 +62,7 @@ public class StoreDivisionController {
                 }
             }
 
-            List<List<Agency>> currentPartition = new ArrayList<>();
+            List<List<Tuple<String, Integer>>> currentPartition = new ArrayList<>();
             currentPartition.add(L1);
             currentPartition.add(L2);
 
@@ -75,16 +77,17 @@ public class StoreDivisionController {
         return bestPartition;
     }
 
-    public static int calculateDifferenceOfSums(List<List<Agency>> balancedPartition) {
+    public static int calculateDifferenceOfSums(List<List<Tuple<String, Integer>>> balancedPartition) {
         int sum1 = 0;
         int sum2 = 0;
 
-        for (Agency store : balancedPartition.get(0)) {
-            sum1 += store.getNoOfProperties();
+        for (Tuple<String, Integer> store :  balancedPartition.get(0)) {
+            sum1 += (store.getSecond());
+            //sum1 += store.getNoOfProperties();
         }
 
-        for (Agency store : balancedPartition.get(1)) {
-            sum2 += store.getNoOfProperties();
+        for (Tuple<String, Integer> store : balancedPartition.get(1)) {
+            sum2 += (store.getSecond());
         }
 
         return Math.abs(sum1 - sum2);

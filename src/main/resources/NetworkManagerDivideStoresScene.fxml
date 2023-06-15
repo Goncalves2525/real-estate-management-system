@@ -13,9 +13,9 @@
    <children>
       <Button fx:id="btReturn" layoutX="918.0" layoutY="592.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Back" />
       <Button fx:id="btImport" layoutX="918.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Select file to Import" />
-      <Label fx:id="importOperationLabel" layoutX="918.0" layoutY="150.0" prefHeight="36.0" prefWidth="189.0" wrapText="true" />
-      <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="101.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" />
-      <Button fx:id="btnRunTimeTests" layoutX="918.0" layoutY="393.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
+      <Label fx:id="importOperationLabel" layoutX="918.0" layoutY="91.0" prefHeight="36.0" prefWidth="189.0" wrapText="true" />
+      <Button fx:id="btnDivideStores" layoutX="918.0" layoutY="179.0" mnemonicParsing="false" onAction="#onBtnDivideStores" prefHeight="36.0" prefWidth="189.0" text="Divide Stores" visible="false" />
+      <Button fx:id="btnRunTimeTests" disable="true" layoutX="918.0" layoutY="143.0" mnemonicParsing="false" onAction="#onbtnRunTimeTests" prefHeight="36.0" prefWidth="189.0" />
       <TableView fx:id="tblDivideStores" layoutX="23.0" layoutY="13.0" prefHeight="416.0" prefWidth="418.0">
         <columns>
           <TableColumn fx:id="storeID" prefWidth="207.0" text="Store ID" />

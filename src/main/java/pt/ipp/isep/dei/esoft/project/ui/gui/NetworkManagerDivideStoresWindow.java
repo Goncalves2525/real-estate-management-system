@@ -17,7 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.ImportController;
 import pt.ipp.isep.dei.esoft.project.application.controller.StoreDivisionController;
-import pt.ipp.isep.dei.esoft.project.domain.Agency;
 import pt.ipp.isep.dei.esoft.project.domain.Property;
 import pt.ipp.isep.dei.esoft.project.domain.Tuple;
 
@@ -153,6 +152,7 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
                 tupleList.add(new Tuple<>(entry.getKey(), entry.getValue()));
             }
             tblDivideStores.setItems(tupleList);
+            btnRunTimeTests.setDisable(false);
         }
     }
 
@@ -160,26 +160,28 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         if(testNNumber == 3)
             series.getData().clear();
         if(testNNumber <= 30){
-            List<Agency> agencyList = new ArrayList<>();
+            List<Tuple<String, Integer>> tupleList = new ArrayList<>();
+
             for(int i = 1; i<=testNNumber; i++){
-                agencyList.add(new Agency(i,i *3 ));
+                //tupleList.add(new Tuple<>(""+i, i*3));
+                //agencyPropertySum.get(""+i);
+                tupleList.add(new Tuple<>(""+i, agencyPropertySum.get(""+i)));
             }
 
-            Map<String, Object> partitionResult = storeDivisionController.partitionTest2(agencyList);
+            Map<String, Object> partitionResult = storeDivisionController.partitionTest2(tupleList);
 
-
-            // Display the groups
             for (int i = 1; i <= 2; i++) {
-                List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
+                List<Tuple<String, Integer>> group = (List<Tuple<String, Integer>>) partitionResult.get("group" + i);
+                //List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
                 txtAreaResults.appendText("Group " + i + ":\n");
-                for (Agency agency : group) {
-                    txtAreaResults.appendText("\tStore ID: " + agency.getId() + ", Properties: " + agency.getNoOfProperties() + "\n");
+                for (Tuple<String, Integer> agency : group) {
+                    txtAreaResults.appendText("\tStore ID: " + agency.getFirst() + ", Properties: " + agency.getSecond() + "\n");
                 }
                 txtAreaResults.appendText("\n");
             }
 
             // Display execution time, input size, and difference of sums
-            txtAreaResults.appendText("Input size: " + agencyList.size() + "\n");
+            txtAreaResults.appendText("Input size: " + tupleList.size() + "\n");
             txtAreaResults.appendText("Execution time: " + partitionResult.get("executionTime") + " milliseconds\n");
             txtAreaResults.appendText("Difference of sums: " + partitionResult.get("differenceOfSums") + "\n\n");
             txtAreaResults.appendText("----------------------------------||----------------------------------\n\n");
@@ -188,8 +190,9 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
             Long executionTime = (Long) partitionResult.get("executionTime");
 
             series.getData().add(new XYChart.Data<>(numVariables, executionTime));
-
-            testNNumber = testNNumber +3;
+        }
+        if(testNNumber < 30){
+            testNNumber = testNNumber + 3;
         }
         btnRunTimeTests.setText("Run Runtime Test for n=" + testNNumber);
     }
@@ -197,12 +200,13 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
     public void onBtnDivideStores(ActionEvent actionEvent) {
         series.getData().clear();
-        List<Agency> list = new ArrayList<>();
+        //List<Agency> list = new ArrayList<>();
+        List<Tuple<String, Integer>> list = new ArrayList<>();
         for (Object tuple : tblDivideStores.getItems()) {
-
             int i = Integer.parseInt(((Tuple<String, Integer>) tuple).getFirst());
             int j = ((Tuple<String, Integer>) tuple).getSecond();
-            list.add(new Agency(i,j ));
+            //list.add(new Agency(i,j ));
+            list.add(new Tuple<>(((Tuple<String, Integer>) tuple).getFirst(), ((Tuple<String, Integer>) tuple).getSecond()));
         }
 
         Map<String, Object> partitionResult = storeDivisionController.partitionTest2(list);
@@ -210,10 +214,11 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
 
         // Display the groups
         for (int i = 1; i <= 2; i++) {
-            List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
+            //List<Agency> group = (List<Agency>) partitionResult.get("group" + i);
+            List<Tuple<String, Integer>> group = (List<Tuple<String, Integer>>) partitionResult.get("group" + i);
             txtAreaResults.appendText("Group " + i + ":\n");
-            for (Agency agency : group) {
-                txtAreaResults.appendText("\tStore ID: " + agency.getId() + ", Properties: " + agency.getNoOfProperties() + "\n");
+            for (Tuple<String, Integer> agency : group) {
+                txtAreaResults.appendText("\tStore ID: " + agency.getFirst() + ", Properties: " + agency.getSecond() + "\n");
             }
             txtAreaResults.appendText("\n");
         }
