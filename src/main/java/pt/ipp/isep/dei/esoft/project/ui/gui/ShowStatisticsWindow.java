@@ -6,6 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
@@ -145,7 +149,7 @@ public class ShowStatisticsWindow implements Initializable {
             txtArea.clear();
             StringBuilder sb = new StringBuilder();
             for (int i = 1; i < estimatedCoefficient.length; i++) {
-                testStatistics[i] = estimatedCoefficient[i] / Math.sqrt(meanSquaredError * covarianceMatrix[i][i]);
+                testStatistics[i] = Math.abs(estimatedCoefficient[i] / Math.sqrt(meanSquaredError * covarianceMatrix[i][i]));
                 sb.append("Hypothesis Test Result for " + coefficientNames[i] + ":\n");
                 sb.append("-------------------------------------------------\n");
                 sb.append("T-Value: " + testStatistics[i] + "\n");
@@ -206,6 +210,7 @@ public class ShowStatisticsWindow implements Initializable {
                 sb2.append(coefficientInterval);
             }
             txtArea.clear();
+            txtArea.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, Font.getDefault().getSize()));
             txtArea.appendText(sb2.toString());
 
             StringBuilder sb = new StringBuilder();
