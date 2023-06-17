@@ -50,20 +50,9 @@ class NetworkManagerSortWindow{
 }
 
 
-
-class ImportCSV{
-        -controller : ImportController
-        -btImport : Button
-        -btDeals : Button
-        +onBtImport() : void
-        +onBtDeals() : void
-}
-
-
-NetworkManagerSortWindow ..> ImportCSV
 NetworkManagerSortWindow ..> PropertyOrderManagementController
 PropertyOrderManagementController ..> Repositories
-
+NetworkManagerSortWindow ..> ImportController
 ImportController ..> CSVImport
 ImportController ..> Repositories
 

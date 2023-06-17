@@ -1,4 +1,4 @@
-# US 012 - I want to import information from a legacy system
+# US 017 - As a network manager, I want to list all deals made.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

@@ -12,13 +12,13 @@ participant ":System" as System
 
 activate Agent
 
-        Agent -> System : ask to list purchase order
+        Agent -> System : ask to list Announcements with purchase orders
     activate System
 
-        System --> Agent : displays list of purchases orders grouped by property from the oldest to the most recent one
+        System --> Agent : displays list of Announcements with purchase orders grouped by property from the oldest to the most recent one
     deactivate  System
 
-        Agent -> System :select purchase order
+        Agent -> System :select Announcement
     activate System
 
         System --> Agent :display the list of purchase orders sorted by the amount offered, the highest offer appear first.

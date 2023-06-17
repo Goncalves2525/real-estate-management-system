@@ -9,31 +9,59 @@ autonumber
 actor "Network Manager" as NM
 participant ":NetworkManagerSortWindow" as UI
 participant ":PropertyOrderManagementController" as CTRL
-participant ":Repositories" as RepositorySingleton
+participant "ImportController" as ImportController
+participant "CSVImport" as CSVImport
 participant "repositories\n:Repositories" as PLAT
 participant "PropertyDealRepository:\nPropertyRepository" as PropertyRepository
-'participant "SortProperty" as SortProperty
-
 
 activate NM
 
 NM -> UI : Ask to list all deals made
 activate UI
 
+UI -> NM : displays options import file
+deactivate UI
+
+
+
+    NM -> UI : Selects file to import
+    activate UI
+
+    UI -> ImportController : onBtImport
+    activate ImportController
+
+    ImportController -> CSVImport : importData()
+    activate CSVImport
+
+    CSVImport -> PLAT : getInstance()
+    activate PLAT
+
+    PLAT -> PropertyRepository: getPropertyDealRepository()
+    activate PropertyRepository
+
+    PropertyRepository -> PLAT : PropertyDealRepository
+    deactivate PropertyRepository
+
+    PLAT -> CSVImport : PropertyDealRepository
+    deactivate PLAT
+
+    CSVImport ->  PropertyRepository: importCSV()
+    activate PropertyRepository
+
+    PropertyRepository -> CSVImport: success
+    deactivate PropertyRepository
+
+    CSVImport -> ImportController : success
+    deactivate CSVImport
+
+    ImportController -> UI : success
+    deactivate ImportController
+
+
+
 UI -> CTRL : getPropertiesDealSortByID()
 activate CTRL
 
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
-
-RepositorySingleton --> CTRL: repositories
-deactivate RepositorySingleton
-
- CTRL -> PLAT : getPropertyDealRepository()
-activate PLAT
-
-PLAT --> CTRL: getPropertyDealRepository
-deactivate PLAT
 
 CTRL --> PropertyRepository : getPropertiesDealSortByID()
 activate PropertyRepository

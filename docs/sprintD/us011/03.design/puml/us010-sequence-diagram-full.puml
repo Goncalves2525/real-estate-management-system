@@ -1,0 +1,42 @@
+
+
+
+@startuml
+
+actor User
+participant "SomeClass" as SC
+participant "Order" as O
+participant "OrderState" as OS
+
+User -> SC: acceptOrder(idOrder, idAnnouncement)
+activate SC
+
+SC -> SC: Loop over orders
+activate SC
+
+SC -> O: getId()
+activate O
+O --> SC: orderID
+deactivate O
+
+SC -> O: getAnnouncementId()
+activate O
+O --> SC: announcementID
+deactivate O
+
+SC -> SC: Check if orderID == idOrder and announcementID == idAnnouncement
+activate SC
+
+SC -> OS: ACCEPTED
+activate OS
+OS --> SC:
+deactivate OS
+
+SC --> SC: Continue loop
+
+deactivate SC
+User <-- SC:
+
+
+
+@enduml

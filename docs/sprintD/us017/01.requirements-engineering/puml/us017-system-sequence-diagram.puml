@@ -15,7 +15,15 @@ activate NetworkManager
     NetworkManager -> System : Ask to list all deals made
     activate System
 
-    System --> NetworkManager : Request to select the sort type
+
+    System --> NetworkManager : Shows option to import file with existing deals
+    deactivate System
+
+    NetworkManager -> System: select file to import
+    activate System
+
+
+    System --> NetworkManager : Display deals sorted by property ID and Request to select the sort type
     deactivate System
 
     NetworkManager -> System: selects sort type

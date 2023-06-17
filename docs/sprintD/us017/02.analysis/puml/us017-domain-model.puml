@@ -12,14 +12,22 @@ hide methods
 
 title Domain Model
 
-class Order{
-    id
-    announcementId
-    orderAmount
-    clientEmail
-    date
-    orderState
+class NetworkManager extends Employee{
+
 }
-NetworkManager "1" -- "1"  : creates from imported data >
+
+
+class Deal{
+
+}
+class Property{
+    area
+    distanceFromCenter
+    price
+}
+
+NetworkManager "1" -- "*" Deal : sort >
+Deal "*" -- "1" Agency : belongs to >
+Deal "1" -- "1" Property : have >
 
 @enduml
