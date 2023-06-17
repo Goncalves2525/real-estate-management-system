@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Manager
 
-    Manager -> System : accesses the menu to divide the stores
+    Manager -> System : Selects the file to analise
     activate System
 
     System --> Manager : displays the list of stores and the number of properties of each store
