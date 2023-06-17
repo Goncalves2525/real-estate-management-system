@@ -63,18 +63,32 @@ public class VisitScheduleRequestsWindow implements Initializable {
     @FXML
     private TableView<VisitSchedule> tvBookingRequests;
 
-
+    /**
+     * Controller of VisitScheduleRequestsWindow.
+     */
     private VisitScheduleController controller;
 
+    /**
+     * Creates an instance of VisitScheduleRequestsWindow.
+     */
     public VisitScheduleRequestsWindow() {
         controller = new VisitScheduleController();
     }
 
+    /** Initializes
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listPendingVisits();
     }
 
+
+    /**
+     * Lists pending visits.
+     */
     private void listPendingVisits() {
         String agentEmail = controller.getCurrentUserEmail();
         List<VisitSchedule> pendingVisits = controller.getPendingVisitsByAgentEmail(agentEmail);
@@ -82,11 +96,19 @@ public class VisitScheduleRequestsWindow implements Initializable {
         List<VisitSchedule> sortedVisits = sortVisitSchedule.sort(pendingVisits);
         showObservableList(sortedVisits);
     }
+
+    /** Filters visits by date.
+     *
+     * @param actionEvent
+     */
     @FXML
     public void onbtFilterSchedules(ActionEvent actionEvent) {
         showFilteredVisits();
     }
 
+    /**
+     * Show filtered visits.
+     */
     private void showFilteredVisits() {
         LocalDate startDate = dpStartDate.getValue();
         LocalDate endDate = dpEndDate.getValue();
@@ -98,6 +120,10 @@ public class VisitScheduleRequestsWindow implements Initializable {
         showObservableList(sortedVisits);
     }
 
+    /**
+     * Shows observable list on table view.
+     * @param filteredVisits
+     */
     private void showObservableList(List<VisitSchedule> filteredVisits) {
         ObservableList<VisitSchedule> data = FXCollections.observableArrayList(filteredVisits);
         tcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -111,6 +137,10 @@ public class VisitScheduleRequestsWindow implements Initializable {
         tvBookingRequests.setItems(data);
     }
 
+    /**
+     * Responds to visit.
+     * @param actionEvent
+     */
     @FXML
     public void onBtRespond(ActionEvent actionEvent) {
         int propertyID = 0;
@@ -170,6 +200,11 @@ public class VisitScheduleRequestsWindow implements Initializable {
         }
     }
 
+    /**
+     * Removes visit.
+     * @param visit
+     * @param reason
+     */
     private void removeVisit(VisitSchedule visit,String reason) {
         controller.disapproveVisit(visit);
         controller.respondToBookingRequestByEmail(visit, reason);
@@ -177,12 +212,20 @@ public class VisitScheduleRequestsWindow implements Initializable {
         showFilteredVisits();
     }
 
+    /**
+     * Approves visit.
+     * @param visit
+     */
     private void approveVisit(VisitSchedule visit) {
         controller.approveVisit(visit);
         controller.respondToBookingRequestByEmail(visit, "Visit approved.");
         showFilteredVisits();
     }
 
+    /**
+     * Returns to employee menu.
+     * @param actionEvent
+     */
     @FXML
     public void onBtReturn(ActionEvent actionEvent) {
         Stage mainStage = getMainStage();
@@ -199,6 +242,9 @@ public class VisitScheduleRequestsWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * Gets main stage.
+     */
     private Stage getMainStage() {
         return (Stage) btReturn.getScene().getWindow();
     }

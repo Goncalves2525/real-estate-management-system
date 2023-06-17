@@ -427,10 +427,6 @@ class CSVImport{
     +importData()
 }
 
-class ClientRepository {
-    +getClientByEmail(clientEmail)
-}
-
 class VisitSchedule {
     - propertyID : int
     - visitDate : LocalDate
@@ -626,10 +622,40 @@ class ShowStatisticsWindow{
     +onBtInterval() : void
     +onBtAnova() : void
     +onBtValues() : void
-
 }
 
+class StoreDivisionController {
+    + StoreDivisionController()
+    + prepareStoreList(inputStores: List<Tuple<String, Integer>>): List<Tuple<String, Integer>>
+    + partitionTest2(inputStores: List<Tuple<String, Integer>>): Map<String, Object>
+    + findBalancedPartition(stores: List<Tuple<String, Integer>>): List<List<Tuple<String, Integer>>>
+    + calculateDifferenceOfSums(balancedPartition: List<List<Tuple<String, Integer>>>): int
+    + getProperties(): ArrayList<Property>
+}
 
+'class Tuple<String, Integer> {
+class Tuple {
+    + getFirst(): String
+    + getSecond(): Integer
+}
+
+class NetworkManagerDivideStoresWindow {
+    - StoreDivisionController: StoreDivisionController
+    - btnImport: Button
+    - btnRunTimeTests: Button
+    - btnDivideStores: Button
+    - btReturn: Button
+    + getProperties(): void
+    + onBtReturn(): void
+    + onBtImport(): void
+    + onbtnRunTimeTests(): void
+    + onBtnDivideStores(): void
+}
+
+AuthenticationUI ..> NetworkManagerDivideStoresWindow
+StoreDivisionController ..> Property
+StoreDivisionController ..> Tuple
+NetworkManagerDivideStoresWindow ..> StoreDivisionController
 Repositories -> Repositories : instances
 ListAnnouncementsController ..> Repositories
 ListAnouncementsUI .> ListAnnouncementsController

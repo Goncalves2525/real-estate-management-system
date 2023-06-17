@@ -36,12 +36,16 @@ public class VisitScheduleController {
     }
 
 
+    /**
+     * Get properties by address by announcement id
+     * @param id
+     * @return
+     */
     public String getPropertyAddressByAnnouncementId(int id) {
         Announcement announcement = getAnnouncementRepository().getAnnouncementById(id);
         Property property = getPropertyByAnnouncement(announcement);
         return String.valueOf(property.getAddress());
     }
-
 
 
     /**

@@ -33,7 +33,6 @@ public class VisitSchedule implements Serializable {
      * @param adressOfProperty the adress of property
      * @param requesterEmail the requester email
      */
-
     public VisitSchedule(int propertyID, String nameOfClient, long telephoneNumberOfClient, LocalDate date, LocalTime startTime, LocalTime endTime, boolean approvedByAgent, String agentEmail, String adressOfProperty, String requesterEmail) {
         this.propertyID = propertyID;
         this.nameOfClient = nameOfClient;
@@ -176,10 +175,18 @@ public class VisitSchedule implements Serializable {
         this.date = date;
     }
 
+    /**
+     * Gets adress of property.
+     * @return the adress of property
+     */
     public String getAdressOfProperty() {
         return adressOfProperty;
     }
 
+    /**
+     * Sets adress of property.
+     * @param adressOfProperty the adress of property
+     */
     public void setAdressOfProperty(String adressOfProperty) {
         this.adressOfProperty = adressOfProperty;
     }
@@ -200,10 +207,18 @@ public class VisitSchedule implements Serializable {
         this.agentEmail = agentEmail;
     }
 
+    /**
+     * Gets requester email.
+     * @return the requester email
+     */
     public String getRequesterEmail() {
         return requesterEmail;
     }
 
+    /**
+     * Sets requester email.
+     * @param requesterEmail the requester email
+     */
     public void setRequesterEmail(String requesterEmail) {
         this.requesterEmail = requesterEmail;
     }
