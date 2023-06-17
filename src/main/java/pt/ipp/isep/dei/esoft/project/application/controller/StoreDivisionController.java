@@ -15,6 +15,11 @@ public class StoreDivisionController {
 
     public StoreDivisionController() {}
 
+    /**
+     * Gets the properties from the Tuple
+     * @param inputStores List of tuples
+     * @return List of properties
+     */
     public List<Tuple<String, Integer>> prepareStoreList(List<Tuple<String, Integer>> inputStores) {
         //List<Agency> stores = new ArrayList<>();
         List<Tuple<String, Integer>> stores = new ArrayList<>();
@@ -25,6 +30,11 @@ public class StoreDivisionController {
         return stores;
     }
 
+    /**
+     * Calculates the difference of sums
+     * @param inputStores List of tuples
+     * @return HashMap
+     */
     public Map<String, Object> partitionTest2(List<Tuple<String, Integer>> inputStores) {
         List<Tuple<String, Integer>> L = prepareStoreList(inputStores);
 
@@ -44,6 +54,11 @@ public class StoreDivisionController {
         return result;
     }
 
+    /**
+     * Finds the balanced partition
+     * @param stores List of tuples
+     * @return List of tuples
+     */
     public static List<List<Tuple<String, Integer>>> findBalancedPartition(List<Tuple<String, Integer>> stores) {
         int n = stores.size();
         int numPartitions = (int) Math.pow(2, n-1);
@@ -77,6 +92,11 @@ public class StoreDivisionController {
         return bestPartition;
     }
 
+    /**
+     * Calculates the difference of sums
+     * @param balancedPartition List of tuples
+     * @return int difference of sums
+     */
     public static int calculateDifferenceOfSums(List<List<Tuple<String, Integer>>> balancedPartition) {
         int sum1 = 0;
         int sum2 = 0;
@@ -93,6 +113,10 @@ public class StoreDivisionController {
         return Math.abs(sum1 - sum2);
     }
 
+    /**
+     * Gets the properties
+     * @return ArrayList of properties
+     */
     public ArrayList<Property> getProperties() {
         return repositories.getPropertyRepository().getAllProperties();
     }

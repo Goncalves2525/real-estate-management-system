@@ -63,6 +63,10 @@ public class NetworkManagerDivideStoresWindow implements Initializable {
         lineChart.getData().add(series);
     }
 
+    /**
+     * Gets Properties
+     * @return ObservableList of Tuple
+     */
     public ObservableList<Tuple<String, Integer>> getProperties() {
         ObservableList<Tuple<String, Integer>> properties = FXCollections.observableArrayList();
         ArrayList<Property> propertiesList = storeDivisionController.getProperties();
