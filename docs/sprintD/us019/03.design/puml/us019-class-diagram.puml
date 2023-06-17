@@ -11,8 +11,8 @@ class StoreDivisionController {
     + StoreDivisionController()
     + prepareStoreList(inputStores: List<Tuple<String, Integer>>): List<Tuple<String, Integer>>
     + partitionTest2(inputStores: List<Tuple<String, Integer>>): Map<String, Object>
-    + {static} findBalancedPartition(stores: List<Tuple<String, Integer>>): List<List<Tuple<String, Integer>>>
-    + {static} calculateDifferenceOfSums(balancedPartition: List<List<Tuple<String, Integer>>>): int
+    + findBalancedPartition(stores: List<Tuple<String, Integer>>): List<List<Tuple<String, Integer>>>
+    + calculateDifferenceOfSums(balancedPartition: List<List<Tuple<String, Integer>>>): int
     + getProperties(): ArrayList<Property>
 }
 
@@ -20,7 +20,8 @@ class Property {
     - agencyID: int
 }
 
-class Tuple<String, Integer> {
+'class Tuple<String, Integer> {
+class Tuple {
     + getFirst(): String
     + getSecond(): Integer
 }
