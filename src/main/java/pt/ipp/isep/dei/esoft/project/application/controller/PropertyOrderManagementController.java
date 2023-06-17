@@ -118,6 +118,12 @@ public class PropertyOrderManagementController {
         return getOrderRepository().getOrderStateById(idOrder,idAnnouncement);
     }
 
+    /**
+     * Method that returns the property with the given id.
+     *
+     * @param id id of the property
+     * @return property with the given id
+     */
     public void sendEmailToCliente(int idOrder, int idAnnouncement, String decison) {
         try {
             Order order = getOrderById(idOrder, idAnnouncement).get(0);
@@ -143,6 +149,7 @@ public class PropertyOrderManagementController {
 
 
     }
+
      public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
          return propertyDealRepository.getPropertiesInsertionSortByAreaDescending();
      }

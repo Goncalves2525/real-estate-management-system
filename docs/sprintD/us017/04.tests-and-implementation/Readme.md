@@ -2,46 +2,74 @@
 
 # 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Announcement class with null values. 
+**Test 1:** Check if the properties are sorted by area in descending/descending order.
+        
+        // Create a list of properties for testing
+        ArrayList<Property> properties = new ArrayList<>();
+        properties.add(new Property("A", 100));
+        properties.add(new Property("B", 200));
+        properties.add(new Property("C", 150));
+        properties.add(new Property("D", 50));
+        properties.add(new Property("E", 300));
 
-    @Test(expected = IllegalArgumentException.class)
-        Announcement announcement = new Announcement(employee, propertyID, typeOfProperty, transactionType, publishDate, commission, photos);
-        assertThrows(IllegalArgumentException.class, () -> announcement.setTransactionType(null));
-        assertThrows(IllegalArgumentException.class, () -> announcement.setTypeOfProperty(null));
-        assertThrows(IllegalArgumentException.class, () -> announcement.setPublishDate(null));
-        assertThrows(IllegalArgumentException.class, () -> announcement.setCommission(null));
+        // Test sortPropertiesInsertionSortByAreaDescending
+        ArrayList<Property> sortedDesc = sortPropertiesInsertionSortByAreaDescending(properties);
+        System.out.println("Descending Order (Insertion Sort):");
+        for (Property p : sortedDesc) {
+            System.out.println(p.getName() + " - " + p.getArea());
+        }
+        System.out.println();
+
+        // Test sortPropertiesSelectionSortByAreaDescending
+        ArrayList<Property> sortedDesc2 = sortPropertiesSelectionSortByAreaDescending(properties);
+        System.out.println("Descending Order (Selection Sort):");
+        for (Property p : sortedDesc2) {
+            System.out.println(p.getName() + " - " + p.getArea());
+        }
+        System.out.println();
+
+        // Test sortPropertiesSelectionSortByAreaAscending
+        ArrayList<Property> sortedAsc = sortPropertiesSelectionSortByAreaAscending(properties);
+        System.out.println("Ascending Order (Selection Sort):");
+        for (Property p : sortedAsc) {
+            System.out.println(p.getName() + " - " + p.getArea());
+        }
+        System.out.println();
+
+        // Test sortPropertiesInsertionSortByAreaAscending
+        ArrayList<Property> sortedAsc2 = sortPropertiesInsertionSortByAreaAscending(properties);
+        System.out.println("Ascending Order (Insertion Sort):");
+        for (Property p : sortedAsc2) {
+            System.out.println(p.getName() + " - " + p.getArea());
+        }
+        System.out.println();
     }
+
 
 *It is also recommended to organize this content by subsections.* 
 
 # 5. Construction (Implementation)
 
-## Class ImportController
-
 ```java
-public String importData(ArrayList<String[]> dataToImport) {
-    String importResult = "";
-    int totalImported = 0;
-    int totalItemsToImport = dataToImport.size();
-    try {
 
-        for (String[] data : dataToImport) {
-            try {
-                announcementRepository.addAnnouncementFromImportedFile(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2].trim()), data[3], data[4], data[5], data[6], Integer.parseInt(data[7].trim()), data[8], Integer.parseInt(data[9].trim()), data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], Integer.parseInt(data[18].trim()), Integer.parseInt(data[19].trim()), Integer.parseInt(data[20].trim()), data[21], parseDate(data[22]), parseDate(data[23]), data[24],Integer.parseInt(data[25].trim()), data[26], data[27], data[28], data[29]);
-                totalImported++;
-                importResult += "\nAnnouncement imported: " + data[0];
-            } catch (Exception e) {
-                importResult += "\nError importing Announcement: " + data[0] + " - " + e.getMessage();
-            }
-        }
-    } catch (Exception e) {
-        importResult += "Error importing data";
+public ArrayList<Property> getPropertiesInsertionSortByAreaDescending() {
+         return propertyDealRepository.getPropertiesInsertionSortByAreaDescending();
+     }
+public ArrayList<Property> getPropertiesInsertionSortByAreaAscending() {
+         return propertyDealRepository.getPropertiesInsertionSortByAreaAscending();
+     }
+public ArrayList<Property> getPropertiesSelectionSortByAreaAscending() {
+        return propertyDealRepository.getPropertiesSelectionSortByAreaAscending();
     }
-    return importResult;
-}
-```     
+public ArrayList<Property> getPropertiesSelectionSortByAreaDescending() {
+        return propertyDealRepository.getPropertiesSelectionSortByAreaDescending();
+    }
 
-
+public ArrayList<Property> getPropertiesSelectionSortByID() {
+        return propertyDealRepository.getPropertiesSelectionSortByID();
+    }
+```    
+    
 
 # 6. Integration and Demo 
 

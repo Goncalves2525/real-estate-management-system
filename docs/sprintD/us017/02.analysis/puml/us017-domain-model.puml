@@ -17,13 +17,15 @@ class NetworkManager extends Employee{
 }
 
 
-class Deal{
-
+class Deal extends Announcement{
+    property
 }
+
 class Property{
     area
     distanceFromCenter
     price
+
 }
 
 NetworkManager "1" -- "*" Deal : sort >

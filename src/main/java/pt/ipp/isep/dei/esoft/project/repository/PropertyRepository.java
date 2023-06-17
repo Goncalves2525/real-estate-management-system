@@ -107,22 +107,7 @@ public class PropertyRepository implements Serializable{
     }
 
     public ArrayList<Property> getPropertiesSelectionSortByID() {
-        ArrayList<Property> propertiesSorted = new ArrayList<>();
-        for (Property p : properties) {
-            propertiesSorted.add(p);
-        }
-        for (int i = 0; i < propertiesSorted.size() - 1; i++) {
-            int index = i;
-            for (int j = i + 1; j < propertiesSorted.size(); j++) {
-                if (propertiesSorted.get(j).getId() > propertiesSorted.get(index).getId()) {
-                    index = j;
-                }
-            }
-            Property smallerNumber = propertiesSorted.get(index);
-            propertiesSorted.set(index, propertiesSorted.get(i));
-            propertiesSorted.set(i, smallerNumber);
-        }
-        return propertiesSorted;
+        return SortProperty.sortPropertiesSelectionSortByID(properties);
     }
 
 

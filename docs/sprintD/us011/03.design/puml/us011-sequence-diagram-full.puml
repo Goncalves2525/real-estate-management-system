@@ -88,17 +88,28 @@ alt accept the order
     CTRL -> OrderRepository : acceptOrder(Orderid,Announcementid)
     activate OrderRepository
 
-    loop
-    OrderRepository-->OrderRepository: change orderState (ACCEPTED)
-    end
+loop for each order in orders
+    CTRL -> OrderRepository : acceptOrder(order.getId(), order.getAnnouncementId())
+    activate OrderRepository
+
+    OrderRepository --> OrderRepository : change orderState (ACCEPTED)
+
+    deactivate OrderRepository
+end
     OrderRepository --> CTRL : OrderAccepted
     deactivate OrderRepository
 
     CTRL -> OrderRepository : rejectAllOrder(Announcementid)
     activate OrderRepository
-    loop
-    OrderRepository-->OrderRepository: change orderState (REJECTED)
-    end
+
+        loop for each order in orders
+            CTRL -> OrderRepository : rejectOrder(order.getId(), order.getAnnouncementId())
+            activate OrderRepository
+
+            OrderRepository --> OrderRepository : change orderState (REJECTED)
+
+            deactivate OrderRepository
+        end
 
     OrderRepository --> CTRL : AllOrderRejected
     deactivate OrderRepository
@@ -120,10 +131,14 @@ else reject the order
     CTRL -> OrderRepository : rejectOrder(Orderid,Announcementid)
     activate OrderRepository
 
-   loop
-   OrderRepository-->OrderRepository: change orderState (REJECTED)
-   end
+         loop for each order in orders
+             CTRL -> OrderRepository : rejectOrder(order.getId(), order.getAnnouncementId())
+             activate OrderRepository
 
+             OrderRepository --> OrderRepository : change orderState (REJECTED)
+
+             deactivate OrderRepository
+         end
     OrderRepository --> CTRL : orderRejected
     deactivate OrderRepository
 

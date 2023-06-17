@@ -105,6 +105,10 @@ public class ImportController {
         return new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
     }
 
+    /**
+     * Imports data from a file.
+     * @param filePath path of the file
+     */
     public void importData(String filePath) {
         Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("legacySystemFile.properties")) {
@@ -130,6 +134,12 @@ public class ImportController {
         return dealRepository.getAllAnnouncementsSortedByDefualtCriteria();
     }
 
+
+    /**
+     * Imports data from a file.
+     * @param dataToImport data to import
+     * @return result of the import operation
+     */
     public String importDatatoprperty(ArrayList<String[]> dataToImport) {
         String importResult = "";
         int totalImported = 0;
@@ -211,6 +221,7 @@ public class ImportController {
         }
         return importResult;
     }
+
     private Address createAddress(String addressDetails) {
         String[] parts = addressDetails.split(",");
         if (parts.length > 3) {

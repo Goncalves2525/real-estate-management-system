@@ -58,10 +58,9 @@ As a network manager, I want to list all deals made.
 
 **Input Data:**
 
-* Typed data:
-  * 
-  * 
-
+* Selected data:
+  * Sorting algorithm
+  * Sorting order
 
 **Output Data:**
 
