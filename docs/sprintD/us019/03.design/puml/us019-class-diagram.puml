@@ -8,26 +8,21 @@ skinparam classAttributeIconSize 0
 title Class Diagram - US19
 
 class StoreDivisionController {
-    - Repositories
-    - storeList: List<Store>
-    - agencyList: List<Agency>
-    - sumOfAllStores: double
-    - sumOfEachAgency: List<Double>
-    + prepareStoreList(): List<Store>
-    + partitionTest2(): void
-    + findBalancedPartition(): List<Agency>
-    + calculateDifferenceOfSums(): double
-    + getProperties(): void
+    + StoreDivisionController()
+    + prepareStoreList(inputStores: List<Tuple<String, Integer>>): List<Tuple<String, Integer>>
+    + partitionTest2(inputStores: List<Tuple<String, Integer>>): Map<String, Object>
+    + {static} findBalancedPartition(stores: List<Tuple<String, Integer>>): List<List<Tuple<String, Integer>>>
+    + {static} calculateDifferenceOfSums(balancedPartition: List<List<Tuple<String, Integer>>>): int
+    + getProperties(): ArrayList<Property>
 }
 
 class Property {
     - agencyID: int
 }
 
-class Agency {
-    - id: int
-    - noOfProperties: int
-    - stores: List<Store>
+class Tuple<String, Integer> {
+    + getFirst(): String
+    + getSecond(): Integer
 }
 
 class NetworkManagerDivideStoresWindow {
@@ -43,14 +38,8 @@ class NetworkManagerDivideStoresWindow {
     + onBtnDivideStores(): void
 }
 
-class Store {
-    - id: int
-    - size: double
-}
-
 StoreDivisionController ..> Property
-StoreDivisionController ..> Agency
-StoreDivisionController ..> Store
+StoreDivisionController ..> Tuple
 NetworkManagerDivideStoresWindow ..> StoreDivisionController
 
 @enduml

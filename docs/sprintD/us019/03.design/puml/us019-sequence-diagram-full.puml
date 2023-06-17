@@ -5,72 +5,63 @@ skinparam shadowing false
 
 title Sequence Diagram - US19
 
-
 autonumber
 
 actor "NetworkManager" as NetworkManager
 participant "NetworkManagerDivideStoresWindow: UI" as UI
 participant "StoreDivisionController: Controller" as Controller
-participant "Agency: Domain" as Agency
+participant "Property: Domain" as Property
+participant "ImportController: Controller" as ImportController
 
 activate NetworkManager
 
 NetworkManager -> UI : asks to divide stores
 activate UI
 
-UI -> Controller: getInstance()
+UI -> ImportController : readFile(filePath: String, delimiter: String)
+activate ImportController
+
+ImportController --> UI : dataToImport: ArrayList<String[]>
+deactivate ImportController
+
+UI -> ImportController : importData(dataToImport: ArrayList<String[]>)
+activate ImportController
+ImportController --> UI : importResult: String
+deactivate ImportController
+
+UI -> Controller : partitionTest2(properties: List<Property>)
 activate Controller
 
-Controller --> UI : storeDivisionController
+Controller -> Controller: preparePropertyList(properties: List<Property>)
+activate Controller
+Controller -> Property: new Property(property.getAgencyID(), property.getNoOfProperties())
+activate Property
+Property --> Controller: Property
+deactivate Property
+Controller --> Controller: properties: List<Property>
 deactivate Controller
 
-UI -> Controller : prepareStoreList(stores: List<Agency>)
-activate Controller
-
-Controller -> Agency: new Agency(agency.getId(), agency.getNoOfProperties())
-activate Agency
-Agency --> Controller: Agency
-deactivate Agency
-
-Controller --> UI: stores: List<Agency>
-deactivate Controller
-
-NetworkManager -> UI : confirms list
-activate UI
-
-UI -> Controller : partitionTest2(stores: List<Agency>)
-activate Controller
-
-Controller -> Controller: prepareStoreList(stores: List<Agency>)
-activate Controller
-Controller -> Agency: new Agency(agency.getId(), agency.getNoOfProperties())
-activate Agency
-Agency --> Controller: Agency
-deactivate Agency
-Controller --> Controller: stores: List<Agency>
-deactivate Controller
-
-Controller -> Controller: findBalancedPartition(stores: List<Agency>)
+Controller -> Controller: findBalancedPartition(properties: List<Property>)
 activate Controller
 loop "for each partition" as l1
-Controller -> Controller: calculateDifferenceOfSums(partition: List<List<Agency>>)
+Controller -> Controller: calculateDifferenceOfSums(partition: List<List<Property>>)
 activate Controller
-Controller -> Agency: getNoOfProperties()
-activate Agency
-Agency --> Controller: noOfProperties: int
-deactivate Agency
+Controller -> Property: getNoOfProperties()
+activate Property
+Property --> Controller: noOfProperties: int
+deactivate Property
 Controller --> Controller: differenceOfSums: int
 deactivate Controller
 end
-Controller --> Controller: bestPartition: List<List<Agency>>
+Controller --> Controller: bestPartition: List<List<Property>>
 deactivate Controller
 
-Controller -> Controller: calculateDifferenceOfSums(bestPartition: List<List<Agency>>)
+Controller -> Controller: calculateDifferenceOfSums(bestPartition: List<List<Property>>)
 activate Controller
-Controller -> Agency: getNoOfProperties()
-activate Agency
-Agency --> Controller: noOfProperties: int
-deactivate Agency
+Controller -> Property: getNoOfProperties()
+activate Property
+Property --> Controller: noOfProperties: int
+deactivate Property
 Controller --> Controller: differenceOfSums: int
 deactivate Controller
 
