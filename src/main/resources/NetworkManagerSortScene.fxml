@@ -20,8 +20,8 @@
       </TableView>
       <Button fx:id="btAscendingSortInsertion" layoutX="920.0" layoutY="96.0" mnemonicParsing="false" onAction="#onbtAscendingSortInsertion" prefHeight="36.0" prefWidth="189.0" text="Ascending " textFill="#c92a2a" />
       <Button fx:id="btDescendingSortInsertion" layoutX="920.0" layoutY="145.0" mnemonicParsing="false" onAction="#onbtDescendingSortInsertion" prefHeight="36.0" prefWidth="189.0" text="Descending" textFill="#d71d1d" />
-      <Button fx:id="btReturn" layoutX="918.0" layoutY="505.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Return" />
-      <Button fx:id="btImport" layoutX="918.0" layoutY="627.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Import CSV" />
+      <Button fx:id="btReturn" layoutX="920.0" layoutY="625.0" mnemonicParsing="false" onAction="#onBtReturn" prefHeight="36.0" prefWidth="189.0" text="Return" />
+      <Button fx:id="btImport" layoutX="918.0" layoutY="544.0" mnemonicParsing="false" onAction="#onBtImport" prefHeight="36.0" prefWidth="189.0" text="Import CSV" />
       <Label alignment="TOP_CENTER" graphicTextGap="5.0" layoutX="920.0" layoutY="70.0" prefHeight="17.0" prefWidth="189.0" text="Insertion Sort" textAlignment="CENTER" textFill="#c32929" textOverrun="CLIP">
          <font>
             <Font name="System Bold" size="13.0" />

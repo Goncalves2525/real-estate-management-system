@@ -141,7 +141,7 @@ public class SortProperty implements Serializable {
             for (int i = 0; i < propertiesSorted.size() - 1; i++) {
                 int index = i;
                 for (int j = i + 1; j < propertiesSorted.size(); j++) {
-                    if (propertiesSorted.get(j).getId() > propertiesSorted.get(index).getId()) {
+                    if (propertiesSorted.get(j).getId() < propertiesSorted.get(index).getId()) {
                         index = j;
                     }
                 }
