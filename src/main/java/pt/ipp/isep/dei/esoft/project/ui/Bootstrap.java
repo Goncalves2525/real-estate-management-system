@@ -30,6 +30,10 @@ public class Bootstrap implements Runnable {
         addProperties();
     }
 
+    public void runUsers() {
+        addUsers();
+    }
+
     private void addProperties() {
         //double area, double distanceFromCenter, double price, Address address, int storeID, String storeName
         PropertyRepository propertyRepository = Repositories.getInstance().getPropertyRepository();

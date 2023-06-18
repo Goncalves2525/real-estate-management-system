@@ -37,12 +37,12 @@ class CreateOrderControllerTest {
         Address a2 = new Address("Rua 2", "Porto", "Porto", "Porto", 54321);
         Address a3 = new Address("Rua 3", "Lisboa", "Lisboa", "Lisboa", 123111);
         Address a4 = new Address("Rua 4", "Faro", "Faro", "Algarve", 123222);
-        Property.idCounter = 0;
+        Property.idCounter = 1;
         propertyRepository.addHouse(150, 30, 250000, a1, 1, 2, 1, true, true, false, false, SunExposure.EAST);
         propertyRepository.addApartment(150, 30, 100000, a2, 4, 2, 1, true, true);
         propertyRepository.addLand(150, 30, 50000, a3);
         propertyRepository.addHouse(150, 30, 3000000, a4, 1, 2, 1, true, true, false, false, SunExposure.EAST);
-        Announcement.idCounter = 0;
+        Announcement.idCounter = 1;
         announcementRepository.addAnnouncement(0, typeHouse, typeSale, d1, c1, null, true);
         announcementRepository.addAnnouncement(1, typeApartment, typeRent, d2, c1, null, true);
         announcementRepository.addAnnouncement(2, typeLand, typeRent, d3, c1, null, true);

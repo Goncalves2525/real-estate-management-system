@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -49,6 +50,11 @@ public class MainMenuUI implements Runnable {
 
             if ((option >= 0) && (option < options.size())) {
                 options.get(option).run();
+            }
+            else{
+                System.out.println("Saving data...");
+                Repositories.getInstance().serialize();
+                System.out.println("\n\n\n\n\nData saved!");
             }
         } while (option != -1);
     }

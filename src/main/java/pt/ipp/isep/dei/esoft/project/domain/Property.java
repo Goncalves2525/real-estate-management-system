@@ -19,7 +19,7 @@ public class Property implements Serializable {
     private double price;
     private Address address;
 
-    public static int idCounter = 0;
+    public static int idCounter = 1;
 
     public int agencyID;
     public String agencyName;

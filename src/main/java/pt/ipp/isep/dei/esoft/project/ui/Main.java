@@ -9,17 +9,16 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
-
-//
-//        File f = new File("RealEstateUSA.ser");
-//        if(f.exists() && !f.isDirectory()) {
-//            Repositories.getInstance().deserialize();
-//        }
-//        else{
-            Bootstrap bootstrap = new Bootstrap();
+        File f = new File("RealEstateUSA.ser");
+        Bootstrap bootstrap = new Bootstrap();
+        if(f.exists() && !f.isDirectory()) {
+            bootstrap.runUsers();
+            Repositories.getInstance().deserialize();
+        }
+        else{
             bootstrap.run();
-        //    Repositories.getInstance().serialize();
-        //}
+            Repositories.getInstance().serialize();
+        }
 
         try {
             MainMenuUI menu = new MainMenuUI();

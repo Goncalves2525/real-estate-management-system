@@ -20,7 +20,7 @@ public class Announcement implements Serializable {
     private int id;
     private boolean isPublished;
 
-    public static int idCounter = 0;
+    public static int idCounter = 1;
     private Agency agency;
 
     private Client owner;
