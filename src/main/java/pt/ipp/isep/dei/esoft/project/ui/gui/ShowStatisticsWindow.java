@@ -49,15 +49,28 @@ public class ShowStatisticsWindow implements Initializable {
     private Button btReturn;
 
 
+    /**
+     * Creates an instance of ShowStatisticsWindow
+     */
     public ShowStatisticsWindow() {
         controller = new StatisticsController();
     }
 
+    /**
+     * @param url
+     * @param resourceBundle
+     * @return void
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows forecasted prices
+     */
     @FXML
     private void onBtPrices(ActionEvent event) {
         ArrayList<Double> forecastedPrices = controller.getForecastedPrices();
@@ -71,6 +84,11 @@ public class ShowStatisticsWindow implements Initializable {
         }
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows coefficients values
+     */
     @FXML
     private void onBtR(ActionEvent event) {
         double[] coefficients = controller.getCoefficients();
@@ -96,6 +114,11 @@ public class ShowStatisticsWindow implements Initializable {
 
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows Hypothesis Tests
+     */
     @FXML
     private void onBtTest(ActionEvent event) {
         StatisticsDTO stats = controller.getStats();
@@ -170,6 +193,11 @@ public class ShowStatisticsWindow implements Initializable {
 
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows Confidence Intervals
+     */
     @FXML
     private void onBtInterval(ActionEvent event) {
         StatisticsDTO stats = controller.getStats();
@@ -232,6 +260,11 @@ public class ShowStatisticsWindow implements Initializable {
 
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows ANOVA Table
+     */
     @FXML
     private void onBtAnova(ActionEvent event) {
         StatisticsDTO stats = controller.getStats();
@@ -343,6 +376,11 @@ public class ShowStatisticsWindow implements Initializable {
 
     }
 
+    /**
+     * @param event
+     * @return void
+     * Shows extra statistic values
+     */
     @FXML
     private void onBtValues(ActionEvent event) {
         StatisticsDTO stats = controller.getStats();
@@ -392,6 +430,11 @@ public class ShowStatisticsWindow implements Initializable {
     }
 
 
+    /**
+     * @param event
+     * @return void
+     * Returns to the previous scene
+     */
     @FXML
     private void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();
@@ -412,6 +455,9 @@ public class ShowStatisticsWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @return Main Stage
+     */
     private Stage getMainStage() {
         return (Stage) this.btReturn.getScene().getWindow();
     }

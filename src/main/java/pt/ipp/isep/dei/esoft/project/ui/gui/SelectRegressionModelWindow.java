@@ -49,10 +49,18 @@ public class SelectRegressionModelWindow implements Initializable {
     @FXML
     private Label lbConfidence;
 
+    /**
+     * Creates an instance of SelectRegressionModelWindow
+     */
     public SelectRegressionModelWindow() {
         controller = new StatisticsController();
     }
 
+    /**
+     * @param url
+     * @param resourceBundle
+     * @implNote Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -71,11 +79,17 @@ public class SelectRegressionModelWindow implements Initializable {
     }
 
 
+    /**
+     * @return Main Stage
+     */
     private Stage getMainStage() {
         return (Stage) this.btReturn.getScene().getWindow();
     }
 
 
+    /**
+     * @param event Return Button Event
+     */
     @FXML
     void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();
@@ -92,6 +106,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Multiple Regression Button Event
+     */
     @FXML
     void onBtMultiple(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -103,6 +120,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Simple Regression (Area) Button Event
+     */
     @FXML
     void onBtSimpleArea(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -114,6 +134,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Simple Regression (Bathrooms) Button Event
+     */
     @FXML
     void onBtSimpleBathrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -125,6 +148,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Simple Regression (Bedrooms) Button Event
+     */
     @FXML
     void onBtSimpleBedrooms(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -136,6 +162,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Simple Regression (Distance) Button Event
+     */
     @FXML
     void onBtSimpleDistance(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -147,6 +176,9 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Simple Regression (Parking Spaces) Button Event
+     */
     @FXML
     void onBtSimpleParking(ActionEvent event) {
         ArrayList<Announcement> deals = controller.getDeals();
@@ -158,12 +190,19 @@ public class SelectRegressionModelWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Confidence ComboBox Event
+     */
     @FXML
     private void onConfidenceComboBoxSelected(ActionEvent event) {
         double selectedConfidence = confidenceComboBox.getValue();
         controller.setConfidenceLevel(selectedConfidence);
     }
 
+    /**
+     * @param label Confidence Label
+     * Changes the Confidence Label Text
+     */
     public void setLabel(String label) {
         lbConfidence.setText(label);
     }

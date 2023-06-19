@@ -10,6 +10,9 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Statistics class (Singleton).
+ */
 public class Statistics implements Serializable {
     private static final Statistics instance = new Statistics();
     private boolean isMultipleRegression = false;
@@ -68,14 +71,23 @@ public class Statistics implements Serializable {
     private double multipleTestCriticalValue;
     private double[][] simplePredictionIntervals = new double[499][2];
 
+    /**
+     * Private constructor to force singleton
+     */
     private Statistics() {
         alfa = 1 - confidenceLevel;
     }
 
+    /**
+     * @return Static method that returns the instance of the class
+     */
     public static Statistics getInstance() {
         return instance;
     }
 
+    /**
+     * Calculates the simple regression using the Area as the independent variable
+     */
     public void calcSimpleRegressionArea() {
 
         SimpleRegression regression = new SimpleRegression();
@@ -218,6 +230,9 @@ public class Statistics implements Serializable {
         isSignificant = fValue > criticalValue;
     }
 
+    /**
+     * Calculates the simple regression using the distance from the center as the independent variable.
+     */
     public void calcSimpleRegressionDistance() {
         SimpleRegression regression = new SimpleRegression();
         //Forecast Prices
@@ -358,6 +373,9 @@ public class Statistics implements Serializable {
         isSignificant = fValue > criticalValue;
     }
 
+    /**
+     * Calculates the simple regression using the bedrooms as independent variable.
+     */
     public void calcSimpleRegressionBedrooms() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
@@ -517,6 +535,9 @@ public class Statistics implements Serializable {
         isSignificant = fValue > criticalValue;
     }
 
+    /**
+     * Calculates the simple regression using the bathrooms as independent variable.
+     */
     public void calcSimpleRegressionBathrooms() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
@@ -671,6 +692,9 @@ public class Statistics implements Serializable {
         isSignificant = fValue > criticalValue;
     }
 
+    /**
+     * Calculates the simple regression using the parking spaces as independent variable.
+     */
     public void calcSimpleRegressionParkingSpaces() {
         SimpleRegression regression = new SimpleRegression();
         for (Announcement deal : deals) {
@@ -827,6 +851,11 @@ public class Statistics implements Serializable {
         isSignificant = fValue > criticalValue;
     }
 
+    /**
+     * @param independentVariables The independent variables
+     * @param xMean The mean of the independent variables
+     * @return The sum of squares
+     */
     private double calculateSumOfSquares(double[] independentVariables, double xMean) {
         double sum = 0.0;
         for (int p = 0; p < n; p++) {
@@ -836,6 +865,9 @@ public class Statistics implements Serializable {
     }
 
 
+    /**
+     * Calculates the multiple regression
+     */
     public void calcMultipleRegression() {
 
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();

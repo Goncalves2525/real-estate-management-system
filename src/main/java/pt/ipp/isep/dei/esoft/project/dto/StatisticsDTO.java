@@ -62,6 +62,9 @@ public class StatisticsDTO {
     private double multipleTestCriticalValue;
     private double[][] simplePredictionIntervals = new double[499][2];
 
+    /**
+        * Instantiates a new Statistics dto.
+     */
     public StatisticsDTO(int n, double confidenceLevel, double intercept, double slope, boolean isMultipleRegression, ArrayList<Announcement> deals, ArrayList<Double> forecastedPrices, double interceptPValue, double slopePValue, double correlationCoefficient, double determinationCoefficient, double adjustedDeterminationCoefficient, double slopeStandardError, double interceptStandardError, double alfa, double[][] confidenceIntervals, boolean[] rejects, double totalSumOfSquares, double residualSumOfSquares, double regressionSumOfSquares, int totalDegreesOfFreedom, double regressionMeanSquare, double residualMeanSquare, int regressionDegreesOfFreedom, int residualDegreesOfFreedom, double fValue, double pValue, double criticalValue, boolean isSignificant, double interceptTValue, double slopeTValue, double[] coefficientLowerBounds, double[] coefficientUpperBounds, double predictionLowerBound, double predictionUpperBound, double[] standardErrors, double[] tValues, double[] pValues, double meanSquareRegression, double meanSquareResidual, double interceptCriticalValue, double slopeCriticalValue, double explainedSumOfSquares, double degreesOfFreedomRSS, double degreesOfFreedomTSS, double meanSquaredError, double multipleCriticalValue, double[][] covarianceMatrix, double[] estimatedCoefficient, ArrayList<Double> predictionsLowerBound, ArrayList<Double> predictionsUpperBound, double standardError, double[] testStatistics, double multipleTestCriticalValue, double[][] simplePredictionIntervals) {
         this.n = n;
         this.confidenceLevel = confidenceLevel;
@@ -120,6 +123,7 @@ public class StatisticsDTO {
         this.multipleTestCriticalValue = multipleTestCriticalValue;
         this.simplePredictionIntervals = simplePredictionIntervals;
     }
+
 
 
     public boolean isMultipleRegression() {

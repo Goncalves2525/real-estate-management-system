@@ -22,6 +22,11 @@ public class StoreManagerMenuWindow implements Initializable {
     @FXML
     private Button btReturn;
 
+    /**
+     * @param url
+     * @param resourceBundle
+     * @implNote Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -34,10 +39,17 @@ public class StoreManagerMenuWindow implements Initializable {
         }
     }
 
+    /**
+     * @return Main Stage
+     */
     private Stage getMainStage() {
         return (Stage) this.bt.getScene().getWindow();
     }
 
+    /**
+     * @param event Analyse Deals Button Action
+     *
+     */
     @FXML
     private void onBtAction(ActionEvent event) {
         Stage mainStage = getMainStage();
@@ -46,6 +58,9 @@ public class StoreManagerMenuWindow implements Initializable {
         mainStage.show();
     }
 
+    /**
+     * @param event Return Button Action
+     */
     @FXML
     private void onBtReturn(ActionEvent event) {
         Stage mainStage = getMainStage();

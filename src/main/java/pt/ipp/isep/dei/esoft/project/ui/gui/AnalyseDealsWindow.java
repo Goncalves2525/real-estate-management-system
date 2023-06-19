@@ -37,10 +37,18 @@ public class AnalyseDealsWindow implements Initializable {
     private TextField txtField;
 
 
+    /**
+     * Instantiates a new Analyse deals window.
+     */
     public AnalyseDealsWindow() {
         controller = new ImportController();
     }
 
+    /**
+     * @param url
+     * @param resourceBundle
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -53,6 +61,9 @@ public class AnalyseDealsWindow implements Initializable {
         }
     }
 
+    /**
+     * @return Main Stage
+     */
     private Stage getMainStage() {
         return (Stage) this.btReturn.getScene().getWindow();
     }
@@ -67,6 +78,9 @@ public class AnalyseDealsWindow implements Initializable {
         return alert;
     }
 
+    /**
+     * @param actionEvent Import Button Event
+     */
     @FXML
     private void onBtImport(ActionEvent actionEvent) {
 
@@ -93,6 +107,9 @@ public class AnalyseDealsWindow implements Initializable {
 
     }
 
+    /**
+     * @param event Use Delas From System Button Event
+     */
     @FXML
     private void onBtDeals(ActionEvent event) {
         if (dealRepository.getAllAnnouncementsSortedByDefaultCriteriaReverse().isEmpty()) {
@@ -106,6 +123,9 @@ public class AnalyseDealsWindow implements Initializable {
         }
     }
 
+    /**
+     * @param actionEvent Return Button Event
+     */
     @FXML
     private void onBtReturn(ActionEvent actionEvent) {
         Stage mainStage = getMainStage();
