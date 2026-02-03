@@ -1,0 +1,20 @@
+services:
+  real-estate-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: real-estate-usa
+    ports:
+      # noVNC web interface
+      - "6080:6080"
+      # VNC port (optional, for VNC clients)
+      - "5900:5900"
+    volumes:
+      # Data persistence volume for RealEstateUSA.ser
+      - ./data:/app/data
+    environment:
+      # Display resolution (can be changed)
+      - RESOLUTION=1280x720
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
