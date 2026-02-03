@@ -1,5 +1,8 @@
 # Sistema Real Estate USA
 
+![Ecrã de Login](images/login.png)
+![Lista de Imóveis](images/list.png)
+
 ## Visão Geral do Projeto
 Este projeto é uma solução integrativa desenvolvida para o curso de Licenciatura em Engenharia Informática (LEI) no Instituto Superior de Engenharia do Porto (ISEP). Representa uma aplicação abrangente de gestão imobiliária para uma empresa fictícia chamada "Real Estate USA".
 
@@ -54,6 +57,8 @@ A aplicação segue um padrão de arquitetura em camadas:
 O sistema utiliza um padrão de repositório para acesso a dados, facilitando a alternância entre diferentes mecanismos de armazenamento.
 
 ## Começar
+
+> **Nota:** Para executar a aplicação usando containers Docker, consulte [README-DOCKER.md](README-DOCKER.md) para instruções detalhadas.
 
 ### Pré-requisitos
 

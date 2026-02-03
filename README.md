@@ -1,5 +1,8 @@
 # Real Estate USA System
 
+![Login Screen](images/login.png)
+![Property List](images/list.png)
+
 ## Project Overview
 This project is an integrative solution developed for the Degree in Informatics Engineering (LEI) at Instituto Superior de Engenharia do Porto (ISEP). It represents a comprehensive real estate management application for a fictional company called "Real Estate USA".
 
@@ -54,6 +57,8 @@ The application follows a layered architecture pattern with:
 The system uses a repository pattern for data access, making it easy to switch between different storage mechanisms.
 
 ## Getting Started
+
+> **Note:** To run the application using Docker containers, please refer to [README-DOCKER.md](README-DOCKER.md) for detailed instructions.
 
 ### Prerequisites
 
