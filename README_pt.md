@@ -77,8 +77,10 @@ O sistema utiliza um padrão de repositório para acesso a dados, facilitando a 
 
 3. Executar a aplicação:
    ```bash
-   java -jar target/real-estate-app.jar
+   mvn javafx:run
    ```
+
+   Isto irá iniciar a aplicação GUI JavaFX.
 
 ### Utilizadores Predefinidos
 

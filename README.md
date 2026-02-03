@@ -77,8 +77,10 @@ The system uses a repository pattern for data access, making it easy to switch b
 
 3. Run the application:
    ```bash
-   java -jar target/real-estate-app.jar
+   mvn javafx:run
    ```
+
+   This will launch the JavaFX GUI application.
 
 ### Default Users
 
