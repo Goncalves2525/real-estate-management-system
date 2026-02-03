@@ -19,7 +19,7 @@ public class Property implements Serializable {
     private double price;
     private Address address;
 
-    public static int idCounter = 1;
+    public static int idCounter = 0;
 
     public int agencyID;
     public String agencyName;
@@ -153,7 +153,7 @@ public class Property implements Serializable {
      */
     @Override
     public String toString(){
-        return String.format("\n-Area: %.2f\n-Distance from center: %.2f\n-Price: %.2f$\n-Address: %s", area, distanceFromCenter, price, address.toString());
+        return String.format("\n-Area: %.2f\n-Distance from center: %.2f\n-Price: %.2f\n-Address: %s", area, distanceFromCenter, price, address.toString());
     }
 
     public int getAgencyID() {

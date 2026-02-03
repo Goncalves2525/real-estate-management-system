@@ -26,9 +26,7 @@ class PublishAnnouncementControllerTest {
     void getAnnouncementById_InvalidId_ReturnNull() {
         // Arrange
         int id = -1;
-        if(announcementRepository.getAnnouncementById(id) == null){
-            throw new IllegalArgumentException();
-        }
+
         // Actual announcement
         Announcement actualAnnouncement = controller.getAnnouncementById(id);
 

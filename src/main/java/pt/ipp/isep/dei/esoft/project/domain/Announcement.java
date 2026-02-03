@@ -20,7 +20,7 @@ public class Announcement implements Serializable {
     private int id;
     private boolean isPublished;
 
-    public static int idCounter = 1;
+    public static int idCounter = 0;
     private Agency agency;
 
     private Client owner;
@@ -228,6 +228,11 @@ public class Announcement implements Serializable {
      * @return property
      */
     public Property getProperty(){
+        if (property == null && propertyID >= 0) {
+            property = pt.ipp.isep.dei.esoft.project.repository.Repositories.getInstance()
+                    .getPropertyRepository()
+                    .getPropertyByID(propertyID);
+        }
         return property;
     }
 
@@ -243,6 +248,9 @@ public class Announcement implements Serializable {
      * This method sets the Announcement TransactionType.
      */
     public void setTransactionType(TransactionType transactionType) {
+        if (transactionType == null) {
+            throw new IllegalArgumentException("Transaction type cannot be null.");
+        }
         this.transactionType = transactionType;
     }
 
@@ -288,6 +296,9 @@ public class Announcement implements Serializable {
      * @return typeOfProperty
      */
     public void setTypeOfProperty(TypeOfProperty typeOfProperty) {
+        if (typeOfProperty == null) {
+            throw new IllegalArgumentException("Type of property cannot be null.");
+        }
         this.typeOfProperty = typeOfProperty;
     }
 
@@ -323,6 +334,9 @@ public class Announcement implements Serializable {
      * @return commission
      */
     public void setCommission(Commission commission) {
+        if (commission == null) {
+            throw new IllegalArgumentException("Commission cannot be null.");
+        }
         this.commission = commission;
     }
 
@@ -353,6 +367,9 @@ public class Announcement implements Serializable {
      *
      */
     public void setPublishDate(Date publishDate) {
+        if (publishDate == null) {
+            throw new IllegalArgumentException("Publish date cannot be null.");
+        }
         this.publishDate = publishDate;
     }
 
